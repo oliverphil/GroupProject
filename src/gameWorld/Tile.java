@@ -11,12 +11,18 @@ import java.util.List;
  */
 public class Tile {
 	private List<String> walls;
+	private List<String> doors;
 	private Item item;
+	private int col;
+	private int row;
 	
 	/**
 	 * Constructs a Tile object with no walls.
 	 */
-	public Tile() {
+	public Tile(int row, int col) {
+		this.row = row;
+		this.col = col;
+		
 		this.walls = new ArrayList<String>();
 		this.item = null;
 	}
@@ -63,13 +69,50 @@ public class Tile {
 	 * @return whether the wall was successfully added
 	 */
 	public boolean addWall(String wall) {
-		if (this.walls.contains(wall)) return false;
-		
-		this.walls.add(wall);
-		
+		if (this.walls.contains(wall)) return false;		
+		this.walls.add(wall);		
 		return true;
 	}
 
+	/**
+	 * @return whether the Tile contains a door to the North
+	 */
+	public boolean hasDoorNorth() {
+		return doors.contains("north");
+	}
+	
+	/**
+	 * @return whether the Tile contains a door to the South
+	 */
+	public boolean hasDoorSouth() {
+		return doors.contains("south");
+	}
+	
+	/**
+	 * @return whether the Tile contains a door to the East
+	 */
+	public boolean hasDoorEast() {
+		return doors.contains("east");
+	}
+	
+	/**
+	 * @return whether the Tile contains a door to the West
+	 */
+	public boolean hasDoorWest() {
+		return doors.contains("west");
+	}
+	
+	/**
+	 * Adds a door to a tile if it is not already added in that direction
+	 * @param door
+	 * @return whether the door was successfully added
+	 */
+	public boolean addDoor(String door) {
+		if (this.doors.contains(door)) return false;		
+		this.doors.add(door);		
+		return true;
+	}
+	
 	/**
 	 * @return the item
 	 */
@@ -96,7 +139,21 @@ public class Tile {
 	 * Removes the specified wall from the Tile object
 	 * @param wall
 	 */
-	public void removeTile(String wall) {
+	public void removeWall(String wall) {
 		if (this.walls.contains(wall)) this.walls.remove(wall);
+	}
+
+	/**
+	 * @return the col
+	 */
+	public int getCol() {
+		return col;
+	}
+
+	/**
+	 * @return the row
+	 */
+	public int getRow() {
+		return row;
 	}
 }
