@@ -91,4 +91,12 @@ public class Tile {
 	public boolean hasItem() {
 		return item!=null;
 	}
+	
+	/**
+	 * Removes the specified wall from the Tile object
+	 * @param wall
+	 */
+	public void removeTile(String wall) {
+		if (this.walls.contains(wall)) this.walls.remove(wall);
+	}
 }
