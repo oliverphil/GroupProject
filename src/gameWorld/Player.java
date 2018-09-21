@@ -1,5 +1,6 @@
 package gameWorld;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +12,12 @@ import java.util.List;
 public class Player extends Character {
 	private List<Item> bag;
 	private String direction;
+	private Point location;
 
 	public Player (String name) {
 		super(name);
 
+		location = new Point(7,7);
 		this.setDirection("north");
 		bag = new ArrayList<Item>();
 	}
@@ -31,6 +34,14 @@ public class Player extends Character {
 	 */
 	public void setBag(List<Item> bag) {
 		this.bag = bag;
+	}
+	
+	/**
+	 * Adds the specified item to the Player's bag
+	 * @param item
+	 */
+	public void addItem(Item item) {
+		this.bag.add(item);
 	}
 
 	/**
@@ -85,5 +96,19 @@ public class Player extends Character {
 	 */
 	public void setDirection(String direction) {
 		this.direction = direction;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public Point getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param loc the location to set
+	 */
+	public void setLocation(Point loc) {
+		this.location = loc;
 	}
 }

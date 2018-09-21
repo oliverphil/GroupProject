@@ -15,6 +15,7 @@ public class Tile {
 	private Item item;
 	private int col;
 	private int row;
+	private boolean occupiedByPlayer;
 	
 	/**
 	 * Constructs a Tile object with no walls.
@@ -23,6 +24,7 @@ public class Tile {
 		this.row = row;
 		this.col = col;
 		
+		setOccupiedByPlayer(false);
 		this.walls = new ArrayList<String>();
 		this.item = null;
 	}
@@ -144,7 +146,7 @@ public class Tile {
 	}
 
 	/**
-	 * @return the col
+	 * @return the column
 	 */
 	public int getCol() {
 		return col;
@@ -155,5 +157,19 @@ public class Tile {
 	 */
 	public int getRow() {
 		return row;
+	}
+
+	/**
+	 * @return the occupiedByPlayer
+	 */
+	public boolean isOccupiedByPlayer() {
+		return occupiedByPlayer;
+	}
+
+	/**
+	 * @param occupiedByPlayer the occupiedByPlayer to set
+	 */
+	public void setOccupiedByPlayer(boolean occupiedByPlayer) {
+		this.occupiedByPlayer = occupiedByPlayer;
 	}
 }

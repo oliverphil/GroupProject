@@ -1,5 +1,6 @@
 package gameWorld;
 
+import java.awt.Point;
 import java.io.File;
 
 public class Board {
@@ -41,6 +42,8 @@ public class Board {
 			}
 		}
 		addDoors();
+		//start the player in the centre square
+		this.board[7][7].setOccupiedByPlayer(true);
 	}
 	
 	/**
@@ -92,14 +95,62 @@ public class Board {
 	public Tile[][] getBoard() {
 		return board;
 	}
+	
+	/**
+	 * Return the tile in the specified position.
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public Tile getTile(int row, int col) {
+		return board[row][col];
+	}
 
 	/**
-	 * Sets the tile with the coords to the specified Tile object
+	 * Sets the tile with the coords to the specified Tile object.
 	 * @param row
 	 * @param col
 	 * @param tile
 	 */
 	public void setTile(int row, int col, Tile tile) {
 		board[row][col] = tile;
+	}
+	
+	/**
+	 * Moves the player backwards.
+	 * @param player
+	 */
+	public void goBack(Player p) {
+		//check if there is a wall or an open door behind them
+		String dir = p.getDirection();
+		Point point = p.getLocation();
+		Tile behind = null;
+		
+		switch (dir) {
+			case "north" :
+				behind = board[point.y-1][point.x];
+				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+					p.setLocation(new Point(point.y - 3, point.x));
+				else ;//TODO cannot move
+				break;
+			case "south" :
+				behind = board[point.y+1][point.x];
+				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+					p.setLocation(new Point(point.y + 3, point.x));
+				else ;//TODO cannot move
+				break;
+			case "east" :
+				behind = board[point.y-1][point.x];
+				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+					p.setLocation(new Point(point.y, point.x - 3));
+				else ;//TODO cannot move
+				break;
+			case "west" :
+				behind = board[point.y-1][point.x];
+				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+					p.setLocation(new Point(point.y, point.y + 3));
+				else ;//TODO cannot move
+				break;
+		}
 	}
 }
