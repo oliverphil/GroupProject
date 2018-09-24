@@ -10,38 +10,17 @@ import java.util.List;
  *
  */
 public class Player extends Character {
-	private List<Item> bag;
+	private FloorObject rightHand;
+	private FloorObject leftHand;
 	private String direction;
 	private Point location;
+	private ViewDescriptor view;
 
 	public Player (String name) {
 		super(name);
 
 		location = new Point(7,7);
 		this.setDirection("north");
-		bag = new ArrayList<Item>();
-	}
-
-	/**
-	 * @return the bag
-	 */
-	public List<Item> getBag() {
-		return bag;
-	}
-
-	/**
-	 * @param bag the bag to set
-	 */
-	public void setBag(List<Item> bag) {
-		this.bag = bag;
-	}
-	
-	/**
-	 * Adds the specified item to the Player's bag
-	 * @param item
-	 */
-	public void addItem(Item item) {
-		this.bag.add(item);
 	}
 
 	/**
@@ -49,41 +28,41 @@ public class Player extends Character {
 	 */
 	public void turnRight() {
 		switch (getDirection()) {
-			case "north" : 
+			case "north" :
 				setDirection("east");
 				break;
-			case "east" : 
+			case "east" :
 				setDirection("south");
 				break;
-			case "south" : 
+			case "south" :
 				setDirection("west");
 				break;
-			case "west" : 
+			case "west" :
 				setDirection("north");
 				break;
 		}
 	}
-	
+
 	/**
 	 * Changes the direction counter clockwise from where the customer is facing.
 	 */
 	public void turnLeft() {
 		switch (getDirection()) {
-			case "north" : 
+			case "north" :
 				setDirection("west");
 				break;
-			case "west" : 
+			case "west" :
 				setDirection("south");
 				break;
-			case "south" : 
+			case "south" :
 				setDirection("east");
 				break;
-			case "east" : 
+			case "east" :
 				setDirection("north");
 				break;
 		}
 	}
-	
+
 	/**
 	 * @return the direction
 	 */
@@ -110,5 +89,47 @@ public class Player extends Character {
 	 */
 	public void setLocation(Point loc) {
 		this.location = loc;
+	}
+
+	/**
+	 * @return the view
+	 */
+	public ViewDescriptor getView() {
+		return view;
+	}
+
+	/**
+	 * @param view the view to set
+	 */
+	public void setView(ViewDescriptor view) {
+		this.view = view;
+	}
+
+	/**
+	 * @return the leftHand
+	 */
+	public FloorObject getLeftHand() {
+		return leftHand;
+	}
+
+	/**
+	 * @param leftHand the leftHand to set
+	 */
+	public void setLeftHand(FloorObject leftHand) {
+		this.leftHand = leftHand;
+	}
+
+	/**
+	 * @return the rightHand
+	 */
+	public FloorObject getRightHand() {
+		return rightHand;
+	}
+
+	/**
+	 * @param rightHand the rightHand to set
+	 */
+	public void setRightHand(FloorObject rightHand) {
+		this.rightHand = rightHand;
 	}
 }

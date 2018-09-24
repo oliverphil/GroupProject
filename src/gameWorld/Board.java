@@ -13,7 +13,7 @@ public class Board {
 	 */
 	public Board() {
 		board = new Tile[HEIGHT][WIDTH];
-		
+
 		initialiseBoard();
 	}
 
@@ -33,7 +33,7 @@ public class Board {
 			for (int col = 0; col < WIDTH; col++) {
 				Tile tile = new Tile(row, col);
 				board[row][col] = tile;
-				
+
 				//add all walls
 				if (row%3 == 0) tile.addWall("north");
 				if (col%3 == 0) tile.addWall("west");
@@ -45,27 +45,27 @@ public class Board {
 		//start the player in the centre square
 		this.board[7][7].setOccupiedByPlayer(true);
 	}
-	
+
 	/**
 	 * Removes the walls and replaces them with doors. It calls the method
 	 * and adds 1 door at a time.
 	 */
 	private void addDoors() {
 		addADoor(board[1][8], "east"); addADoor(board[1][11], "east");
-		
+
 		addADoor(board[2][1], "south"); addADoor(board[2][4], "south"); addADoor(board[2][7], "south");
 		addADoor(board[4][2], "east"); addADoor(board[4][8], "east"); addADoor(board[4][11], "east");
-		
+
 		addADoor(board[5][4], "south"); addADoor(board[5][7], "south"); addADoor(board[5][13], "south");
 		addADoor(board[7][2], "east"); addADoor(board[7][5], "east"); addADoor(board[7][8], "east"); addADoor(board[7][11], "east");
-		
+
 		addADoor(board[8][1], "south"); addADoor(board[8][7], "south"); addADoor(board[8][10], "south");
 		addADoor(board[10][2], "east"); addADoor(board[10][11], "east");
-		
+
 		addADoor(board[11][7], "south"); addADoor(board[11][10], "south"); addADoor(board[11][13], "south");
-		addADoor(board[13][2], "east"); addADoor(board[13][5], "east");		
+		addADoor(board[13][2], "east"); addADoor(board[13][5], "east");
 	}
-	
+
 	/**
 	 * Removes a the wall and replaces it with a door (on both sides)
 	 * @param tile
@@ -75,14 +75,14 @@ public class Board {
 		//remove wall and door
 		t.removeWall(dir);
 		t.addDoor(dir);
-		
-		//remove the wall and add a door to the opposing side 
+
+		//remove the wall and add a door to the opposing side
 		switch (dir) {
-			case "east" : 
+			case "east" :
 				board[t.getRow()][t.getCol()+1].removeWall("west");
 				board[t.getRow()][t.getCol()+1].addDoor("west");
 				break;
-			case "south" : 
+			case "south" :
 				board[t.getRow()+1][t.getCol()].removeWall("north");
 				board[t.getRow()+1][t.getCol()].addDoor("north");
 				break;
@@ -95,7 +95,7 @@ public class Board {
 	public Tile[][] getBoard() {
 		return board;
 	}
-	
+
 	/**
 	 * Return the tile in the specified position.
 	 * @param row
@@ -115,7 +115,7 @@ public class Board {
 	public void setTile(int row, int col, Tile tile) {
 		board[row][col] = tile;
 	}
-	
+
 	/**
 	 * Moves the player backwards.
 	 * @param player
@@ -125,32 +125,36 @@ public class Board {
 		String dir = p.getDirection();
 		Point point = p.getLocation();
 		Tile behind = null;
-		
+
+		//move the player backwards if there is nothing behind them
 		switch (dir) {
 			case "north" :
 				behind = board[point.y-1][point.x];
-				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+				if (!behind.hasDoor("south") && !behind.hasWall("south"))
 					p.setLocation(new Point(point.y - 3, point.x));
 				else ;//TODO cannot move
 				break;
 			case "south" :
 				behind = board[point.y+1][point.x];
-				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+				if (!behind.hasDoor("north") && !behind.hasWall("north"))
 					p.setLocation(new Point(point.y + 3, point.x));
 				else ;//TODO cannot move
 				break;
 			case "east" :
 				behind = board[point.y-1][point.x];
-				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
+				if (!behind.hasDoor("west") && !behind.hasWall("west"))
 					p.setLocation(new Point(point.y, point.x - 3));
 				else ;//TODO cannot move
 				break;
 			case "west" :
 				behind = board[point.y-1][point.x];
-				if (!behind.hasDoorSouth() && !behind.hasWallSouth()) 
-					p.setLocation(new Point(point.y, point.y + 3));
+				if (!behind.hasDoor("east") && !behind.hasWall("east"))
+					p.setLocation(new Point(point.y, point.x + 3));
 				else ;//TODO cannot move
 				break;
 		}
+
+		//update the player's view.
+		p.setView(new ViewDescriptor(p, this));
 	}
 }
