@@ -79,10 +79,14 @@ public class Board {
 		//remove the wall and add a door to the opposing side
 		switch (dir) {
 			case "east" :
+				board[t.getRow()][t.getCol()].removeWall("east");
+				board[t.getRow()][t.getCol()].addDoor("east");
 				board[t.getRow()][t.getCol()+1].removeWall("west");
 				board[t.getRow()][t.getCol()+1].addDoor("west");
 				break;
 			case "south" :
+				board[t.getRow()][t.getCol()].removeWall("south");
+				board[t.getRow()][t.getCol()].addDoor("south");
 				board[t.getRow()+1][t.getCol()].removeWall("north");
 				board[t.getRow()+1][t.getCol()].addDoor("north");
 				break;
@@ -129,27 +133,69 @@ public class Board {
 		//move the player backwards if there is nothing behind them
 		switch (dir) {
 			case "north" :
-				behind = board[point.y-1][point.x];
+				behind = board[point.y+1][point.x];
 				if (!behind.hasDoor("south") && !behind.hasWall("south"))
-					p.setLocation(new Point(point.y - 3, point.x));
+					p.setLocation(new Point(point.x, point.y + 3));
 				else ;//TODO cannot move
 				break;
 			case "south" :
-				behind = board[point.y+1][point.x];
+				behind = board[point.y-1][point.x];
 				if (!behind.hasDoor("north") && !behind.hasWall("north"))
-					p.setLocation(new Point(point.y + 3, point.x));
+					p.setLocation(new Point(point.x, point.y - 3));
 				else ;//TODO cannot move
 				break;
 			case "east" :
-				behind = board[point.y-1][point.x];
+				behind = board[point.y][point.x-1];
 				if (!behind.hasDoor("west") && !behind.hasWall("west"))
-					p.setLocation(new Point(point.y, point.x - 3));
+					p.setLocation(new Point(point.x - 3, point.y));
 				else ;//TODO cannot move
 				break;
 			case "west" :
-				behind = board[point.y-1][point.x];
+				behind = board[point.y][point.x+1];
 				if (!behind.hasDoor("east") && !behind.hasWall("east"))
-					p.setLocation(new Point(point.y, point.x + 3));
+					p.setLocation(new Point(point.x + 3, point.y));
+				else ;//TODO cannot move
+				break;
+		}
+
+		//update the player's view.
+		p.setView(new ViewDescriptor(p, this));
+	}
+
+	/**
+	 * Moves the player forwards.
+	 * @param player
+	 */
+	public void goForwards(Player p) {
+		//check if there is a wall or an open door behind them
+		String dir = p.getDirection();
+		Point point = p.getLocation();
+		Tile forward = null;
+
+		//move the player backwards if there is nothing behind them
+		switch (dir) {
+			case "north" :
+				forward = board[point.y-1][point.x];
+				if (!forward.hasDoor("south") && !forward.hasWall("south"))
+					p.setLocation(new Point(point.x, point.y - 3));
+				else ;//TODO cannot move
+				break;
+			case "south" :
+				forward = board[point.y+1][point.x];
+				if (!forward.hasDoor("north") && !forward.hasWall("north"))
+					p.setLocation(new Point(point.x, point.y + 3));
+				else ;//TODO cannot move
+				break;
+			case "east" :
+				forward = board[point.y][point.x+1];
+				if (!forward.hasDoor("west") && !forward.hasWall("west"))
+					p.setLocation(new Point(point.x + 3, point.y));
+				else ;//TODO cannot move
+				break;
+			case "west" :
+				forward = board[point.y][point.x-1];
+				if (!forward.hasDoor("east") && !forward.hasWall("east"))
+					p.setLocation(new Point(point.x - 3, point.y));
 				else ;//TODO cannot move
 				break;
 		}
