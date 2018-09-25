@@ -18,6 +18,16 @@ import javafx.stage.Stage;
 
 public class FloorTileMenu extends Application implements EventHandler<ActionEvent> {
 	private Button N, NE, E, ES, S, SW, W, NW, empty;
+	Stage primaryStage;
+
+	public FloorTileMenu() {
+		try {
+			start(new Stage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		launch(args);
@@ -25,6 +35,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		BorderPane border = new BorderPane();
 		HBox topHBox = drawTop();
 		border.setTop(topHBox);
@@ -135,6 +146,34 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 	@Override
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
+		if (event.getSource() == NW) {
+			MapEditor.setSelectedIcon("NW");
+			primaryStage.close();
+		} else if (event.getSource() == N) {
+			MapEditor.setSelectedIcon("N");
+			primaryStage.close();
+		} else if (event.getSource() == NE) {
+			MapEditor.setSelectedIcon("NE");
+			primaryStage.close();
+		} else if (event.getSource() == E) {
+			MapEditor.setSelectedIcon("E");
+			primaryStage.close();
+		} else if (event.getSource() == ES) {
+			MapEditor.setSelectedIcon("ES");
+			primaryStage.close();
+		} else if (event.getSource() == S) {
+			MapEditor.setSelectedIcon("S");
+			primaryStage.close();
+		} else if (event.getSource() == SW) {
+			MapEditor.setSelectedIcon("SW");
+			primaryStage.close();
+		} else if (event.getSource() == W) {
+			MapEditor.setSelectedIcon("W");
+			primaryStage.close();
+		} else if (event.getSource() == empty) {
+			MapEditor.setSelectedIcon("empty");
+			primaryStage.close();
+		}
 
 	}
 }
