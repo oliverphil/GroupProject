@@ -64,11 +64,11 @@ public class MapEditor extends Application implements EventHandler<ActionEvent> 
 		floorBtn.setPrefSize(90, 20);
 		floorBtn.setOnAction(this);
 
-		itemBtn = new Button("Add Item");
+		itemBtn = new Button("Add FloorObject");
 		itemBtn.setPrefSize(90, 20);
 		itemBtn.setOnAction(this);
 		
-		remove = new Button("Remove Item");
+		remove = new Button("Remove FloorObject");
 		remove.setPrefSize(90, 20);
 		remove.setOnAction(this);
 
