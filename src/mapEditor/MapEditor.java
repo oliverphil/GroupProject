@@ -10,11 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MapEditor extends Application implements EventHandler<ActionEvent> {
@@ -23,8 +20,10 @@ public class MapEditor extends Application implements EventHandler<ActionEvent> 
 	private final int GRID_HEIGHT = 20;
 	private Button floorBtn, itemBtn, northBtn, southBtn, eastBtn, westBtn, save, load, remove;
 	private String[][] grid;
+	private String selectedIcon = "0";
+	String[] args;
 
-	public static void Map(String[] args) {
+	public static void main(String[] args) {
 		launch(args);
 	}
 
@@ -33,7 +32,7 @@ public class MapEditor extends Application implements EventHandler<ActionEvent> 
 		// initialize array for the grid
 		grid = new String[GRID_WIDTH][GRID_HEIGHT];
 
-		for (int y = 0; y < GRID_HEIGHT; y++) {
+		for (int y = 0; y < GRID_HEIGHT; y++) {   
 			for (int x = 0; x < GRID_WIDTH; x++) {
 				grid[x][y] = "0";
 			}
@@ -139,10 +138,11 @@ public class MapEditor extends Application implements EventHandler<ActionEvent> 
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getSource() == floorBtn) {
-			System.out.println("floor");
-		} else if (event.getSource() == itemBtn) {
-			System.out.println("item");
-		}
-
+			FloorTileMenu ftm = new FloorTileMenu();
+		} 
+	}
+	
+	public void setSelectedIcon(String icon){
+		selectedIcon = icon;
 	}
 }
