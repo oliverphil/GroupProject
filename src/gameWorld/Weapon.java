@@ -1,6 +1,6 @@
 package gameWorld;
 
-public class Weapon extends FloorObject {
+public class Weapon extends Item {
 	private int damage;
 
 	/**

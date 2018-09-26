@@ -10,15 +10,16 @@ import java.util.List;
  *
  */
 public class Player extends Character {
-	private List<FloorObject> bag;
+	private List<Item> bag;
 	private String direction;
 	private Point location;
 	private ViewDescriptor view;
+	private int health = 100;
 
 	public Player (String name) {
 		super(name);
 
-		bag = new ArrayList<FloorObject>();
+		bag = new ArrayList<Item>();
 		location = new Point(7,7);
 		this.setDirection("north");
 	}
@@ -108,14 +109,29 @@ public class Player extends Character {
 	/**
 	 * @return the bag
 	 */
-	public List<FloorObject> getBag() {
+	public List<Item> getBag() {
 		return bag;
 	}
 
 	/**
-	 * @param bag the bag to set
+	 * add the object to the players bag
+	 * @param obj
 	 */
-	public void addToBag(FloorObject obj) {
+	public void addToBag(Item obj) {
 		this.bag.add(obj);
+	}
+
+	/**
+	 * @return the health
+	 */
+	public int getHealth() {
+		return health;
+	}
+
+	/**
+	 * @param health the health to set
+	 */
+	public void setHealth(int health) {
+		this.health = health;
 	}
 }
