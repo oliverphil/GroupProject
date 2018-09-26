@@ -79,14 +79,10 @@ public class Board {
 		//remove the wall and add a door to the opposing side
 		switch (dir) {
 			case "east" :
-				board[t.getRow()][t.getCol()].removeWall("east");
-				board[t.getRow()][t.getCol()].addDoor("east");
 				board[t.getRow()][t.getCol()+1].removeWall("west");
 				board[t.getRow()][t.getCol()+1].addDoor("west");
 				break;
 			case "south" :
-				board[t.getRow()][t.getCol()].removeWall("south");
-				board[t.getRow()][t.getCol()].addDoor("south");
 				board[t.getRow()+1][t.getCol()].removeWall("north");
 				board[t.getRow()+1][t.getCol()].addDoor("north");
 				break;
