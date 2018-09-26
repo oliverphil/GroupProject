@@ -3,8 +3,9 @@ package gameWorld;
 public class Monster extends FloorObject{
 	private int health;
 
-	public Monster(String name) {
+	public Monster(String name, int health) {
 		super(name);
+		this.health = health;
 	}
 
 	/**
