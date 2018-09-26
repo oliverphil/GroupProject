@@ -3,7 +3,12 @@ package gameWorld;
 import java.awt.Point;
 import java.io.File;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement
 public class Board {
+	@XmlElementWrapper(name = "Tiles")
+	@XmlElement
 	private Tile[][] board;
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;

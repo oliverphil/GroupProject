@@ -1,12 +1,17 @@
 package gameWorld;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Items are objects found in the game world that can be weapons or tools
  * to help a player along their journey.
  * @author ewensdyla
  *
  */
+@XmlRootElement
 public abstract class FloorObject {
+	@XmlElement
 	private String name;
 
 	/**

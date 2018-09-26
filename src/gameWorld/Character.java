@@ -1,5 +1,8 @@
 package gameWorld;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A Character is a person or animal within the game but not
  * necessarily a controlled player
@@ -7,7 +10,9 @@ package gameWorld;
  * @author Dylan
  *
  */
+@XmlRootElement
 public abstract class Character {
+	@XmlElement
 	private String name;
 
 	/**

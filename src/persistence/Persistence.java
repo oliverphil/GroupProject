@@ -4,21 +4,29 @@ import java.io.File;
 
 import javax.xml.bind.*;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import gameWorld.GameWorld;
 
+/**
+ * Provides static methods for saving and loading the game state.
+ * @author Wanja
+ *
+ */
 public class Persistence {
 
-	public static void saveGame(GameWorld world) {
+	/**
+	 * Saves the current state of the gameWorld to a file in XML format.
+	 * @param world the GameWorld to be saved
+	 * @param file the file to save the world to
+	 */
+	public static void saveGame(GameWorld world, String fileName) {
 		try {
 			
-			File gameSave = new File("gameSave.xml");
+			File saveFile = new File(fileName);
 			JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
 			Marshaller gameMarshaller = gameContext.createMarshaller();
 			gameMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
-			gameMarshaller.marshal(world, gameSave);
+			gameMarshaller.marshal(world, saveFile);
 			
 		} catch (JAXBException e) {
 			System.out.println("Failed to save game file");
@@ -26,22 +34,42 @@ public class Persistence {
 		}
 	}
 	
-	public static GameWorld loadGame() {
+	public static GameWorld loadGame(String fileName) {
 		try {
 			
-			File gameSave = new File("gameSave.xml");
+			File gameSave = new File(fileName);
 			JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
 			Unmarshaller gameUnmarshaller = gameContext.createUnmarshaller();
+			gameUnmarshaller.setSchema(null);	//TODO: generate a schema first and set it here
 			
 			GameWorld newWorld = (GameWorld) gameUnmarshaller.unmarshal(gameSave);
 			return newWorld;
 			
 		} catch (JAXBException e) {
-			System.out.println("Failed to load game file");
 			e.printStackTrace();
 		}
 		
-		return null;
+		throw new RuntimeException("Failed to load the file.");
+	}
+	
+	/**
+	 * test main to check output.
+	 * @param args needed for main
+	 */
+	public static void main(String[] args) {
+		GameWorld testWorld = new GameWorld();
+		saveGame(testWorld, "testSave.xml");
+		GameWorld loadedGame = loadGame("testSave.xml");
+		System.out.println(testWorld.equals(loadedGame));
 	}
 
 }
+
+
+
+
+
+
+
+
+

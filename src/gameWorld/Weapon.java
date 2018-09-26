@@ -1,5 +1,8 @@
 package gameWorld;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Weapon extends FloorObject {
 	private int damage;
 

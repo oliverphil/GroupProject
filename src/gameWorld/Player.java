@@ -2,16 +2,25 @@ package gameWorld;
 
 import java.awt.Point;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A Player
  * @author Dylan
  *
  */
+@XmlRootElement
 public class Player extends Character {
+	@XmlElement
 	private FloorObject rightHand;
+	@XmlElement
 	private FloorObject leftHand;
+	@XmlElement
 	private String direction;
+	@XmlElement
 	private Point location;
+	@XmlElement
 	private ViewDescriptor view;
 
 	public Player (String name) {
