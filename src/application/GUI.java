@@ -36,6 +36,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import renderer.Renderer;
 
 
 
@@ -137,7 +138,7 @@ public class GUI extends Application {
         
         /*CANVAS START*/
         VBox centerScreen = new VBox();
-        Canvas gameScreen = new Canvas();
+        Renderer gameScreen = new Renderer();
         centerScreen.getChildren().add(gameScreen);
         centerScreen.setBorder(new Border(new BorderStroke(Color.BLACK, 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
