@@ -107,6 +107,39 @@ public class Board {
 	}
 
 	/**
+	 * Returns the tile t
+	 * @param player
+	 * @return a Tile
+	 */
+	public Tile getfacingTile(Player p) {
+		//get the players current location
+		int dx = p.getLocation().x;
+		int dy = p.getLocation().y;
+
+		//use the players current direction to determine the
+		//tile they are looking at
+		String dir = p.getDirection();
+
+		//change the position depending on whether
+		switch (dir) {
+			case "north" :
+				dy -= 1;
+				break;
+			case "south" :
+				dy += 1;
+				break;
+			case "east" :
+				dx += 1;
+				break;
+			case "west" :
+				dx -= 1;
+				break;
+		}
+
+		return board[dy][dx];
+	}
+
+	/**
 	 * Sets the tile with the coords to the specified Tile object.
 	 * @param row
 	 * @param col
