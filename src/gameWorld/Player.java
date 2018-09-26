@@ -115,7 +115,7 @@ public class Player extends Character {
 	/**
 	 * @param bag the bag to set
 	 */
-	public void setBag(List<FloorObject> bag) {
-		this.bag = bag;
+	public void addToBag(FloorObject obj) {
+		this.bag.add(obj);
 	}
 }
