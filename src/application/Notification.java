@@ -11,8 +11,19 @@ import javafx.geometry.*;
  * This class would create alerts/notifications
  */
 
-public class AlertBox {
+public class Notification {
 
+	private static Button closeButton = new Button("Exit window");
+	private String windowTitle;
+	private String displayMessage;
+	
+	public Notification(String window, String message, String closeButton){
+		this.windowTitle = window;
+		this.displayMessage = message;
+		changeCloseButtonContent(closeButton);
+		display(windowTitle, displayMessage);
+	}
+	
     public static void display(String title, String message) {
         Stage window = new Stage();
 
@@ -23,10 +34,9 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("Exit window");
         closeButton.setOnAction(e -> window.close());
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(50);
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
 
@@ -34,6 +44,10 @@ public class AlertBox {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
+    }
+    
+    public void changeCloseButtonContent(String newContent) {
+    	closeButton.setText(newContent);
     }
 
 }

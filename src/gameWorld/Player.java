@@ -1,6 +1,8 @@
 package gameWorld;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Player
@@ -8,8 +10,7 @@ import java.awt.Point;
  *
  */
 public class Player extends Character {
-	private FloorObject rightHand;
-	private FloorObject leftHand;
+	private List<FloorObject> bag;
 	private String direction;
 	private Point location;
 	private ViewDescriptor view;
@@ -17,6 +18,7 @@ public class Player extends Character {
 	public Player (String name) {
 		super(name);
 
+		bag = new ArrayList<FloorObject>();
 		location = new Point(7,7);
 		this.setDirection("north");
 	}
@@ -104,30 +106,16 @@ public class Player extends Character {
 	}
 
 	/**
-	 * @return the leftHand
+	 * @return the bag
 	 */
-	public FloorObject getLeftHand() {
-		return leftHand;
+	public List<FloorObject> getBag() {
+		return bag;
 	}
 
 	/**
-	 * @param leftHand the leftHand to set
+	 * @param bag the bag to set
 	 */
-	public void setLeftHand(FloorObject leftHand) {
-		this.leftHand = leftHand;
-	}
-
-	/**
-	 * @return the rightHand
-	 */
-	public FloorObject getRightHand() {
-		return rightHand;
-	}
-
-	/**
-	 * @param rightHand the rightHand to set
-	 */
-	public void setRightHand(FloorObject rightHand) {
-		this.rightHand = rightHand;
+	public void setBag(List<FloorObject> bag) {
+		this.bag = bag;
 	}
 }
