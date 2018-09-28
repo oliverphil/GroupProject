@@ -1,18 +1,19 @@
 package renderer;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import gameWorld.ViewDescriptor;
 
-public class Renderer extends Canvas {
-	private static final double DRAWING_HEIGHT = 500;
-	private static final double DRAWING_WIDTH = 500;
+public class Renderer extends Canvas{
+	
+	public Renderer(double width, double height) {
+		super(width, height);
+	}
 	
 	public void redraw(ViewDescriptor view) {
-		GraphicsContext gr = getGraphicsContext2D();
-		double height = heightProperty().get();
-		double width = widthProperty().get();
-		double scale = height / DRAWING_HEIGHT < width / DRAWING_WIDTH ? height / DRAWING_HEIGHT : width / DRAWING_WIDTH;
+		System.out.println("Drawing");
+		GraphicsContext gc = getGraphicsContext2D();
+
 	}
 }
