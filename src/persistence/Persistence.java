@@ -43,5 +43,7 @@ public class Persistence {
 		
 		return null;
 	}
+	
+	//TODO: add map save and load methods
 
 }

@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import gameWorld.GameWorld;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -45,6 +47,8 @@ public class GUI extends Application {
 	public String HELP_MESSAGE = " ";
     private Stage window;
     private BorderPane layout = new BorderPane();
+    
+    private GameWorld game;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,6 +56,7 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	game = new GameWorld();
         window = primaryStage;
         window.setTitle("An Adventure Game!");
         Scene scene = new Scene(layout, 800, 900);
@@ -138,7 +143,7 @@ public class GUI extends Application {
         
         /*CANVAS START*/
         VBox centerScreen = new VBox();
-        Renderer gameScreen = new Renderer();
+        Renderer gameScreen = new Renderer(800, 700);    //TODO: Update renderer width and height to be suitable in the window 
         centerScreen.getChildren().add(gameScreen);
         centerScreen.setBorder(new Border(new BorderStroke(Color.BLACK, 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -185,7 +190,13 @@ public class GUI extends Application {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         window.setScene(scene);
         window.show();
+        
+        //TODO: Added to be able to test Renderer
+        gameScreen.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		gameScreen.redraw(game.getViewDescriptor());
+        	}
+        });
     }
-
-
 }
