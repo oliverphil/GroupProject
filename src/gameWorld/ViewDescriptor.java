@@ -21,6 +21,10 @@ public class ViewDescriptor {
 		generate(p, b);
 	}
 
+	public List<String> getView(){
+		return new ArrayList<String>(view);
+	}
+	
 	/**
 	 * Uses the player and board to determine what the player's view will be.
 	 * @param player
