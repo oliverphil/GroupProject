@@ -14,6 +14,6 @@ public class Renderer extends Canvas{
 	public void redraw(ViewDescriptor view) {
 		System.out.println("Drawing");
 		GraphicsContext gc = getGraphicsContext2D();
-
+		gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 	}
 }

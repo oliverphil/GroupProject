@@ -143,7 +143,7 @@ public class GUI extends Application {
         
         /*CANVAS START*/
         VBox centerScreen = new VBox();
-        Renderer gameScreen = new Renderer(500, 500);    //TODO: Update renderer width and height to be suitable in the window 
+        Renderer gameScreen = new Renderer(800, 700);    //TODO: Update renderer width and height to be suitable in the window 
         centerScreen.getChildren().add(gameScreen);
         centerScreen.setBorder(new Border(new BorderStroke(Color.BLACK, 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -190,7 +190,13 @@ public class GUI extends Application {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         window.setScene(scene);
         window.show();
+        
+        //TODO: Added to be able to test Renderer
+        gameScreen.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	@Override
+        	public void handle(MouseEvent e) {
+        		gameScreen.redraw(game.getViewDescriptor());
+        	}
+        });
     }
-
-
 }
