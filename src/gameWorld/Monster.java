@@ -1,10 +1,12 @@
 package gameWorld;
 
+import java.awt.Point;
+
 public class Monster extends FloorObject{
 	private int health;
 
-	public Monster(String name, int health) {
-		super(name);
+	public Monster(String name, Point p, int health) {
+		super(name, p);
 		this.health = health;
 	}
 
