@@ -4,15 +4,26 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A Player
  * @author Dylan
  *
  */
+@XmlRootElement
 public class Player extends Character {
+	@XmlElement
+	private FloorObject rightHand;
+	@XmlElement
+	private FloorObject leftHand;
+	@XmlElement
 	private List<Item> bag;
 	private String direction;
+	@XmlElement
 	private Point location;
+	@XmlElement
 	private ViewDescriptor view;
 	private int health = 100;
 

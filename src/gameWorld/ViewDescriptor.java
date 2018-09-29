@@ -3,13 +3,20 @@ package gameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Provides a description of what the player can see given the room and direction.
  * @author Dylan
  */
+@XmlRootElement
 public class ViewDescriptor {
 	//need to have left, middle, right walls or door
 	//need to know what items are on the floor + monsters/weapons
+	@XmlElementWrapper
+	@XmlElement(name = "item")
 	List<String> view;
 
 	/**

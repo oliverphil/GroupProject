@@ -3,15 +3,25 @@ package gameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A Tile object is a single Tile making up the board. It may contain and
  * item or anywhere from 0 to 4 walls.
  * @author Dylan
  *
  */
+@XmlRootElement
 public class Tile {
+	@XmlElementWrapper
+	@XmlElement(name = "wall")
 	private List<String> walls;
+	@XmlElementWrapper
+	@XmlElement(name = "door")
 	private List<String> doors;
+	@XmlElement
 	private FloorObject obj;
 	private int col;
 	private int row;

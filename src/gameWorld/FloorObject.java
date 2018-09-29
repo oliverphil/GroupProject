@@ -1,5 +1,7 @@
 package gameWorld;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.Point;
 
 /**
@@ -8,7 +10,9 @@ import java.awt.Point;
  * @author ewensdyla
  *
  */
+@XmlRootElement
 public abstract class FloorObject {
+	@XmlElement
 	private String name;
 	private Point location;
 

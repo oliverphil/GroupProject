@@ -1,5 +1,8 @@
 package gameWorld;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 import java.awt.Point;
 
 public class Monster extends FloorObject{
