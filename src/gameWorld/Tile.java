@@ -26,6 +26,7 @@ public class Tile {
 
 		setOccupiedByPlayer(false);
 		this.walls = new ArrayList<String>();
+		this.doors = new ArrayList<String>();
 		this.obj = null;
 	}
 
