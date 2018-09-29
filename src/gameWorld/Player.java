@@ -14,15 +14,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Player extends Character {
-<<<<<<< src/gameWorld/Player.java
 	@XmlElement
 	private FloorObject rightHand;
 	@XmlElement
 	private FloorObject leftHand;
 	@XmlElement
-=======
 	private List<Item> bag;
->>>>>>> src/gameWorld/Player.java
 	private String direction;
 	@XmlElement
 	private Point location;
