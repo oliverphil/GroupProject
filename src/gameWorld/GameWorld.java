@@ -2,11 +2,20 @@ package gameWorld;
 
 import java.util.Observable;
 
+/**
+ * GameWorld class is the API for the game.
+ * @author Dylan
+ *
+ */
+//*******OBSERVER PATTERN*******
 public class GameWorld extends Observable {
 
 	Player player;
 	Board board;
 	
+	/**
+	 * Constructs the GameWorld object, allowing you to play the game.
+	 */
 	public GameWorld() {
 		player = new Player("Player");
 		board = new Board();
