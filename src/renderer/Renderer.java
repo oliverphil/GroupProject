@@ -16,6 +16,7 @@ public class Renderer extends Canvas implements Observer {
 	}
 
 	public void redraw(ViewDescriptor view) {
+		System.out.println("Drawing");
 		if (view == null)
 			return;
 		GraphicsContext gc = getGraphicsContext2D();
