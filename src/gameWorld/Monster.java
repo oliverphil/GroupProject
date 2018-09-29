@@ -2,9 +2,9 @@ package gameWorld;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 import java.awt.Point;
 
+@XmlRootElement
 public class Monster extends FloorObject{
 	private int health;
 
