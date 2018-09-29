@@ -37,7 +37,6 @@ public class ViewDescriptor {
 
 		//add the 2 visible walls
 		view.add("wall");
-		view.add(2, "wall");
 
 		switch (dir) {
 			case "north" :
@@ -45,7 +44,8 @@ public class ViewDescriptor {
 				if (b.getBoard()[y-1][x].hasWall(dir)) view.add(1, "wall");
 				else if(b.getBoard()[y-1][x].hasDoor(dir)) view.add(1, "door");
 				else view.add(1, "open");
-
+				view.add("wall");
+				
 				//check the 3 floor tiles in front of the player
 				for (int i = 0; i < 3; i++) {
 					view.add(b.getBoard()[y-1][x-1 + i].hasItem() ?
@@ -57,7 +57,8 @@ public class ViewDescriptor {
 				if (b.getBoard()[y][x+1].hasWall(dir)) view.add(1, "wall");
 				else if(b.getBoard()[y][x+1].hasDoor(dir)) view.add(1, "door");
 				else view.add(1, "open");
-
+				view.add("wall");
+				
 				//check the 3 floor tiles in front of the player
 				for (int i = 0; i < 3; i++) {
 					view.add(b.getBoard()[y-1 + i][x+1].hasItem() ?
@@ -69,6 +70,7 @@ public class ViewDescriptor {
 				if (b.getBoard()[y+1][x].hasWall(dir)) view.add(1, "wall");
 				else if(b.getBoard()[y+1][x].hasDoor(dir)) view.add(1, "door");
 				else view.add(1, "open");
+				view.add("wall");
 
 				//check the 3 floor tiles in front of the player
 				for (int i = 0; i < 3; i++) {
@@ -81,6 +83,7 @@ public class ViewDescriptor {
 				if (b.getBoard()[y][x-1].hasWall(dir)) view.add(1, "wall");
 				else if(b.getBoard()[y][x-1].hasDoor(dir)) view.add(1, "door");
 				else view.add(1, "open");
+				view.add("wall");
 
 				//check the 3 floor tiles in front of the player
 				for (int i = 0; i < 3; i++) {
