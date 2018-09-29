@@ -175,7 +175,8 @@ public class MapEditor extends Application implements EventHandler<ActionEvent>,
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getSource() == floorBtn) {
-			FloorTileMenu ftm = new FloorTileMenu();
+		  //TODO: You don't need to store this to a variable 
+      FloorTileMenu ftm = new FloorTileMenu();
 		}
 	}
 
