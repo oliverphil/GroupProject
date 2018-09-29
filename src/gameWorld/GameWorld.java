@@ -11,9 +11,6 @@ public class GameWorld extends Observable {
 		player = new Player("Player");
 		board = new Board();
 		player.setView(new ViewDescriptor(player, board));
-		
-		setChanged();
-		notifyObservers(getViewDescriptor());
 	}
 	
 	/**
@@ -23,5 +20,12 @@ public class GameWorld extends Observable {
 		return player.getView();
 	}
 	
-	//whenever a view changes use setChanged(); notifyObservers(getViewDescriptor());
+	/**
+	 * Updates the renderer.
+	 */
+	public void update() {
+		setChanged();
+		notifyObservers(getViewDescriptor());
+	}
+	//whenever a view changes use update();
 }
