@@ -182,6 +182,8 @@ public class GUI extends Application {
         bottomScreen.getChildren().addAll(backpack, bottomMostScreen);
         /*BOTTOM SCREEN END*/
 
+        game.addObserver(gameScreen);
+        game.update();
          
         layout.setTop(menuBar);
         layout.setCenter(centerScreen);
@@ -192,11 +194,11 @@ public class GUI extends Application {
         window.show();
         
         //TODO: Added to be able to test Renderer
-        gameScreen.setOnMouseClicked(new EventHandler<MouseEvent>(){
-        	@Override
-        	public void handle(MouseEvent e) {
-        		gameScreen.redraw(game.getViewDescriptor());
-        	}
-        });
+//        gameScreen.setOnMouseClicked(new EventHandler<MouseEvent>(){
+//        	@Override
+//        	public void handle(MouseEvent e) {
+//        		gameScreen.redraw(game.getViewDescriptor());
+//        	}
+//        });
     }
 }
