@@ -84,14 +84,10 @@ public class Board {
 		//remove the wall and add a door to the opposing side
 		switch (dir) {
 			case "east" :
-				board[t.getRow()][t.getCol()].removeWall("east");
-				board[t.getRow()][t.getCol()].addDoor("east");
 				board[t.getRow()][t.getCol()+1].removeWall("west");
 				board[t.getRow()][t.getCol()+1].addDoor("west");
 				break;
 			case "south" :
-				board[t.getRow()][t.getCol()].removeWall("south");
-				board[t.getRow()][t.getCol()].addDoor("south");
 				board[t.getRow()+1][t.getCol()].removeWall("north");
 				board[t.getRow()+1][t.getCol()].addDoor("north");
 				break;
@@ -113,6 +109,39 @@ public class Board {
 	 */
 	public Tile getTile(int row, int col) {
 		return board[row][col];
+	}
+
+	/**
+	 * Returns the tile t
+	 * @param player
+	 * @return a Tile
+	 */
+	public Tile getfacingTile(Player p) {
+		//get the players current location
+		int dx = p.getLocation().x;
+		int dy = p.getLocation().y;
+
+		//use the players current direction to determine the
+		//tile they are looking at
+		String dir = p.getDirection();
+
+		//change the position depending on whether
+		switch (dir) {
+			case "north" :
+				dy -= 1;
+				break;
+			case "south" :
+				dy += 1;
+				break;
+			case "east" :
+				dx += 1;
+				break;
+			case "west" :
+				dx -= 1;
+				break;
+		}
+
+		return board[dy][dx];
 	}
 
 	/**

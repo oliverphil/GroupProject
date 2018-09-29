@@ -62,6 +62,8 @@ public class Persistence {
 		GameWorld loadedGame = loadGame("testSave.xml");
 		System.out.println(testWorld.equals(loadedGame));
 	}
+	
+	//TODO: add map save and load methods
 
 }
 

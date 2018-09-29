@@ -1,13 +1,19 @@
 package gameWorld;
 
+<<<<<<< src/gameWorld/Monster.java
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+=======
+import java.awt.Point;
+
+>>>>>>> src/gameWorld/Monster.java
 public class Monster extends FloorObject{
 	private int health;
 
-	public Monster(String name) {
-		super(name);
+	public Monster(String name, Point p, int health) {
+		super(name, p);
+		this.health = health;
 	}
 
 	/**

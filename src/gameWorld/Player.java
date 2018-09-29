@@ -1,6 +1,8 @@
 package gameWorld;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,20 +14,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Player extends Character {
+<<<<<<< src/gameWorld/Player.java
 	@XmlElement
 	private FloorObject rightHand;
 	@XmlElement
 	private FloorObject leftHand;
 	@XmlElement
+=======
+	private List<Item> bag;
+>>>>>>> src/gameWorld/Player.java
 	private String direction;
 	@XmlElement
 	private Point location;
 	@XmlElement
 	private ViewDescriptor view;
+	private int health = 100;
 
 	public Player (String name) {
 		super(name);
 
+		bag = new ArrayList<Item>();
 		location = new Point(7,7);
 		this.setDirection("north");
 	}
@@ -113,30 +121,31 @@ public class Player extends Character {
 	}
 
 	/**
-	 * @return the leftHand
+	 * @return the bag
 	 */
-	public FloorObject getLeftHand() {
-		return leftHand;
+	public List<Item> getBag() {
+		return bag;
 	}
 
 	/**
-	 * @param leftHand the leftHand to set
+	 * add the object to the players bag
+	 * @param obj
 	 */
-	public void setLeftHand(FloorObject leftHand) {
-		this.leftHand = leftHand;
+	public void addToBag(Item obj) {
+		this.bag.add(obj);
 	}
 
 	/**
-	 * @return the rightHand
+	 * @return the health
 	 */
-	public FloorObject getRightHand() {
-		return rightHand;
+	public int getHealth() {
+		return health;
 	}
 
 	/**
-	 * @param rightHand the rightHand to set
+	 * @param health the health to set
 	 */
-	public void setRightHand(FloorObject rightHand) {
-		this.rightHand = rightHand;
+	public void setHealth(int health) {
+		this.health = health;
 	}
 }

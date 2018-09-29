@@ -1,9 +1,11 @@
 package gameWorld;
 
+import java.awt.Point;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Weapon extends FloorObject {
+public class Weapon extends Item {
 	private int damage;
 
 	/**
@@ -11,8 +13,8 @@ public class Weapon extends FloorObject {
 	 * @param name
 	 * @param damage
 	 */
-	public Weapon(String name, int damage) {
-		super(name);
+	public Weapon(String name, Point p, int damage) {
+		super(name, p);
 		setDamage(damage);
 	}
 
