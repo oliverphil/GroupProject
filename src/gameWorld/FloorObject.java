@@ -1,11 +1,8 @@
 package gameWorld;
 
-<<<<<<< src/gameWorld/FloorObject.java
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-=======
 import java.awt.Point;
->>>>>>> src/gameWorld/FloorObject.java
 
 /**
  * Items are objects found in the game world that can be weapons or tools
