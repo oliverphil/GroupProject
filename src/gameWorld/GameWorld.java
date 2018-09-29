@@ -2,12 +2,16 @@ package gameWorld;
 
 import java.util.Observable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * GameWorld class is the API for the game.
  * @author Dylan
  *
  */
 //*******OBSERVER PATTERN*******
+@XmlRootElement
 public class GameWorld extends Observable {
 
 	Player player;

@@ -2,6 +2,9 @@ package gameWorld;
 
 import java.awt.Point;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Weapon extends Item {
 	private int damage;
 
