@@ -26,7 +26,7 @@ public class Renderer extends Canvas implements Observer {
    *             looking at
    */
   public void redraw(ViewDescriptor view) {
-    //System.out.println("Drawing");
+    // System.out.println("Drawing");
     if (view == null) {
       return;
     }
@@ -51,21 +51,21 @@ public class Renderer extends Canvas implements Observer {
       i++;
     }
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
-      switch (visibleTiles.get(i)) {
-        case "something":
-          break;
-        default:
-          gc.setFill(Color.BLANCHEDALMOND);
-          gc.fillRect(x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
-          break;
-      }
-      i++;
+      Image floor = new Image(getClass().getResourceAsStream("images/floor.png"));
+      gc.setFill(Color.BLANCHEDALMOND);
+      gc.drawImage(floor, x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
     }
+    
+    gc.setFill(Color.BLACK);
+    gc.setLineWidth(3);
+    gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
+    
+    //TODO: Draw items
   }
 
   @Override
   public void update(Observable arg0, Object arg1) {
-    // *********OBSERVER PATTERN*********
+    // *********OBSERVER PATTERN********* //
     if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof ViewDescriptor) {
       redraw((ViewDescriptor) arg1);
     }
