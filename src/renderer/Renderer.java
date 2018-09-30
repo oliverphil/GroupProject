@@ -60,8 +60,6 @@ public class Renderer extends Canvas implements Observer {
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
-    visibleTiles.set(3, "emptyFlask");
-
     // TODO: Draw items
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
