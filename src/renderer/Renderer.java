@@ -14,16 +14,17 @@ import javafx.scene.paint.Color;
 
 public class Renderer extends Canvas implements Observer {
 
+  private static final int ITEM_SIZE = 200;
+
   public Renderer(double width, double height) {
     super(width, height);
   }
 
   /**
-   * Redraw the player's view using the ViewDescriptor object describing what the
-   * player is looking at.
+   * Redraw the player's view using the ViewDescriptor object describing what the player is looking
+   * at.
    * 
-   * @param view A ViewDescriptor containing information about what the player is
-   *             looking at
+   * @param view A ViewDescriptor containing information about what the player is looking at
    */
   public void redraw(ViewDescriptor view) {
     // System.out.println("Drawing");
@@ -52,15 +53,28 @@ public class Renderer extends Canvas implements Observer {
     }
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       Image floor = new Image(getClass().getResourceAsStream("images/floor.png"));
-      gc.setFill(Color.BLANCHEDALMOND);
       gc.drawImage(floor, x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
     }
-    
+
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
-    
-    //TODO: Draw items
+
+    visibleTiles.set(3, "emptyFlask");
+
+    // TODO: Draw items
+    for (double x = 0; x < getWidth(); x += getWidth() / 3) {
+      switch (visibleTiles.get(i)) {
+        case "emptyFlask":
+          Image emptyFlask = new Image(getClass().getResourceAsStream("images/emptyFlask.png"));
+          gc.drawImage(emptyFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          break;
+        default:
+          break;
+      }
+      i++;
+    }
   }
 
   @Override
