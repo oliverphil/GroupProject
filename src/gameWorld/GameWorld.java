@@ -2,6 +2,9 @@ package gameWorld;
 
 import java.util.Observable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,18 +16,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 //*******OBSERVER PATTERN*******
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class GameWorld extends Observable {
 
-  @XmlElement
+  @XmlElement(name = "player")
   Player player;
-  @XmlElement
+  @XmlElement(name = "board")
   Board board;
 
   /**
    * Constructs the GameWorld object, allowing you to play the game.
    */
   public GameWorld() {
-    player = new Player("Player");
+    player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board));
   }

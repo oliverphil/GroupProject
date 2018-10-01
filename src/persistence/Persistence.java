@@ -1,7 +1,6 @@
 package persistence;
 
 import gameWorld.GameWorld;
-import mapEditor.MapEditor;
 
 import java.io.File;
 
@@ -9,6 +8,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import mapEditor.MapEditor;
+
+
 
 /**
  * Provides static methods for saving and loading the game state.
