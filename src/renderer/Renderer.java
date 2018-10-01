@@ -58,8 +58,8 @@ public class Renderer extends Canvas implements Observer {
 
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
-    gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);    
-    
+    gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
+
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
@@ -76,6 +76,10 @@ public class Renderer extends Canvas implements Observer {
           Image powerFlask = new Image(getClass().getResourceAsStream("images/powerFlask.png"));
           gc.drawImage(powerFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          break;
+        case "david":
+          Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
+          gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE, getHeight() - 400 - ITEM_SIZE);
           break;
         default:
           break;
