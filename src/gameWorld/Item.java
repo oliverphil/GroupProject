@@ -2,10 +2,23 @@ package gameWorld;
 
 import java.awt.Point;
 
-public abstract class Item extends FloorObject{
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	public Item(String name, Point p) {
-		super(name, p);
-	}
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
+public abstract class Item extends FloorObject {
+
+  public Item(String name, Point p) {
+    super(name, p);
+  }
+
+  /**
+   * No-Args constructor for JAXB.
+   */
+  public Item() {
+    super();
+  }
 
 }
