@@ -3,6 +3,9 @@ package gameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,17 +18,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Tile {
-  @XmlElementWrapper
+  @XmlElementWrapper(name = "walls")
   @XmlElement(name = "wall")
   private List<String> walls;
-  @XmlElementWrapper
+  @XmlElementWrapper(name = "doors")
   @XmlElement(name = "door")
   private List<String> doors;
-  @XmlElement
+  @XmlElement(name = "obj")
   private FloorObject obj;
+  @XmlAttribute(name = "col")
   private int col;
+  @XmlAttribute(name = "row")
   private int row;
+  @XmlAttribute(name = "occupiedByPlayer")
   private boolean occupiedByPlayer;
 
   /**
@@ -34,6 +41,19 @@ public class Tile {
   public Tile(int row, int col) {
     this.row = row;
     this.col = col;
+
+    setOccupiedByPlayer(false);
+    this.walls = new ArrayList<String>();
+    this.doors = new ArrayList<String>();
+    this.obj = null;
+  }
+  
+  /**
+   * No-args constructor for JAXB.
+   */
+  public Tile() {
+    this.row = 0;
+    this.col = 0;
 
     setOccupiedByPlayer(false);
     this.walls = new ArrayList<String>();
