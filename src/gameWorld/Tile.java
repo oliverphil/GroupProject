@@ -11,8 +11,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A Tile object is a single Tile making up the board. It may contain and item
- * or anywhere from 0 to 4 walls.
+ * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
+ * 4 walls.
  * 
  * @author Dylan
  *
@@ -47,7 +47,7 @@ public class Tile {
     this.doors = new ArrayList<String>();
     this.obj = null;
   }
-  
+
   /**
    * No-args constructor for JAXB.
    */
@@ -67,7 +67,13 @@ public class Tile {
    * @param walls
    */
   public Tile(List<String> walls) {
-    //TODO: You need to initialise all your other fields (including this.walls)
+    this.row = 0;
+    this.col = 0;
+
+    setOccupiedByPlayer(false);
+    this.walls = new ArrayList<String>();
+    this.doors = new ArrayList<String>();
+    this.obj = null;
     this.walls.addAll(walls);
   }
 
