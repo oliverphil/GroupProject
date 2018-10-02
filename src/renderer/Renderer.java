@@ -60,6 +60,9 @@ public class Renderer extends Canvas implements Observer {
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
+    //for testing drawing graphics + items
+    //visibleTiles.set(4, "david");
+
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
@@ -79,7 +82,16 @@ public class Renderer extends Canvas implements Observer {
           break;
         case "david":
           Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
-          gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE, getHeight() - 400 - ITEM_SIZE);
+          gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE,
+              getHeight() - david.getWidth() - ITEM_SIZE);
+          break;
+        case "woodenBlockade":
+          Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
+          gc.drawImage(woodBlock, (getWidth() / 2) - (woodBlock.getWidth() / 2), 0);
+          break;
+        case "stoneBlockade":
+          Image stoneBlock = new Image(getClass().getResourceAsStream("images/stoneBlockade.png"));
+          gc.drawImage(stoneBlock, (getWidth() / 2) - (stoneBlock.getWidth() / 2), 0);
           break;
         default:
           break;
