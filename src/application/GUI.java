@@ -55,6 +55,11 @@ public class GUI extends Application {
         window = primaryStage;
         window.setTitle("An Adventure Game!");
         Scene scene = new Scene(layout, 800, 900);
+        
+        Button lookLeft;
+        Button lookRight;
+        Button moveForward;
+        Button moveBack;
 
         /*MENU START*/  
         //Game Menu
@@ -146,6 +151,23 @@ public class GUI extends Application {
         
         
         /*BOTTOM SCREEN START*/
+        
+        lookLeft = new Button();
+        lookLeft.setText("<-");
+        lookLeft.setOnAction(e -> System.out.println("Looking Left"));
+        
+        lookRight = new Button();
+        lookRight.setText("->");
+        lookRight.setOnAction(e -> System.out.println("Looking Right"));
+        
+        moveForward = new Button();
+        moveForward.setText("FORWARD");
+        moveForward.setOnAction(e -> System.out.println("Step Forwards"));
+        
+        moveBack = new Button();
+        moveBack.setText("BACK");
+        moveBack.setOnAction(e -> System.out.println("Step Back"));
+        
         VBox bottomScreen = new VBox();
         bottomScreen.setMinHeight(200);
         bottomScreen.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -165,6 +187,10 @@ public class GUI extends Application {
         bottomScreenLeft.setMinWidth((scene.getWidth()/2));
         bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.BLACK, 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        HBox innerButtonPannel = new HBox();
+        //ADD ALL BUTTONS TO HBOX
+        innerButtonPannel.getChildren().addAll(lookLeft, moveForward, moveBack, lookRight);
+        bottomScreenLeft.getChildren().addAll(innerButtonPannel);
         
         VBox bottomScreenRight = new VBox();
         bottomScreenRight.setMinHeight(bottomMostScreen.getHeight());
