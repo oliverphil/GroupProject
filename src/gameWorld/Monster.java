@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Monster extends FloorObject {
   @XmlAttribute(name = "health")
   private int health;

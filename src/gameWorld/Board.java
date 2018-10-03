@@ -6,7 +6,6 @@ import java.io.File;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Board {
   @XmlElementWrapper(name = "board")
   @XmlElement(name = "tile")

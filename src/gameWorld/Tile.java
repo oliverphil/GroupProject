@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Tile {
   @XmlElementWrapper(name = "walls")
   @XmlElement(name = "wall")

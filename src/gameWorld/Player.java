@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Player extends Character {
   @XmlElement(name = "rightHand")
   private FloorObject rightHand;

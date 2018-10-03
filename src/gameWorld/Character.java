@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public abstract class Character {
   @XmlAttribute(name = "name")
   private String name;

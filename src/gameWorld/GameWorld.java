@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 //*******OBSERVER PATTERN*******
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class GameWorld extends Observable {
 
   @XmlElement(name = "player")

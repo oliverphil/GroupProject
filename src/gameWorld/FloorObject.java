@@ -15,7 +15,6 @@ import java.awt.Point;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public abstract class FloorObject {
   @XmlAttribute(name = "name")
   private String name;
