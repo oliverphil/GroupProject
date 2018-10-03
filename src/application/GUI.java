@@ -65,6 +65,8 @@ public class GUI extends Application {
         Button lookRight;
         Button moveForward;
         Button moveBack;
+        Button dropItem;
+        Button useItem;
 
         /*MENU START*/
         //Game Menu
@@ -171,6 +173,16 @@ public class GUI extends Application {
 
         moveBack = new Button();
         moveBack.setText("BACK");
+moveBack.setOnAction(e -> game.moveBackwards());
+
+        dropItem = new Button();
+        dropItem.setText("Drop");
+        dropItem.setOnAction(e -> System.out.println("Dropped Item"));
+
+        useItem = new Button();
+        useItem.setText("Use");
+        useItem.setOnAction(e -> System.out.println("Used Item"));
+
         moveBack.setOnAction(e -> game.moveBackwards());
 
         VBox bottomScreen = new VBox();
@@ -193,9 +205,12 @@ public class GUI extends Application {
         bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         HBox innerButtonPannel = new HBox();
+        HBox innerButtonPannel2 = new HBox();
         //ADD ALL BUTTONS TO HBOX
         innerButtonPannel.getChildren().addAll(lookLeft, moveForward, moveBack, lookRight);
-        bottomScreenLeft.getChildren().addAll(innerButtonPannel);
+
+        innerButtonPannel2.getChildren().addAll(dropItem, useItem);
+        bottomScreenLeft.getChildren().addAll(innerButtonPannel, innerButtonPannel2);
 
         VBox bottomScreenRight = new VBox();
         bottomScreenRight.setMinHeight(bottomMostScreen.getHeight());
