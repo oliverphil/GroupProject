@@ -73,8 +73,9 @@ public class Board {
     david.setName("Pharaoh_David");
     david.setDamage(50);
     david.setHealth(150);
-   // this.board[13][0].
+    this.board[13][0].setFloorObject(david);
 
+    Flask flask = new Flask();
   }
 
   /**
