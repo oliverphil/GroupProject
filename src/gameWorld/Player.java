@@ -4,8 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -18,28 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Player extends Character {
-  @XmlElement(name = "rightHand")
   private FloorObject rightHand;
 
-  @XmlElement(name = "leftHand")
   private FloorObject leftHand;
 
-  @XmlElementWrapper(name = "bag")
-  @XmlElement(name = "item")
   private List<Item> bag;
 
-  @XmlAttribute(name = "direction")
   private String direction;
 
-  @XmlElement(name = "location")
   private Point location;
 
-  @XmlElement(name = "view")
   private ViewDescriptor view;
 
-  @XmlAttribute(name = "health")
   private int health = 100;
 
   /**
@@ -98,6 +88,44 @@ public class Player extends Character {
   }
 
   /**
+   * Returns the contents of the player's right hand.
+   * 
+   * @return the FloorObject in rightHand
+   */
+  public FloorObject getRightHand() {
+    return rightHand;
+  }
+
+  /**
+   * Sets the contents of rightHand.
+   * 
+   * @param rightHand the new contents of rightHand
+   */
+  @XmlElement(name = "rightHand")
+  public void setRightHand(FloorObject rightHand) {
+    this.rightHand = rightHand;
+  }
+
+  /**
+   * Returns the contents of the player's left hand.
+   * 
+   * @return the FloorObject in leftHand
+   */
+  public FloorObject getLeftHand() {
+    return leftHand;
+  }
+
+  /**
+   * Sets the contents of leftHand.
+   * 
+   * @param leftHand the new contents of leftHand
+   */
+  @XmlElement(name = "leftHand")
+  public void setLeftHand(FloorObject leftHand) {
+    this.leftHand = leftHand;
+  }
+
+  /**
    * @return the direction
    */
   public String getDirection() {
@@ -107,6 +135,7 @@ public class Player extends Character {
   /**
    * @param direction the direction to set
    */
+  @XmlElement(name = "direction")
   public void setDirection(String direction) {
     this.direction = direction;
   }
@@ -121,6 +150,7 @@ public class Player extends Character {
   /**
    * @param loc the location to set
    */
+  @XmlElement(name = "location")
   public void setLocation(Point loc) {
     this.location = loc;
   }
@@ -135,6 +165,7 @@ public class Player extends Character {
   /**
    * @param view the view to set
    */
+  @XmlElement(name = "view")
   public void setView(ViewDescriptor view) {
     this.view = view;
   }
@@ -144,6 +175,17 @@ public class Player extends Character {
    */
   public List<Item> getBag() {
     return bag;
+  }
+
+  /**
+   * sets the bag to a new List of items.
+   * 
+   * @param bag the new bag contents
+   */
+  @XmlElementWrapper(name = "bag")
+  @XmlElement(name = "item")
+  public void setBag(List<Item> bag) {
+    this.bag = bag;
   }
 
   /**
@@ -165,6 +207,7 @@ public class Player extends Character {
   /**
    * @param health the health to set
    */
+  @XmlElement(name = "health")
   public void setHealth(int health) {
     this.health = health;
   }

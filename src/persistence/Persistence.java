@@ -11,8 +11,6 @@ import javax.xml.bind.Unmarshaller;
 
 import mapEditor.MapEditor;
 
-
-
 /**
  * Provides static methods for saving and loading the game state.
  * 
@@ -66,29 +64,29 @@ public class Persistence {
     }
 
   }
-  
+
   /**
    * Saves the state of the 'MapEditor' to an XML file.
    * 
-   * @param editor the 'MapEditor' to be saved
+   * @param editor   the 'MapEditor' to be saved
    * @param fileName the name of the file to be saved to
    */
   public static void saveMapEditor(MapEditor editor, String fileName) {
     try {
-      
+
       File saveFile = new File(fileName);
       JAXBContext editorContext = JAXBContext.newInstance(MapEditor.class);
       Marshaller editorMarshaller = editorContext.createMarshaller();
       editorMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            
+
       editorMarshaller.marshal(editor, saveFile);
-      
+
     } catch (JAXBException e) {
       System.out.println("Failed to save game file");
       e.printStackTrace();
     }
   }
-  
+
   /**
    * Loads and returns a MapEditor object from an XML file.
    * 
@@ -97,19 +95,19 @@ public class Persistence {
    */
   public static MapEditor loadMapEditor(String fileName) {
     try {
-      
+
       File editorSave = new File(fileName);
       JAXBContext editorContext = JAXBContext.newInstance(MapEditor.class);
       Unmarshaller editorUnmarshaller = editorContext.createUnmarshaller();
-      //gameUnmarshaller.setSchema(null); //TODO: add verification
-      
+      // gameUnmarshaller.setSchema(null); //TODO: add verification
+
       return (MapEditor) editorUnmarshaller.unmarshal(editorSave);
-      
+
     } catch (JAXBException e) {
       e.printStackTrace();
       throw new RuntimeException("Failed to load the file.");
     }
-    
+
   }
 
   /**

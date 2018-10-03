@@ -3,8 +3,6 @@ package gameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -18,26 +16,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class Tile {
-  @XmlElementWrapper(name = "walls")
-  @XmlElement(name = "wall")
   private List<String> walls;
-
-  @XmlElementWrapper(name = "doors")
-  @XmlElement(name = "door")
   private List<String> doors;
-
-  @XmlElement(name = "obj")
   private FloorObject obj;
-
-  @XmlAttribute(name = "col")
   private int col;
-
-  @XmlAttribute(name = "row")
   private int row;
-
-  @XmlAttribute(name = "occupiedByPlayer")
   private boolean occupiedByPlayer;
 
   /**
@@ -133,8 +117,9 @@ public class Tile {
    * @param item the item to set
    */
   public void setFloorObject(FloorObject item) {
-    if (!hasObject())
+    if (!hasObject()) {
       this.obj = item;
+    }
   }
 
   /**
@@ -152,8 +137,9 @@ public class Tile {
    * @param wall
    */
   public void removeWall(String wall) {
-    if (this.walls.contains(wall))
+    if (this.walls.contains(wall)) {
       this.walls.remove(wall);
+    }
   }
 
   /**
@@ -177,10 +163,48 @@ public class Tile {
     return occupiedByPlayer;
   }
 
-  /**
-   * @param occupiedByPlayer the occupiedByPlayer to set
-   */
+  @XmlElement(name = "occupiedByPlayer")
   public void setOccupiedByPlayer(boolean occupiedByPlayer) {
     this.occupiedByPlayer = occupiedByPlayer;
   }
+
+  @XmlElementWrapper(name = "walls")
+  @XmlElement(name = "wall")
+  public void setWalls(List<String> walls) {
+    this.walls = walls;
+  }
+
+  @XmlElementWrapper(name = "doors")
+  @XmlElement(name = "door")
+  public void setDoors(List<String> doors) {
+    this.doors = doors;
+  }
+
+  @XmlElement(name = "obj")
+  public void setObj(FloorObject obj) {
+    this.obj = obj;
+  }
+
+  @XmlElement(name = "col")
+  public void setCol(int col) {
+    this.col = col;
+  }
+
+  @XmlElement(name = "row")
+  public void setRow(int row) {
+    this.row = row;
+  }
+
+  public List<String> getWalls() {
+    return walls;
+  }
+
+  public List<String> getDoors() {
+    return doors;
+  }
+
+  public FloorObject getObj() {
+    return obj;
+  }
+
 }

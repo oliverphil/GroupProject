@@ -1,8 +1,5 @@
 package gameWorld;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.Point;
@@ -15,11 +12,8 @@ import java.awt.Point;
  *
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public abstract class FloorObject {
-  @XmlAttribute(name = "name")
   private String name;
-  @XmlElement(name = "location")
   private Point location;
 
   /**
@@ -51,6 +45,7 @@ public abstract class FloorObject {
    * 
    * @param name the name to set
    */
+  @XmlElement(name = "name")
   public void setName(String name) {
     this.name = name;
   }
@@ -69,7 +64,10 @@ public abstract class FloorObject {
    * 
    * @param location the location to set
    */
+  @XmlElement(name = "location")
   public void setLocation(Point location) {
     this.location = location;
   }
+  
+  
 }

@@ -3,8 +3,6 @@ package gameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dylan
  */
 @XmlRootElement
-//@XmlAccessorType(XmlAccessType.NONE)
 public class ViewDescriptor {
   // need to have left, middle, right walls or door
   // need to know what items are on the floor + monsters/weapons
@@ -37,10 +34,14 @@ public class ViewDescriptor {
     generate(new Player(), new Board());
   }
 
-  @XmlElementWrapper(name = "view")
-  @XmlElement(name = "item")
   public List<String> getView() {
     return new ArrayList<String>(view);
+  }
+
+  @XmlElementWrapper(name = "view")
+  @XmlElement(name = "item")
+  public void setView(List<String> view) {
+    this.view = view;
   }
 
   /**
@@ -139,4 +140,5 @@ public class ViewDescriptor {
     if (view.size() < 6)
       view.add(s);
   }
+
 }
