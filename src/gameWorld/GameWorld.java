@@ -2,9 +2,6 @@ package gameWorld;
 
 import java.util.Observable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,9 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class GameWorld extends Observable {
 
-  @XmlElement(name = "player")
   Player player;
-  @XmlElement(name = "board")
   Board board;
 
   /**
@@ -63,5 +58,15 @@ public class GameWorld extends Observable {
    */
   public void moveBackwards() {
     board.goBack(this.player);
+  }
+
+  @XmlElement(name = "player")
+  public void setPlayer(Player player) {
+    this.player = player;
+  }
+
+  @XmlElement(name = "board")
+  public void setBoard(Board board) {
+    this.board = board;
   }
 }

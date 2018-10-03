@@ -2,15 +2,11 @@ package gameWorld;
 
 import java.awt.Point;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Monster extends FloorObject {
-  @XmlAttribute(name = "health")
   private int health;
   private int damage;
 
@@ -33,8 +29,9 @@ public class Monster extends FloorObject {
 
   /**
    * Sets the monsters health.
-   * @param health
+   * @param health health to set the monster to
    */
+  @XmlElement(name = "health")
   public void setHealth(int health) {
     this.health = health;
   }
@@ -67,6 +64,7 @@ public class Monster extends FloorObject {
    * Sets damage.
    * @param damage the damage to set
    */
+  @XmlElement(name = "damage")
   public void setDamage(int damage) {
     this.damage = damage;
   }

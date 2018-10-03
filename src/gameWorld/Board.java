@@ -3,12 +3,13 @@ package gameWorld;
 import java.awt.Point;
 import java.io.File;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class Board {
-  @XmlElementWrapper(name = "board")
-  @XmlElement(name = "tile")
   private Tile[][] board;
   @XmlTransient
   public static final int WIDTH = 15;
@@ -68,11 +69,11 @@ public class Board {
    */
   private void initialiseObjects() {
     Monster david = new Monster();
-    david.setLocation(new Point(0,13));
+    david.setLocation(new Point(0, 13));
     david.setName("Pharaoh_David");
     david.setDamage(50);
     david.setHealth(150);
-   // this.board[13][0].
+    // this.board[13][0].
 
   }
 
@@ -301,4 +302,11 @@ public class Board {
     // update the player's view.
     p.setView(new ViewDescriptor(p, this));
   }
+
+  @XmlElementWrapper(name = "board")
+  @XmlElement(name = "tile")
+  public void setBoard(Tile[][] board) {
+    this.board = board;
+  }
+
 }

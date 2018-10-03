@@ -1,8 +1,5 @@
 package gameWorld;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public abstract class Character {
-  @XmlAttribute(name = "name")
   private String name;
 
   /**
@@ -40,6 +36,7 @@ public abstract class Character {
   /**
    * @param name the name to set
    */
+  @XmlElement(name = "name")
   public void setName(String name) {
     this.name = name;
   }
