@@ -1,29 +1,35 @@
 package gameWorld;
 
-public class Weapon extends FloorObject {
-	private int damage;
+import java.awt.Point;
 
-	/**
-	 * Creates a weapon.
-	 * @param name
-	 * @param damage
-	 */
-	public Weapon(String name, int damage) {
-		super(name);
-		setDamage(damage);
-	}
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	/**
-	 * @return the damage
-	 */
-	public int getDamage() {
-		return damage;
-	}
+@XmlRootElement
+public class Weapon extends Item {
+  private int damage;
 
-	/**
-	 * @param damage the damage to set
-	 */
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
+  /**
+   * Creates a weapon.
+   * 
+   * @param name   name of the weapon
+   * @param damage damage the weapon does
+   */
+  public Weapon(String name, Point p, int damage) {
+    super(name, p);
+    setDamage(damage);
+  }
+
+  public Weapon() {
+    super();
+  }
+
+  @XmlAttribute(name = "damage")
+  public int getDamage() {
+    return damage;
+  }
+
+  public void setDamage(int damage) {
+    this.damage = damage;
+  }
 }

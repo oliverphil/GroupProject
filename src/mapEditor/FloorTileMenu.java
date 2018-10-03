@@ -174,6 +174,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 			MapEditor.setSelectedIcon("empty");
 			primaryStage.close();
 		}
-
+		System.out.println(MapEditor.getSelectedIcon());
 	}
 }
