@@ -143,6 +143,17 @@ public class Tile {
   }
 
   /**
+   * Removes the specified door from the Tile object
+   *
+   * @param wall
+   */
+  public void removeDoor(String door) {
+    if (this.doors.contains(door)) {
+      this.doors.remove(door);
+    }
+  }
+
+  /**
    * @return the column
    */
   public int getCol() {

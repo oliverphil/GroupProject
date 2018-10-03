@@ -66,7 +66,7 @@ public class ViewDescriptor {
         } else if (b.getBoard()[y - 1][x].hasDoor(dir)) {
           view.add("door");
         } else {
-          view.add("open");
+          view.add("clear");
         }
         view.add("wall");
 
@@ -84,7 +84,7 @@ public class ViewDescriptor {
         else if (b.getBoard()[y][x + 1].hasDoor(dir))
           view.add("door");
         else
-          view.add("open");
+          view.add("clear");
         view.add("wall");
 
         // check the 3 floor tiles in front of the player
@@ -101,7 +101,7 @@ public class ViewDescriptor {
         else if (b.getBoard()[y + 1][x].hasDoor(dir))
           view.add("door");
         else
-          view.add("open");
+          view.add("clear");
         view.add("wall");
 
         // check the 3 floor tiles in front of the player
@@ -118,7 +118,7 @@ public class ViewDescriptor {
         else if (b.getBoard()[y][x - 1].hasDoor(dir))
           view.add("door");
         else
-          view.add("open");
+          view.add("clear");
         view.add("wall");
 
         // check the 3 floor tiles in front of the player

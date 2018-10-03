@@ -25,9 +25,8 @@ public class GameWorld extends Observable {
     player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board));
-    
+
     board.openDoor(player);
-    
   }
 
   /**
@@ -54,6 +53,7 @@ public class GameWorld extends Observable {
    */
   public void moveForward() {
     board.goForwards(this.player);
+    update();
   }
 
   /**
@@ -62,6 +62,30 @@ public class GameWorld extends Observable {
    */
   public void moveBackwards() {
     board.goBack(this.player);
+    update();
+  }
+
+  /**
+   * Rotates the player 90 degrees to the right.
+   */
+  public void rotateRight() {
+    player.turnRight();
+    update();
+  }
+
+  /**
+   * Rotates the player 90 degrees to the left.
+   */
+  public void rotateLeft() {
+    player.turnLeft();
+    update();
+  }
+
+  /**
+   * Called on click, passes the image clicked on.
+   */
+  public void interact(String name) {
+
   }
 
   @XmlElement(name = "player")
@@ -81,7 +105,7 @@ public class GameWorld extends Observable {
   public Board getBoard() {
     return board;
   }
-  
-  
-  
+
+
+
 }

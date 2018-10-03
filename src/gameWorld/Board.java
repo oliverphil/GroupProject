@@ -76,10 +76,10 @@ public class Board {
     david.setHealth(150);
     this.board[13][0].setObj(david);
 
-   Flask flask = new Flask();
-   flask.setLocation(new Point(8, 6));
-   flask.setName("emptyFlask");
-   this.board[6][8].setObj(flask);
+    Flask flask = new Flask();
+    flask.setLocation(new Point(8, 6));
+    flask.setName("emptyFlask");
+    this.board[6][8].setObj(flask);
   }
 
   /**
@@ -143,6 +143,11 @@ public class Board {
     }
   }
 
+  /**
+   * Opens the door the player is facing.
+   * @param pl
+   * @return
+   */
   public boolean openDoor(Player pl) {
     String dir = pl.getDirection();
     Point pt = pl.getLocation();
@@ -150,25 +155,29 @@ public class Board {
     switch (dir) {
       case "north":
         if (board[pt.y-1][pt.x].hasDoor("north")) {
-          board[pt.y-1][pt.x].removeWall("north");
+          board[pt.y-2][pt.x].removeDoor("south");
+          board[pt.y-1][pt.x].removeDoor("north");
           return true;
         }
         return false;
       case "south":
         if (board[pt.y+1][pt.x].hasDoor("south")) {
-          board[pt.y+1][pt.x].removeWall("south");
+          board[pt.y+2][pt.x].removeDoor("north");
+          board[pt.y+1][pt.x].removeDoor("south");
           return true;
         }
         return false;
       case "east":
         if (board[pt.y][pt.x+1].hasDoor("east")) {
-          board[pt.y][pt.x+1].removeWall("east");
+          board[pt.y][pt.x+1].removeDoor("east");
+          board[pt.y][pt.x+2].removeDoor("west");
           return true;
         }
         return false;
       case "west":
         if (board[pt.y][pt.x-1].hasDoor("west")) {
-          board[pt.y][pt.x-1].removeWall("west");
+          board[pt.y][pt.x-1].removeDoor("west");
+          board[pt.y][pt.x-2].removeDoor("east");
           return true;
         }
         return false;
