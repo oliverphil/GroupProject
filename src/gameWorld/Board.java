@@ -3,6 +3,7 @@ package gameWorld;
 import java.awt.Point;
 import java.io.File;
 
+import javax.print.attribute.standard.RequestingUserName;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -75,7 +76,6 @@ public class Board {
     david.setHealth(150);
     this.board[13][0].setObj(david);
 
-    
    Flask flask = new Flask();
    flask.setLocation(new Point(8, 6));
    flask.setName("emptyFlask");
@@ -140,6 +140,40 @@ public class Board {
         break;
       default:
         break;
+    }
+  }
+
+  public boolean openDoor(Player pl) {
+    String dir = pl.getDirection();
+    Point pt = pl.getLocation();
+
+    switch (dir) {
+      case "north":
+        if (board[pt.y-1][pt.x].hasDoor("north")) {
+          board[pt.y-1][pt.x].removeWall("north");
+          return true;
+        }
+        return false;
+      case "south":
+        if (board[pt.y+1][pt.x].hasDoor("south")) {
+          board[pt.y+1][pt.x].removeWall("south");
+          return true;
+        }
+        return false;
+      case "east":
+        if (board[pt.y][pt.x+1].hasDoor("east")) {
+          board[pt.y][pt.x+1].removeWall("east");
+          return true;
+        }
+        return false;
+      case "west":
+        if (board[pt.y][pt.x-1].hasDoor("west")) {
+          board[pt.y][pt.x-1].removeWall("west");
+          return true;
+        }
+        return false;
+      default:
+        return false;
     }
   }
 
@@ -270,7 +304,7 @@ public class Board {
     switch (dir) {
       case "north":
         forward = board[point.y - 1][point.x];
-        if (!forward.hasDoor("south") && !forward.hasWall("south")) {
+        if (!forward.hasDoor("north") && !forward.hasWall("north")) {
           p.setLocation(new Point(point.x, point.y - 3));
         } else {
           ;// TODO cannot move
@@ -278,7 +312,7 @@ public class Board {
         break;
       case "south":
         forward = board[point.y + 1][point.x];
-        if (!forward.hasDoor("north") && !forward.hasWall("north")) {
+        if (!forward.hasDoor("south") && !forward.hasWall("south")) {
           p.setLocation(new Point(point.x, point.y + 3));
         } else {
           ;// TODO cannot move
@@ -286,7 +320,7 @@ public class Board {
         break;
       case "east":
         forward = board[point.y][point.x + 1];
-        if (!forward.hasDoor("west") && !forward.hasWall("west")) {
+        if (!forward.hasDoor("east") && !forward.hasWall("east")) {
           p.setLocation(new Point(point.x + 3, point.y));
         } else {
           ;// TODO cannot move
@@ -294,7 +328,7 @@ public class Board {
         break;
       case "west":
         forward = board[point.y][point.x - 1];
-        if (!forward.hasDoor("east") && !forward.hasWall("east")) {
+        if (!forward.hasDoor("west") && !forward.hasWall("west")) {
           p.setLocation(new Point(point.x - 3, point.y));
         } else {
           ;// TODO cannot move
