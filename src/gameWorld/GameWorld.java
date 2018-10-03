@@ -69,4 +69,15 @@ public class GameWorld extends Observable {
   public void setBoard(Board board) {
     this.board = board;
   }
+
+  public Player getPlayer() {
+    return player;
+  }
+
+  public Board getBoard() {
+    return board;
+  }
+  
+  
+  
 }

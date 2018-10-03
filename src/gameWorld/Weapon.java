@@ -12,29 +12,23 @@ public class Weapon extends Item {
   /**
    * Creates a weapon.
    * 
-   * @param name
-   * @param damage
+   * @param name   name of the weapon
+   * @param damage damage the weapon does
    */
   public Weapon(String name, Point p, int damage) {
     super(name, p);
     setDamage(damage);
   }
-  
+
   public Weapon() {
     super();
   }
 
-  /**
-   * @return the damage
-   */
   @XmlAttribute(name = "damage")
   public int getDamage() {
     return damage;
   }
 
-  /**
-   * @param damage the damage to set
-   */
   public void setDamage(int damage) {
     this.damage = damage;
   }

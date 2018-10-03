@@ -163,60 +163,48 @@ public class Tile {
     return occupiedByPlayer;
   }
 
-  /**
-   * @param occupiedByPlayer the occupiedByPlayer to set
-   */
   @XmlElement(name = "occupiedByPlayer")
   public void setOccupiedByPlayer(boolean occupiedByPlayer) {
     this.occupiedByPlayer = occupiedByPlayer;
   }
 
-  /**
-   * setter for walls.
-   * @param walls the new walls
-   */
   @XmlElementWrapper(name = "walls")
   @XmlElement(name = "wall")
   public void setWalls(List<String> walls) {
     this.walls = walls;
   }
 
-  /**
-   * setter for doors.
-   * @param doors the new doors
-   */
   @XmlElementWrapper(name = "doors")
   @XmlElement(name = "door")
   public void setDoors(List<String> doors) {
     this.doors = doors;
   }
 
-  /**
-   * setter for obj.
-   * @param obj the new obj
-   */
   @XmlElement(name = "obj")
   public void setObj(FloorObject obj) {
     this.obj = obj;
   }
 
-  /**
-   * sets the column.
-   * @param col the new column
-   */
   @XmlElement(name = "col")
   public void setCol(int col) {
     this.col = col;
   }
 
-  /**
-   * sets the row.
-   * @param row the new row
-   */
   @XmlElement(name = "row")
   public void setRow(int row) {
     this.row = row;
   }
-  
-  
+
+  public List<String> getWalls() {
+    return walls;
+  }
+
+  public List<String> getDoors() {
+    return doors;
+  }
+
+  public FloorObject getObj() {
+    return obj;
+  }
+
 }
