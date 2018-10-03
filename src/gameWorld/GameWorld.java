@@ -26,6 +26,8 @@ public class GameWorld extends Observable {
     board = new Board();
     player.setView(new ViewDescriptor(player, board));
     
+    board.openDoor(player);
+    
   }
 
   /**
