@@ -173,21 +173,18 @@ public class GUI extends Application {
 
         moveBack = new Button();
         moveBack.setText("BACK");
-<<<<<<< HEAD
-        moveBack.setOnAction(e -> System.out.println("Step Back"));
-        
+moveBack.setOnAction(e -> game.moveBackwards());
+
         dropItem = new Button();
         dropItem.setText("Drop");
         dropItem.setOnAction(e -> System.out.println("Dropped Item"));
-        
+
         useItem = new Button();
         useItem.setText("Use");
         useItem.setOnAction(e -> System.out.println("Used Item"));
-        
-=======
+
         moveBack.setOnAction(e -> game.moveBackwards());
 
->>>>>>> 2bb624e30b17e63be83e17b800591a7ffe322760
         VBox bottomScreen = new VBox();
         bottomScreen.setMinHeight(200);
         bottomScreen.setBorder(new Border(new BorderStroke(Color.BLACK,
@@ -211,14 +208,10 @@ public class GUI extends Application {
         HBox innerButtonPannel2 = new HBox();
         //ADD ALL BUTTONS TO HBOX
         innerButtonPannel.getChildren().addAll(lookLeft, moveForward, moveBack, lookRight);
-<<<<<<< HEAD
+
         innerButtonPannel2.getChildren().addAll(dropItem, useItem);
         bottomScreenLeft.getChildren().addAll(innerButtonPannel, innerButtonPannel2);
-        
-=======
-        bottomScreenLeft.getChildren().addAll(innerButtonPannel);
 
->>>>>>> 2bb624e30b17e63be83e17b800591a7ffe322760
         VBox bottomScreenRight = new VBox();
         bottomScreenRight.setMinHeight(bottomMostScreen.getHeight());
         bottomScreenRight.setMinWidth((scene.getWidth()/2));
