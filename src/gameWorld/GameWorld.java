@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * GameWorld class is the API for the game.
- * 
+ *
  * @author Dylan
  *
  */
@@ -45,8 +45,24 @@ public class GameWorld extends Observable {
    * Updates the renderer.
    */
   public void update() {
+    // whenever a view changes use update();
     setChanged();
     notifyObservers(getViewDescriptor());
   }
-  // whenever a view changes use update();
+
+  /**
+   * Called when the forward button is pressed.
+   * The player moves forward in the direction they're facing.
+   */
+  public void moveForward() {
+    board.goForwards(this.player);
+  }
+
+  /**
+   * Called when the back button is pressed.
+   * The player moves in the opposite direction they're facing.
+   */
+  public void moveBackwards() {
+    board.goBack(this.player);
+  }
 }

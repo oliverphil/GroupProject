@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A Player
- * 
+ * A Player.
+ *
  * @author Dylan
  *
  */
@@ -22,23 +22,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Player extends Character {
   @XmlElement(name = "rightHand")
   private FloorObject rightHand;
-  
+
   @XmlElement(name = "leftHand")
   private FloorObject leftHand;
-  
+
   @XmlElementWrapper(name = "bag")
   @XmlElement(name = "item")
   private List<Item> bag;
-  
+
   @XmlAttribute(name = "direction")
   private String direction;
-  
+
   @XmlElement(name = "location")
   private Point location;
-  
+
   @XmlElement(name = "view")
   private ViewDescriptor view;
-  
+
   @XmlAttribute(name = "health")
   private int health = 100;
 
@@ -91,6 +91,8 @@ public class Player extends Character {
         break;
       case "east":
         setDirection("north");
+        break;
+      default:
         break;
     }
   }
@@ -146,7 +148,7 @@ public class Player extends Character {
 
   /**
    * add the object to the players bag
-   * 
+   *
    * @param obj
    */
   public void addToBag(Item obj) {

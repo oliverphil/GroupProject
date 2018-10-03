@@ -17,7 +17,7 @@ public class Board {
   public static final int HEIGHT = 15;
 
   /**
-   * This board constructs the standard board, new game board
+   * This board constructs the standard board, new game board.
    */
   public Board() {
     board = new Tile[HEIGHT][WIDTH];
@@ -26,14 +26,14 @@ public class Board {
   }
 
   /**
-   * This board constructs the board from a saved file
+   * This board constructs the board from a saved file.
    */
   public Board(File file) {
     // TODO write method to load game
   }
 
   /**
-   * Creates the starting board for the base game, adding all tiles and filling in the walls
+   * Creates the starting board for the base game, adding all tiles and filling in the walls.
    */
   private void initialiseBoard() {
     for (int row = 0; row < HEIGHT; row++) {
@@ -57,8 +57,24 @@ public class Board {
       }
     }
     addDoors();
+
+    initialiseObjects();
+
     // start the player in the centre square
     this.board[7][7].setOccupiedByPlayer(true);
+  }
+
+  /**
+   * Adds all FloorObjects to the board.
+   */
+  private void initialiseObjects() {
+    Monster david = new Monster();
+    david.setLocation(new Point(0,13));
+    david.setName("Pharaoh_David");
+    david.setDamage(50);
+    david.setHealth(150);
+   // this.board[13][0].
+
   }
 
   /**
@@ -97,10 +113,10 @@ public class Board {
   }
 
   /**
-   * Removes a the wall and replaces it with a door (on both sides)
-   * 
-   * @param tile
-   * @param direction
+   * Removes a the wall and replaces it with a door (on both sides).
+   *
+   * @param the tile
+   * @param the direction
    */
   private void addADoor(Tile t, String dir) {
     // remove wall and door
@@ -117,6 +133,8 @@ public class Board {
         board[t.getRow() + 1][t.getCol()].removeWall("north");
         board[t.getRow() + 1][t.getCol()].addDoor("north");
         break;
+      default:
+        break;
     }
   }
 
@@ -129,9 +147,9 @@ public class Board {
 
   /**
    * Return the tile in the specified position.
-   * 
-   * @param row
-   * @param col
+   *
+   * @param row num
+   * @param col num
    * @return
    */
   public Tile getTile(int row, int col) {
@@ -139,9 +157,9 @@ public class Board {
   }
 
   /**
-   * Returns the tile t
-   * 
-   * @param player
+   * Returns the tile the player is facing.
+   *
+   * @param p player of the game
    * @return a Tile
    */
   public Tile getfacingTile(Player p) {
@@ -167,6 +185,8 @@ public class Board {
       case "west":
         dx -= 1;
         break;
+      default:
+        break;
     }
 
     return board[dy][dx];
@@ -174,7 +194,7 @@ public class Board {
 
   /**
    * Sets the tile with the coords to the specified Tile object.
-   * 
+   *
    * @param row
    * @param col
    * @param tile
@@ -185,7 +205,7 @@ public class Board {
 
   /**
    * Moves the player backwards.
-   * 
+   *
    * @param player
    */
   public void goBack(Player p) {
@@ -232,7 +252,7 @@ public class Board {
 
   /**
    * Moves the player forwards.
-   * 
+   *
    * @param player
    */
   public void goForwards(Player p) {
@@ -245,31 +265,37 @@ public class Board {
     switch (dir) {
       case "north":
         forward = board[point.y - 1][point.x];
-        if (!forward.hasDoor("south") && !forward.hasWall("south"))
+        if (!forward.hasDoor("south") && !forward.hasWall("south")) {
           p.setLocation(new Point(point.x, point.y - 3));
-        else
+        } else {
           ;// TODO cannot move
+        }
         break;
       case "south":
         forward = board[point.y + 1][point.x];
-        if (!forward.hasDoor("north") && !forward.hasWall("north"))
+        if (!forward.hasDoor("north") && !forward.hasWall("north")) {
           p.setLocation(new Point(point.x, point.y + 3));
-        else
+        } else {
           ;// TODO cannot move
+        }
         break;
       case "east":
         forward = board[point.y][point.x + 1];
-        if (!forward.hasDoor("west") && !forward.hasWall("west"))
+        if (!forward.hasDoor("west") && !forward.hasWall("west")) {
           p.setLocation(new Point(point.x + 3, point.y));
-        else
+        } else {
           ;// TODO cannot move
+        }
         break;
       case "west":
         forward = board[point.y][point.x - 1];
-        if (!forward.hasDoor("east") && !forward.hasWall("east"))
+        if (!forward.hasDoor("east") && !forward.hasWall("east")) {
           p.setLocation(new Point(point.x - 3, point.y));
-        else
+        } else {
           ;// TODO cannot move
+        }
+        break;
+      default:
         break;
     }
 

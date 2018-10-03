@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Provides a description of what the player can see given the room and direction.
- * 
+ *
  * @author Dylan
  */
 @XmlRootElement
@@ -23,7 +23,7 @@ public class ViewDescriptor {
 
   /**
    * Constructs a new ViewDescriptor.
-   * 
+   *
    * @param p the current player
    * @param b the current board
    */
@@ -36,7 +36,7 @@ public class ViewDescriptor {
     view = new ArrayList<>();
     generate(new Player(), new Board());
   }
-  
+
   @XmlElementWrapper(name = "view")
   @XmlElement(name = "item")
   public List<String> getView() {
@@ -45,7 +45,7 @@ public class ViewDescriptor {
 
   /**
    * Uses the player and board to determine what the player's view will be.
-   * 
+   *
    * @param player
    * @param board
    */
@@ -71,7 +71,7 @@ public class ViewDescriptor {
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
-          view.add(b.getBoard()[y - 1][x - 1 + i].hasItem()
+          view.add(b.getBoard()[y - 1][x - 1 + i].hasObject()
               ? b.getBoard()[y - 1][x - 1 + i].getFloorObject().getName()
               : "clear");
         }
@@ -88,7 +88,7 @@ public class ViewDescriptor {
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
-          view.add(b.getBoard()[y - 1 + i][x + 1].hasItem()
+          view.add(b.getBoard()[y - 1 + i][x + 1].hasObject()
               ? b.getBoard()[y - 1 + i][x + 1].getFloorObject().getName()
               : "clear");
         }
@@ -105,7 +105,7 @@ public class ViewDescriptor {
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
-          view.add(b.getBoard()[y + 1][x + 1 - i].hasItem()
+          view.add(b.getBoard()[y + 1][x + 1 - i].hasObject()
               ? b.getBoard()[y + 1][x + 1 - i].getFloorObject().getName()
               : "clear");
         }
@@ -122,7 +122,7 @@ public class ViewDescriptor {
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
-          view.add(b.getBoard()[y + 1 - i][x - 1].hasItem()
+          view.add(b.getBoard()[y + 1 - i][x - 1].hasObject()
               ? b.getBoard()[y + 1 - i][x - 1].getFloorObject().getName()
               : "clear");
         }
@@ -131,8 +131,8 @@ public class ViewDescriptor {
   }
 
   /**
-   * Adds the specified string to the view descriptor
-   * 
+   * Adds the specified string to the view descriptor.
+   *
    * @param s
    */
   public void addString(String s) {

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
  * 4 walls.
- * 
+ *
  * @author Dylan
  *
  */
@@ -23,15 +23,20 @@ public class Tile {
   @XmlElementWrapper(name = "walls")
   @XmlElement(name = "wall")
   private List<String> walls;
+
   @XmlElementWrapper(name = "doors")
   @XmlElement(name = "door")
   private List<String> doors;
+
   @XmlElement(name = "obj")
   private FloorObject obj;
+
   @XmlAttribute(name = "col")
   private int col;
+
   @XmlAttribute(name = "row")
   private int row;
+
   @XmlAttribute(name = "occupiedByPlayer")
   private boolean occupiedByPlayer;
 
@@ -63,7 +68,7 @@ public class Tile {
 
   /**
    * Constructs a Tile object using a list of Strings to indicate walls.
-   * 
+   *
    * @param walls
    */
   public Tile(List<String> walls) {
@@ -93,7 +98,7 @@ public class Tile {
 
   /**
    * Adds a wall to a tile if it is not already added
-   * 
+   *
    * @param wall
    * @return whether the wall was successfully added
    */
@@ -106,7 +111,7 @@ public class Tile {
 
   /**
    * Adds a door to a tile if it is not already added in that direction
-   * 
+   *
    * @param door
    * @return whether the door was successfully added
    */
@@ -127,23 +132,23 @@ public class Tile {
   /**
    * @param item the item to set
    */
-  public void setItem(FloorObject item) {
-    if (!hasItem())
+  public void setFloorObject(FloorObject item) {
+    if (!hasObject())
       this.obj = item;
   }
 
   /**
    * Returns whether the tile has an item.
-   * 
+   *
    * @return
    */
-  public boolean hasItem() {
+  public boolean hasObject() {
     return obj != null;
   }
 
   /**
    * Removes the specified wall from the Tile object
-   * 
+   *
    * @param wall
    */
   public void removeWall(String wall) {
