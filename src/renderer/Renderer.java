@@ -45,8 +45,7 @@ public class Renderer extends Canvas implements Observer {
         case "door":
           Image closedDoor = new Image(getClass().getResourceAsStream("images/closedDoor.png"));
           gc.drawImage(closedDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
-          objectsOnScreen
-              .add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "door"));
+          objectsOnScreen.add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "door"));
           break;
         case "clear":
           Image openDoor = new Image(getClass().getResourceAsStream("images/openDoor.png"));
@@ -118,11 +117,18 @@ public class Renderer extends Canvas implements Observer {
     }
   }
 
+  /**
+   * A method which takes a mouse click and returns a string describing the object that the player
+   * has clicked on.
+   *
+   * @param e the mouse event containing information about the player's click
+   * @return a string describing the item clicked on
+   */
   public String onClick(MouseEvent e) {
     Collections.reverse(objectsOnScreen);
     for (Dimension d : objectsOnScreen) {
-      if (e.getSceneX() >= d.x && e.getSceneX() <= d.x + d.width && e.getSceneY() >= d.y
-          && e.getSceneY() <= d.y + d.height) {
+      if (e.getSceneX() >= d.leftX && e.getSceneX() <= d.leftX + d.width && e.getSceneY() >= d.topY
+          && e.getSceneY() <= d.topY + d.height) {
         return d.toString();
       }
     }
@@ -138,15 +144,15 @@ public class Renderer extends Canvas implements Observer {
   }
 
   private class Dimension {
-    private final double x;
-    private final double y;
+    private final double leftX;
+    private final double topY;
     private final double width;
     private final double height;
     private final String obj;
 
     private Dimension(double x, double y, double width, double height, String obj) {
-      this.x = x;
-      this.y = y;
+      leftX = x;
+      topY = y;
       this.width = width;
       this.height = height;
       this.obj = obj;
