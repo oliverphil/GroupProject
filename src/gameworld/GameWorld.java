@@ -1,4 +1,4 @@
-package gameWorld;
+package gameworld;
 
 import java.util.Observable;
 

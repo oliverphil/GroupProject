@@ -1,6 +1,6 @@
-package gameWorld;
+package gameworld;
 
-import gameWorld.Flask.ContentsStrategy;
+import gameworld.Flask.ContentsStrategy;
 
 /**
  * A Flask is a multi-use item that can be filled with different liquids.

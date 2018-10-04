@@ -1,4 +1,4 @@
-package mapEditor;
+package mapeditor;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

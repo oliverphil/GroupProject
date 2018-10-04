@@ -1,12 +1,11 @@
 package renderer;
 
-import gameWorld.GameWorld;
-import gameWorld.ViewDescriptor;
-
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import gameworld.GameWorld;
+import gameworld.ViewDescriptor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

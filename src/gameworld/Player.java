@@ -1,4 +1,4 @@
-package gameWorld;
+package gameworld;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -19,17 +19,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Player extends Character {
   private FloorObject rightHand;
-
   private FloorObject leftHand;
-
   private List<Item> bag;
-
   private String direction;
-
   private Point location;
-
   private ViewDescriptor view;
-
   private int health = 100;
 
   /**
@@ -126,6 +120,7 @@ public class Player extends Character {
   }
 
   /**
+   * Get the Direction.
    * @return the direction
    */
   public String getDirection() {
