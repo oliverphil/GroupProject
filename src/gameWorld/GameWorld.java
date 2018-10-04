@@ -29,14 +29,14 @@ public class GameWorld extends Observable {
 //    walk to David
 //    rotateLeft();
 //    rotateLeft();
-//    board.openDoor(player);
+//    openDoor();
 //    moveForward();
-//    board.openDoor(player);
+//    openDoor();
 //    moveForward();
 //    rotateRight();
-//    board.openDoor(player);
+//    openDoor();
 //    moveForward();
-//    board.openDoor(player);
+//    openDoor();
 //    moveForward();
   }
 
@@ -96,7 +96,9 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(String name) {
-
+    if(name.equals("door")) {
+      openDoor();
+    }
   }
 
   @XmlElement(name = "player")
@@ -117,6 +119,12 @@ public class GameWorld extends Observable {
     return board;
   }
 
-
+  /**
+   * Called when the player clicks on the door in front of them.
+   */
+  public void openDoor() {
+    board.openDoor(player);
+    update();
+  }
 
 }

@@ -2,10 +2,19 @@ package gameWorld;
 
 import gameWorld.Flask.ContentsStrategy;
 
+/**
+ * A Flask is a multi-use item that can be filled with different liquids.
+ * This uses the ***STRATEGY PATTERN***.
+ * @author ewensdyla
+ *
+ */
 public class Flask extends Item{
 
   ContentsStrategy strat;
 
+  /**
+   * Constructs a new Flask open with the empty Strategy.
+   */
   public Flask() {
     strat = new EmptyFlaskStrategy();
   }
@@ -35,7 +44,7 @@ class EmptyFlaskStrategy implements ContentsStrategy{
 
   @Override
   public void use(Player pl) {
-    // do nothing
+    //do nothing
   }
 
 }
