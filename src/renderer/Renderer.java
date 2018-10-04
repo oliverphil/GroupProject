@@ -46,7 +46,7 @@ public class Renderer extends Canvas implements Observer {
           Image closedDoor = new Image(getClass().getResourceAsStream("images/closedDoor.png"));
           gc.drawImage(closedDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           objectsOnScreen
-              .add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "closedDoor"));
+              .add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "door"));
           break;
         case "clear":
           Image openDoor = new Image(getClass().getResourceAsStream("images/openDoor.png"));
@@ -120,8 +120,9 @@ public class Renderer extends Canvas implements Observer {
 
   public String onClick(MouseEvent e) {
     Collections.reverse(objectsOnScreen);
-    for(Dimension d: objectsOnScreen) {
-      if(e.getSceneX() >= d.x && e.getSceneX() <= d.x + d.width && e.getSceneY() >= d.y && e.getSceneY() <= d.y + d.height) {
+    for (Dimension d : objectsOnScreen) {
+      if (e.getSceneX() >= d.x && e.getSceneX() <= d.x + d.width && e.getSceneY() >= d.y
+          && e.getSceneY() <= d.y + d.height) {
         return d.toString();
       }
     }
