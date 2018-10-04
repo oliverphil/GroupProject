@@ -26,7 +26,7 @@ public class GameWorld extends Observable {
     board = new Board();
     player.setView(new ViewDescriptor(player, board));
 
-    //walk to David
+//    walk to David
 //    rotateLeft();
 //    rotateLeft();
 //    board.openDoor(player);
