@@ -133,6 +133,7 @@ public class Player extends Character {
   }
 
   /**
+   * Set the direction.
    * @param direction the direction to set
    */
   @XmlElement(name = "direction")
@@ -141,6 +142,7 @@ public class Player extends Character {
   }
 
   /**
+   * Get location (Point).
    * @return the location
    */
   public Point getLocation() {
@@ -148,6 +150,7 @@ public class Player extends Character {
   }
 
   /**
+   * Set location (Point).
    * @param loc the location to set
    */
   @XmlElement(name = "location")
@@ -156,13 +159,15 @@ public class Player extends Character {
   }
 
   /**
-   * @return the view
+   * Returns the viewDescriptor that the player current holds.
+   * @return a view object
    */
   public ViewDescriptor getView() {
     return view;
   }
 
   /**
+   * Sets the current ViewDescripor.
    * @param view the view to set
    */
   @XmlElement(name = "view")
@@ -171,6 +176,7 @@ public class Player extends Character {
   }
 
   /**
+   * Gets the bag.
    * @return the bag
    */
   public List<Item> getBag() {
@@ -189,15 +195,15 @@ public class Player extends Character {
   }
 
   /**
-   * add the object to the players bag
-   *
-   * @param obj
+   * Add the object to the players bag.
+   * @param obj the object to add to the bag
    */
   public void addToBag(Item obj) {
     this.bag.add(obj);
   }
 
   /**
+   * Gets the health.
    * @return the health
    */
   public int getHealth() {
@@ -205,6 +211,7 @@ public class Player extends Character {
   }
 
   /**
+   * Sets the Health.
    * @param health the health to set
    */
   @XmlElement(name = "health")
@@ -212,8 +219,14 @@ public class Player extends Character {
     this.health = health;
   }
 
+  /**
+   * Called when a player uses a health potion.
+   * Gives the player 20 health.
+   */
   public void giveHealth() {
     health += 20;
-    if (health > 100) health = 100;
+    if (health > 100) {
+      health = 100;
+    }
   }
 }
