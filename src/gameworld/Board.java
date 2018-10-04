@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import gameworld.flasks.Flask;
+
 @XmlRootElement
 public class Board {
   private Tile[][] board;

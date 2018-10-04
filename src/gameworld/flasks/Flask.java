@@ -1,6 +1,7 @@
-package gameworld;
+package gameworld.flasks;
 
-import gameworld.Flask.ContentsStrategy;
+import gameworld.Item;
+import gameworld.Player;
 
 /**
  * A Flask is a multi-use item that can be filled with different liquids.
@@ -45,32 +46,4 @@ public class Flask extends Item {
   interface ContentsStrategy {
     public void use(Player pl);
   }
-}
-
-class EmptyFlaskStrategy implements ContentsStrategy{
-
-  @Override
-  public void use(Player pl) {
-    //do nothing
-  }
-
-}
-
-class PowerFlaskStrategy implements ContentsStrategy{
-
-  @Override
-  public void use(Player pl) {
-    pl.giveHealth();
-  }
-
-}
-
-class HealthFlaskStrategy implements ContentsStrategy{
-
-  @Override
-  public void use(Player pl) {
-    // TODO increase player damage or resistence
-
-  }
-
 }
