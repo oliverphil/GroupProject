@@ -8,7 +8,7 @@ import gameworld.Flask.ContentsStrategy;
  * @author ewensdyla
  *
  */
-public class Flask extends Item{
+public class Flask extends Item {
 
   ContentsStrategy strat;
 
@@ -19,18 +19,25 @@ public class Flask extends Item{
     strat = new EmptyFlaskStrategy();
   }
 
+  /**
+   * Called by the Player to use the selected item.
+   * @param pl player
+   */
   public void use(Player pl) {
     strat.use(pl);
-    if (strat instanceof HealthFlaskStrategy || strat instanceof HealthFlaskStrategy) {
+    if (strat instanceof HealthFlaskStrategy || strat instanceof PowerFlaskStrategy) {
       strat = new EmptyFlaskStrategy();
     }
   }
 
+  /**
+   * Fills the selected flask with liquid from the chosen fountain.
+   * @param fountain type of fountain
+   */
   public void fill(String fountain) {
     if (fountain.equals("health") && strat instanceof EmptyFlaskStrategy) {
       strat = new HealthFlaskStrategy();
-    }
-    else if (fountain.equals("power") && strat instanceof EmptyFlaskStrategy) {
+    } else if (fountain.equals("power") && strat instanceof EmptyFlaskStrategy) {
       strat = new PowerFlaskStrategy();
     }
   }

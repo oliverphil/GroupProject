@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A Player.
+ * A Player is a character controlled by the user.
  *
  * @author Dylan
  *

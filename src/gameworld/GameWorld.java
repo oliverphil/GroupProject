@@ -83,7 +83,7 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(String name) {
-    if(name.equals("door")) {
+    if (name.equals("door")) {
       openDoor();
     }
   }
