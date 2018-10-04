@@ -161,11 +161,11 @@ public class GUI extends Application {
 
         lookLeft = new Button();
         lookLeft.setText("<-");
-        lookLeft.setOnAction(e -> System.out.println("Looking Left"));
+        lookLeft.setOnAction(e -> game.rotateLeft());
 
         lookRight = new Button();
         lookRight.setText("->");
-        lookRight.setOnAction(e -> System.out.println("Looking Right"));
+        lookRight.setOnAction(e -> game.rotateRight());
 
         moveForward = new Button();
         moveForward.setText("FORWARD");

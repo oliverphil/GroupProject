@@ -89,7 +89,7 @@ public class Player extends Character {
 
   /**
    * Returns the contents of the player's right hand.
-   * 
+   *
    * @return the FloorObject in rightHand
    */
   public FloorObject getRightHand() {
@@ -98,7 +98,7 @@ public class Player extends Character {
 
   /**
    * Sets the contents of rightHand.
-   * 
+   *
    * @param rightHand the new contents of rightHand
    */
   @XmlElement(name = "rightHand")
@@ -108,7 +108,7 @@ public class Player extends Character {
 
   /**
    * Returns the contents of the player's left hand.
-   * 
+   *
    * @return the FloorObject in leftHand
    */
   public FloorObject getLeftHand() {
@@ -117,7 +117,7 @@ public class Player extends Character {
 
   /**
    * Sets the contents of leftHand.
-   * 
+   *
    * @param leftHand the new contents of leftHand
    */
   @XmlElement(name = "leftHand")
@@ -179,7 +179,7 @@ public class Player extends Character {
 
   /**
    * sets the bag to a new List of items.
-   * 
+   *
    * @param bag the new bag contents
    */
   @XmlElementWrapper(name = "bag")
@@ -210,5 +210,10 @@ public class Player extends Character {
   @XmlElement(name = "health")
   public void setHealth(int health) {
     this.health = health;
+  }
+
+  public void giveHealth() {
+    health += 20;
+    if (health > 100) health = 100;
   }
 }

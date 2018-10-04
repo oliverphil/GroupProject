@@ -71,7 +71,7 @@ public class Board {
   private void initialiseObjects() {
     Monster david = new Monster();
     david.setLocation(new Point(0, 13));
-    david.setName("Pharaoh_David");
+    david.setName("david");
     david.setDamage(50);
     david.setHealth(150);
     this.board[13][0].setObj(david);
