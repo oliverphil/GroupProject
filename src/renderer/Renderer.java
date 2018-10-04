@@ -1,13 +1,14 @@
 package renderer;
 
+import gameworld.GameWorld;
+import gameworld.ViewDescriptor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import gameworld.GameWorld;
-import gameworld.ViewDescriptor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -66,6 +67,8 @@ public class Renderer extends Canvas implements Observer {
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
+    // visibleTiles.set(4, "thomas");
+
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
@@ -93,9 +96,22 @@ public class Renderer extends Canvas implements Observer {
           Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
           gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE,
               getHeight() - david.getWidth() - ITEM_SIZE);
-          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE,
-              getHeight() - david.getWidth() - ITEM_SIZE, david.getWidth(), david.getHeight(),
-              "david"));
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
+              getHeight(), "david"));
+          break;
+        case "marco":
+          Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
+          gc.drawImage(marco, (getWidth() / 2) - ITEM_SIZE,
+              getHeight() - marco.getWidth() - ITEM_SIZE);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
+              getHeight(), "marco"));
+          break;
+        case "thomas":
+          Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
+          gc.drawImage(thomas, (getWidth() / 2) - ITEM_SIZE,
+              getHeight() - thomas.getWidth() - ITEM_SIZE);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
+              getHeight(), "thomas"));
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -114,6 +130,7 @@ public class Renderer extends Canvas implements Observer {
       }
       i++;
     }
+    Collections.reverse(objectsOnScreen);
   }
 
   /**
@@ -124,10 +141,8 @@ public class Renderer extends Canvas implements Observer {
    * @return a string describing the item clicked on
    */
   public String onClick(MouseEvent e) {
-    Collections.reverse(objectsOnScreen);
     for (Dimension d : objectsOnScreen) {
-      if (e.getSceneX() >= d.leftX && e.getSceneX() <= d.leftX + d.width && e.getSceneY() >= d.topY
-          && e.getSceneY() <= d.topY + d.height) {
+      if (d.on(e)) {
         return d.toString();
       }
     }
@@ -159,6 +174,11 @@ public class Renderer extends Canvas implements Observer {
 
     public String toString() {
       return obj;
+    }
+
+    private boolean on(MouseEvent e) {
+      return e.getSceneX() >= leftX && e.getSceneX() <= leftX + width && e.getSceneY() >= topY
+          && e.getSceneY() <= topY + height;
     }
   }
 }
