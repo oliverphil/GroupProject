@@ -39,7 +39,7 @@ public class Renderer extends Canvas implements Observer {
    * @param view A ViewDescriptor containing information about what the player is looking at
    */
   public void redraw(ViewDescriptor view) {
-    if (view == null) {
+    if (view == null || view.getView().size() < 6) {
       return;
     }
     objectsOnScreen.clear();
@@ -56,6 +56,7 @@ public class Renderer extends Canvas implements Observer {
         case "clear":
           Image openDoor = new Image(getClass().getResourceAsStream("images/openDoor.png"));
           gc.drawImage(openDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
+          objectsOnScreen.add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "clear"));
           break;
         default:
           Image wall = new Image(getClass().getResourceAsStream("images/wall.png"));
@@ -209,14 +210,52 @@ public class Renderer extends Canvas implements Observer {
     }
   }
 
-  private class Dimension {
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((objectsOnScreen == null) ? 0 : objectsOnScreen.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Renderer other = (Renderer) obj;
+    if (objectsOnScreen == null) {
+      if (other.objectsOnScreen != null) {
+        return false;
+      }
+    } else if (!objectsOnScreen.equals(other.objectsOnScreen)) {
+      return false;
+    }
+    return true;
+  }
+
+  public class Dimension {
     private final double leftX;
     private final double topY;
     private final double width;
     private final double height;
     private final String obj;
 
-    private Dimension(double x, double y, double width, double height, String obj) {
+    /**
+     * Create a new dimension object.
+     * @param x the top-left x value
+     * @param y the top-left y value
+     * @param width the width
+     * @param height the height
+     * @param obj a String describing the object on the screen
+     */
+    public Dimension(double x, double y, double width, double height, String obj) {
       leftX = x;
       topY = y;
       this.width = width;
@@ -232,5 +271,57 @@ public class Renderer extends Canvas implements Observer {
       return e.getSceneX() >= leftX && e.getSceneX() <= leftX + width && e.getSceneY() >= topY
           && e.getSceneY() <= topY + height;
     }
+
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      long temp;
+      temp = Double.doubleToLongBits(height);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      temp = Double.doubleToLongBits(leftX);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      result = prime * result + ((obj == null) ? 0 : obj.hashCode());
+      temp = Double.doubleToLongBits(topY);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      temp = Double.doubleToLongBits(width);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj) {
+        return true;
+      }
+      if (obj == null) {
+        return false;
+      }
+      if (getClass() != obj.getClass()) {
+        return false;
+      }
+      Dimension other = (Dimension) obj;
+      if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(leftX) != Double.doubleToLongBits(other.leftX)) {
+        return false;
+      }
+      if (this.obj == null) {
+        if (other.obj != null) {
+          return false;
+        }
+      } else if (!this.obj.equals(other.obj)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(topY) != Double.doubleToLongBits(other.topY)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
+        return false;
+      }
+      return true;
+    }
   }
+
 }
