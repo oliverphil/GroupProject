@@ -67,8 +67,6 @@ public class Renderer extends Canvas implements Observer {
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
-    // visibleTiles.set(4, "thomas");
-
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
@@ -91,6 +89,48 @@ public class Renderer extends Canvas implements Observer {
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "powerFlask"));
+          break;
+        case "crowbar":
+          Image crowbar = new Image(getClass().getResourceAsStream("images/crowbar.png"));
+          gc.drawImage(crowbar, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "crowbar"));
+          break;
+        case "pickaxe":
+          Image pickaxe = new Image(getClass().getResourceAsStream("images/pickaxe.png"));
+          gc.drawImage(pickaxe, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "pickaxe"));
+          break;
+        case "boltCutters":
+          Image boltCutters = new Image(getClass().getResourceAsStream("images/boltCutters.png"));
+          gc.drawImage(boltCutters, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "boltCutters"));
+          break;
+        case "khopesh":
+          Image khopesh = new Image(getClass().getResourceAsStream("images/khopesh.png"));
+          gc.drawImage(khopesh, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "khopesh"));
+          break;
+        case "torch":
+          Image torch = new Image(getClass().getResourceAsStream("images/torch.png"));
+          gc.drawImage(torch, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "torch"));
+          break;
+        case "hammer":
+          Image hammer = new Image(getClass().getResourceAsStream("images/hammer.png"));
+          gc.drawImage(hammer, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "hammer"));
           break;
         case "david":
           Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
@@ -124,6 +164,12 @@ public class Renderer extends Canvas implements Observer {
           gc.drawImage(stoneBlock, (getWidth() / 2) - (stoneBlock.getWidth() / 2), 0);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - (stoneBlock.getWidth() / 2), 0,
               stoneBlock.getWidth(), stoneBlock.getHeight(), "stoneBlockade"));
+          break;
+        case "chainBlockade":
+          Image chainBlock = new Image(getClass().getResourceAsStream("images/chainBlockade.png"));
+          gc.drawImage(chainBlock, (getWidth() / 2) - (chainBlock.getWidth() / 2), 0);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - (chainBlock.getWidth() / 2), 0,
+              chainBlock.getWidth(), chainBlock.getHeight(), "chainBlockade"));
           break;
         default:
           break;
