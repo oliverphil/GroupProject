@@ -15,6 +15,13 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+/**
+ * Implementation of a Canvas which draws images on the screen based on a ViewDescriptor object from
+ * GameWorld. Uses the Observer pattern to receive ViewDescriptor
+ * 
+ * @author Philip Oliver
+ *
+ */
 public class Renderer extends Canvas implements Observer {
 
   private static final int ITEM_SIZE = 200;
@@ -32,7 +39,6 @@ public class Renderer extends Canvas implements Observer {
    * @param view A ViewDescriptor containing information about what the player is looking at
    */
   public void redraw(ViewDescriptor view) {
-    // System.out.println("Drawing");
     if (view == null) {
       return;
     }
