@@ -1,24 +1,13 @@
 package application;
 
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import gameworld.GameWorld;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-
-import gameworld.GameWorld;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
@@ -35,15 +24,15 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import renderer.Renderer;
 
-public class GUI extends Application {
+public class UserInterface extends Application {
 
-  public String HELP_MESSAGE = " ";
+  public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
 
@@ -58,14 +47,6 @@ public class GUI extends Application {
     game = new GameWorld();
     window = primaryStage;
     window.setTitle("An Adventure Game!");
-    Scene scene = new Scene(layout, 800, 900);
-
-    Button lookLeft;
-    Button lookRight;
-    Button moveForward;
-    Button moveBack;
-    Button dropItem;
-    Button useItem;
 
     /* MENU START */
     // Game Menu
@@ -98,12 +79,11 @@ public class GUI extends Application {
         System.out.println("Reading Error");
       }
 
-      Notification helpNotification = new Notification("Instructions", HELP_MESSAGE, "Got it!");
+      new Notification("Instructions", HELP_MESSAGE, "Got it!");
     });
     gameMenu.getItems().add(new MenuItem("Exit"));
 
     // Difficulty Menu
-    Menu difficultyMenu = new Menu("Difficulty");
     ToggleGroup difficultyToggle = new ToggleGroup();
 
     RadioMenuItem easy = new RadioMenuItem("Easy");
@@ -116,28 +96,30 @@ public class GUI extends Application {
     // start at medium difficulty
     medium.setSelected(true);
 
+    Menu difficultyMenu = new Menu("Difficulty");
     difficultyMenu.getItems().addAll(easy, medium, hard);
 
     // Settings Menu
-    Menu optionsMenu = new Menu("Options");
-
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
     toggleMusic.setSelected(true);
     toggleMusic.setOnAction(e -> {
-      if (toggleMusic.isSelected())
+      if (toggleMusic.isSelected()) {
         System.out.println("Audio is on");
-      else
+      } else {
         System.out.println("Audio is off");
+      }
     });
 
     CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
     autoSave.setOnAction(e -> {
-      if (autoSave.isSelected())
+      if (autoSave.isSelected()) {
         System.out.println("Autosave is enabled");
-      else
+      } else {
         System.out.println("Autosave is disabled");
+      }
     });
 
+    Menu optionsMenu = new Menu("Options");
     optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
 
     // Main menu bar
@@ -147,8 +129,7 @@ public class GUI extends Application {
 
     /* CANVAS START */
     VBox centerScreen = new VBox();
-    Renderer gameScreen = new Renderer(800, 700); // TODO: Update renderer width and height to be
-                                                  // suitable in the window
+    Renderer gameScreen = new Renderer(800, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
     });
@@ -158,28 +139,27 @@ public class GUI extends Application {
     /* CANVAS END */
 
     /* BOTTOM SCREEN START */
-
-    lookLeft = new Button();
+    Button lookLeft = new Button();
     lookLeft.setText("<-");
     lookLeft.setOnAction(e -> game.rotateLeft());
 
-    lookRight = new Button();
+    Button lookRight = new Button();
     lookRight.setText("->");
     lookRight.setOnAction(e -> game.rotateRight());
 
-    moveForward = new Button();
+    Button moveForward = new Button();
     moveForward.setText("FORWARD");
     moveForward.setOnAction(e -> game.moveForward());
 
-    moveBack = new Button();
+    Button moveBack = new Button();
     moveBack.setText("BACK");
     moveBack.setOnAction(e -> game.moveBackwards());
 
-    dropItem = new Button();
+    Button dropItem = new Button();
     dropItem.setText("Drop");
     dropItem.setOnAction(e -> System.out.println("Dropped Item"));
 
-    useItem = new Button();
+    Button useItem = new Button();
     useItem.setText("Use");
     useItem.setOnAction(e -> System.out.println("Used Item"));
 
@@ -194,6 +174,8 @@ public class GUI extends Application {
     backpack.setMinHeight(50);
     backpack.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
         new CornerRadii(10), BorderWidths.DEFAULT)));
+
+    Scene scene = new Scene(layout, 800, 900);
 
     HBox bottomMostScreen = new HBox();
     bottomMostScreen.setMinHeight(150);
@@ -233,13 +215,5 @@ public class GUI extends Application {
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     window.setScene(scene);
     window.show();
-
-    // TODO: Added to be able to test Renderer
-//        gameScreen.setOnMouseClicked(new EventHandler<MouseEvent>(){
-//        	@Override
-//        	public void handle(MouseEvent e) {
-//        		gameScreen.redraw(game.getViewDescriptor());
-//        	}
-//        });
   }
 }
