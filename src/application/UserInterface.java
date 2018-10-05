@@ -2,9 +2,11 @@ package application;
 
 import gameworld.GameWorld;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -65,18 +67,15 @@ public class UserInterface extends Application {
     gameMenu.getItems().add(new MenuItem("Help"));
     gameMenu.getItems().get(5).setOnAction(e -> {
 
-      FileReader reader;
-      int i;
       try {
-        reader = new FileReader("Help.txt");
+        Scanner sc = new Scanner(new File("src/application/help.txt"));
 
-        while ((i = reader.read()) != -1) {
-          System.out.print((char) i);
+        while (sc.hasNext()) {
+          System.out.println(sc.nextLine());
         }
+        sc.close();
       } catch (FileNotFoundException e1) {
         System.out.println("Help File Not Found");
-      } catch (IOException e1) {
-        System.out.println("Reading Error");
       }
 
       new Notification("Instructions", HELP_MESSAGE, "Got it!");
