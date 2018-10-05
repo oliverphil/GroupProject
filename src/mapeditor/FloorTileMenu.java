@@ -17,163 +17,170 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FloorTileMenu extends Application implements EventHandler<ActionEvent> {
-	private Button N, NE, E, ES, S, SW, W, NW, empty;
-	Stage primaryStage;
+  private Button north;
+  private Button northEast;
+  private Button east;
+  private Button southEast;
+  private Button south;
+  private Button southWest;
+  private Button west;
+  private Button northWest;
+  private Button empty;
+  Stage primaryStage;
 
-	public FloorTileMenu() {
-		try {
-			start(new Stage());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+  public FloorTileMenu() {
+    try {
+      start(new Stage());
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
-		BorderPane border = new BorderPane();
-		HBox topHBox = drawTop();
-		border.setTop(topHBox);
-		border.setCenter(drawItems());
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    this.primaryStage = primaryStage;
+    BorderPane border = new BorderPane();
+    HBox topHBox = drawTop();
+    border.setTop(topHBox);
+    border.setCenter(drawItems());
 
-		Scene scene = new Scene(border, 200, 245);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
+    Scene scene = new Scene(border, 200, 245);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
 
-	private HBox drawTop() {
-		// TODO Auto-generated method stub
-		HBox hBox = new HBox();
-		hBox.setPadding(new Insets(15, 15, 15, 15));
-		hBox.setSpacing(10);
-		hBox.setStyle("-fx-background-color: #9b9781;");
+  private HBox drawTop() {
+    // TODO Auto-generated method stub
+    HBox box = new HBox();
+    box.setPadding(new Insets(15, 15, 15, 15));
+    box.setSpacing(10);
+    box.setStyle("-fx-background-color: #9b9781;");
 
-		Text text = new Text("Select a floor tile");
-		text.setFont(Font.font("Verdana", 15));
+    Text text = new Text("Select a floor tile");
+    text.setFont(Font.font("Verdana", 15));
 
-		hBox.getChildren().addAll(text);
+    box.getChildren().addAll(text);
 
-		return hBox;
-	}
+    return box;
+  }
 
-	private Node drawItems() {
-		// TODO Auto-generated method stub
-		GridPane gridPane = new GridPane();
-		gridPane.setPadding(new Insets(20, 20, 20, 20));
-		gridPane.setHgap(20);
-		gridPane.setVgap(20);
+  private Node drawItems() {
+    // TODO Auto-generated method stub
+    GridPane gridPane = new GridPane();
+    gridPane.setPadding(new Insets(20, 20, 20, 20));
+    gridPane.setHgap(20);
+    gridPane.setVgap(20);
 
-		// add north west walls
-		Image NWimage = new Image(getClass().getResourceAsStream("NW.png"));
-		NW = new Button();
-		NW.setGraphic(new ImageView(NWimage));
-		NW.setPrefSize(40, 40);
-		NW.setOnAction(this);
-		gridPane.add(NW, 0, 0);
+    // add north west walls
+    Image northWestImage = new Image(getClass().getResourceAsStream("NW.png"));
+    northWest = new Button();
+    northWest.setGraphic(new ImageView(northWestImage));
+    northWest.setPrefSize(40, 40);
+    northWest.setOnAction(this);
+    gridPane.add(northWest, 0, 0);
 
-		// add north wall
-		Image Nimage = new Image(getClass().getResourceAsStream("N.png"));
-		N = new Button();
-		N.setGraphic(new ImageView(Nimage));
-		N.setPrefSize(40, 40);
-		N.setOnAction(this);
-		gridPane.add(N, 1, 0);
+    // add north wall
+    Image northImage = new Image(getClass().getResourceAsStream("N.png"));
+    north = new Button();
+    north.setGraphic(new ImageView(northImage));
+    north.setPrefSize(40, 40);
+    north.setOnAction(this);
+    gridPane.add(north, 1, 0);
 
-		// add north east walls
-		Image NEimage = new Image(getClass().getResourceAsStream("NE.png"));
-		NE = new Button();
-		NE.setGraphic(new ImageView(NEimage));
-		NE.setPrefSize(40, 40);
-		NE.setOnAction(this);
-		gridPane.add(NE, 2, 0);
+    // add north east walls
+    Image northEastImage = new Image(getClass().getResourceAsStream("NE.png"));
+    northEast = new Button();
+    northEast.setGraphic(new ImageView(northEastImage));
+    northEast.setPrefSize(40, 40);
+    northEast.setOnAction(this);
+    gridPane.add(northEast, 2, 0);
 
-		// add west wall
-		Image Wimage = new Image(getClass().getResourceAsStream("W.png"));
-		W = new Button();
-		W.setGraphic(new ImageView(Wimage));
-		W.setPrefSize(40, 40);
-		W.setOnAction(this);
-		gridPane.add(W, 0, 1);
+    // add west wall
+    Image westImage = new Image(getClass().getResourceAsStream("W.png"));
+    west = new Button();
+    west.setGraphic(new ImageView(westImage));
+    west.setPrefSize(40, 40);
+    west.setOnAction(this);
+    gridPane.add(west, 0, 1);
 
-		// add empty tile
-		Image emptImage = new Image(getClass().getResourceAsStream("empty.png"));
-		empty = new Button();
-		empty.setGraphic(new ImageView(emptImage));
-		empty.setPrefSize(40, 40);
-		empty.setOnAction(this);
-		gridPane.add(empty, 1, 1);
+    // add empty tile
+    Image emptyImage = new Image(getClass().getResourceAsStream("empty.png"));
+    empty = new Button();
+    empty.setGraphic(new ImageView(emptyImage));
+    empty.setPrefSize(40, 40);
+    empty.setOnAction(this);
+    gridPane.add(empty, 1, 1);
 
-		// add east wall
-		Image Eimage = new Image(getClass().getResourceAsStream("E.png"));
-		E = new Button();
-		E.setGraphic(new ImageView(Eimage));
-		E.setPrefSize(40, 40);
-		E.setOnAction(this);
-		gridPane.add(E, 2, 1);
+    // add east wall
+    Image eastImage = new Image(getClass().getResourceAsStream("E.png"));
+    east = new Button();
+    east.setGraphic(new ImageView(eastImage));
+    east.setPrefSize(40, 40);
+    east.setOnAction(this);
+    gridPane.add(east, 2, 1);
 
-		// add south west walls
-		Image SWimage = new Image(getClass().getResourceAsStream("SW.png"));
-		SW = new Button();
-		SW.setGraphic(new ImageView(SWimage));
-		SW.setPrefSize(40, 40);
-		SW.setOnAction(this);
-		gridPane.add(SW, 0, 2);
+    // add south west walls
+    Image southWestImage = new Image(getClass().getResourceAsStream("SW.png"));
+    southWest = new Button();
+    southWest.setGraphic(new ImageView(southWestImage));
+    southWest.setPrefSize(40, 40);
+    southWest.setOnAction(this);
+    gridPane.add(southWest, 0, 2);
 
-		// add south wall
-		Image Simage = new Image(getClass().getResourceAsStream("S.png"));
-		S = new Button();
-		S.setGraphic(new ImageView(Simage));
-		S.setPrefSize(40, 40);
-		S.setOnAction(this);
-		gridPane.add(S, 1, 2);
+    // add south wall
+    Image southImage = new Image(getClass().getResourceAsStream("S.png"));
+    south = new Button();
+    south.setGraphic(new ImageView(southImage));
+    south.setPrefSize(40, 40);
+    south.setOnAction(this);
+    gridPane.add(south, 1, 2);
 
-		// add east south walls
-		Image ESimage = new Image(getClass().getResourceAsStream("ES.png"));
-		ES = new Button();
-		ES.setGraphic(new ImageView(ESimage));
-		ES.setPrefSize(40, 40);
-		ES.setOnAction(this);
-		gridPane.add(ES, 2, 2);
+    // add east south walls
+    Image southEastImage = new Image(getClass().getResourceAsStream("SE.png"));
+    southEast = new Button();
+    southEast.setGraphic(new ImageView(southEastImage));
+    southEast.setPrefSize(40, 40);
+    southEast.setOnAction(this);
+    gridPane.add(southEast, 2, 2);
 
-		return gridPane;
-	}
+    return gridPane;
+  }
 
-	@Override
-	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-		if (event.getSource() == NW) {
-			MapEditor.setSelectedIcon("NW");
-			primaryStage.close();
-		} else if (event.getSource() == N) {
-			MapEditor.setSelectedIcon("N");
-			primaryStage.close();
-		} else if (event.getSource() == NE) {
-			MapEditor.setSelectedIcon("NE");
-			primaryStage.close();
-		} else if (event.getSource() == E) {
-			MapEditor.setSelectedIcon("E");
-			primaryStage.close();
-		} else if (event.getSource() == ES) {
-			MapEditor.setSelectedIcon("ES");
-			primaryStage.close();
-		} else if (event.getSource() == S) {
-			MapEditor.setSelectedIcon("S");
-			primaryStage.close();
-		} else if (event.getSource() == SW) {
-			MapEditor.setSelectedIcon("SW");
-			primaryStage.close();
-		} else if (event.getSource() == W) {
-			MapEditor.setSelectedIcon("W");
-			primaryStage.close();
-		} else if (event.getSource() == empty) {
-			MapEditor.setSelectedIcon("empty");
-			primaryStage.close();
-		}
-		System.out.println(MapEditor.getSelectedIcon());
-	}
+  @Override
+  public void handle(ActionEvent event) {
+    // TODO Auto-generated method stub
+    if (event.getSource() == northWest) {
+      MapEditor.setSelectedIcon("NW");
+      primaryStage.close();
+    } else if (event.getSource() == north) {
+      MapEditor.setSelectedIcon("N");
+      primaryStage.close();
+    } else if (event.getSource() == northEast) {
+      MapEditor.setSelectedIcon("NE");
+      primaryStage.close();
+    } else if (event.getSource() == east) {
+      MapEditor.setSelectedIcon("E");
+      primaryStage.close();
+    } else if (event.getSource() == southEast) {
+      MapEditor.setSelectedIcon("ES");
+      primaryStage.close();
+    } else if (event.getSource() == south) {
+      MapEditor.setSelectedIcon("S");
+      primaryStage.close();
+    } else if (event.getSource() == southWest) {
+      MapEditor.setSelectedIcon("SW");
+      primaryStage.close();
+    } else if (event.getSource() == west) {
+      MapEditor.setSelectedIcon("W");
+      primaryStage.close();
+    } else if (event.getSource() == empty) {
+      MapEditor.setSelectedIcon("empty");
+      primaryStage.close();
+    }
+  }
 }

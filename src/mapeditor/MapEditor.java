@@ -20,10 +20,20 @@ import javafx.stage.Stage;
 
 public class MapEditor extends Application {
 
-  private final int GRID_WIDTH = 21;
-  private final int GRID_HEIGHT = 21;
+  private static final int GRID_WIDTH = 21;
+  private static final int GRID_HEIGHT = 21;
   private GridPane gridPane;
-  private Button floorBtn, itemBtn, northBtn, southBtn, eastBtn, westBtn, save, load, remove;
+  
+  private Button floorBtn;
+  private Button itemBtn;
+  private Button northBtn;
+  private Button southBtn;
+  private Button eastBtn;
+  private Button westBtn;
+  private Button save;
+  private Button load;
+  private Button remove;
+  
   private String[][] grid;
   private static String selectedIcon = "0";
   private static String selectedBtn = "floorBtn";
@@ -85,7 +95,7 @@ public class MapEditor extends Application {
       int y = (int) e.getSceneY();
       row = getRow(y);
       col = getCol(x);
-      
+
       if (selectedBtn == "floorBtn") {
         if (row != -1 && col != -1) {
           grid[col][row] = selectedIcon;
@@ -115,10 +125,10 @@ public class MapEditor extends Application {
 
   private HBox drawTop() {
     // TODO Auto-generated method stub
-    HBox hBox = new HBox();
-    hBox.setPadding(new Insets(15, 15, 15, 15));
-    hBox.setSpacing(10);
-    hBox.setStyle("-fx-background-color: #9b9781;");
+    HBox box = new HBox();
+    box.setPadding(new Insets(15, 15, 15, 15));
+    box.setSpacing(10);
+    box.setStyle("-fx-background-color: #9b9781;");
 
     floorBtn = new Button("Add Floor Tile");
     floorBtn.setPrefSize(90, 20);
@@ -140,17 +150,17 @@ public class MapEditor extends Application {
     load.setPrefSize(60, 20);
     load.addEventHandler(ActionEvent.ACTION, actionEventHandler);
 
-    hBox.getChildren().addAll(floorBtn, itemBtn, remove, save, load);
+    box.getChildren().addAll(floorBtn, itemBtn, remove, save, load);
 
-    return hBox;
+    return box;
   }
 
   private HBox drawBottom() {
     // TODO Auto-generated method stub
-    HBox hBox = new HBox();
-    hBox.setPadding(new Insets(15, 15, 15, 15));
-    hBox.setSpacing(10);
-    hBox.setStyle("-fx-background-color: #9b9781;");
+    HBox box = new HBox();
+    box.setPadding(new Insets(15, 15, 15, 15));
+    box.setSpacing(10);
+    box.setStyle("-fx-background-color: #9b9781;");
 
     northBtn = new Button("North");
     northBtn.setPrefSize(60, 20);
@@ -168,9 +178,9 @@ public class MapEditor extends Application {
     westBtn.setPrefSize(60, 20);
     // westBtn.setOnAction(this);
 
-    hBox.getChildren().addAll(northBtn, eastBtn, southBtn, westBtn);
+    box.getChildren().addAll(northBtn, eastBtn, southBtn, westBtn);
 
-    return hBox;
+    return box;
   }
 
   private Node drawGrid() {
