@@ -1,15 +1,14 @@
 package gameworld;
 
+import gameworld.flasks.Flask;
+
 import java.awt.Point;
 import java.io.File;
 
-import javax.print.attribute.standard.RequestingUserName;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import gameworld.flasks.Flask;
 
 @XmlRootElement
 public class Board {
@@ -147,6 +146,7 @@ public class Board {
 
   /**
    * Opens the door the player is facing.
+   * 
    * @param pl
    * @return
    */
@@ -156,30 +156,30 @@ public class Board {
 
     switch (dir) {
       case "north":
-        if (board[pt.y-1][pt.x].hasDoor("north")) {
-          board[pt.y-2][pt.x].removeDoor("south");
-          board[pt.y-1][pt.x].removeDoor("north");
+        if (board[pt.y - 1][pt.x].hasDoor("north")) {
+          board[pt.y - 2][pt.x].removeDoor("south");
+          board[pt.y - 1][pt.x].removeDoor("north");
           return true;
         }
         return false;
       case "south":
-        if (board[pt.y+1][pt.x].hasDoor("south")) {
-          board[pt.y+2][pt.x].removeDoor("north");
-          board[pt.y+1][pt.x].removeDoor("south");
+        if (board[pt.y + 1][pt.x].hasDoor("south")) {
+          board[pt.y + 2][pt.x].removeDoor("north");
+          board[pt.y + 1][pt.x].removeDoor("south");
           return true;
         }
         return false;
       case "east":
-        if (board[pt.y][pt.x+1].hasDoor("east")) {
-          board[pt.y][pt.x+1].removeDoor("east");
-          board[pt.y][pt.x+2].removeDoor("west");
+        if (board[pt.y][pt.x + 1].hasDoor("east")) {
+          board[pt.y][pt.x + 1].removeDoor("east");
+          board[pt.y][pt.x + 2].removeDoor("west");
           return true;
         }
         return false;
       case "west":
-        if (board[pt.y][pt.x-1].hasDoor("west")) {
-          board[pt.y][pt.x-1].removeDoor("west");
-          board[pt.y][pt.x-2].removeDoor("east");
+        if (board[pt.y][pt.x - 1].hasDoor("west")) {
+          board[pt.y][pt.x - 1].removeDoor("west");
+          board[pt.y][pt.x - 2].removeDoor("east");
           return true;
         }
         return false;
@@ -268,31 +268,37 @@ public class Board {
     switch (dir) {
       case "north":
         behind = board[point.y + 1][point.x];
-        if (!behind.hasDoor("south") && !behind.hasWall("south"))
+        if (!behind.hasDoor("south") && !behind.hasWall("south")) {
           p.setLocation(new Point(point.x, point.y + 3));
-        else
-          ;// TODO cannot move
+        } else {
+          // TODO cannot move
+        }
         break;
       case "south":
         behind = board[point.y - 1][point.x];
-        if (!behind.hasDoor("north") && !behind.hasWall("north"))
+        if (!behind.hasDoor("north") && !behind.hasWall("north")) {
           p.setLocation(new Point(point.x, point.y - 3));
-        else
+        } else {
           ;// TODO cannot move
+        }
         break;
       case "east":
         behind = board[point.y][point.x - 1];
-        if (!behind.hasDoor("west") && !behind.hasWall("west"))
+        if (!behind.hasDoor("west") && !behind.hasWall("west")) {
           p.setLocation(new Point(point.x - 3, point.y));
-        else
+        } else {
           ;// TODO cannot move
+        }
         break;
       case "west":
         behind = board[point.y][point.x + 1];
-        if (!behind.hasDoor("east") && !behind.hasWall("east"))
+        if (!behind.hasDoor("east") && !behind.hasWall("east")) {
           p.setLocation(new Point(point.x + 3, point.y));
-        else
+        } else {
           ;// TODO cannot move
+        }
+        break;
+      default:
         break;
     }
 
