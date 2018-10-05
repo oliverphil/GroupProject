@@ -196,31 +196,31 @@ public class MapEditor extends Application {
         if (grid[x][y] == "0") {
           rec.setFill(Color.LIGHTGREY);
         } else if (grid[x][y] == "N") {
-          Image img = new Image(getClass().getResourceAsStream("N.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/N.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "NE") {
-          Image img = new Image(getClass().getResourceAsStream("NE.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/NE.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "E") {
-          Image img = new Image(getClass().getResourceAsStream("E.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/E.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "ES") {
-          Image img = new Image(getClass().getResourceAsStream("ES.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/SE.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "S") {
-          Image img = new Image(getClass().getResourceAsStream("S.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/S.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "SW") {
-          Image img = new Image(getClass().getResourceAsStream("SW.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/SW.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "W") {
-          Image img = new Image(getClass().getResourceAsStream("W.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/W.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "NW") {
-          Image img = new Image(getClass().getResourceAsStream("NW.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/NW.png"));
           rec.setFill(new ImagePattern(img));
         } else if (grid[x][y] == "empty") {
-          Image img = new Image(getClass().getResourceAsStream("empty.png"));
+          Image img = new Image(getClass().getResourceAsStream("icons/empty.png"));
           rec.setFill(new ImagePattern(img));
         }
         gridPane.add(rec, x, y);
