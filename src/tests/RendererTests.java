@@ -8,15 +8,6 @@ import static org.junit.Assert.fail;
 
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
-import javafx.application.Application;
-import javafx.embed.swing.JFXPanel;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventTarget;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.PickResult;
-import javafx.stage.Stage;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -24,12 +15,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.event.EventTarget;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import renderer.Renderer;
 import renderer.Renderer.Dimension;
 
+/**
+ * A suite of tests written to test the functionality of the renderer.
+ * 
+ * @author Philip Oliver - 300398228
+ *
+ */
 public class RendererTests {
   private static final double ITEM_SIZE = 200;
   private static final double BOSS_SIZE = 400;
@@ -1025,7 +1027,7 @@ public class RendererTests {
     Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
     assertNotEquals(d, renderer.new Dimension(0, 0, 0, 0, ""));
   }
-  
+
   @Test
   public void testDimensionEquals09() {
     Dimension d = renderer.new Dimension(0, 0, 0, 0, " ");

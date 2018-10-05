@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
  * Implementation of a Canvas which draws images on the screen based on a ViewDescriptor object from
  * GameWorld. Uses the Observer pattern to receive ViewDescriptor
  * 
- * @author Philip Oliver
+ * @author Philip Oliver - 300398228
  *
  */
 public class Renderer extends Canvas implements Observer {
