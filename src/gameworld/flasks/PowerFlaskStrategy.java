@@ -10,7 +10,7 @@ class PowerFlaskStrategy implements ContentsStrategy {
 
   @Override
   public void use(Player pl) {
-    pl.giveHealth();
+    // TODO increase player damage or resistence
   }
 
 }

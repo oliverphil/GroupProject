@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class Player extends Character {
+public class Player  {
   private FloorObject rightHand;
   private FloorObject leftHand;
   private List<Item> bag;
@@ -28,8 +28,6 @@ public class Player extends Character {
    * Constructs a player.
    */
   public Player() {
-    super("Player");
-
     bag = new ArrayList<Item>();
     location = new Point(7, 7);
     this.setDirection("north");

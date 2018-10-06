@@ -25,6 +25,7 @@ public class Board {
     board = new Tile[HEIGHT][WIDTH];
 
     initialiseBoard();
+    initialiseObjects();
   }
 
   /**
@@ -59,8 +60,6 @@ public class Board {
       }
     }
     addDoors();
-
-    initialiseObjects();
 
     // start the player in the centre square
     this.board[7][7].setOccupiedByPlayer(true);
