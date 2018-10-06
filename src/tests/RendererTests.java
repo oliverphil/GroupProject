@@ -14,15 +14,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import renderer.Music;
 import renderer.Renderer;
 import renderer.Renderer.Dimension;
 
@@ -37,9 +43,40 @@ public class RendererTests {
   private static final double BOSS_SIZE = 400;
   private Renderer renderer;
 
+  /**
+   * A method to run before each test. Creates a new renderer.
+   */
   @BeforeEach
-  public void setup() {
+  public void getNewRenderer() {
     renderer = new Renderer(3, 3);
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.mute();
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to mute music");
+    }
+  }
+
+  /**
+   * Creates a new JFXPanel so that when Renderer is created there is an application for the
+   * MediaPlayer to use.
+   * 
+   * @throws InterruptedException exception to ensure tests aren't run without a JFXPanel
+   */
+  @BeforeAll
+  public static void initToolkit() throws InterruptedException {
+    final CountDownLatch latch = new CountDownLatch(1);
+    SwingUtilities.invokeLater(() -> {
+      new JFXPanel();
+      latch.countDown();
+    });
+
+    if (!latch.await(5L, TimeUnit.SECONDS)) {
+      throw new ExceptionInInitializerError();
+    }
   }
 
   @Test
@@ -1032,5 +1069,53 @@ public class RendererTests {
   public void testDimensionEquals09() {
     Dimension d = renderer.new Dimension(0, 0, 0, 0, " ");
     assertNotEquals(d, renderer.new Dimension(0, 0, 0, 0, ""));
+  }
+
+  @Test
+  public void testMusicUpdate01() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("tunnels");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("tunnels", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
+  }
+
+  @Test
+  public void testMusicUpdate02() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("hello");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("tunnels", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
+  }
+
+  @Test
+  public void testMusicUpdate03() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("escape");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("escape", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
   }
 }

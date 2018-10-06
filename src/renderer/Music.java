@@ -44,4 +44,8 @@ public class Music {
     });
     player.play();
   }
+  
+  public void mute() {
+    player.setVolume(0);
+  }
 }
