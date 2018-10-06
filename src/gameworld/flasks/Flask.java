@@ -1,14 +1,20 @@
 package gameworld.flasks;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import gameworld.Item;
 import gameworld.Player;
 
 /**
- * A Flask is a multi-use item that can be filled with different liquids.
- * This uses the ***STRATEGY PATTERN***.
+ * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
+ * PATTERN***.
+ * 
  * @author ewensdyla
  *
  */
+@XmlRootElement
 public class Flask extends Item {
 
   ContentsStrategy strat;
@@ -22,6 +28,7 @@ public class Flask extends Item {
 
   /**
    * Called by the Player to use the selected item.
+   * 
    * @param pl player
    */
   public void use(Player pl) {
@@ -33,6 +40,7 @@ public class Flask extends Item {
 
   /**
    * Fills the selected flask with liquid from the chosen fountain.
+   * 
    * @param fountain type of fountain
    */
   public void fill(String fountain) {
@@ -43,6 +51,16 @@ public class Flask extends Item {
     }
   }
 
+  public ContentsStrategy getStrat() {
+    return strat;
+  }
+
+  @XmlElement
+  public void setStrat(ContentsStrategy strat) {
+    this.strat = strat;
+  }
+
+  @XmlTransient
   interface ContentsStrategy {
     public void use(Player pl);
   }
