@@ -1,7 +1,5 @@
 package gameworld;
 
-import java.awt.Point;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,11 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Monster extends FloorObject {
   private int health;
   private int damage;
-
-  public Monster(String name, Point p, int health) {
-    super(name, p);
-    this.health = health;
-  }
 
   public Monster() {
     super();

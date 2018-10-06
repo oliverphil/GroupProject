@@ -1,9 +1,11 @@
-package gameworld;
+package gameworld.weapons;
 
 import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import gameworld.Item;
 
 @XmlRootElement
 public class Weapon extends Item {
@@ -12,14 +14,7 @@ public class Weapon extends Item {
   /**
    * Creates a weapon.
    * 
-   * @param name   name of the weapon
-   * @param damage damage the weapon does
    */
-  public Weapon(String name, Point p, int damage) {
-    super(name, p);
-    setDamage(damage);
-  }
-
   public Weapon() {
     super();
   }

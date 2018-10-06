@@ -26,7 +26,7 @@ public class Barrier extends FloorObject {
     strat = st;
   }
 
-  public String requireTool() {
+  public String requiredTool() {
     return strat.tool();
   }
 

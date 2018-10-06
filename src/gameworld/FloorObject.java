@@ -21,11 +21,6 @@ public abstract class FloorObject {
    * 
    * @param name the name of the FloorObject
    */
-  public FloorObject(String name, Point p) {
-    setName(name);
-    setLocation(p);
-  }
-
   public FloorObject() {
     setName("");
     setLocation(new Point(0, 0));
