@@ -1,19 +1,27 @@
 package renderer;
 
+import gameworld.GameWorld;
+import gameworld.ViewDescriptor;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import gameworld.GameWorld;
-import gameworld.ViewDescriptor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+/**
+ * Implementation of a Canvas which draws images on the screen based on a ViewDescriptor object from
+ * GameWorld. Uses the Observer pattern to receive ViewDescriptor
+ * 
+ * @author Philip Oliver - 300398228
+ *
+ */
 public class Renderer extends Canvas implements Observer {
 
   private static final int ITEM_SIZE = 200;
@@ -31,8 +39,7 @@ public class Renderer extends Canvas implements Observer {
    * @param view A ViewDescriptor containing information about what the player is looking at
    */
   public void redraw(ViewDescriptor view) {
-    // System.out.println("Drawing");
-    if (view == null) {
+    if (view == null || view.getView().size() < 6) {
       return;
     }
     objectsOnScreen.clear();
@@ -49,6 +56,7 @@ public class Renderer extends Canvas implements Observer {
         case "clear":
           Image openDoor = new Image(getClass().getResourceAsStream("images/openDoor.png"));
           gc.drawImage(openDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
+          objectsOnScreen.add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "clear"));
           break;
         default:
           Image wall = new Image(getClass().getResourceAsStream("images/wall.png"));
@@ -89,13 +97,68 @@ public class Renderer extends Canvas implements Observer {
           objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "powerFlask"));
           break;
+        case "crowbar":
+          Image crowbar = new Image(getClass().getResourceAsStream("images/crowbar.png"));
+          gc.drawImage(crowbar, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "crowbar"));
+          break;
+        case "pickaxe":
+          Image pickaxe = new Image(getClass().getResourceAsStream("images/pickaxe.png"));
+          gc.drawImage(pickaxe, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "pickaxe"));
+          break;
+        case "boltCutters":
+          Image boltCutters = new Image(getClass().getResourceAsStream("images/boltCutters.png"));
+          gc.drawImage(boltCutters, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "boltCutters"));
+          break;
+        case "khopesh":
+          Image khopesh = new Image(getClass().getResourceAsStream("images/khopesh.png"));
+          gc.drawImage(khopesh, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "khopesh"));
+          break;
+        case "torch":
+          Image torch = new Image(getClass().getResourceAsStream("images/torch.png"));
+          gc.drawImage(torch, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "torch"));
+          break;
+        case "hammer":
+          Image hammer = new Image(getClass().getResourceAsStream("images/hammer.png"));
+          gc.drawImage(hammer, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "hammer"));
+          break;
         case "david":
           Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
           gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE,
               getHeight() - david.getWidth() - ITEM_SIZE);
-          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE,
-              getHeight() - david.getWidth() - ITEM_SIZE, david.getWidth(), david.getHeight(),
-              "david"));
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
+              getHeight(), "david"));
+          break;
+        case "marco":
+          Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
+          gc.drawImage(marco, (getWidth() / 2) - ITEM_SIZE,
+              getHeight() - marco.getWidth() - ITEM_SIZE);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
+              getHeight(), "marco"));
+          break;
+        case "thomas":
+          Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
+          gc.drawImage(thomas, (getWidth() / 2) - ITEM_SIZE,
+              getHeight() - thomas.getWidth() - ITEM_SIZE);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
+              getHeight(), "thomas"));
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -109,11 +172,18 @@ public class Renderer extends Canvas implements Observer {
           objectsOnScreen.add(new Dimension((getWidth() / 2) - (stoneBlock.getWidth() / 2), 0,
               stoneBlock.getWidth(), stoneBlock.getHeight(), "stoneBlockade"));
           break;
+        case "chainBlockade":
+          Image chainBlock = new Image(getClass().getResourceAsStream("images/chainBlockade.png"));
+          gc.drawImage(chainBlock, (getWidth() / 2) - (chainBlock.getWidth() / 2), 0);
+          objectsOnScreen.add(new Dimension((getWidth() / 2) - (chainBlock.getWidth() / 2), 0,
+              chainBlock.getWidth(), chainBlock.getHeight(), "chainBlockade"));
+          break;
         default:
           break;
       }
       i++;
     }
+    Collections.reverse(objectsOnScreen);
   }
 
   /**
@@ -124,10 +194,8 @@ public class Renderer extends Canvas implements Observer {
    * @return a string describing the item clicked on
    */
   public String onClick(MouseEvent e) {
-    Collections.reverse(objectsOnScreen);
     for (Dimension d : objectsOnScreen) {
-      if (e.getSceneX() >= d.leftX && e.getSceneX() <= d.leftX + d.width && e.getSceneY() >= d.topY
-          && e.getSceneY() <= d.topY + d.height) {
+      if (d.on(e)) {
         return d.toString();
       }
     }
@@ -142,14 +210,52 @@ public class Renderer extends Canvas implements Observer {
     }
   }
 
-  private class Dimension {
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((objectsOnScreen == null) ? 0 : objectsOnScreen.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Renderer other = (Renderer) obj;
+    if (objectsOnScreen == null) {
+      if (other.objectsOnScreen != null) {
+        return false;
+      }
+    } else if (!objectsOnScreen.equals(other.objectsOnScreen)) {
+      return false;
+    }
+    return true;
+  }
+
+  public class Dimension {
     private final double leftX;
     private final double topY;
     private final double width;
     private final double height;
     private final String obj;
 
-    private Dimension(double x, double y, double width, double height, String obj) {
+    /**
+     * Create a new dimension object.
+     * @param x the top-left x value
+     * @param y the top-left y value
+     * @param width the width
+     * @param height the height
+     * @param obj a String describing the object on the screen
+     */
+    public Dimension(double x, double y, double width, double height, String obj) {
       leftX = x;
       topY = y;
       this.width = width;
@@ -160,5 +266,62 @@ public class Renderer extends Canvas implements Observer {
     public String toString() {
       return obj;
     }
+
+    private boolean on(MouseEvent e) {
+      return e.getSceneX() >= leftX && e.getSceneX() <= leftX + width && e.getSceneY() >= topY
+          && e.getSceneY() <= topY + height;
+    }
+
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      long temp;
+      temp = Double.doubleToLongBits(height);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      temp = Double.doubleToLongBits(leftX);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      result = prime * result + ((obj == null) ? 0 : obj.hashCode());
+      temp = Double.doubleToLongBits(topY);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      temp = Double.doubleToLongBits(width);
+      result = prime * result + (int) (temp ^ (temp >>> 32));
+      return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj) {
+        return true;
+      }
+      if (obj == null) {
+        return false;
+      }
+      if (getClass() != obj.getClass()) {
+        return false;
+      }
+      Dimension other = (Dimension) obj;
+      if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(leftX) != Double.doubleToLongBits(other.leftX)) {
+        return false;
+      }
+      if (this.obj == null) {
+        if (other.obj != null) {
+          return false;
+        }
+      } else if (!this.obj.equals(other.obj)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(topY) != Double.doubleToLongBits(other.topY)) {
+        return false;
+      }
+      if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
+        return false;
+      }
+      return true;
+    }
   }
+
 }

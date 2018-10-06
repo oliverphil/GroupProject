@@ -3,7 +3,6 @@ package gameworld;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -87,8 +86,9 @@ public class Tile {
    * @return whether the wall was successfully added
    */
   public boolean addWall(String wall) {
-    if (this.walls.contains(wall))
+    if (this.walls.contains(wall)) {
       return false;
+    }
     this.walls.add(wall);
     return true;
   }
@@ -100,8 +100,9 @@ public class Tile {
    * @return whether the door was successfully added
    */
   public boolean addDoor(String door) {
-    if (this.doors.contains(door))
+    if (this.doors.contains(door)) {
       return false;
+    }
     this.doors.add(door);
     return true;
   }

@@ -1,5 +1,7 @@
 package gameworld;
 
+import java.awt.Point;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -68,6 +70,5 @@ public abstract class FloorObject {
   public void setLocation(Point location) {
     this.location = location;
   }
-  
-  
+
 }
