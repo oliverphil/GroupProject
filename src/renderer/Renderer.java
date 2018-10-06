@@ -26,10 +26,18 @@ public class Renderer extends Canvas implements Observer {
 
   private static final int ITEM_SIZE = 200;
   private List<Dimension> objectsOnScreen;
+  private Music musicPlayer;
 
+  /**
+   * Create a new Renderer object, which extends javafx.Canvas.
+   * 
+   * @param width  the width of the renderer
+   * @param height the height of the renderer
+   */
   public Renderer(double width, double height) {
     super(width, height);
     objectsOnScreen = new ArrayList<Dimension>();
+    musicPlayer = new Music();
   }
 
   /**
@@ -249,11 +257,12 @@ public class Renderer extends Canvas implements Observer {
 
     /**
      * Create a new dimension object.
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * 
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param obj    a String describing the object on the screen
      */
     public Dimension(double x, double y, double width, double height, String obj) {
       leftX = x;

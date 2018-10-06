@@ -1,0 +1,47 @@
+package renderer;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
+public class Music {
+  private static String currentFile;
+  private static MediaPlayer player;
+  private static final List<String> TRACK_NAMES = Arrays
+      .asList(new String[] { "tunnels", "escape", "mysteries" });
+
+  public Music() {
+    currentFile = "tunnels";
+    playTrack();
+  }
+
+  /**
+   * Update the media player to play the file specified by track. If the file is not a valid media
+   * file or that track is already playing, don't do anything.
+   * 
+   * @param track the name of the media file to play
+   */
+  public void update(String track) {
+    if (TRACK_NAMES.contains(track) && !track.equals(currentFile)) {
+      currentFile = track;
+      player.stop();
+      playTrack();
+    }
+  }
+
+  private void playTrack() {
+    Media track = new Media(
+        new File("src/renderer/music/" + currentFile + ".wav").toURI().toString());
+    player = new MediaPlayer(track);
+    player.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        player.seek(Duration.ZERO);
+      }
+    });
+    player.play();
+  }
+}
