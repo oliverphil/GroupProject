@@ -8,12 +8,20 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+/**
+ * A class to handle running of music within the game.
+ * 
+ * @author Philip Oliver - 300398228 *
+ */
 public class Music {
   private static String currentFile;
   private static MediaPlayer player;
   private static final List<String> TRACK_NAMES = Arrays
       .asList(new String[] { "tunnels", "escape", "mysteries" });
 
+  /**
+   * Create a new Music object. Runs tunnels.wav as default.
+   */
   public Music() {
     currentFile = "tunnels";
     playTrack();
@@ -44,7 +52,10 @@ public class Music {
     });
     player.play();
   }
-  
+
+  /**
+   * Mute the music player.
+   */
   public void mute() {
     player.setVolume(0);
   }
