@@ -81,6 +81,10 @@ public class MapEditor extends Application {
         selectedBtn = "floorBtn";
         new FloorTileMenu();
       }
+      if (e.getSource() == itemBtn) {
+        selectedBtn = "itemBtn";
+        new IconsMenu();
+      }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
       }
@@ -101,6 +105,15 @@ public class MapEditor extends Application {
           drawGrid();
         }
       }
+      if (selectedBtn == "itemBtn") {
+        if (row != -1 && col != -1) {
+          if(grid[col][row] == "0") {
+           // add shit here 
+          }
+          grid[col][row] = selectedIcon;
+          drawGrid();
+        }
+      }
       if (selectedBtn == "remove") {
         remove(x, y);
       }
@@ -116,14 +129,12 @@ public class MapEditor extends Application {
   }
 
   private void remove(int x, int y) {
-    // TODO Auto-generated method stub
     grid[col][row] = "0";
     drawGrid();
 
   }
 
   private HBox drawTop() {
-    // TODO Auto-generated method stub
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -155,7 +166,6 @@ public class MapEditor extends Application {
   }
 
   private HBox drawBottom() {
-    // TODO Auto-generated method stub
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -183,7 +193,6 @@ public class MapEditor extends Application {
   }
 
   private Node drawGrid() {
-    // TODO Auto-generated method stub
     gridPane.getChildren().clear();
     gridPane.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandler);
     gridPane.setPadding(new Insets(10, 10, 10, 10));

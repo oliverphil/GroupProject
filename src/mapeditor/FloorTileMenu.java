@@ -32,7 +32,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     try {
       start(new Stage());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -55,7 +54,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   }
 
   private HBox drawTop() {
-    // TODO Auto-generated method stub
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -70,7 +68,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   }
 
   private Node drawItems() {
-    // TODO Auto-generated method stub
     GridPane gridPane = new GridPane();
     gridPane.setPadding(new Insets(20, 20, 20, 20));
     gridPane.setHgap(20);
@@ -153,7 +150,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 
   @Override
   public void handle(ActionEvent event) {
-    // TODO Auto-generated method stub
     if (event.getSource() == northWest) {
       MapEditor.setSelectedIcon("NW");
       primaryStage.close();
