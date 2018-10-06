@@ -82,6 +82,8 @@ public class Renderer extends Canvas implements Observer {
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
+    String musicFile = "";
+
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
@@ -153,6 +155,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
               getHeight(), "david"));
+          musicFile = "boss";
           break;
         case "marco":
           Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
@@ -160,6 +163,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
               getHeight(), "marco"));
+          musicFile = "boss";
           break;
         case "thomas":
           Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
@@ -167,6 +171,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
               getHeight(), "thomas"));
+          musicFile = "boss";
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -191,6 +196,12 @@ public class Renderer extends Canvas implements Observer {
       }
       i++;
     }
+
+    if (musicFile.equals("")) {
+      musicFile = "tunnels";
+    }
+    musicPlayer.update(musicFile);
+
     Collections.reverse(objectsOnScreen);
   }
 
