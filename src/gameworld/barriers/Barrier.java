@@ -1,7 +1,12 @@
 package gameworld.barriers;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import gameworld.FloorObject;
 
+@XmlRootElement
 public class Barrier extends FloorObject {
 
   private BarrierStrategy strat;
@@ -25,7 +30,17 @@ public class Barrier extends FloorObject {
     return strat.tool();
   }
 
+  @XmlTransient
   interface BarrierStrategy {
     public String tool();
+  }
+
+  public BarrierStrategy getStrat() {
+    return strat;
+  }
+
+  @XmlElement
+  public void setStrat(BarrierStrategy strat) {
+    this.strat = strat;
   }
 }

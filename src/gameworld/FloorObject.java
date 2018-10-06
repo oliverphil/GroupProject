@@ -2,11 +2,7 @@ package gameworld;
 
 import java.awt.Point;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import java.awt.Point;
 
 /**
  * Items are objects found in the game world that can be weapons or tools to help a player along
