@@ -102,7 +102,6 @@ public class Board {
     flask2.setName("emptyFlask");
     this.board[7][0].setObj(flask2);
     
-    
   }
 
   /**
