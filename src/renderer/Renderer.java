@@ -191,6 +191,32 @@ public class Renderer extends Canvas implements Observer {
           objectsOnScreen.add(new Dimension((getWidth() / 2) - (chainBlock.getWidth() / 2), 0,
               chainBlock.getWidth(), chainBlock.getHeight(), "chainBlockade"));
           break;
+        case "healthFountain":
+          Image healthFountain = new Image(
+              getClass().getResourceAsStream("images/healthFountain.png"));
+          gc.drawImage(healthFountain, x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
+              getHeight() - 400);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
+              getHeight() - 400, healthFountain.getWidth(), healthFountain.getHeight(),
+              "healthFountain"));
+          musicFile = "mysteries";
+          break;
+        case "powerFountain":
+          Image powerFountain = new Image(
+              getClass().getResourceAsStream("images/powerFountain.png"));
+          gc.drawImage(powerFountain, x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
+              getHeight() - 400);
+          objectsOnScreen.add(new Dimension(x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
+              getHeight() - 400, powerFountain.getWidth(), powerFountain.getHeight(),
+              "powerFountain"));
+          musicFile = "mysteries";
+          break;
+        case "ladder":
+          Image ladder = new Image(getClass().getResourceAsStream("images/ladder.png"));
+          gc.drawImage(ladder, x, 0, getWidth() / 3, getHeight() * 2 / 3);
+          objectsOnScreen.add(new Dimension(x, 0, getWidth() / 3, getHeight() * 2 / 3, "ladder"));
+          musicFile = "escape";
+          break;
         default:
           break;
       }
