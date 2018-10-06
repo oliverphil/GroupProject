@@ -2,6 +2,7 @@ package gameworld;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * A Character is a person or animal within the game but not necessarily a controlled player
@@ -9,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dylan
  *
  */
-@XmlRootElement
+@XmlTransient
 public abstract class Character {
   private String name;
 
@@ -36,7 +37,6 @@ public abstract class Character {
   /**
    * @param name the name to set
    */
-  @XmlElement(name = "name")
   public void setName(String name) {
     this.name = name;
   }

@@ -3,8 +3,9 @@ package gameworld;
 import java.awt.Point;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
+@XmlTransient
 public abstract class Item extends FloorObject {
 
   public Item(String name, Point p) {
