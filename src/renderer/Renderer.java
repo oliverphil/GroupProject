@@ -26,10 +26,18 @@ public class Renderer extends Canvas implements Observer {
 
   private static final int ITEM_SIZE = 200;
   private List<Dimension> objectsOnScreen;
+  private Music musicPlayer;
 
+  /**
+   * Create a new Renderer object, which extends javafx.Canvas.
+   * 
+   * @param width  the width of the renderer
+   * @param height the height of the renderer
+   */
   public Renderer(double width, double height) {
     super(width, height);
     objectsOnScreen = new ArrayList<Dimension>();
+    musicPlayer = new Music();
   }
 
   /**
@@ -73,6 +81,8 @@ public class Renderer extends Canvas implements Observer {
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
+
+    String musicFile = "";
 
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
@@ -145,6 +155,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
               getHeight(), "david"));
+          musicFile = "boss";
           break;
         case "marco":
           Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
@@ -152,6 +163,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
               getHeight(), "marco"));
+          musicFile = "boss";
           break;
         case "thomas":
           Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
@@ -159,6 +171,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new Dimension((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
               getHeight(), "thomas"));
+          musicFile = "boss";
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -183,6 +196,12 @@ public class Renderer extends Canvas implements Observer {
       }
       i++;
     }
+
+    if (musicFile.equals("")) {
+      musicFile = "tunnels";
+    }
+    musicPlayer.update(musicFile);
+
     Collections.reverse(objectsOnScreen);
   }
 
@@ -249,11 +268,12 @@ public class Renderer extends Canvas implements Observer {
 
     /**
      * Create a new dimension object.
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * 
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param obj    a String describing the object on the screen
      */
     public Dimension(double x, double y, double width, double height, String obj) {
       leftX = x;
