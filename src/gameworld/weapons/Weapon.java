@@ -1,7 +1,5 @@
 package gameworld.weapons;
 
-import java.awt.Point;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
