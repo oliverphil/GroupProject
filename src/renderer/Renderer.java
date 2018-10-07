@@ -251,7 +251,7 @@ public class Renderer extends Canvas implements Observer {
         return d;
       }
     }
-    return null;
+    return new ItemOnScreen(0, 0, 0, 0, 0, "");
   }
 
   @Override

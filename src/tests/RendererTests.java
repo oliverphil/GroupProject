@@ -112,7 +112,6 @@ public class RendererTests {
 
   @Test
   public void testNoItems() {
-    // stop error being thrown
 
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
@@ -126,7 +125,6 @@ public class RendererTests {
 
   @Test
   public void testAddDoor() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "door", "", "", "", "" });
@@ -150,7 +148,6 @@ public class RendererTests {
 
   @Test
   public void testAddOpenDoor() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "clear", "", "", "", "" });
@@ -174,7 +171,6 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "emptyFlask", "", "" });
@@ -199,7 +195,6 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "emptyFlask" });
@@ -224,7 +219,6 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "healthFlask", "", "" });
@@ -249,7 +243,6 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "healthFlask" });
@@ -274,7 +267,6 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "powerFlask", "", "" });
@@ -299,7 +291,6 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "powerFlask" });
@@ -324,7 +315,6 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "crowbar", "", "" });
@@ -349,7 +339,6 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "crowbar" });
@@ -374,7 +363,6 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "pickaxe", "", "" });
@@ -399,7 +387,6 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "pickaxe" });
@@ -424,7 +411,6 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "boltCutters", "", "" });
@@ -449,7 +435,6 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "boltCutters" });
@@ -474,7 +459,6 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "khopesh", "", "" });
@@ -499,7 +483,6 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "khopesh" });
@@ -524,7 +507,6 @@ public class RendererTests {
 
   @Test
   public void testAddTorch01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "torch", "", "" });
@@ -549,7 +531,6 @@ public class RendererTests {
 
   @Test
   public void testAddTorch02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "torch" });
@@ -574,7 +555,6 @@ public class RendererTests {
 
   @Test
   public void testAddHammer01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "hammer", "", "" });
@@ -599,7 +579,6 @@ public class RendererTests {
 
   @Test
   public void testAddHammer02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "hammer" });
@@ -624,7 +603,6 @@ public class RendererTests {
 
   @Test
   public void testAddDavid() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "" });
@@ -648,7 +626,6 @@ public class RendererTests {
 
   @Test
   public void testAddMarco() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "marco", "" });
@@ -672,7 +649,6 @@ public class RendererTests {
 
   @Test
   public void testAddThomas() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "thomas", "" });
@@ -696,7 +672,6 @@ public class RendererTests {
 
   @Test
   public void testAddWoodenBlockade() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "woodenBlockade", "" });
@@ -720,7 +695,6 @@ public class RendererTests {
 
   @Test
   public void testAddStoneBlockade() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "stoneBlockade", "" });
@@ -844,12 +818,11 @@ public class RendererTests {
     assertEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1.5 - 150.0, 200.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false,
-            false, false, false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -858,12 +831,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 0, -1, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick03() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -872,12 +844,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1000, 0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
-            false, false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick04() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -886,12 +857,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1000, -1, 0, 0.0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick05() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -900,12 +870,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 0, 1000, 0, 0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick06() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -914,12 +883,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, -1000, 0, 0, 0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testEquals01() {
-
     Renderer other = getMutedRenderer();
     assertTrue(other.equals(renderer));
     assertTrue(renderer.equals(other));
@@ -945,7 +913,6 @@ public class RendererTests {
 
   @Test
   public void testEquals05() {
-
     Renderer other = getMutedRenderer();
     Field objects;
     try {
@@ -963,7 +930,6 @@ public class RendererTests {
 
   @Test
   public void testEquals06() {
-
     Renderer other = getMutedRenderer();
     Field objects;
     try {
@@ -981,7 +947,6 @@ public class RendererTests {
 
   @Test
   public void testEquals07() {
-
     Renderer other = getMutedRenderer();
     Field objects;
     try {
@@ -1000,7 +965,6 @@ public class RendererTests {
 
   @Test
   public void testEquals08() {
-
     Renderer other = getMutedRenderer();
     Field objects;
     try {
@@ -1021,7 +985,6 @@ public class RendererTests {
 
   @Test
   public void testUpdate01() {
-
     renderer.update(new GameWorld(), new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -1162,12 +1125,19 @@ public class RendererTests {
   }
 
   @Test
+  public void testDimensionEquals10() {
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 1, "");
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 0, 0, 2, ""));
+  }
+
+  @Test
   public void testMusicUpdate01() {
     try {
       Field music = Renderer.class.getDeclaredField("musicPlayer");
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("tunnels");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("tunnels", (String) track.get(music));
@@ -1184,6 +1154,7 @@ public class RendererTests {
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("hello");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("tunnels", (String) track.get(music));
@@ -1200,6 +1171,7 @@ public class RendererTests {
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("escape");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("escape", (String) track.get(music));
@@ -1207,5 +1179,11 @@ public class RendererTests {
         | IllegalAccessException e) {
       fail("Should be able to access music");
     }
+  }
+
+  @Test
+  public void testGetTile() {
+    ItemOnScreen i = renderer.new ItemOnScreen(0, 0, 0, 0, 0, "hello");
+    assertEquals(0, i.getTile());
   }
 }
