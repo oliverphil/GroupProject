@@ -122,6 +122,14 @@ public class Tile {
       this.obj = item;
     }
   }
+  
+  /**
+   * Removes the floor object.
+   * @param item the item to set
+   */
+  public void removeFloorObject() {
+      this.obj = null;
+  }
 
   /**
    * Returns whether the tile has an item.

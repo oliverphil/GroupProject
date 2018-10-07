@@ -1,9 +1,9 @@
-package gameworld.flasks;
+package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import gameworld.Player;
-import gameworld.flasks.Flask.ContentsStrategy;
+import gameworld.holdables.Flask.ContentsStrategy;
 
 @XmlRootElement
 class PowerFlaskStrategy implements ContentsStrategy {

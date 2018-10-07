@@ -1,6 +1,9 @@
 package gameworld;
 
-import gameworld.flasks.Flask;
+import gameworld.barriers.Barrier;
+import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
 
 import java.io.File;
 
@@ -101,6 +104,68 @@ public class Board {
     flask2.setName("emptyFlask");
     this.board[7][0].setObj(flask2);
 
+    // Add tools
+    Tool crowbar = new Tool();
+    crowbar.setMaterial("woodenBlockade");
+    crowbar.setName("crowbar");
+    crowbar.setLocation(new Point(6, 6));
+    this.board[6][6].setObj(crowbar);
+
+    Tool pickaxe = new Tool();
+    pickaxe.setMaterial("stoneBlockade");
+    pickaxe.setName("pickaxe");
+    pickaxe.setLocation(new Point(14, 13));
+    this.board[13][14].setObj(pickaxe);
+
+    Tool boltCutters = new Tool();
+    boltCutters.setMaterial("chainBlockade");
+    boltCutters.setName("boltCutters");
+    boltCutters.setLocation(new Point(11, 0));
+    this.board[0][11].setObj(boltCutters);
+
+    // Add barriers
+    // wooden
+    Barrier wBar1 = new Barrier();
+    wBar1.setName("woodenBlockade");
+    wBar1.setStrat(new WoodenPlanksStrategy());
+    wBar1.setLocation(new Point(1, 3));
+    this.board[3][1].setObj(wBar1);
+
+    Barrier wBar2 = new Barrier();
+    wBar2.setName("woodenBlockade");
+    wBar2.setStrat(new WoodenPlanksStrategy());
+    wBar2.setLocation(new Point(3, 4));
+    this.board[4][3].setObj(wBar2);
+
+    Barrier wBar3 = new Barrier();
+    wBar3.setName("woodenBlockade");
+    wBar3.setStrat(new WoodenPlanksStrategy());
+    wBar3.setLocation(new Point(8, 7));
+    this.board[7][8].setObj(wBar3);
+
+    Barrier wBar4 = new Barrier();
+    wBar4.setName("woodenBlockade");
+    wBar4.setStrat(new WoodenPlanksStrategy());
+    wBar4.setLocation(new Point(7, 8));
+    this.board[8][7].setObj(wBar4);
+
+    Barrier wBar5 = new Barrier();
+    wBar5.setName("woodenBlockade");
+    wBar5.setStrat(new WoodenPlanksStrategy());
+    wBar5.setLocation(new Point(11, 10));
+    this.board[10][11].setObj(wBar5);
+
+    Barrier wBar6 = new Barrier();
+    wBar6.setName("woodenBlockade");
+    wBar6.setStrat(new WoodenPlanksStrategy());
+    wBar6.setLocation(new Point(13, 11));
+    this.board[11][13].setObj(wBar6);
+
+    Barrier wBar7 = new Barrier();
+    wBar7.setName("woodenBlockade");
+    wBar7.setStrat(new WoodenPlanksStrategy());
+    wBar7.setLocation(new Point(3, 13));
+    this.board[13][3].setObj(wBar7);
   }
 
   /**
@@ -115,7 +180,6 @@ public class Board {
     addADoor(board[2][7], "south");
     addADoor(board[4][2], "east");
     addADoor(board[4][8], "east");
-    addADoor(board[4][11], "east");
 
     addADoor(board[5][4], "south");
     addADoor(board[5][7], "south");
@@ -337,7 +401,7 @@ public class Board {
     Point point = p.getLocation();
     Tile forward = null;
 
-    // move the player backwards if there is nothing behind them
+    // move the player forwards if there is nothing in front them
     switch (dir) {
       case "north":
         forward = board[point.y - 1][point.x];
@@ -379,6 +443,10 @@ public class Board {
     p.setView(new ViewDescriptor(p, this));
   }
 
+  public void removeItem() {
+
+  }
+
   @XmlElementWrapper(name = "board")
   @XmlElement(name = "tile")
   public void setBoard(Tile[][] board) {
@@ -391,6 +459,34 @@ public class Board {
 
   public static int getHeight() {
     return HEIGHT;
+  }
+
+  /**
+   * Removes the barrier in front of the player.
+   * 
+   * @param p the current player
+   */
+  public void removeBarrier(Player p) {
+    String dir = p.getDirection();
+    Point point = p.getLocation();
+
+    // move the player backwards if there is nothing behind them
+    switch (dir) {
+      case "north":
+        board[point.y - 1][point.x].removeFloorObject();
+        break;
+      case "south":
+        board[point.y + 1][point.x].removeFloorObject();
+        break;
+      case "east":
+        board[point.y][point.x + 1].removeFloorObject();
+        break;
+      case "west":
+        board[point.y][point.x - 1].removeFloorObject();
+        break;
+      default:
+        break;
+    }
   }
 
 }

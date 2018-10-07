@@ -19,13 +19,9 @@ public class Barrier extends FloorObject {
   }
 
   /**
-   * Sets the current Strategy.
-   * @param st Strategy
+   * Returns the tool required to break the Barrier.
+   * @return
    */
-  public void setStrategy(BarrierStrategy st) {
-    strat = st;
-  }
-
   public String requiredTool() {
     return strat.tool();
   }
@@ -39,6 +35,10 @@ public class Barrier extends FloorObject {
     return strat;
   }
 
+  /**
+   * Sets the current Strategy.
+   * @param st Strategy
+   */
   @XmlElement
   public void setStrat(BarrierStrategy strat) {
     this.strat = strat;

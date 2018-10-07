@@ -1,15 +1,14 @@
-package gameworld.flasks;
+package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import gameworld.Item;
 import gameworld.Player;
 
 /**
- * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
- * PATTERN***.
+ * A Flask is a multi-use item that can be filled with different liquids. 
+ * This uses the ***STRATEGY PATTERN***.
  * 
  * @author ewensdyla
  *
@@ -50,7 +49,7 @@ public class Flask extends Item {
       strat = new PowerFlaskStrategy();
     }
   }
-
+  
   public ContentsStrategy getStrat() {
     return strat;
   }
@@ -61,7 +60,7 @@ public class Flask extends Item {
   }
 
   @XmlTransient
-  interface ContentsStrategy {
+  public interface ContentsStrategy {
     public void use(Player pl);
   }
 }

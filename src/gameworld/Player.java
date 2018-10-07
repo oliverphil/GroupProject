@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import gameworld.holdables.Item;
+import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
+
 /**
  * A Player is a character controlled by the user.
  *
@@ -15,8 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Player  {
-  private FloorObject rightHand;
-  private FloorObject leftHand;
   private List<Item> bag;
   private String direction;
   private Point location;
@@ -74,44 +76,6 @@ public class Player  {
       default:
         break;
     }
-  }
-
-  /**
-   * Returns the contents of the player's right hand.
-   *
-   * @return the FloorObject in rightHand
-   */
-  public FloorObject getRightHand() {
-    return rightHand;
-  }
-
-  /**
-   * Sets the contents of rightHand.
-   *
-   * @param rightHand the new contents of rightHand
-   */
-  @XmlElement(name = "rightHand")
-  public void setRightHand(FloorObject rightHand) {
-    this.rightHand = rightHand;
-  }
-
-  /**
-   * Returns the contents of the player's left hand.
-   *
-   * @return the FloorObject in leftHand
-   */
-  public FloorObject getLeftHand() {
-    return leftHand;
-  }
-
-  /**
-   * Sets the contents of leftHand.
-   *
-   * @param leftHand the new contents of leftHand
-   */
-  @XmlElement(name = "leftHand")
-  public void setLeftHand(FloorObject leftHand) {
-    this.leftHand = leftHand;
   }
 
   /**
@@ -218,5 +182,73 @@ public class Player  {
     if (health > 100) {
       health = 100;
     }
+  }
+  
+  /**
+   * Picks up the item clicked on.
+   * @param item item to pick up
+   */
+  public void pickUp(Item item) {
+    this.bag.add(item);
+  }
+  
+  /**
+   * Drops the item selected in the hot bar.
+   * @param item item to be dropped.
+   */
+  public void dropItem(Item item) {
+    this.bag.remove(item);
+  }
+  
+  /**
+   * Returns true if the player has a weapon in their bag.
+   * @return a boolean
+   */
+  public boolean hasWeapon() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Weapon) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  /**
+   * Returns true if the player has a Tool in their bag.
+   * @return 
+   */
+  public boolean hasTool() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Tool) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  /**
+   * Returns the weapon the player in holding.
+   * @return a boolean
+   */
+  public Weapon getWeapon() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Weapon) {
+        return (Weapon) obj;
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * Returns the tool the player in holding.
+   * @return the players tool
+   */
+  public Tool getTool() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Tool) {
+        return (Tool) obj;
+      }
+    }
+    return null;
   }
 }
