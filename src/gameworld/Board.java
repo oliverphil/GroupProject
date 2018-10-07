@@ -1,6 +1,10 @@
 package gameworld;
 
-import java.awt.Point;
+import gameworld.barriers.Barrier;
+import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
+
 import java.io.File;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,12 +12,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import gameworld.barriers.Barrier;
 import gameworld.barriers.ChainsStrategy;
 import gameworld.barriers.PileOfRocksStrategy;
-import gameworld.barriers.WoodenPlanksStrategy;
-import gameworld.holdables.Flask;
-import gameworld.holdables.Tool;
 
 @XmlRootElement
 public class Board {
@@ -74,21 +74,21 @@ public class Board {
    * Adds all FloorObjects to the board.
    */
   private void initialiseObjects() {
-    //Add bosses
+    // Add bosses
     Monster david = new Monster();
     david.setLocation(new Point(0, 13));
     david.setName("david");
     david.setDamage(30);
     david.setHealth(150);
     this.board[13][0].setObj(david);
-    
+
     Monster marco = new Monster();
     marco.setLocation(new Point(1, 0));
     marco.setName("marco");
     marco.setDamage(20);
     marco.setHealth(150);
     this.board[0][1].setObj(marco);
-    
+
     Monster thomas = new Monster();
     thomas.setLocation(new Point(14, 1));
     thomas.setName("thomas");
@@ -96,36 +96,36 @@ public class Board {
     thomas.setHealth(150);
     this.board[1][14].setObj(thomas);
 
-    //add flasks
+    // add flasks
     Flask flask1 = new Flask();
     flask1.setLocation(new Point(8, 6));
     flask1.setName("emptyFlask");
     this.board[6][8].setObj(flask1);
-    
+
     Flask flask2 = new Flask();
     flask2.setLocation(new Point(0, 7));
     flask2.setName("emptyFlask");
     this.board[7][0].setObj(flask2);
-    
-    //Add tools
+
+    // Add tools
     Tool crowbar = new Tool();
     crowbar.setMaterial("woodenBlockade");
     crowbar.setName("crowbar");
     crowbar.setLocation(new Point(6, 6));
     this.board[6][6].setObj(crowbar);
-    
+
     Tool pickaxe = new Tool();
     pickaxe.setMaterial("stoneBlockade");
     pickaxe.setName("pickaxe");
     pickaxe.setLocation(new Point(14, 13));
     this.board[13][14].setObj(pickaxe);
-    
+
     Tool boltCutters = new Tool();
     boltCutters.setMaterial("chainBlockade");
     boltCutters.setName("boltCutters");
     boltCutters.setLocation(new Point(11, 0));
     this.board[0][11].setObj(boltCutters);
-    
+
     //Add barriers
     //wooden barriers
     Barrier wBar1 = new Barrier();
@@ -133,37 +133,37 @@ public class Board {
     wBar1.setStrat(new WoodenPlanksStrategy());
     wBar1.setLocation(new Point(1, 3));
     this.board[3][1].setObj(wBar1);
-    
+
     Barrier wBar2 = new Barrier();
     wBar2.setName("woodenBlockade");
     wBar2.setStrat(new WoodenPlanksStrategy());
     wBar2.setLocation(new Point(3, 4));
     this.board[4][3].setObj(wBar2);
-    
+
     Barrier wBar3 = new Barrier();
     wBar3.setName("woodenBlockade");
     wBar3.setStrat(new WoodenPlanksStrategy());
     wBar3.setLocation(new Point(8, 7));
     this.board[7][8].setObj(wBar3);
-    
+
     Barrier wBar4 = new Barrier();
     wBar4.setName("woodenBlockade");
     wBar4.setStrat(new WoodenPlanksStrategy());
     wBar4.setLocation(new Point(7, 8));
     this.board[8][7].setObj(wBar4);
-    
+
     Barrier wBar5 = new Barrier();
     wBar5.setName("woodenBlockade");
     wBar5.setStrat(new WoodenPlanksStrategy());
     wBar5.setLocation(new Point(11, 10));
     this.board[10][11].setObj(wBar5);
-    
+
     Barrier wBar6 = new Barrier();
     wBar6.setName("woodenBlockade");
     wBar6.setStrat(new WoodenPlanksStrategy());
     wBar6.setLocation(new Point(13, 11));
     this.board[11][13].setObj(wBar6);
-    
+
     Barrier wBar7 = new Barrier();
     wBar7.setName("woodenBlockade");
     wBar7.setStrat(new WoodenPlanksStrategy());
@@ -507,9 +507,9 @@ public class Board {
     // update the player's view.
     p.setView(new ViewDescriptor(p, this));
   }
-  
+
   public void removeItem() {
-    
+
   }
 
   @XmlElementWrapper(name = "board")
@@ -528,6 +528,7 @@ public class Board {
 
   /**
    * Removes the barrier in front of the player.
+   * 
    * @param p the current player
    */
   public void removeBarrier(Player p) {
@@ -550,7 +551,7 @@ public class Board {
         break;
       default:
         break;
-    }   
+    }
   }
 
 }
