@@ -2,14 +2,28 @@ package persistence;
 
 import gameworld.GameWorld;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import mapeditor.MapEditor;
+
+import org.xml.sax.SAXException;
 
 /**
  * Provides static methods for saving and loading the game state.
@@ -17,8 +31,7 @@ import mapeditor.MapEditor;
  * @author Wanja
  *
  */
-public class Persistence {
-
+public class PersistenceJaxb {
   /**
    * Saves the current state of the gameWorld to a file in XML format.
    * 
@@ -26,19 +39,34 @@ public class Persistence {
    * @param fileName the name of the file to save the world to
    */
   public static void saveGame(GameWorld world, String fileName) {
+
+//    try {
+//      File saveFile = new File(fileName);
+//      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
+//      Marshaller gameMarshaller = gameContext.createMarshaller();
+//      
+//      final Schema schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+//          .newSchema(GameWorld.class.getResource("/META-INF/wsdl/schema.xsd"));
+//      gameMarshaller.setSchema(schema);
+//
+//      gameMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//      gameMarshaller.marshal(world, saveFile);
+//    } catch (JAXBException e) {
+//      System.out.println("Failed to save game file");
+//      e.printStackTrace();
+//    } catch (SAXException e) {
+//      e.printStackTrace();
+//    }
+    XMLEncoder encoder = null;
     try {
+      encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(fileName)));
 
-      File saveFile = new File(fileName);
-      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
-      Marshaller gameMarshaller = gameContext.createMarshaller();
-      gameMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-      gameMarshaller.marshal(world, saveFile);
-
-    } catch (JAXBException e) {
-      System.out.println("Failed to save game file");
-      e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      throw new PersistenceException("Error creating the XML Encoder\n" + e.getMessage());
     }
+
+    encoder.writeObject(world);
+    encoder.close();
   }
 
   /**
@@ -48,20 +76,31 @@ public class Persistence {
    * @return the loaded 'GameWorld'
    */
   public static GameWorld loadGame(String fileName) {
+    // try {
+    //
+    // File gameSave = new File(fileName);
+    // JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
+    // Unmarshaller gameUnmarshaller = gameContext.createUnmarshaller();
+    // gameUnmarshaller.setSchema(null); // TODO: generate a schema first and set it here
+    //
+    // GameWorld newWorld = (GameWorld) gameUnmarshaller.unmarshal(gameSave);
+    // return newWorld;
+    //
+    // } catch (JAXBException e) {
+    // e.printStackTrace();
+    // throw new RuntimeException("Failed to load the file.");
+    // }
+
+    XMLDecoder decoder = null;
     try {
-
-      File gameSave = new File(fileName);
-      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
-      Unmarshaller gameUnmarshaller = gameContext.createUnmarshaller();
-      gameUnmarshaller.setSchema(null); // TODO: generate a schema first and set it here
-
-      GameWorld newWorld = (GameWorld) gameUnmarshaller.unmarshal(gameSave);
-      return newWorld;
-
-    } catch (JAXBException e) {
-      e.printStackTrace();
-      throw new RuntimeException("Failed to load the file.");
+      decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(fileName)));
+    } catch (FileNotFoundException e) {
+      throw new PersistenceException("Error creating the XML Decoder\n" + e.getMessage());
     }
+    
+    GameWorld loadedWorld = (GameWorld) decoder.readObject();
+    decoder.close();
+    return loadedWorld;
 
   }
 

@@ -2,7 +2,8 @@ package gameworld;
 
 import java.awt.Point;
 
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Items are objects found in the game world that can be weapons or tools to help a player along
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ewensdyla
  *
  */
-@XmlTransient
+@XmlRootElement
 public abstract class FloorObject {
   private String name;
   private Point location;
@@ -40,6 +41,7 @@ public abstract class FloorObject {
    * 
    * @param name the name to set
    */
+  @XmlElement
   public void setName(String name) {
     this.name = name;
   }
@@ -58,6 +60,7 @@ public abstract class FloorObject {
    * 
    * @param location the location to set
    */
+  @XmlElement
   public void setLocation(Point location) {
     this.location = location;
   }

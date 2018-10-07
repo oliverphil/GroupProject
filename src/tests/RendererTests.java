@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 import renderer.Music;
 import renderer.Renderer;
-import renderer.Renderer.Dimension;
+import renderer.Renderer.ItemOnScreen;
 
 /**
  * A suite of tests written to test the functionality of the renderer.
@@ -48,7 +48,11 @@ public class RendererTests {
    */
   @BeforeEach
   public void getNewRenderer() {
-    renderer = new Renderer(3, 3);
+    renderer = getMutedRenderer();
+  }
+
+  private Renderer getMutedRenderer() {
+    Renderer renderer = new Renderer(3, 3);
     try {
       Field music = Renderer.class.getDeclaredField("musicPlayer");
       music.setAccessible(true);
@@ -58,6 +62,7 @@ public class RendererTests {
         | IllegalAccessException e) {
       fail("Should be able to mute music");
     }
+    return renderer;
   }
 
   /**
@@ -82,7 +87,7 @@ public class RendererTests {
   @Test
   public void testNullViewDescriptor() {
     renderer.redraw(null);
-    assertEquals(renderer, new Renderer(3, 3));
+    assertEquals(renderer, getMutedRenderer());
   }
 
   @Test
@@ -92,7 +97,7 @@ public class RendererTests {
         return new ArrayList<String>();
       }
     });
-    assertEquals(renderer, new Renderer(3, 3));
+    assertEquals(renderer, getMutedRenderer());
   }
 
   @Test
@@ -102,12 +107,11 @@ public class RendererTests {
         return Arrays.asList(new String[] { "", "", "", "", "" });
       }
     });
-    assertEquals(renderer, new Renderer(3, 3));
+    assertEquals(renderer, getMutedRenderer());
   }
 
   @Test
   public void testNoItems() {
-    // stop error being thrown
 
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
@@ -115,26 +119,25 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     assertEquals(renderer, other);
   }
 
   @Test
   public void testAddDoor() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "door", "", "", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
       objects.set(other,
-          Arrays.asList(new Dimension[] { other.new Dimension(1, 0, 1, 2, "door") }));
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen(1, 0, 1, 2, 2, "door") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -145,20 +148,19 @@ public class RendererTests {
 
   @Test
   public void testAddOpenDoor() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "clear", "", "", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
       objects.set(other,
-          Arrays.asList(new Dimension[] { other.new Dimension(1, 0, 1, 2, "clear") }));
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen(1, 0, 1, 2, 2, "clear") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -169,20 +171,20 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "emptyFlask", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "emptyFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "emptyFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -193,20 +195,20 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "emptyFlask" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "emptyFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "emptyFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -217,20 +219,20 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "healthFlask", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "healthFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "healthFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -241,20 +243,20 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "healthFlask" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "healthFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "healthFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -265,20 +267,20 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "powerFlask", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "powerFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "powerFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -289,20 +291,20 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "powerFlask" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "powerFlask") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "powerFlask") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -313,20 +315,20 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "crowbar", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "crowbar") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "crowbar") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -337,20 +339,20 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "crowbar" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "crowbar") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "crowbar") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -361,20 +363,20 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "pickaxe", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "pickaxe") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "pickaxe") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -385,20 +387,20 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "pickaxe" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "pickaxe") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "pickaxe") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -409,20 +411,20 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "boltCutters", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "boltCutters") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "boltCutters") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -433,20 +435,20 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "boltCutters" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "boltCutters") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "boltCutters") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -457,20 +459,20 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "khopesh", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "khopesh") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "khopesh") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -481,20 +483,20 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "khopesh" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "khopesh") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "khopesh") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -505,20 +507,20 @@ public class RendererTests {
 
   @Test
   public void testAddTorch01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "torch", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "torch") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "torch") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -529,20 +531,20 @@ public class RendererTests {
 
   @Test
   public void testAddTorch02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "torch" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "torch") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "torch") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -553,20 +555,20 @@ public class RendererTests {
 
   @Test
   public void testAddHammer01() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "hammer", "", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((1.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "hammer") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((1.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 1, "hammer") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -577,20 +579,20 @@ public class RendererTests {
 
   @Test
   public void testAddHammer02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "hammer" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] { other.new Dimension((5.0 - ITEM_SIZE) / 2,
-          2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, "hammer") }));
+      objects.set(other,
+          Arrays.asList(new ItemOnScreen[] { other.new ItemOnScreen((5.0 - ITEM_SIZE) / 2,
+              2 - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, 3, "hammer") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -601,20 +603,19 @@ public class RendererTests {
 
   @Test
   public void testAddDavid() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, "david") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, 2, "david") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -625,20 +626,19 @@ public class RendererTests {
 
   @Test
   public void testAddMarco() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "marco", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, "marco") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, 2, "marco") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -649,20 +649,19 @@ public class RendererTests {
 
   @Test
   public void testAddThomas() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "thomas", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, "thomas") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 - BOSS_SIZE) / 2, 0, BOSS_SIZE, 3.0, 2, "thomas") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -673,20 +672,19 @@ public class RendererTests {
 
   @Test
   public void testAddWoodenBlockade() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "woodenBlockade", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "woodenBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "woodenBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -697,20 +695,19 @@ public class RendererTests {
 
   @Test
   public void testAddStoneBlockade() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "stoneBlockade", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (500.0 / 2), 0, 500.0, 500.0, "stoneBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (500.0 / 2), 0, 500.0, 500.0, 2, "stoneBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -727,13 +724,13 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -750,13 +747,13 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, "healthFountain") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, 1, "healthFountain") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -773,13 +770,13 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, "powerFountain") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, 1, "powerFountain") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -796,13 +793,13 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
       objects.set(other, Arrays
-          .asList(new Dimension[] { other.new Dimension(1, 0, 1, 3 * 2 / 3, "ladder") }));
+          .asList(new ItemOnScreen[] { other.new ItemOnScreen(1, 0, 1, 3 * 2 / 3, 2, "ladder") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -821,12 +818,11 @@ public class RendererTests {
     assertEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1.5 - 150.0, 200.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false,
-            false, false, false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick02() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -835,12 +831,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 0, -1, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick03() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -849,12 +844,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1000, 0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
-            false, false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick04() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -863,12 +857,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 1000, -1, 0, 0.0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick05() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -877,12 +870,11 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, 0, 1000, 0, 0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testOnClick06() {
-
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -891,13 +883,12 @@ public class RendererTests {
     assertNotEquals("chainBlockade",
         renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
             MouseEvent.MOUSE_CLICKED, -1000, 0, 0, 0, MouseButton.PRIMARY, 1, false, false, false,
-            false, false, false, false, false, false, false, null)));
+            false, false, false, false, false, false, false, null)).toString());
   }
 
   @Test
   public void testEquals01() {
-
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     assertTrue(other.equals(renderer));
     assertTrue(renderer.equals(other));
     assertEquals(renderer.hashCode(), other.hashCode());
@@ -922,14 +913,13 @@ public class RendererTests {
 
   @Test
   public void testEquals05() {
-
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -940,8 +930,7 @@ public class RendererTests {
 
   @Test
   public void testEquals06() {
-
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
@@ -958,8 +947,7 @@ public class RendererTests {
 
   @Test
   public void testEquals07() {
-
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
@@ -977,14 +965,13 @@ public class RendererTests {
 
   @Test
   public void testEquals08() {
-
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      List<Dimension> objs = new ArrayList<Dimension>();
-      objs.add(renderer.new Dimension(0, 0, 0, 0, null));
+      List<ItemOnScreen> objs = new ArrayList<ItemOnScreen>();
+      objs.add(renderer.new ItemOnScreen(0, 0, 0, 0, 0, null));
       objects.set(renderer, objs);
       objects.set(other, null);
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
@@ -998,20 +985,19 @@ public class RendererTests {
 
   @Test
   public void testUpdate01() {
-
     renderer.update(new GameWorld(), new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -1029,13 +1015,13 @@ public class RendererTests {
       }
     });
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -1049,13 +1035,13 @@ public class RendererTests {
 
     renderer.update(new Observable(), "hello");
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -1069,13 +1055,13 @@ public class RendererTests {
 
     renderer.update(new GameWorld(), "hello");
 
-    Renderer other = new Renderer(3, 3);
+    Renderer other = getMutedRenderer();
     Field objects;
     try {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
-      objects.set(other, Arrays.asList(new Dimension[] {
-          other.new Dimension((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, "chainBlockade") }));
+      objects.set(other, Arrays.asList(new ItemOnScreen[] {
+          other.new ItemOnScreen((3.0 / 2) - (300.0 / 2), 0, 300.0, 500.0, 2, "chainBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
@@ -1086,56 +1072,62 @@ public class RendererTests {
 
   @Test
   public void testDimensionEquals01() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
     assertEquals(d, d);
   }
 
   @Test
   public void testDimensionEquals02() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
     assertNotEquals(d, null);
   }
 
   @Test
   public void testDimensionEquals03() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
     assertNotEquals(d, "Hello");
   }
 
   @Test
   public void testDimensionEquals04() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
-    assertNotEquals(d, renderer.new Dimension(1, 0, 0, 0, null));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
+    assertNotEquals(d, renderer.new ItemOnScreen(1, 0, 0, 0, 2, null));
   }
 
   @Test
   public void testDimensionEquals05() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
-    assertNotEquals(d, renderer.new Dimension(0, 1, 0, 0, null));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 1, 0, 0, 2, null));
   }
 
   @Test
   public void testDimensionEquals06() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
-    assertNotEquals(d, renderer.new Dimension(0, 0, 1, 0, null));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 1, 0, 2, null));
   }
 
   @Test
   public void testDimensionEquals07() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
-    assertNotEquals(d, renderer.new Dimension(0, 0, 0, 1, null));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 0, 1, 2, null));
   }
 
   @Test
   public void testDimensionEquals08() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, null);
-    assertNotEquals(d, renderer.new Dimension(0, 0, 0, 0, ""));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, null);
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 0, 0, 2, ""));
   }
 
   @Test
   public void testDimensionEquals09() {
-    Dimension d = renderer.new Dimension(0, 0, 0, 0, " ");
-    assertNotEquals(d, renderer.new Dimension(0, 0, 0, 0, ""));
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 2, " ");
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 0, 0, 2, ""));
+  }
+
+  @Test
+  public void testDimensionEquals10() {
+    ItemOnScreen d = renderer.new ItemOnScreen(0, 0, 0, 0, 1, "");
+    assertNotEquals(d, renderer.new ItemOnScreen(0, 0, 0, 0, 2, ""));
   }
 
   @Test
@@ -1145,6 +1137,7 @@ public class RendererTests {
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("tunnels");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("tunnels", (String) track.get(music));
@@ -1161,6 +1154,7 @@ public class RendererTests {
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("hello");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("tunnels", (String) track.get(music));
@@ -1177,6 +1171,7 @@ public class RendererTests {
       music.setAccessible(true);
       Music player = (Music) music.get(renderer);
       player.update("escape");
+      player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
       assertEquals("escape", (String) track.get(music));
@@ -1184,5 +1179,11 @@ public class RendererTests {
         | IllegalAccessException e) {
       fail("Should be able to access music");
     }
+  }
+
+  @Test
+  public void testGetTile() {
+    ItemOnScreen i = renderer.new ItemOnScreen(0, 0, 0, 0, 0, "hello");
+    assertEquals(0, i.getTile());
   }
 }

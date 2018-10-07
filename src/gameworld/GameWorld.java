@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import gameworld.holdables.Flask;
 import gameworld.holdables.Tool;
+import renderer.Renderer.ItemOnScreen;
 
 /**
  * GameWorld class is the API for the game.
@@ -86,10 +87,10 @@ public class GameWorld extends Observable {
   /**
    * Called on click, passes the image clicked on.
    */
-  public void interact(String name) {
+  public void interact(ItemOnScreen name) {
     System.out.println(name);
     
-    switch (name) {
+    switch (name.toString()) {
       case "door":
         openDoor();
         break;
@@ -192,5 +193,14 @@ public class GameWorld extends Observable {
   public void openDoor() {
     board.openDoor(player);
     update();
+  }
+  
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof GameWorld) {
+      GameWorld other = (GameWorld) o;
+      return this.player.equals(other.getPlayer()) && this.board.equals(other.getBoard());
+    }
+    return false;
   }
 }
