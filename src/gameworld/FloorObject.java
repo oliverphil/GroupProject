@@ -1,7 +1,5 @@
 package gameworld;
 
-import java.awt.Point;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,7 +18,6 @@ public abstract class FloorObject {
   /**
    * Construct a new FloorObject.
    * 
-   * @param name the name of the FloorObject
    */
   public FloorObject() {
     setName("");

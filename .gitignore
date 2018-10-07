@@ -23,5 +23,5 @@
 hs_err_pid*
 /bin/
 
-# xml file to test saving
-testSave.xml
+# xml files for persistence tests
+*.xml
