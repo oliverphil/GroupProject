@@ -12,19 +12,24 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -37,7 +42,13 @@ public class UserInterface extends Application {
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
-
+  
+  //load arrow images and resize them to 60x60px
+  private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"), 60, 60, false, false);
+  private Image backArrowImage = new Image(getClass().getResourceAsStream("icons/back.png"), 60, 60, false, false);
+  private Image leftArrowImage = new Image(getClass().getResourceAsStream("icons/left.png"), 60, 60, false, false);
+  private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60, 60, false, false);
+  
   private GameWorld game;
 
   public static void main(String[] args) {
@@ -49,10 +60,15 @@ public class UserInterface extends Application {
     game = new GameWorld();
     window = primaryStage;
     window.setTitle("An Adventure Game!");
+   // window.setFullScreen(true);
 
     /* MENU START */
     // Game Menu
-    Menu gameMenu = new Menu("Game");
+    Menu gameMenu = new Menu(""); 
+    Label t = new Label("Game");
+    t.setStyle("-fx-text-fill: #D39365; ");
+    gameMenu.setGraphic(t);
+    
     MenuItem gameRestartArea = new MenuItem("Restart Area");
     gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
     MenuItem gameRestart = new MenuItem("Restart Game");
@@ -66,7 +82,6 @@ public class UserInterface extends Application {
     // Help Section
     gameMenu.getItems().add(new MenuItem("Help"));
     gameMenu.getItems().get(5).setOnAction(e -> {
-
       try {
         Scanner sc = new Scanner(new File("src/application/help.txt"));
 
@@ -118,85 +133,130 @@ public class UserInterface extends Application {
       }
     });
 
-    Menu optionsMenu = new Menu("Options");
+    // Options Menu
+    Menu optionsMenu = new Menu("");
+    Label s = new Label("Options");
+    s.setStyle("-fx-text-fill: #D39365; ");
+    optionsMenu.setGraphic(s);
     optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
 
     // Main menu bar
     MenuBar menuBar = new MenuBar();
+    menuBar.setStyle("-fx-background-color: #1d1f23; ");
     menuBar.getMenus().addAll(gameMenu, optionsMenu);
     /* MENU END */
 
     /* CANVAS START */
     VBox centerScreen = new VBox();
-    Renderer gameScreen = new Renderer(800, 700);
+    centerScreen.scaleShapeProperty();
+    Renderer gameScreen = new Renderer(700, 700); // TODO: Scale Shape Property for Renderer 
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
     });
     centerScreen.getChildren().add(gameScreen);
-    centerScreen.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+    centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     /* CANVAS END */
 
     /* BOTTOM SCREEN START */
+    // Button Format
     Button lookLeft = new Button();
-    lookLeft.setText("<-");
+    lookLeft.scaleShapeProperty();
+    lookLeft.setGraphic(new ImageView(leftArrowImage));
+    lookLeft.setStyle("-fx-background-color: #1d1f23; ");
+    lookLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     lookLeft.setOnAction(e -> game.rotateLeft());
 
     Button lookRight = new Button();
-    lookRight.setText("->");
+    lookRight.scaleShapeProperty();
+    lookRight.setGraphic(new ImageView(rightArrowImage));
+    lookRight.setStyle("-fx-background-color: #1d1f23; ");
+    lookRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     lookRight.setOnAction(e -> game.rotateRight());
 
     Button moveForward = new Button();
-    moveForward.setText("FORWARD");
+    moveForward.scaleShapeProperty();
+    moveForward.setGraphic(new ImageView(forwardArrowImage));
+    moveForward.setStyle("-fx-background-color: #1d1f23; ");
+    moveForward.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     moveForward.setOnAction(e -> game.moveForward());
 
     Button moveBack = new Button();
-    moveBack.setText("BACK");
+    moveBack.scaleShapeProperty();
+    moveBack.setGraphic(new ImageView(backArrowImage));
+    moveBack.setStyle("-fx-background-color: #1d1f23; ");
+    moveBack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     moveBack.setOnAction(e -> game.moveBackwards());
-
-    Button dropItem = new Button();
-    dropItem.setText("Drop");
+    
+    Button dropItem = new Button("Drop Item");
+    dropItem.scaleShapeProperty();
+    dropItem.setTextFill(Color.rgb(211, 147, 101));
+    dropItem.setStyle("-fx-background-color: #1d1f23; ");
+    dropItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     dropItem.setOnAction(e -> System.out.println("Dropped Item"));
 
-    Button useItem = new Button();
-    useItem.setText("Use");
+    Button useItem = new Button("Use Item");
+    useItem.scaleShapeProperty();
+    useItem.setTextFill(Color.rgb(211, 147, 101));
+    useItem.setStyle("-fx-background-color: #1d1f23; ");
+    useItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
     useItem.setOnAction(e -> System.out.println("Used Item"));
 
     moveBack.setOnAction(e -> game.moveBackwards());
 
     VBox bottomScreen = new VBox();
-    bottomScreen.setMinHeight(200);
-    bottomScreen.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+    bottomScreen.scaleShapeProperty();
+    bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     HBox backpack = new HBox();
-    backpack.setMinHeight(50);
-    backpack.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-        new CornerRadii(10), BorderWidths.DEFAULT)));
+    backpack.scaleShapeProperty();
+    backpack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
 
-    Scene scene = new Scene(layout, 800, 900);
+    // Build scene
+    Scene scene = new Scene(layout);
+    scene.setFill(Color.rgb(43, 42, 41));
 
     HBox bottomMostScreen = new HBox();
-    bottomMostScreen.setMinHeight(150);
-    bottomMostScreen.setMinWidth(scene.getWidth());
+    bottomMostScreen.scaleShapeProperty();
 
     VBox bottomScreenLeft = new VBox();
-    bottomScreenLeft.setMinHeight(bottomMostScreen.getHeight());
-    bottomScreenLeft.setMinWidth((scene.getWidth() / 2));
-    bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+    bottomScreenLeft.scaleShapeProperty();
+    bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    HBox innerButtonPannel = new HBox();
-    HBox innerButtonPannel2 = new HBox();
-    // ADD ALL BUTTONS TO HBOX
-    innerButtonPannel.getChildren().addAll(lookLeft, moveForward, moveBack, lookRight);
+    
+    // Button Grid
+    GridPane buttonGrid = new GridPane();
+    buttonGrid.scaleShapeProperty();
+    
+    buttonGrid.setRowIndex(moveForward, 0);
+    buttonGrid.setColumnIndex(moveForward, 1);
+    buttonGrid.setRowIndex(lookRight, 1);
+    buttonGrid.setColumnIndex(lookRight, 2);
+    buttonGrid.setRowIndex(moveBack, 2);
+    buttonGrid.setColumnIndex(moveBack, 1);
+    buttonGrid.setRowIndex(lookLeft, 1);
+    buttonGrid.setColumnIndex(lookLeft, 0);
+    buttonGrid.setRowIndex(dropItem, 0);
+    buttonGrid.setColumnIndex(dropItem, 0);
+    buttonGrid.setRowIndex(useItem, 0);
+    buttonGrid.setColumnIndex(useItem, 2);
+    
+    buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft, dropItem, useItem);
+    
+    bottomScreenLeft.getChildren().addAll(buttonGrid);
 
-    innerButtonPannel2.getChildren().addAll(dropItem, useItem);
-    bottomScreenLeft.getChildren().addAll(innerButtonPannel, innerButtonPannel2);
-
+    
     VBox bottomScreenRight = new VBox();
-    bottomScreenRight.setMinHeight(bottomMostScreen.getHeight());
-    bottomScreenRight.setMinWidth((scene.getWidth() / 2));
-    bottomScreenRight.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+    bottomScreenRight.scaleShapeProperty();
+    bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
@@ -207,12 +267,16 @@ public class UserInterface extends Application {
     game.addObserver(gameScreen);
     game.update();
 
+    //allows scene to be visible
+    layout.setBackground(Background.EMPTY);
+    layout.scaleShapeProperty();
     layout.setTop(menuBar);
     layout.setCenter(centerScreen);
     layout.setBottom(bottomScreen);
     layout.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
         CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     window.setScene(scene);
+    window.sizeToScene();
     window.show();
   }
 }
