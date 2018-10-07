@@ -469,26 +469,24 @@ public class Board {
   public void removeBarrier(Player p) {
     String dir = p.getDirection();
     Point point = p.getLocation();
-    Tile forward = null;
 
     // move the player backwards if there is nothing behind them
     switch (dir) {
       case "north":
-        forward = board[point.y - 1][point.x];
+        board[point.y - 1][point.x].removeFloorObject();
         break;
       case "south":
-        forward = board[point.y + 1][point.x];
+        board[point.y + 1][point.x].removeFloorObject();
         break;
       case "east":
-        forward = board[point.y][point.x + 1];
+        board[point.y][point.x + 1].removeFloorObject();
         break;
       case "west":
-        forward = board[point.y][point.x - 1];
+        board[point.y][point.x - 1].removeFloorObject();
         break;
       default:
         break;
     }   
-    forward.setFloorObject(null);
   }
 
 }

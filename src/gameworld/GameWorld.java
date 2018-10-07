@@ -95,7 +95,7 @@ public class GameWorld extends Observable {
         openDoor();
         break;
         
-        //Items
+      //Items
       case "emptyFlask":
         player.pickUp(new Flask());
         // removeItem
@@ -113,7 +113,7 @@ public class GameWorld extends Observable {
         // removeItem
         break;
         
-        //tools
+      //tools
       case "crowbar":
         Tool cb = new Tool();
         cb.setMaterial("woodenBlockade");
@@ -133,7 +133,7 @@ public class GameWorld extends Observable {
         // removeItem
         break;
         
-        //Barriers
+      //Barriers
       case "woodenBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("woodenBlockade")) {
