@@ -5,6 +5,8 @@ import java.util.Observable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import renderer.Renderer.ItemOnScreen;
+
 /**
  * GameWorld class is the API for the game.
  *
@@ -82,7 +84,8 @@ public class GameWorld extends Observable {
   /**
    * Called on click, passes the image clicked on.
    */
-  public void interact(String name) {
+  public void interact(ItemOnScreen name) {
+    //TODO: fix this. Changed from string to ItemOnScreen
     if (name.equals("door")) {
       openDoor();
     }

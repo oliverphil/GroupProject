@@ -101,64 +101,59 @@ public class Renderer extends Canvas implements Observer {
           gc.drawImage(healthFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "healthFlask"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
+              "healthFlask"));
           break;
         case "powerFlask":
           Image powerFlask = new Image(getClass().getResourceAsStream("images/powerFlask.png"));
           gc.drawImage(powerFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "powerFlask"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
+              "powerFlask"));
           break;
         case "crowbar":
           Image crowbar = new Image(getClass().getResourceAsStream("images/crowbar.png"));
           gc.drawImage(crowbar, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "crowbar"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "crowbar"));
           break;
         case "pickaxe":
           Image pickaxe = new Image(getClass().getResourceAsStream("images/pickaxe.png"));
           gc.drawImage(pickaxe, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "pickaxe"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "pickaxe"));
           break;
         case "boltCutters":
           Image boltCutters = new Image(getClass().getResourceAsStream("images/boltCutters.png"));
           gc.drawImage(boltCutters, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "boltCutters"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
+              "boltCutters"));
           break;
         case "khopesh":
           Image khopesh = new Image(getClass().getResourceAsStream("images/khopesh.png"));
           gc.drawImage(khopesh, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "khopesh"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "khopesh"));
           break;
         case "torch":
           Image torch = new Image(getClass().getResourceAsStream("images/torch.png"));
           gc.drawImage(torch, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "torch"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "torch"));
           break;
         case "hammer":
           Image hammer = new Image(getClass().getResourceAsStream("images/hammer.png"));
           gc.drawImage(hammer, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
-              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE,
-              i % 3 + 1, "hammer"));
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "hammer"));
           break;
         case "david":
           Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
@@ -207,10 +202,9 @@ public class Renderer extends Canvas implements Observer {
               getClass().getResourceAsStream("images/healthFountain.png"));
           gc.drawImage(healthFountain, x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
               getHeight() - 400);
-          objectsOnScreen
-              .add(new ItemOnScreen(x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
-                  getHeight() - 400, healthFountain.getWidth(), healthFountain.getHeight(),
-                  i % 3 + 1, "healthFountain"));
+          objectsOnScreen.add(new ItemOnScreen(
+              x + ((getWidth() / 3) - healthFountain.getWidth()) / 2, getHeight() - 400,
+              healthFountain.getWidth(), healthFountain.getHeight(), i % 3 + 1, "healthFountain"));
           musicFile = "mysteries";
           break;
         case "powerFountain":
@@ -218,10 +212,9 @@ public class Renderer extends Canvas implements Observer {
               getClass().getResourceAsStream("images/powerFountain.png"));
           gc.drawImage(powerFountain, x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
               getHeight() - 400);
-          objectsOnScreen
-              .add(new ItemOnScreen(x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
-                  getHeight() - 400, powerFountain.getWidth(), powerFountain.getHeight(),
-                  i % 3 + 1, "powerFountain"));
+          objectsOnScreen.add(new ItemOnScreen(
+              x + ((getWidth() / 3) - powerFountain.getWidth()) / 2, getHeight() - 400,
+              powerFountain.getWidth(), powerFountain.getHeight(), i % 3 + 1, "powerFountain"));
           musicFile = "mysteries";
           break;
         case "ladder":
@@ -252,13 +245,13 @@ public class Renderer extends Canvas implements Observer {
    * @param e the mouse event containing information about the player's click
    * @return a string describing the item clicked on
    */
-  public String onClick(MouseEvent e) {
+  public ItemOnScreen onClick(MouseEvent e) {
     for (ItemOnScreen d : objectsOnScreen) {
       if (d.on(e)) {
-        return d.toString();
+        return d;
       }
     }
-    return "";
+    return null;
   }
 
   @Override
@@ -332,6 +325,15 @@ public class Renderer extends Canvas implements Observer {
     private boolean on(MouseEvent e) {
       return e.getSceneX() >= leftX && e.getSceneX() <= leftX + width && e.getSceneY() >= topY
           && e.getSceneY() <= topY + height;
+    }
+
+    /**
+     * Get the tile that this item is on. 1-3 from left to right.
+     * 
+     * @return 1 for left, 2 for middle, 3 for right
+     */
+    public int getTile() {
+      return tile;
     }
 
     @Override
