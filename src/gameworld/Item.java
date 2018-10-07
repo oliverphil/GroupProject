@@ -1,6 +1,6 @@
 package gameworld;
 
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public abstract class Item extends FloorObject {
