@@ -113,5 +113,14 @@ public class GameWorld extends Observable {
     board.openDoor(player);
     update();
   }
+  
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof GameWorld) {
+      GameWorld other = (GameWorld) o;
+      return this.player.equals(other.getPlayer()) && this.board.equals(other.getBoard());
+    }
+    return false;
+  }
 
 }

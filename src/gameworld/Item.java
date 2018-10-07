@@ -5,7 +5,7 @@ import java.awt.Point;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@XmlTransient
+@XmlRootElement
 public abstract class Item extends FloorObject {
 
   public Item(String name, Point p) {
