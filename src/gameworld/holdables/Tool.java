@@ -1,4 +1,4 @@
-package gameworld;
+package gameworld.holdables;
 
 public class Tool extends Item {
   private String material;

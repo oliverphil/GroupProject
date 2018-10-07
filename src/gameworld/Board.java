@@ -1,7 +1,5 @@
 package gameworld;
 
-import gameworld.flasks.Flask;
-
 import java.awt.Point;
 import java.io.File;
 
@@ -9,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import gameworld.holdables.Flask;
 
 @XmlRootElement
 public class Board {

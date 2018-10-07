@@ -1,6 +1,8 @@
-package gameworld;
+package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlTransient;
+
+import gameworld.FloorObject;
 
 @XmlTransient
 public abstract class Item extends FloorObject {

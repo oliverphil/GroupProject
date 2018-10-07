@@ -1,9 +1,7 @@
-package gameworld.weapons;
+package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import gameworld.Item;
 
 @XmlRootElement
 public class Weapon extends Item {

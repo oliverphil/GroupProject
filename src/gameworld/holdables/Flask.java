@@ -1,10 +1,9 @@
-package gameworld.flasks;
+package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import gameworld.Item;
 import gameworld.Player;
 
 /**
