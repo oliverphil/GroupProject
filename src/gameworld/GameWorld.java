@@ -1,12 +1,11 @@
 package gameworld;
 
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
 import java.util.Observable;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import gameworld.holdables.Flask;
-import gameworld.holdables.Tool;
 import renderer.Renderer.ItemOnScreen;
 
 /**
@@ -33,7 +32,7 @@ public class GameWorld extends Observable {
 
   /**
    * Returns the current ViewDescriptor.
-   * 
+   *
    * @return the current ViewDescriptor of the player
    */
   public ViewDescriptor getViewDescriptor() {
@@ -88,12 +87,12 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(ItemOnScreen name) {
-    
+
     switch (name.toString()) {
       case "door":
         openDoor();
         break;
-        
+
       //Items
       case "emptyFlask":
         player.pickUp(new Flask());
@@ -111,7 +110,7 @@ public class GameWorld extends Observable {
         player.pickUp(hf);
         // removeItem
         break;
-        
+
       //tools
       case "crowbar":
         if (player.hasTool()) {
@@ -134,7 +133,7 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(pa);
           player.dropItem(tool);
-       // remove Item from tile but add something else
+          // remove Item from tile but add something else
         } else {
           Tool pa = new Tool();
           pa.setMaterial("stoneBlockade");
@@ -148,20 +147,20 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(bc);
           player.dropItem(tool);
-       // remove Item from tile but add something else
+          // remove Item from tile but add something else
         } else {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
           player.pickUp(bc);
         }
         break;
-        
+
       //Barriers
       case "woodenBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("woodenBlockade")) {
-            
-            board.removeBarrier(player); 
+
+            board.removeBarrier(player);
           }
         }
         break;
@@ -169,16 +168,18 @@ public class GameWorld extends Observable {
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("stoneBlockade")) {
             System.out.println(player.getTool().getName());
-            board.removeBarrier(player); 
+            board.removeBarrier(player);
           }
         }
         break;
       case "chainBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("chainBlockade")) {
-            board.removeBarrier(player); 
+            board.removeBarrier(player);
           }
         }
+        break;
+      default:
         break;
     }
     update();
@@ -196,7 +197,7 @@ public class GameWorld extends Observable {
 
   /**
    * Returns the current player.
-   * 
+   *
    * @return the current player
    */
   public Player getPlayer() {
@@ -205,7 +206,7 @@ public class GameWorld extends Observable {
 
   /**
    * Returns the current board.
-   * 
+   *
    * @return the current board
    */
   public Board getBoard() {
@@ -219,7 +220,7 @@ public class GameWorld extends Observable {
     board.openDoor(player);
     update();
   }
-  
+
   @Override
   public boolean equals(Object o) {
     if (o instanceof GameWorld) {
