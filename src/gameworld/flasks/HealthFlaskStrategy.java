@@ -10,8 +10,7 @@ class HealthFlaskStrategy implements ContentsStrategy {
 
   @Override
   public void use(Player pl) {
-    // TODO increase player damage or resistence
-
+    pl.giveHealth();
   }
 
 }

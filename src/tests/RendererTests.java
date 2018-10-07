@@ -14,15 +14,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import renderer.Music;
 import renderer.Renderer;
 import renderer.Renderer.Dimension;
 
@@ -37,9 +43,40 @@ public class RendererTests {
   private static final double BOSS_SIZE = 400;
   private Renderer renderer;
 
+  /**
+   * A method to run before each test. Creates a new renderer.
+   */
   @BeforeEach
-  public void setup() {
+  public void getNewRenderer() {
     renderer = new Renderer(3, 3);
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.mute();
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to mute music");
+    }
+  }
+
+  /**
+   * Creates a new JFXPanel so that when Renderer is created there is an application for the
+   * MediaPlayer to use.
+   * 
+   * @throws InterruptedException exception to ensure tests aren't run without a JFXPanel
+   */
+  @BeforeAll
+  public static void initToolkit() throws InterruptedException {
+    final CountDownLatch latch = new CountDownLatch(1);
+    SwingUtilities.invokeLater(() -> {
+      new JFXPanel();
+      latch.countDown();
+    });
+
+    if (!latch.await(5L, TimeUnit.SECONDS)) {
+      throw new ExceptionInInitializerError();
+    }
   }
 
   @Test
@@ -71,7 +108,7 @@ public class RendererTests {
   @Test
   public void testNoItems() {
     // stop error being thrown
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "" });
@@ -84,7 +121,7 @@ public class RendererTests {
 
   @Test
   public void testAddDoor() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "door", "", "", "", "" });
@@ -108,7 +145,7 @@ public class RendererTests {
 
   @Test
   public void testAddOpenDoor() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "clear", "", "", "", "" });
@@ -132,7 +169,7 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "emptyFlask", "", "" });
@@ -156,7 +193,7 @@ public class RendererTests {
 
   @Test
   public void testAddEmptyFlask02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "emptyFlask" });
@@ -180,7 +217,7 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "healthFlask", "", "" });
@@ -204,7 +241,7 @@ public class RendererTests {
 
   @Test
   public void testAddHealthFlask02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "healthFlask" });
@@ -228,7 +265,7 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "powerFlask", "", "" });
@@ -252,7 +289,7 @@ public class RendererTests {
 
   @Test
   public void testAddPowerFlask02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "powerFlask" });
@@ -276,7 +313,7 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "crowbar", "", "" });
@@ -300,7 +337,7 @@ public class RendererTests {
 
   @Test
   public void testAddCrowbar02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "crowbar" });
@@ -324,7 +361,7 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "pickaxe", "", "" });
@@ -348,7 +385,7 @@ public class RendererTests {
 
   @Test
   public void testAddPickaxe02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "pickaxe" });
@@ -372,7 +409,7 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "boltCutters", "", "" });
@@ -396,7 +433,7 @@ public class RendererTests {
 
   @Test
   public void testAddBoltCutters02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "boltCutters" });
@@ -420,7 +457,7 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "khopesh", "", "" });
@@ -444,7 +481,7 @@ public class RendererTests {
 
   @Test
   public void testAddKhopesh02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "khopesh" });
@@ -468,7 +505,7 @@ public class RendererTests {
 
   @Test
   public void testAddTorch01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "torch", "", "" });
@@ -492,7 +529,7 @@ public class RendererTests {
 
   @Test
   public void testAddTorch02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "torch" });
@@ -516,7 +553,7 @@ public class RendererTests {
 
   @Test
   public void testAddHammer01() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "hammer", "", "" });
@@ -540,7 +577,7 @@ public class RendererTests {
 
   @Test
   public void testAddHammer02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "", "hammer" });
@@ -564,7 +601,7 @@ public class RendererTests {
 
   @Test
   public void testAddDavid() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "" });
@@ -588,7 +625,7 @@ public class RendererTests {
 
   @Test
   public void testAddMarco() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "marco", "" });
@@ -612,7 +649,7 @@ public class RendererTests {
 
   @Test
   public void testAddThomas() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "thomas", "" });
@@ -636,7 +673,7 @@ public class RendererTests {
 
   @Test
   public void testAddWoodenBlockade() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "woodenBlockade", "" });
@@ -660,7 +697,7 @@ public class RendererTests {
 
   @Test
   public void testAddStoneBlockade() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "stoneBlockade", "" });
@@ -684,7 +721,6 @@ public class RendererTests {
 
   @Test
   public void testAddChainBlockade() {
-    new JFXPanel();
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -707,8 +743,76 @@ public class RendererTests {
   }
 
   @Test
+  public void testAddHealthFountain() {
+    renderer.redraw(new ViewDescriptor() {
+      public List<String> getView() {
+        return Arrays.asList(new String[] { "", "", "", "healthFountain", "", "" });
+      }
+    });
+
+    Renderer other = new Renderer(3, 3);
+    Field objects;
+    try {
+      objects = Renderer.class.getDeclaredField("objectsOnScreen");
+      objects.setAccessible(true);
+      objects.set(other, Arrays.asList(new Dimension[] {
+          other.new Dimension((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, "healthFountain") }));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access fields");
+    }
+
+    assertEquals(renderer, other);
+  }
+
+  @Test
+  public void testAddPowerFountain() {
+    renderer.redraw(new ViewDescriptor() {
+      public List<String> getView() {
+        return Arrays.asList(new String[] { "", "", "", "powerFountain", "", "" });
+      }
+    });
+
+    Renderer other = new Renderer(3, 3);
+    Field objects;
+    try {
+      objects = Renderer.class.getDeclaredField("objectsOnScreen");
+      objects.setAccessible(true);
+      objects.set(other, Arrays.asList(new Dimension[] {
+          other.new Dimension((1.0 - 266.0) / 2, 3 - 400, 266.0, 300.0, "powerFountain") }));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access fields");
+    }
+
+    assertEquals(renderer, other);
+  }
+
+  @Test
+  public void testAddLadder() {
+    renderer.redraw(new ViewDescriptor() {
+      public List<String> getView() {
+        return Arrays.asList(new String[] { "", "", "", "", "ladder", "" });
+      }
+    });
+
+    Renderer other = new Renderer(3, 3);
+    Field objects;
+    try {
+      objects = Renderer.class.getDeclaredField("objectsOnScreen");
+      objects.setAccessible(true);
+      objects.set(other, Arrays
+          .asList(new Dimension[] { other.new Dimension(1, 0, 1, 3 * 2 / 3, "ladder") }));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access fields");
+    }
+
+    assertEquals(renderer, other);
+  }
+
+  @Test
   public void testOnClick01() {
-    new JFXPanel();
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -722,7 +826,7 @@ public class RendererTests {
 
   @Test
   public void testOnClick02() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -736,7 +840,7 @@ public class RendererTests {
 
   @Test
   public void testOnClick03() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -750,7 +854,7 @@ public class RendererTests {
 
   @Test
   public void testOnClick04() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -764,7 +868,7 @@ public class RendererTests {
 
   @Test
   public void testOnClick05() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -778,7 +882,7 @@ public class RendererTests {
 
   @Test
   public void testOnClick06() {
-    new JFXPanel();
+
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -792,7 +896,7 @@ public class RendererTests {
 
   @Test
   public void testEquals01() {
-    new JFXPanel();
+
     Renderer other = new Renderer(3, 3);
     assertTrue(other.equals(renderer));
     assertTrue(renderer.equals(other));
@@ -818,7 +922,7 @@ public class RendererTests {
 
   @Test
   public void testEquals05() {
-    new JFXPanel();
+
     Renderer other = new Renderer(3, 3);
     Field objects;
     try {
@@ -836,7 +940,7 @@ public class RendererTests {
 
   @Test
   public void testEquals06() {
-    new JFXPanel();
+
     Renderer other = new Renderer(3, 3);
     Field objects;
     try {
@@ -854,7 +958,7 @@ public class RendererTests {
 
   @Test
   public void testEquals07() {
-    new JFXPanel();
+
     Renderer other = new Renderer(3, 3);
     Field objects;
     try {
@@ -873,7 +977,7 @@ public class RendererTests {
 
   @Test
   public void testEquals08() {
-    new JFXPanel();
+
     Renderer other = new Renderer(3, 3);
     Field objects;
     try {
@@ -894,7 +998,7 @@ public class RendererTests {
 
   @Test
   public void testUpdate01() {
-    new JFXPanel();
+
     renderer.update(new GameWorld(), new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -918,7 +1022,7 @@ public class RendererTests {
 
   @Test
   public void testUpdate02() {
-    new JFXPanel();
+
     renderer.update(new Observable(), new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "chainBlockade", "" });
@@ -942,7 +1046,7 @@ public class RendererTests {
 
   @Test
   public void testUpdate03() {
-    new JFXPanel();
+
     renderer.update(new Observable(), "hello");
 
     Renderer other = new Renderer(3, 3);
@@ -962,7 +1066,7 @@ public class RendererTests {
 
   @Test
   public void testUpdate04() {
-    new JFXPanel();
+
     renderer.update(new GameWorld(), "hello");
 
     Renderer other = new Renderer(3, 3);
@@ -1032,5 +1136,53 @@ public class RendererTests {
   public void testDimensionEquals09() {
     Dimension d = renderer.new Dimension(0, 0, 0, 0, " ");
     assertNotEquals(d, renderer.new Dimension(0, 0, 0, 0, ""));
+  }
+
+  @Test
+  public void testMusicUpdate01() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("tunnels");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("tunnels", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
+  }
+
+  @Test
+  public void testMusicUpdate02() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("hello");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("tunnels", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
+  }
+
+  @Test
+  public void testMusicUpdate03() {
+    try {
+      Field music = Renderer.class.getDeclaredField("musicPlayer");
+      music.setAccessible(true);
+      Music player = (Music) music.get(renderer);
+      player.update("escape");
+      Field track = Music.class.getDeclaredField("currentFile");
+      track.setAccessible(true);
+      assertEquals("escape", (String) track.get(music));
+    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+        | IllegalAccessException e) {
+      fail("Should be able to access music");
+    }
   }
 }

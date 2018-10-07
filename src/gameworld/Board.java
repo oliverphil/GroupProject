@@ -25,6 +25,7 @@ public class Board {
     board = new Tile[HEIGHT][WIDTH];
 
     initialiseBoard();
+    initialiseObjects();
   }
 
   /**
@@ -60,8 +61,6 @@ public class Board {
     }
     addDoors();
 
-    initialiseObjects();
-
     // start the player in the centre square
     this.board[7][7].setOccupiedByPlayer(true);
   }
@@ -70,17 +69,39 @@ public class Board {
    * Adds all FloorObjects to the board.
    */
   private void initialiseObjects() {
+    //Add bosses
     Monster david = new Monster();
     david.setLocation(new Point(0, 13));
     david.setName("david");
-    david.setDamage(50);
+    david.setDamage(30);
     david.setHealth(150);
     this.board[13][0].setObj(david);
+    
+    Monster marco = new Monster();
+    marco.setLocation(new Point(1, 0));
+    marco.setName("marco");
+    marco.setDamage(20);
+    marco.setHealth(150);
+    this.board[0][1].setObj(marco);
+    
+    Monster thomas = new Monster();
+    thomas.setLocation(new Point(14, 1));
+    thomas.setName("thomas");
+    thomas.setDamage(10);
+    thomas.setHealth(150);
+    this.board[1][14].setObj(thomas);
 
-    Flask flask = new Flask();
-    flask.setLocation(new Point(8, 6));
-    flask.setName("emptyFlask");
-    this.board[6][8].setObj(flask);
+    //add flasks
+    Flask flask1 = new Flask();
+    flask1.setLocation(new Point(8, 6));
+    flask1.setName("emptyFlask");
+    this.board[6][8].setObj(flask1);
+    
+    Flask flask2 = new Flask();
+    flask2.setLocation(new Point(0, 7));
+    flask2.setName("emptyFlask");
+    this.board[7][0].setObj(flask2);
+    
   }
 
   /**
