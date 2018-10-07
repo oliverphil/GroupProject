@@ -216,7 +216,7 @@ public class Player  {
   
   /**
    * Returns true if the player has a Tool in their bag.
-   * @return true or false
+   * @return 
    */
   public boolean hasTool() {
     for (FloorObject obj : bag) {
@@ -225,5 +225,31 @@ public class Player  {
       }
     }
     return false;
+  }
+  
+  /**
+   * Returns the weapon the player in holding.
+   * @return a boolean
+   */
+  public Weapon getWeapon() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Weapon) {
+        return (Weapon) obj;
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * Returns the tool the player in holding.
+   * @return the players tool
+   */
+  public Tool getTool() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Tool) {
+        return (Tool) obj;
+      }
+    }
+    return null;
   }
 }

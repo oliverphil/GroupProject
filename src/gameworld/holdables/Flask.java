@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import gameworld.Player;
 
 /**
- * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
- * PATTERN***.
+ * A Flask is a multi-use item that can be filled with different liquids. 
+ * This uses the ***STRATEGY PATTERN***.
  * 
  * @author ewensdyla
  *
@@ -49,7 +49,7 @@ public class Flask extends Item {
       strat = new PowerFlaskStrategy();
     }
   }
-
+  
   public ContentsStrategy getStrat() {
     return strat;
   }
@@ -60,7 +60,7 @@ public class Flask extends Item {
   }
 
   @XmlTransient
-  interface ContentsStrategy {
+  public interface ContentsStrategy {
     public void use(Player pl);
   }
 }
