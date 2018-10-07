@@ -88,7 +88,6 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(ItemOnScreen name) {
-    System.out.println(name);
     
     switch (name.toString()) {
       case "door":
@@ -115,28 +114,53 @@ public class GameWorld extends Observable {
         
       //tools
       case "crowbar":
-        Tool cb = new Tool();
-        cb.setMaterial("woodenBlockade");
-        player.pickUp(cb);
-        // removeItem
+        if (player.hasTool()) {
+          Tool cb = new Tool();
+          cb.setMaterial("woodenBlockade");
+          Tool tool = player.getTool();
+          player.pickUp(cb);
+          player.dropItem(tool);
+          //remove Item from tile but add something else
+        } else {
+          Tool cb = new Tool();
+          cb.setMaterial("woodenBlockade");
+          player.pickUp(cb);
+        }
         break;
       case "pickaxe":
-        Tool pa = new Tool();
-        pa.setMaterial("stoneBlockade");
-        player.pickUp(pa);
-        // removeItem
+        if (player.hasTool()) {
+          Tool pa = new Tool();
+          pa.setMaterial("stoneBlockade");
+          Tool tool = player.getTool();
+          player.pickUp(pa);
+          player.dropItem(tool);
+       // remove Item from tile but add something else
+        } else {
+          Tool pa = new Tool();
+          pa.setMaterial("stoneBlockade");
+          player.pickUp(pa);
+        }
         break;
       case "boltCutters":
-        Tool bc = new Tool();
-        bc.setMaterial("chainBlockade");
-        player.pickUp(bc);
-        // removeItem
+        if (player.hasTool()) {
+          Tool bc = new Tool();
+          bc.setMaterial("chainBlockade");
+          Tool tool = player.getTool();
+          player.pickUp(bc);
+          player.dropItem(tool);
+       // remove Item from tile but add something else
+        } else {
+          Tool bc = new Tool();
+          bc.setMaterial("chainBlockade");
+          player.pickUp(bc);
+        }
         break;
         
       //Barriers
       case "woodenBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("woodenBlockade")) {
+            
             board.removeBarrier(player); 
           }
         }
@@ -144,6 +168,7 @@ public class GameWorld extends Observable {
       case "stoneBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("stoneBlockade")) {
+            System.out.println(player.getTool().getName());
             board.removeBarrier(player); 
           }
         }
