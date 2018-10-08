@@ -169,63 +169,63 @@ public class Board {
     wBar7.setStrat(new WoodenPlanksStrategy());
     wBar7.setLocation(new Point(7, 3));
     this.board[3][7].setObj(wBar7);
-    
+
     //stone barriers
     Barrier sBar1 = new Barrier();
     sBar1.setName("stoneBlockade");
     sBar1.setStrat(new PileOfRocksStrategy());
     sBar1.setLocation(new Point(8, 1));
     this.board[1][8].setObj(sBar1);
-    
+
     Barrier sBar2 = new Barrier();
     sBar2.setName("stoneBlockade");
     sBar2.setStrat(new PileOfRocksStrategy());
     sBar2.setLocation(new Point(11, 1));
     this.board[1][11].setObj(sBar2);
-    
+
     Barrier sBar3 = new Barrier();
     sBar3.setName("stoneBlockade");
     sBar3.setStrat(new PileOfRocksStrategy());
     sBar3.setLocation(new Point(1, 8));
     this.board[8][1].setObj(sBar3);
-    
+
     Barrier sBar4 = new Barrier();
     sBar4.setName("stoneBlockade");
     sBar4.setStrat(new PileOfRocksStrategy());
     sBar4.setLocation(new Point(2, 10));
     this.board[10][2].setObj(sBar4);
-    
+
     Barrier sBar5 = new Barrier();
     sBar5.setName("stoneBlockade");
     sBar5.setStrat(new PileOfRocksStrategy());
     sBar5.setLocation(new Point(10, 11));
     this.board[11][10].setObj(sBar5);
-    
+
     //chain
-    Barrier cBar1 = new Barrier();
-    cBar1.setName("chainBlockade");
-    cBar1.setStrat(new ChainsStrategy());
-    cBar1.setLocation(new Point(4, 3));
-    this.board[3][4].setObj(cBar1);
-    
-    Barrier cBar2 = new Barrier();
-    cBar2.setName("chainBlockade");
-    cBar2.setStrat(new ChainsStrategy());
-    cBar2.setLocation(new Point(3, 7));
-    this.board[7][3].setObj(cBar2);
-    
+    Barrier chBar1 = new Barrier();
+    chBar1.setName("chainBlockade");
+    chBar1.setStrat(new ChainsStrategy());
+    chBar1.setLocation(new Point(4, 3));
+    this.board[3][4].setObj(chBar1);
+
+    Barrier chBar2 = new Barrier();
+    chBar2.setName("chainBlockade");
+    chBar2.setStrat(new ChainsStrategy());
+    chBar2.setLocation(new Point(3, 7));
+    this.board[7][3].setObj(chBar2);
+
     Barrier cBar3 = new Barrier();
     cBar3.setName("chainBlockade");
     cBar3.setStrat(new ChainsStrategy());
     cBar3.setLocation(new Point(7, 11));
     this.board[11][7].setObj(cBar3);
-    
+
     Barrier cBar4 = new Barrier();
     cBar4.setName("chainBlockade");
     cBar4.setStrat(new ChainsStrategy());
     cBar4.setLocation(new Point(3, 13));
     this.board[13][3].setObj(cBar4);
-    
+
     Barrier cBar5 = new Barrier();
     cBar5.setName("chainBlockade");
     cBar5.setStrat(new ChainsStrategy());
@@ -295,7 +295,7 @@ public class Board {
 
   /**
    * Opens the door the player is facing.
-   * 
+   *
    * @param pl
    * @return
    */
@@ -338,6 +338,7 @@ public class Board {
   }
 
   /**
+   * Gets the board.
    * @return the board
    */
   public Tile[][] getBoard() {
@@ -528,14 +529,14 @@ public class Board {
 
   /**
    * Removes the barrier in front of the player.
-   * 
+   *
    * @param p the current player
    */
   public void removeBarrier(Player p) {
     String dir = p.getDirection();
     Point point = p.getLocation();
 
-    // move the player backwards if there is nothing behind them
+    //remove the barrier the player is facing
     switch (dir) {
       case "north":
         board[point.y - 1][point.x].removeFloorObject();
@@ -554,4 +555,32 @@ public class Board {
     }
   }
 
+  /**
+   * Called by the GameWorld to place an item on the floor.
+   * @param p
+   * @param tool
+   * @param location
+   */
+  public void place(Player p, Item item, int location) {
+    String dir = p.getDirection();
+    Point point = p.getLocation();
+
+    //
+    switch (dir) {
+      case "north":
+        board[point.y - 1][point.x - (2 - location)].setFloorObject(item);
+        break;
+      case "south":
+        board[point.y + 1][point.x + (2 - location)].setFloorObject(item);
+        break;
+      case "east":
+        board[point.y - (2 - location)][point.x + 1].setFloorObject(item);
+        break;
+      case "west":
+        board[point.y + (2 - location)][point.x - 1].setFloorObject(item);
+        break;
+      default:
+        break;
+    }
+  }
 }

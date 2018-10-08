@@ -119,7 +119,7 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(cb);
           player.dropItem(tool);
-          //remove Item from tile but add something else
+
         } else {
           Tool cb = new Tool();
           cb.setMaterial("woodenBlockade");
