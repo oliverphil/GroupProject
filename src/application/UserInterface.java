@@ -43,7 +43,7 @@ public class UserInterface extends Application {
 
   // TODO: 
   // Fix the size of the GUI
-  // Remove Restart Area and all but Enable Sound on Options
+  // Remove Restart Area and all but Enable Sound on Options: DONE
   // Fix Help Printing 
   // Backpack and move items
   // Health bar
@@ -112,6 +112,7 @@ public class UserInterface extends Application {
     exit.setOnAction(e -> System.exit(0));
     gameMenu.getItems().add(exit);
 
+    /* TBD IF WANTED
     // Difficulty Menu
     ToggleGroup difficultyToggle = new ToggleGroup();
 
@@ -128,6 +129,17 @@ public class UserInterface extends Application {
     Menu difficultyMenu = new Menu("Difficulty");
     difficultyMenu.getItems().addAll(easy, medium, hard);
 
+    // autosave option
+    CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
+    autoSave.setOnAction(e -> {
+      if (autoSave.isSelected()) {
+        System.out.println("Autosave is enabled");
+      } else {
+        System.out.println("Autosave is disabled");
+      }
+    });
+    */
+    
     // Settings Menu
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
     toggleMusic.setSelected(true);
@@ -139,21 +151,12 @@ public class UserInterface extends Application {
       }
     });
 
-    CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
-    autoSave.setOnAction(e -> {
-      if (autoSave.isSelected()) {
-        System.out.println("Autosave is enabled");
-      } else {
-        System.out.println("Autosave is disabled");
-      }
-    });
-
     // Options Menu
     Menu optionsMenu = new Menu("");
     Label s = new Label("Options");
     s.setStyle("-fx-text-fill: #D39365; ");
     optionsMenu.setGraphic(s);
-    optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
+    optionsMenu.getItems().addAll(toggleMusic);
 
     // Map Editor Menu
     CheckMenuItem launchMapEditor = new CheckMenuItem("Launch Map Editor");
