@@ -25,7 +25,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   private Button crowbar;
   private Button hammer;
   private Button khopesh;
-  private Button pickAxe;
+  private Button pickaxe;
   Stage primaryStage;
 
   
@@ -139,12 +139,12 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(khopesh, 1, 2);
 
     // add east south walls
-    Image southEastImage = new Image(getClass().getResourceAsStream("icons/pickAxe.png"));
-    pickAxe = new Button();
-    pickAxe.setGraphic(new ImageView(southEastImage));
-    pickAxe.setPrefSize(40, 40);
-    pickAxe.setOnAction(this);
-    gridPane.add(pickAxe, 2, 2);
+    Image southEastImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"));
+    pickaxe = new Button();
+    pickaxe.setGraphic(new ImageView(southEastImage));
+    pickaxe.setPrefSize(40, 40);
+    pickaxe.setOnAction(this);
+    gridPane.add(pickaxe, 2, 2);
 
     return gridPane;
   }
@@ -175,8 +175,8 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     } else if (event.getSource() == khopesh) {
       MapEditor.setSelectedIcon("khopesh");
       primaryStage.close();
-    } else if (event.getSource() == pickAxe) {
-      MapEditor.setSelectedIcon("pickAxe");
+    } else if (event.getSource() == pickaxe) {
+      MapEditor.setSelectedIcon("pickaxe");
       primaryStage.close();
     }
   }

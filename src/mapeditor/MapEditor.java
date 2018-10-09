@@ -64,12 +64,11 @@ public class MapEditor extends Application {
     gridPane = new GridPane();
 
     HBox topHBox = drawTop();
-    HBox bottomHBox = drawBottom();
+
     border.setTop(topHBox);
     border.setCenter(drawGrid());
-    border.setBottom(bottomHBox);
 
-    Scene scene = new Scene(border, 480, 590);
+    Scene scene = new Scene(border, 480, 535);
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -80,6 +79,10 @@ public class MapEditor extends Application {
       if (e.getSource() == floorBtn) {
         selectedBtn = "floorBtn";
         new FloorTileMenu();
+      }
+      if (e.getSource() == itemBtn) {
+        selectedBtn = "itemBtn";
+        new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
@@ -101,6 +104,16 @@ public class MapEditor extends Application {
           drawGrid();
         }
       }
+      if (selectedBtn == "itemBtn") {
+        if (row != -1 && col != -1) {
+          if(grid[col][row] == "0") {
+           // add shit here 
+            grid[col][row] = "empty, " + selectedIcon;
+          }
+          grid[col][row] = selectedIcon;
+          drawGrid();
+        }
+      }
       if (selectedBtn == "remove") {
         remove(x, y);
       }
@@ -116,14 +129,12 @@ public class MapEditor extends Application {
   }
 
   private void remove(int x, int y) {
-    // TODO Auto-generated method stub
     grid[col][row] = "0";
     drawGrid();
 
   }
 
   private HBox drawTop() {
-    // TODO Auto-generated method stub
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -154,36 +165,7 @@ public class MapEditor extends Application {
     return box;
   }
 
-  private HBox drawBottom() {
-    // TODO Auto-generated method stub
-    HBox box = new HBox();
-    box.setPadding(new Insets(15, 15, 15, 15));
-    box.setSpacing(10);
-    box.setStyle("-fx-background-color: #9b9781;");
-
-    northBtn = new Button("North");
-    northBtn.setPrefSize(60, 20);
-    // northBtn.setOnAction(this);
-
-    eastBtn = new Button("East");
-    eastBtn.setPrefSize(60, 20);
-    // eastBtn.setOnAction(this);
-
-    southBtn = new Button("South");
-    southBtn.setPrefSize(60, 20);
-    // southBtn.setOnAction(this);
-
-    westBtn = new Button("West");
-    westBtn.setPrefSize(60, 20);
-    // westBtn.setOnAction(this);
-
-    box.getChildren().addAll(northBtn, eastBtn, southBtn, westBtn);
-
-    return box;
-  }
-
   private Node drawGrid() {
-    // TODO Auto-generated method stub
     gridPane.getChildren().clear();
     gridPane.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandler);
     gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -222,9 +204,36 @@ public class MapEditor extends Application {
         } else if (grid[x][y] == "empty") {
           Image img = new Image(getClass().getResourceAsStream("icons/empty.png"));
           rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "emptyFlask") {
+          Image img = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "healthFlask") {
+          Image img = new Image(getClass().getResourceAsStream("icons/healthFlask.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "powerFlask") {
+          Image img = new Image(getClass().getResourceAsStream("icons/powerFlask.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "boltCutters") {
+          Image img = new Image(getClass().getResourceAsStream("icons/boltCutters.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "crowbar") {
+          Image img = new Image(getClass().getResourceAsStream("icons/crowbar.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "hammer") {
+          Image img = new Image(getClass().getResourceAsStream("icons/hammer.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "khopesh") {
+          Image img = new Image(getClass().getResourceAsStream("icons/khopesh.png"));
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "pickaxe") {
+          Image img = new Image(getClass().getResourceAsStream("icons/pickaxe.png"));
+          System.out.println("pickaxe");
+          rec.setFill(new ImagePattern(img));
+        } else if (grid[x][y] == "torch") {
+          Image img = new Image(getClass().getResourceAsStream("icons/torch.png"));
+          rec.setFill(new ImagePattern(img));
         }
         gridPane.add(rec, x, y);
-
       }
     }
     return gridPane;
