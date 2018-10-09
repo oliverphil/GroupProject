@@ -4,6 +4,7 @@ import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
 
 import java.io.File;
 
@@ -111,8 +112,8 @@ public class Board {
     Tool crowbar = new Tool();
     crowbar.setMaterial("woodenBlockade");
     crowbar.setName("crowbar");
-    crowbar.setLocation(new Point(6, 6));
-    this.board[6][6].setObj(crowbar);
+    crowbar.setLocation(new Point(11, 5));
+    this.board[5][11].setObj(crowbar);
 
     Tool pickaxe = new Tool();
     pickaxe.setMaterial("stoneBlockade");
@@ -125,6 +126,25 @@ public class Board {
     boltCutters.setName("boltCutters");
     boltCutters.setLocation(new Point(11, 0));
     this.board[0][11].setObj(boltCutters);
+    
+    //Add weapons
+    Weapon hammer = new Weapon();
+    hammer.setName("hammer");
+    hammer.setDamage(10);
+    hammer.setLocation(new Point(4, 0));
+    this.board[0][4].setObj(hammer);
+    
+    Weapon torch = new Weapon();
+    torch.setName("torch");
+    torch.setDamage(15);
+    torch.setLocation(new Point(9, 13));
+    this.board[13][9].setObj(torch);
+    
+    Weapon sword = new Weapon();
+    sword.setName("khopesh");
+    sword.setDamage(20);
+    sword.setLocation(new Point(13, 3));
+    this.board[3][13].setObj(sword);
 
     //Add barriers
     //wooden barriers
@@ -200,6 +220,12 @@ public class Board {
     sBar5.setStrat(new PileOfRocksStrategy());
     sBar5.setLocation(new Point(10, 11));
     this.board[11][10].setObj(sBar5);
+    
+    Barrier sBar6 = new Barrier();
+    sBar6.setName("stoneBlockade");
+    sBar6.setStrat(new PileOfRocksStrategy());
+    sBar6.setLocation(new Point(13, 6));
+    this.board[6][13].setObj(sBar6);
 
     //chain
     Barrier chBar1 = new Barrier();
@@ -560,10 +586,6 @@ public class Board {
   public void place(Player p, FloorObject item, int location) {
     String dir = p.getDirection();
     Point point = p.getLocation();
-
-    System.out.println("Item: " + item.getName());
-    
-    item.setName(item.getName());
 
     //place the object on the floor in the selected position
     switch (dir) {

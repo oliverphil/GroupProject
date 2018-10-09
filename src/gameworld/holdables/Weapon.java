@@ -23,4 +23,8 @@ public class Weapon extends Item {
   public void setDamage(int damage) {
     this.damage = damage;
   }
+  
+  public String toString() {
+    return this.getName();
+  }
 }

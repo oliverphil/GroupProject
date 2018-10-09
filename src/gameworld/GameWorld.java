@@ -2,6 +2,8 @@ package gameworld;
 
 import gameworld.holdables.Flask;
 import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
+
 import java.util.Observable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -161,11 +163,68 @@ public class GameWorld extends Observable {
         } else {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
+          bc.setName("boltCutters");
           player.pickUp(bc);
           board.removeObject(player, name.getTile());
         }
         break;
 
+        //Weapons
+      case "hammer":
+        if (player.hasWeapon()) {
+          Weapon hm = new Weapon();
+          hm.setDamage(10);
+          hm.setName("hammer");
+          Weapon weap = player.getWeapon();
+          player.pickUp(hm);
+          player.dropItem(weap);
+          board.removeObject(player, name.getTile());
+          board.place(player, weap, name.getTile());
+        } else {
+          Weapon hm = new Weapon();
+          hm.setDamage(10);
+          hm.setName("hammer");
+          player.pickUp(hm);
+          board.removeObject(player, name.getTile());
+        }
+        break;
+      case "torch":
+        if (player.hasWeapon()) {
+          Weapon tr = new Weapon();
+          tr.setDamage(15);
+          tr.setName("torch");
+          Weapon weap = player.getWeapon();
+          player.pickUp(tr);
+          player.dropItem(weap);
+          board.removeObject(player, name.getTile());
+          board.place(player, weap, name.getTile());
+        } else {
+          Weapon tr = new Weapon();
+          tr.setDamage(15);
+          tr.setName("torch");
+          player.pickUp(tr);
+          board.removeObject(player, name.getTile());
+        }
+        break;
+      case "khopesh":
+        if (player.hasWeapon()) {
+          Weapon kp = new Weapon();
+          kp.setDamage(20);
+          kp.setName("khopesh");
+          Weapon weap = player.getWeapon();
+          player.pickUp(kp);
+          player.dropItem(weap);
+          board.removeObject(player, name.getTile());
+          board.place(player, weap, name.getTile());
+        } else {
+          Weapon kp = new Weapon();
+          kp.setDamage(20);
+          kp.setName("khopesh");
+          player.pickUp(kp);
+          board.removeObject(player, name.getTile());
+        }
+        break;
+        
       //Barriers
       case "woodenBlockade":
         if (player.hasTool()) {

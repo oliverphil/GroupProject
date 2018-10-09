@@ -246,7 +246,6 @@ public class Player  {
   public Tool getTool() {
     for (FloorObject obj : bag) {
       if (obj instanceof Tool) {
-        System.out.println(obj.getName());
         return (Tool) obj;
       }
     }
