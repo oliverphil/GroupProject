@@ -509,10 +509,6 @@ public class Board {
     p.setView(new ViewDescriptor(p, this));
   }
 
-  public void removeItem() {
-
-  }
-
   @XmlElementWrapper(name = "board")
   @XmlElement(name = "tile")
   public void setBoard(Tile[][] board) {
@@ -561,11 +557,14 @@ public class Board {
    * @param tool
    * @param location
    */
-  public void place(Player p, Item item, int location) {
+  public void place(Player p, FloorObject item, int location) {
     String dir = p.getDirection();
     Point point = p.getLocation();
 
-    //
+    item = new Tool();
+    item.setName("crowbar");
+
+    //place the object on the floor in the selected position
     switch (dir) {
       case "north":
         board[point.y - 1][point.x - (2 - location)].setFloorObject(item);
@@ -578,6 +577,35 @@ public class Board {
         break;
       case "west":
         board[point.y + (2 - location)][point.x - 1].setFloorObject(item);
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Removes the object in the specified location.
+   * @param p
+   * @param item
+   * @param location
+   */
+  public void removeObject(Player p, int location) {
+    String dir = p.getDirection();
+    Point point = p.getLocation();
+
+    //remove the object on the floor in the selected position
+    switch (dir) {
+      case "north":
+        board[point.y - 1][point.x - (2 - location)].setFloorObject(null);
+        break;
+      case "south":
+        board[point.y + 1][point.x + (2 - location)].setFloorObject(null);
+        break;
+      case "east":
+        board[point.y - (2 - location)][point.x + 1].setFloorObject(null);
+        break;
+      case "west":
+        board[point.y + (2 - location)][point.x - 1].setFloorObject(null);
         break;
       default:
         break;

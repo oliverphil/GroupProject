@@ -183,7 +183,7 @@ public class Player  {
       health = 100;
     }
   }
-  
+
   /**
    * Picks up the item clicked on.
    * @param item item to pick up
@@ -191,7 +191,7 @@ public class Player  {
   public void pickUp(Item item) {
     this.bag.add(item);
   }
-  
+
   /**
    * Drops the item selected in the hot bar.
    * @param item item to be dropped.
@@ -199,7 +199,7 @@ public class Player  {
   public void dropItem(Item item) {
     this.bag.remove(item);
   }
-  
+
   /**
    * Returns true if the player has a weapon in their bag.
    * @return a boolean
@@ -212,10 +212,10 @@ public class Player  {
     }
     return false;
   }
-  
+
   /**
    * Returns true if the player has a Tool in their bag.
-   * @return 
+   * @return
    */
   public boolean hasTool() {
     for (FloorObject obj : bag) {
@@ -225,7 +225,7 @@ public class Player  {
     }
     return false;
   }
-  
+
   /**
    * Returns the weapon the player in holding.
    * @return a boolean
@@ -238,7 +238,7 @@ public class Player  {
     }
     return null;
   }
-  
+
   /**
    * Returns the tool the player in holding.
    * @return the players tool
@@ -246,6 +246,7 @@ public class Player  {
   public Tool getTool() {
     for (FloorObject obj : bag) {
       if (obj instanceof Tool) {
+        System.out.println(obj.getName());
         return (Tool) obj;
       }
     }

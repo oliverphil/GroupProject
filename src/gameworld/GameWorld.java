@@ -96,19 +96,19 @@ public class GameWorld extends Observable {
       //Items
       case "emptyFlask":
         player.pickUp(new Flask());
-        // removeItem
+        board.removeObject(player, name.getTile());
         break;
       case "powerFlask":
         Flask pf = new Flask();
         pf.fill("power");
         player.pickUp(pf);
-        // removeItem
+        board.removeObject(player, name.getTile());
         break;
       case "healthFlask":
         Flask hf = new Flask();
         hf.fill("health");
         player.pickUp(hf);
-        // removeItem
+        board.removeObject(player, name.getTile());
         break;
 
       //tools
@@ -116,42 +116,52 @@ public class GameWorld extends Observable {
         if (player.hasTool()) {
           Tool cb = new Tool();
           cb.setMaterial("woodenBlockade");
+          cb.setName("crowbar");
           Tool tool = player.getTool();
           player.pickUp(cb);
           player.dropItem(tool);
-
+          board.place(player, tool, name.getTile());
         } else {
           Tool cb = new Tool();
           cb.setMaterial("woodenBlockade");
+          cb.setName("crowbar");
           player.pickUp(cb);
+          board.removeObject(player, name.getTile());
         }
         break;
       case "pickaxe":
         if (player.hasTool()) {
           Tool pa = new Tool();
           pa.setMaterial("stoneBlockade");
+          pa.setName("pickaxe");
           Tool tool = player.getTool();
+          System.out.println(tool.getName());
           player.pickUp(pa);
           player.dropItem(tool);
-          // remove Item from tile but add something else
+          board.removeObject(player, name.getTile());
+          board.place(player, tool, name.getTile());
         } else {
           Tool pa = new Tool();
           pa.setMaterial("stoneBlockade");
+          pa.setName("pickaxe");
           player.pickUp(pa);
+          board.removeObject(player, name.getTile());
         }
         break;
       case "boltCutters":
         if (player.hasTool()) {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
+          bc.setName("boltCutters");
           Tool tool = player.getTool();
           player.pickUp(bc);
           player.dropItem(tool);
-          // remove Item from tile but add something else
+          board.place(player, tool, name.getTile());
         } else {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
           player.pickUp(bc);
+          board.removeObject(player, name.getTile());
         }
         break;
 
@@ -159,7 +169,6 @@ public class GameWorld extends Observable {
       case "woodenBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("woodenBlockade")) {
-
             board.removeBarrier(player);
           }
         }
@@ -167,7 +176,6 @@ public class GameWorld extends Observable {
       case "stoneBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("stoneBlockade")) {
-            System.out.println(player.getTool().getName());
             board.removeBarrier(player);
           }
         }

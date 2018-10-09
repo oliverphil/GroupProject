@@ -18,4 +18,11 @@ public class Tool extends Item {
   public void setMaterial(String material) {
     this.material = material;
   }
+
+  /**
+   * To string.
+   */
+  public String toString() {
+    return this.getName();
+  }
 }

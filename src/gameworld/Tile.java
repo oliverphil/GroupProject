@@ -118,11 +118,11 @@ public class Tile {
    * @param item the item to set
    */
   public void setFloorObject(FloorObject item) {
-    if (!hasObject()) {
+    if (!hasObject() || item == null) {
       this.obj = item;
     }
   }
-  
+
   /**
    * Removes the floor object.
    * @param item the item to set
