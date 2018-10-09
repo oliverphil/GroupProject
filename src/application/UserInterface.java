@@ -39,6 +39,14 @@ import renderer.Renderer;
 
 public class UserInterface extends Application {
 
+  // TODO: 
+  // Fix the size of the GUI
+  // Remove Restart Area and all but Enable Sound on Options
+  // Fix Help Printing 
+  // Backpack and move items
+  // Health bar
+  // Write Tests [Renderer Tests, add 'Before All' to tests]
+  
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
