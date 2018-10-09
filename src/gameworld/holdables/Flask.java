@@ -50,6 +50,14 @@ public class Flask extends Item {
     }
   }
   
+  /**
+   * Returns true if the Flask is empty.
+   * @return true or false
+   */
+  public boolean isEmpty() {
+    return strat instanceof EmptyFlaskStrategy;
+  }
+  
   public ContentsStrategy getStrat() {
     return strat;
   }

@@ -95,10 +95,17 @@ public class GameWorld extends Observable {
         openDoor();
         break;
 
+      //bosses
       case "david":
         attack("david");
         break;
-
+      case "marco":
+        attack("marco");
+        break;
+      case "thomas":
+        attack("thomas");
+        break;
+        
       // Items
       case "emptyFlask":
         player.pickUp(new Flask());
@@ -251,12 +258,24 @@ public class GameWorld extends Observable {
           }
         }
         break;
+        
+      //fountains
+      case "powerFountain":
+        player.fill("power");
+        break;
+      case "healthFountain":
+        player.fill("health");
+        break;
       default:
         break;
     }
     update();
   }
 
+  /**
+   * Called by the interact method when the player is fighting a boss.
+   * @param name of the boss to fight
+   */
   private void attack(String boss) {
 
     Weapon weap = player.getWeapon();
@@ -274,9 +293,12 @@ public class GameWorld extends Observable {
         } else {
           dave.removeHealth(5); //unarmed combat
         }
-        player.setHealth(player.getHealth() - dave.getDamage());
-        System.out.println("Dave: " + dave.getHealth());
-        System.out.println("Player: " + player.getHealth());
+        if (dave.getHealth() > 0) {
+          player.setHealth(player.getHealth() - dave.getDamage());
+        } else {
+          //TODO boss dies
+        }
+        break;
         
       case "marco":
         Monster marco = (Monster) this.board.getBoard()[0][1].getFloorObject();
@@ -290,7 +312,12 @@ public class GameWorld extends Observable {
         } else {
           marco.removeHealth(5); //unarmed combat
         }
-        player.setHealth(player.getHealth() - marco.getDamage());
+        if (marco.getHealth() > 0) {
+          player.setHealth(player.getHealth() - marco.getDamage());
+        } else {
+          //TODO boss dies
+        }
+        break;
         
       case "thomas":
         Monster thomas = (Monster) this.board.getBoard()[1][14].getFloorObject();
@@ -304,8 +331,18 @@ public class GameWorld extends Observable {
         } else {
           thomas.removeHealth(5); //unarmed combat
         }
-        player.setHealth(player.getHealth() - thomas.getDamage());
+        if (thomas.getHealth() > 0) {
+          player.setHealth(player.getHealth() - thomas.getDamage());
+        } else {
+          //TODO boss dies
+        }
+        break;
     }
+   
+    if (player.getHealth() < 1) {
+      //TODO player loses
+    }
+    
   }
 
   @XmlElement(name = "player")

@@ -1,5 +1,7 @@
 package gameworld;
 
+import com.sun.org.apache.xalan.internal.xsltc.dom.EmptyFilter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
@@ -250,5 +253,31 @@ public class Player  {
       }
     }
     return null;
+  }
+  
+  private boolean hasEmptyFlask() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Flask && ((Flask) obj).isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  private Flask getEmptyFlask() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Flask && ((Flask) obj).isEmpty()) {
+        return (Flask)obj;
+      }
+    }
+    return null;
+  }
+
+  public void fill(String fountain) {
+    if (hasEmptyFlask()) {
+      getEmptyFlask().fill(fountain);
+    //  System.out.println("filled");
+    //  System.out.println(bag.toString());
+    }    
   }
 }
