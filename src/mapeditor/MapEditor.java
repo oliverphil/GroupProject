@@ -38,6 +38,8 @@ public class MapEditor extends Application {
   int col;
   String[] args;
 
+  private Application openWindow;
+
   public static void main(String[] args) {
     launch(args);
   }
@@ -70,13 +72,25 @@ public class MapEditor extends Application {
   EventHandler<ActionEvent> actionEventHandler = new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent e) {
+      if (openWindow != null) {
+        try {
+          if (openWindow instanceof FloorTileMenu) {
+            ((FloorTileMenu) openWindow).primaryStage.close();
+          } else if (openWindow instanceof IconsMenu) {
+            ((IconsMenu) openWindow).primaryStage.close();
+          }
+        } catch (Exception e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+      }
       if (e.getSource() == floorBtn) {
         selectedBtn = "floorBtn";
-        new FloorTileMenu();
+        openWindow = new FloorTileMenu();
       }
       if (e.getSource() == itemBtn) {
         selectedBtn = "itemBtn";
-        new IconsMenu();
+        openWindow = new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
@@ -101,24 +115,25 @@ public class MapEditor extends Application {
       }
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
-          if (grid[col][row].endsWith("N"))
+          if (grid[col][row].endsWith("N")) {
             direction = "N";
-          else if (grid[col][row].endsWith("NE"))
+          } else if (grid[col][row].endsWith("NE")) {
             direction = "NE";
-          else if (grid[col][row].endsWith("E"))
+          } else if (grid[col][row].endsWith("E")) {
             direction = "E";
-          else if (grid[col][row].endsWith("ES"))
+          } else if (grid[col][row].endsWith("ES")) {
             direction = "ES";
-          else if (grid[col][row].endsWith("S"))
+          } else if (grid[col][row].endsWith("S")) {
             direction = "S";
-          else if (grid[col][row].endsWith("SW"))
+          } else if (grid[col][row].endsWith("SW")) {
             direction = "SW";
-          else if (grid[col][row].endsWith("W"))
+          } else if (grid[col][row].endsWith("W")) {
             direction = "W";
-          else if (grid[col][row].endsWith("NW"))
+          } else if (grid[col][row].endsWith("NW")) {
             direction = "NW";
-          else if (grid[col][row].endsWith("none"))
+          } else if (grid[col][row].endsWith("none")) {
             direction = "none";
+          }
           grid[col][row] = selectedIcon + "_" + direction;
           drawGrid();
         }
@@ -186,7 +201,7 @@ public class MapEditor extends Application {
       for (int x = 0; x < GRID_WIDTH; x++) {
         Rectangle rec = new Rectangle(x, y, 20, 20);
 
-        String gridSquare[] = (grid[x][y]).split("_");
+        String[] gridSquare = (grid[x][y]).split("_");
         currentIcon = gridSquare[0];
         currentDir = gridSquare[1];
 

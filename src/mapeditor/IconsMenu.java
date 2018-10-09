@@ -150,24 +150,25 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
 
   @Override
   public void handle(ActionEvent event) {
-    if (event.getSource() == emptyFlask)
+    if (event.getSource() == emptyFlask) {
       MapEditor.setSelectedIcon("emptyFlask");
-    else if (event.getSource() == powerFlask)
+    } else if (event.getSource() == powerFlask) {
       MapEditor.setSelectedIcon("powerFlask");
-    else if (event.getSource() == healthFlask)
+    } else if (event.getSource() == healthFlask) {
       MapEditor.setSelectedIcon("healthFlask");
-    else if (event.getSource() == torch)
+    } else if (event.getSource() == torch) {
       MapEditor.setSelectedIcon("torch");
-    else if (event.getSource() == boltCutters)
+    } else if (event.getSource() == boltCutters) {
       MapEditor.setSelectedIcon("boltCutters");
-    else if (event.getSource() == crowbar)
+    } else if (event.getSource() == crowbar) {
       MapEditor.setSelectedIcon("crowbar");
-    else if (event.getSource() == hammer)
+    } else if (event.getSource() == hammer) {
       MapEditor.setSelectedIcon("hammer");
-    else if (event.getSource() == khopesh)
+    } else if (event.getSource() == khopesh) {
       MapEditor.setSelectedIcon("khopesh");
-    else if (event.getSource() == pickaxe)
+    } else if (event.getSource() == pickaxe) {
       MapEditor.setSelectedIcon("pickaxe");
+    }
     primaryStage.close();
   }
 }

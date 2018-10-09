@@ -149,24 +149,25 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 
   @Override
   public void handle(ActionEvent event) {
-    if (event.getSource() == northWest)
+    if (event.getSource() == northWest) {
       MapEditor.setDirection("NW");
-    else if (event.getSource() == north)
+    } else if (event.getSource() == north) {
       MapEditor.setDirection("N");
-    else if (event.getSource() == northEast)
+    } else if (event.getSource() == northEast) {
       MapEditor.setDirection("NE");
-    else if (event.getSource() == east)
+    } else if (event.getSource() == east) {
       MapEditor.setDirection("E");
-    else if (event.getSource() == eastSouth)
+    } else if (event.getSource() == eastSouth) {
       MapEditor.setDirection("ES");
-    else if (event.getSource() == south)
+    } else if (event.getSource() == south) {
       MapEditor.setDirection("S");
-    else if (event.getSource() == southWest)
+    } else if (event.getSource() == southWest) {
       MapEditor.setDirection("SW");
-    else if (event.getSource() == west)
+    } else if (event.getSource() == west) {
       MapEditor.setDirection("W");
-    else if (event.getSource() == none)
+    } else if (event.getSource() == none) {
       MapEditor.setDirection("none");
+    }
     primaryStage.close();
 
   }
