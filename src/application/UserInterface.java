@@ -76,7 +76,6 @@ public class UserInterface extends Application {
     MenuItem gameRestartArea = new MenuItem("Restart Area");
     gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
     MenuItem gameRestart = new MenuItem("Restart Game");
-    gameRestart.setOnAction(e -> System.out.println("Restart Game"));
     gameMenu.getItems().add(new MenuItem("Save..."));
     gameMenu.getItems().add(new MenuItem("Load..."));
     gameMenu.getItems().add(gameRestartArea);
@@ -160,6 +159,11 @@ public class UserInterface extends Application {
     centerScreen.getChildren().add(gameScreen);
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    gameRestart.setOnAction(e -> {
+      game = new GameWorld();
+      game.addObserver(gameScreen);
+      game.update();
+    });
     /* CANVAS END */
 
     /* BOTTOM SCREEN START */
