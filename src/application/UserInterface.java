@@ -36,7 +36,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import mapeditor.MapEditor;
 import renderer.Renderer;
 
 public class UserInterface extends Application {
@@ -54,7 +54,6 @@ public class UserInterface extends Application {
       false, false);
   private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
       60, false, false);
-  
 
   private GameWorld game;
 
@@ -101,7 +100,9 @@ public class UserInterface extends Application {
 
       new Notification("Instructions", HELP_MESSAGE, "Got it!");
     });
-    gameMenu.getItems().add(new MenuItem("Exit"));
+    MenuItem exit = new MenuItem("Exit");
+    exit.setOnAction(e -> System.exit(0));
+    gameMenu.getItems().add(exit);
 
     // Difficulty Menu
     ToggleGroup difficultyToggle = new ToggleGroup();
@@ -145,11 +146,17 @@ public class UserInterface extends Application {
     s.setStyle("-fx-text-fill: #D39365; ");
     optionsMenu.setGraphic(s);
     optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
-    
+
     // Map Editor Menu
     CheckMenuItem launchMapEditor = new CheckMenuItem("Launch Map Editor");
-    launchMapEditor.setOnAction(e -> { System.out.println("Map Editor Running."); });
-    
+    launchMapEditor.setOnAction(e -> {
+      try {
+        new MapEditor().start(new Stage());
+      } catch (Exception e1) {
+        e1.printStackTrace();
+      }
+    });
+
     Menu mapEditorMenu = new Menu("");
     Label q = new Label("Map Editor");
     q.setStyle("-fx-text-fill: #D39365; ");
