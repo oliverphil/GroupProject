@@ -74,7 +74,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.setHgap(20);
     gridPane.setVgap(20);
 
-    // add north west walls
+    // add empty flask icon
     Image northWestImage = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"));
     emptyFlask = new Button();
     emptyFlask.setGraphic(new ImageView(northWestImage));
@@ -82,7 +82,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     emptyFlask.setOnAction(this);
     gridPane.add(emptyFlask, 0, 0);
 
-    // add north wall
+    // add power flask icon
     Image northImage = new Image(getClass().getResourceAsStream("icons/powerFlask.png"));
     powerFlask = new Button();
     powerFlask.setGraphic(new ImageView(northImage));
@@ -90,7 +90,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     powerFlask.setOnAction(this);
     gridPane.add(powerFlask, 1, 0);
 
-    // add north east walls
+    // add health flask icon
     Image northEastImage = new Image(getClass().getResourceAsStream("icons/healthFlask.png"));
     healthFlask = new Button();
     healthFlask.setGraphic(new ImageView(northEastImage));
@@ -98,7 +98,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     healthFlask.setOnAction(this);
     gridPane.add(healthFlask, 2, 0);
 
-    // add west wall
+    // add torch icon
     Image westImage = new Image(getClass().getResourceAsStream("icons/torch.png"));
     torch = new Button();
     torch.setGraphic(new ImageView(westImage));
@@ -106,7 +106,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     torch.setOnAction(this);
     gridPane.add(torch, 0, 1);
 
-    // add empty tile
+    // add bolt cutter icon
     Image emptyImage = new Image(getClass().getResourceAsStream("icons/boltCutters.png"));
     boltCutters = new Button();
     boltCutters.setGraphic(new ImageView(emptyImage));
@@ -114,7 +114,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     boltCutters.setOnAction(this);
     gridPane.add(boltCutters, 1, 1);
 
-    // add east wall
+    // add crowbar icon
     Image eastImage = new Image(getClass().getResourceAsStream("icons/crowbar.png"));
     crowbar = new Button();
     crowbar.setGraphic(new ImageView(eastImage));
@@ -122,7 +122,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     crowbar.setOnAction(this);
     gridPane.add(crowbar, 2, 1);
 
-    // add south west walls
+    // add hammer icon
     Image southWestImage = new Image(getClass().getResourceAsStream("icons/hammer.png"));
     hammer = new Button();
     hammer.setGraphic(new ImageView(southWestImage));
@@ -130,7 +130,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     hammer.setOnAction(this);
     gridPane.add(hammer, 0, 2);
 
-    // add south wall
+    // add khopesh icon
     Image southImage = new Image(getClass().getResourceAsStream("icons/khopesh.png"));
     khopesh = new Button();
     khopesh.setGraphic(new ImageView(southImage));
@@ -138,7 +138,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     khopesh.setOnAction(this);
     gridPane.add(khopesh, 1, 2);
 
-    // add east south walls
+    // add pickaxe
     Image southEastImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"));
     pickaxe = new Button();
     pickaxe.setGraphic(new ImageView(southEastImage));

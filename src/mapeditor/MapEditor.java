@@ -25,10 +25,6 @@ public class MapEditor extends Application {
   
   private Button floorBtn;
   private Button itemBtn;
-  private Button northBtn;
-  private Button southBtn;
-  private Button eastBtn;
-  private Button westBtn;
   private Button save;
   private Button load;
   private Button remove;
