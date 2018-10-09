@@ -28,7 +28,6 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   private Button pickaxe;
   Stage primaryStage;
 
-  
   public IconsMenu() {
     try {
       start(new Stage());
@@ -151,34 +150,24 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
 
   @Override
   public void handle(ActionEvent event) {
-    if (event.getSource() == emptyFlask) {
+    if (event.getSource() == emptyFlask)
       MapEditor.setSelectedIcon("emptyFlask");
-      primaryStage.close();
-    } else if (event.getSource() == powerFlask) {
+    else if (event.getSource() == powerFlask)
       MapEditor.setSelectedIcon("powerFlask");
-      primaryStage.close();
-    } else if (event.getSource() == healthFlask) {
+    else if (event.getSource() == healthFlask)
       MapEditor.setSelectedIcon("healthFlask");
-      primaryStage.close();
-    } else if (event.getSource() == torch) {
+    else if (event.getSource() == torch)
       MapEditor.setSelectedIcon("torch");
-      primaryStage.close();
-    } else if (event.getSource() == boltCutters) {
+    else if (event.getSource() == boltCutters)
       MapEditor.setSelectedIcon("boltCutters");
-      primaryStage.close();
-    } else if (event.getSource() == crowbar) {
+    else if (event.getSource() == crowbar)
       MapEditor.setSelectedIcon("crowbar");
-      primaryStage.close();
-    } else if (event.getSource() == hammer) {
+    else if (event.getSource() == hammer)
       MapEditor.setSelectedIcon("hammer");
-      primaryStage.close();
-    } else if (event.getSource() == khopesh) {
+    else if (event.getSource() == khopesh)
       MapEditor.setSelectedIcon("khopesh");
-      primaryStage.close();
-    } else if (event.getSource() == pickaxe) {
+    else if (event.getSource() == pickaxe)
       MapEditor.setSelectedIcon("pickaxe");
-      primaryStage.close();
-    }
-    System.out.println("selected icon: " + MapEditor.getSelectedIcon());
+    primaryStage.close();
   }
 }

@@ -32,7 +32,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     try {
       start(new Stage());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -55,7 +54,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   }
 
   private HBox drawTop() {
-    // TODO Auto-generated method stub
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -70,7 +68,6 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   }
 
   private Node drawItems() {
-    // TODO Auto-generated method stub
     GridPane gridPane = new GridPane();
     gridPane.setPadding(new Insets(20, 20, 20, 20));
     gridPane.setHgap(20);
@@ -152,28 +149,25 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 
   @Override
   public void handle(ActionEvent event) {
-    // TODO Auto-generated method stub
-    if (event.getSource() == northWest) {
+    if (event.getSource() == northWest)
       MapEditor.setDirection("NW");
-    } else if (event.getSource() == north) {
+    else if (event.getSource() == north)
       MapEditor.setDirection("N");
-    } else if (event.getSource() == northEast) {
+    else if (event.getSource() == northEast)
       MapEditor.setDirection("NE");
-    } else if (event.getSource() == east) {
+    else if (event.getSource() == east)
       MapEditor.setDirection("E");
-    } else if (event.getSource() == eastSouth) {
+    else if (event.getSource() == eastSouth)
       MapEditor.setDirection("ES");
-    } else if (event.getSource() == south) {
+    else if (event.getSource() == south)
       MapEditor.setDirection("S");
-    } else if (event.getSource() == southWest) {
+    else if (event.getSource() == southWest)
       MapEditor.setDirection("SW");
-    } else if (event.getSource() == west) {
+    else if (event.getSource() == west)
       MapEditor.setDirection("W");
-    } else if (event.getSource() == none) {
+    else if (event.getSource() == none)
       MapEditor.setDirection("none");
-    }
-    //MapEditor.setSelectedIcon("empty");
     primaryStage.close();
-    
+
   }
 }

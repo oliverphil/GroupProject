@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -57,7 +56,7 @@ public class MapEditor extends Application {
     grid[10][9] = "empty_N";
     grid[11][9] = "empty_NE";
 
-    primaryStage.setTitle("Map");
+    primaryStage.setTitle("Map Editor");
     BorderPane border = new BorderPane();
     gridPane = new GridPane();
     HBox topHBox = drawTop();
@@ -102,25 +101,24 @@ public class MapEditor extends Application {
       }
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
-          if (grid[col][row].endsWith("N")) {
+          if (grid[col][row].endsWith("N"))
             direction = "N";
-          } else if(grid[col][row].endsWith("NE")){
+          else if (grid[col][row].endsWith("NE"))
             direction = "NE";
-          } else if(grid[col][row].endsWith("E")){
+          else if (grid[col][row].endsWith("E"))
             direction = "E";
-          } else if(grid[col][row].endsWith("ES")){
+          else if (grid[col][row].endsWith("ES"))
             direction = "ES";
-          } else if(grid[col][row].endsWith("S")){
+          else if (grid[col][row].endsWith("S"))
             direction = "S";
-          } else if(grid[col][row].endsWith("SW")){
+          else if (grid[col][row].endsWith("SW"))
             direction = "SW";
-          } else if(grid[col][row].endsWith("W")){
+          else if (grid[col][row].endsWith("W"))
             direction = "W";
-          } else if(grid[col][row].endsWith("NW")){
+          else if (grid[col][row].endsWith("NW"))
             direction = "NW";
-          } else if (grid[col][row] == "0"){
+          else if (grid[col][row].endsWith("none"))
             direction = "none";
-          }
           grid[col][row] = selectedIcon + "_" + direction;
           drawGrid();
         }
@@ -128,6 +126,7 @@ public class MapEditor extends Application {
       if (selectedBtn == "remove") {
         remove(x, y);
       }
+      System.out.println(grid[col][row]);
     }
   };
 
@@ -140,7 +139,7 @@ public class MapEditor extends Application {
   }
 
   private void remove(int x, int y) {
-    grid[col][row] = "0";
+    grid[col][row] = "0_none";
     drawGrid();
 
   }
@@ -186,26 +185,21 @@ public class MapEditor extends Application {
     for (int y = 0; y < GRID_HEIGHT; y++) {
       for (int x = 0; x < GRID_WIDTH; x++) {
         Rectangle rec = new Rectangle(x, y, 20, 20);
-        
-        System.out.println( grid[col][row]);
-        
-        String square[] = (grid[col][row]).split("_");
-        currentIcon = square[0];
-        currentDir = square[1];
-        
-        
-        if (currentIcon == "0") {
-          rec.setFill(Color.LIGHTGREY);
-        } else {
-          Image img = new Image(getClass().getResourceAsStream("icons/"+ currentIcon + "_" + currentDir + ".png"));
-          rec.setFill(new ImagePattern(img));
-        }
+
+        String gridSquare[] = (grid[x][y]).split("_");
+        currentIcon = gridSquare[0];
+        currentDir = gridSquare[1];
+
+        Image img = new Image(
+            getClass().getResourceAsStream("icons/" + currentIcon + "_" + currentDir + ".png"));
+        rec.setFill(new ImagePattern(img));
+
         gridPane.add(rec, x, y);
       }
     }
     return gridPane;
   }
-  
+
   public static void setSelectedIcon(String icon) {
     selectedIcon = icon;
   }
@@ -213,7 +207,7 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
-  
+
   public static String getSelectedIcon() {
     return selectedIcon;
   }
