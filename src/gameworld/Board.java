@@ -35,13 +35,6 @@ public class Board {
   }
 
   /**
-   * This board constructs the board from a saved file.
-   */
-  public Board(File file) {
-    // TODO write method to load game
-  }
-
-  /**
    * Creates the starting board for the base game, adding all tiles and filling in the walls.
    */
   private void initialiseBoard() {
@@ -79,22 +72,22 @@ public class Board {
     Monster david = new Monster();
     david.setLocation(new Point(0, 13));
     david.setName("david");
-    david.setDamage(30);
-    david.setHealth(150);
+    david.setDamage(25);
+    david.setHealth(250);
     this.board[13][0].setObj(david);
 
     Monster marco = new Monster();
     marco.setLocation(new Point(1, 0));
     marco.setName("marco");
     marco.setDamage(20);
-    marco.setHealth(150);
+    marco.setHealth(200);
     this.board[0][1].setObj(marco);
 
     Monster thomas = new Monster();
     thomas.setLocation(new Point(14, 1));
     thomas.setName("thomas");
     thomas.setDamage(10);
-    thomas.setHealth(150);
+    thomas.setHealth(100);
     this.board[1][14].setObj(thomas);
 
     // add flasks

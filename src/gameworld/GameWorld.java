@@ -20,8 +20,8 @@ import renderer.Renderer.ItemOnScreen;
 @XmlRootElement
 public class GameWorld extends Observable {
 
-  Player player;
-  Board board;
+  private Player player;
+  private Board board;
 
   /**
    * Constructs the GameWorld object, allowing you to play the game.
@@ -95,7 +95,11 @@ public class GameWorld extends Observable {
         openDoor();
         break;
 
-      //Items
+      case "david":
+        attack("david");
+        break;
+
+      // Items
       case "emptyFlask":
         player.pickUp(new Flask());
         board.removeObject(player, name.getTile());
@@ -113,7 +117,7 @@ public class GameWorld extends Observable {
         board.removeObject(player, name.getTile());
         break;
 
-      //tools
+      // tools
       case "crowbar":
         if (player.hasTool()) {
           Tool cb = new Tool();
@@ -169,7 +173,7 @@ public class GameWorld extends Observable {
         }
         break;
 
-        //Weapons
+      // Weapons
       case "hammer":
         if (player.hasWeapon()) {
           Weapon hm = new Weapon();
@@ -224,8 +228,8 @@ public class GameWorld extends Observable {
           board.removeObject(player, name.getTile());
         }
         break;
-        
-      //Barriers
+
+      // Barriers
       case "woodenBlockade":
         if (player.hasTool()) {
           if (player.getTool().getMaterial().equals("woodenBlockade")) {
@@ -251,6 +255,57 @@ public class GameWorld extends Observable {
         break;
     }
     update();
+  }
+
+  private void attack(String boss) {
+
+    Weapon weap = player.getWeapon();
+    
+    switch (boss) {
+      case "david":
+        Monster dave = (Monster) this.board.getBoard()[13][0].getFloorObject();
+
+        if (weap != null) {
+          if (weap.getName().equals("khopesh")) {
+            dave.removeHealth(50);
+          } else {
+            dave.removeHealth(weap.getDamage());
+          }
+        } else {
+          dave.removeHealth(5); //unarmed combat
+        }
+        player.setHealth(player.getHealth() - dave.getDamage());
+        System.out.println("Dave: " + dave.getHealth());
+        System.out.println("Player: " + player.getHealth());
+        
+      case "marco":
+        Monster marco = (Monster) this.board.getBoard()[0][1].getFloorObject();
+
+        if (weap != null) {
+          if (weap.getName().equals("torch")) {
+            marco.removeHealth(50);
+          } else {
+            marco.removeHealth(weap.getDamage());
+          }
+        } else {
+          marco.removeHealth(5); //unarmed combat
+        }
+        player.setHealth(player.getHealth() - marco.getDamage());
+        
+      case "thomas":
+        Monster thomas = (Monster) this.board.getBoard()[1][14].getFloorObject();
+
+        if (weap != null) {
+          if (weap.getName().equals("hammer")) {
+            thomas.removeHealth(50);
+          } else {
+            thomas.removeHealth(weap.getDamage());
+          }
+        } else {
+          thomas.removeHealth(5); //unarmed combat
+        }
+        player.setHealth(player.getHealth() - thomas.getDamage());
+    }
   }
 
   @XmlElement(name = "player")
