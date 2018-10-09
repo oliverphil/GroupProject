@@ -261,10 +261,10 @@ public class GameWorld extends Observable {
         
       //fountains
       case "powerFountain":
-        //TODO
+        player.fill("power");
         break;
       case "healthFountain":
-        //TODO
+        player.fill("health");
         break;
       default:
         break;

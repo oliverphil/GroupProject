@@ -18,4 +18,7 @@ public class Fountain extends FloorObject{
     this.liquid = liquid;
   }
   
+  public String toString() {
+    return this.getName();
+  }
 }
