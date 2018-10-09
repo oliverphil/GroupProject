@@ -139,6 +139,19 @@ public class Board {
     sword.setLocation(new Point(13, 3));
     this.board[3][13].setObj(sword);
 
+    //Fountains
+    Fountain powerFountain = new Fountain();
+    powerFountain.setName("powerFountain");
+    powerFountain.setLiquid("power");
+    powerFountain.setLocation(new Point(13, 14));
+    this.board[14][13].setObj(powerFountain);
+    
+    Fountain healthFountain = new Fountain();
+    healthFountain.setName("healthFountain");
+    healthFountain.setLiquid("healthFountain");
+    healthFountain.setLocation(new Point(5, 10));
+    this.board[10][5].setObj(healthFountain);
+    
     //Add barriers
     //wooden barriers
     Barrier wBar1 = new Barrier();
