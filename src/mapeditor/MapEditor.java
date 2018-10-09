@@ -22,16 +22,17 @@ public class MapEditor extends Application {
   private static final int GRID_WIDTH = 21;
   private static final int GRID_HEIGHT = 21;
   private GridPane gridPane;
-  
+
   private Button floorBtn;
   private Button itemBtn;
   private Button save;
   private Button load;
   private Button remove;
-  
+
   private String[][] grid;
   private static String selectedIcon = "0";
   private static String selectedBtn = "floorBtn";
+  private static String direction = "empty";
   int row;
   int col;
   String[] args;
@@ -44,7 +45,6 @@ public class MapEditor extends Application {
   public void start(Stage primaryStage) throws Exception {
     // initialize array for the grid
     grid = new String[GRID_WIDTH][GRID_HEIGHT];
-
     for (int y = 0; y < GRID_HEIGHT; y++) {
       for (int x = 0; x < GRID_WIDTH; x++) {
         grid[x][y] = "0";
@@ -58,12 +58,9 @@ public class MapEditor extends Application {
     primaryStage.setTitle("Map");
     BorderPane border = new BorderPane();
     gridPane = new GridPane();
-
     HBox topHBox = drawTop();
-
     border.setTop(topHBox);
     border.setCenter(drawGrid());
-
     Scene scene = new Scene(border, 480, 535);
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -96,17 +93,33 @@ public class MapEditor extends Application {
 
       if (selectedBtn == "floorBtn") {
         if (row != -1 && col != -1) {
-          grid[col][row] = selectedIcon;
+          grid[col][row] = direction;
           drawGrid();
         }
       }
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
-          if(grid[col][row] == "0") {
-           // add shit here 
-            grid[col][row] = "empty, " + selectedIcon;
+          if (grid[col][row] == "N") {
+            direction = "N";
+          } else if(grid[col][row] == "NE"){
+            direction = "NE";
+          } else if(grid[col][row] == "E"){
+            direction = "E";
+          } else if(grid[col][row] == "ES"){
+            direction = "ES";
+          } else if(grid[col][row] == "S"){
+            direction = "S";
+          } else if(grid[col][row] == "SW"){
+            direction = "SW";
+          } else if(grid[col][row] == "W"){
+            direction = "W";
+          } else if(grid[col][row] == "NW"){
+            direction = "NW";
+          } else if (grid[col][row] == "empty" || grid[col][row] == "0"){
+            direction = "empty";
           }
-          grid[col][row] = selectedIcon;
+          grid[col][row] = selectedIcon + "_" + direction;
+          System.out.println( grid[col][row]);
           drawGrid();
         }
       }
@@ -200,34 +213,44 @@ public class MapEditor extends Application {
         } else if (grid[x][y] == "empty") {
           Image img = new Image(getClass().getResourceAsStream("icons/empty.png"));
           rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "emptyFlask") {
-          Image img = new Image(getClass().getResourceAsStream("icons/emptyFlask_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "healthFlask") {
-          Image img = new Image(getClass().getResourceAsStream("icons/healthFlask_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "powerFlask") {
-          Image img = new Image(getClass().getResourceAsStream("icons/powerFlask_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "boltCutters") {
-          Image img = new Image(getClass().getResourceAsStream("icons/boltCutters_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "crowbar") {
-          Image img = new Image(getClass().getResourceAsStream("icons/crowbar_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "hammer") {
-          Image img = new Image(getClass().getResourceAsStream("icons/hammer_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "khopesh") {
-          Image img = new Image(getClass().getResourceAsStream("icons/khopesh_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "pickaxe") {
-          Image img = new Image(getClass().getResourceAsStream("icons/pickaxe_empty.png"));
-          rec.setFill(new ImagePattern(img));
-        } else if (grid[x][y] == "torch") {
-          Image img = new Image(getClass().getResourceAsStream("icons/torch_empty.png"));
+        } 
+        
+        else {
+          Image img = new Image(getClass().getResourceAsStream("icons/"+ selectedIcon + "_" + direction + ".png"));
           rec.setFill(new ImagePattern(img));
         }
+        
+        
+//        else if (grid[x][y].startsWith("emptyFlask")) { 
+//          Image img = new Image(getClass().getResourceAsStream("icons/emptyFlask_" +  direction + ".png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "healthFlask") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/healthFlask_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "powerFlask") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/powerFlask_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "boltCutters") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/boltCutters_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "crowbar") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/crowbar_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "hammer") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/hammer_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "khopesh") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/khopesh_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "pickaxe") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/pickaxe_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        } else if (grid[x][y] == "torch") {
+//          Image img = new Image(getClass().getResourceAsStream("icons/torch_empty.png"));
+//          rec.setFill(new ImagePattern(img));
+//        }
+        
+        
         gridPane.add(rec, x, y);
       }
     }
@@ -238,6 +261,10 @@ public class MapEditor extends Application {
     selectedIcon = icon;
   }
 
+  public static void setDirection(String dir) {
+    direction = dir;
+  }
+  
   public static String getSelectedIcon() {
     return selectedIcon;
   }

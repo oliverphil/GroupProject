@@ -154,32 +154,26 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   public void handle(ActionEvent event) {
     // TODO Auto-generated method stub
     if (event.getSource() == northWest) {
-      MapEditor.setSelectedIcon("NW");
-      primaryStage.close();
+      MapEditor.setDirection("NW");
     } else if (event.getSource() == north) {
-      MapEditor.setSelectedIcon("N");
-      primaryStage.close();
+      MapEditor.setDirection("N");
     } else if (event.getSource() == northEast) {
-      MapEditor.setSelectedIcon("NE");
-      primaryStage.close();
+      MapEditor.setDirection("NE");
     } else if (event.getSource() == east) {
-      MapEditor.setSelectedIcon("E");
-      primaryStage.close();
+      MapEditor.setDirection("E");
     } else if (event.getSource() == eastSouth) {
-      MapEditor.setSelectedIcon("ES");
-      primaryStage.close();
+      MapEditor.setDirection("ES");
     } else if (event.getSource() == south) {
-      MapEditor.setSelectedIcon("S");
-      primaryStage.close();
+      MapEditor.setDirection("S");
     } else if (event.getSource() == southWest) {
-      MapEditor.setSelectedIcon("SW");
-      primaryStage.close();
+      MapEditor.setDirection("SW");
     } else if (event.getSource() == west) {
-      MapEditor.setSelectedIcon("W");
-      primaryStage.close();
+      MapEditor.setDirection("W");
     } else if (event.getSource() == empty) {
-      MapEditor.setSelectedIcon("empty");
-      primaryStage.close();
+      MapEditor.setDirection("empty");
     }
+    //MapEditor.setSelectedIcon("empty");
+    primaryStage.close();
+    
   }
 }

@@ -153,6 +153,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   public void handle(ActionEvent event) {
     if (event.getSource() == emptyFlask) {
       MapEditor.setSelectedIcon("emptyFlask");
+      System.out.println("selected icon: " + MapEditor.getSelectedIcon());
       primaryStage.close();
     } else if (event.getSource() == powerFlask) {
       MapEditor.setSelectedIcon("powerFlask");
