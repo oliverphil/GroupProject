@@ -52,6 +52,7 @@ public class UserInterface extends Application {
       false, false);
   private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
       60, false, false);
+  
 
   private GameWorld game;
 
@@ -142,11 +143,21 @@ public class UserInterface extends Application {
     s.setStyle("-fx-text-fill: #D39365; ");
     optionsMenu.setGraphic(s);
     optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
+    
+    // Map Editor Menu
+    CheckMenuItem launchMapEditor = new CheckMenuItem("Launch Map Editor");
+    launchMapEditor.setOnAction(e -> { System.out.println("Map Editor Running."); });
+    
+    Menu mapEditorMenu = new Menu("");
+    Label q = new Label("Map Editor");
+    q.setStyle("-fx-text-fill: #D39365; ");
+    mapEditorMenu.setGraphic(q);
+    mapEditorMenu.getItems().addAll(launchMapEditor);
 
     // Main menu bar
     MenuBar menuBar = new MenuBar();
     menuBar.setStyle("-fx-background-color: #1d1f23; ");
-    menuBar.getMenus().addAll(gameMenu, optionsMenu);
+    menuBar.getMenus().addAll(gameMenu, optionsMenu, mapEditorMenu);
     /* MENU END */
 
     /* CANVAS START */
