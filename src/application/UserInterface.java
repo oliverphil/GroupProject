@@ -21,6 +21,8 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
@@ -273,6 +275,18 @@ public class UserInterface extends Application {
 
     game.addObserver(gameScreen);
     game.update();
+
+    window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
+      if (k.getCode() == KeyCode.W) {
+        game.moveForward();
+      } else if (k.getCode() == KeyCode.S) {
+        game.moveBackwards();
+      } else if (k.getCode() == KeyCode.A) {
+        game.rotateLeft();
+      } else if (k.getCode() == KeyCode.D) {
+        game.rotateRight();
+      }
+    });
 
     // allows scene to be visible
     layout.setBackground(Background.EMPTY);
