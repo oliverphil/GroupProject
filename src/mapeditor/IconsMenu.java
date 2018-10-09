@@ -75,7 +75,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.setVgap(20);
 
     // add empty flask icon
-    Image northWestImage = new Image(getClass().getResourceAsStream("icons/emptyFlask_empty.png"));
+    Image northWestImage = new Image(getClass().getResourceAsStream("icons/emptyFlask_none.png"));
     emptyFlask = new Button();
     emptyFlask.setGraphic(new ImageView(northWestImage));
     emptyFlask.setPrefSize(40, 40);
@@ -83,7 +83,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(emptyFlask, 0, 0);
 
     // add power flask icon
-    Image northImage = new Image(getClass().getResourceAsStream("icons/powerFlask_empty.png"));
+    Image northImage = new Image(getClass().getResourceAsStream("icons/powerFlask_none.png"));
     powerFlask = new Button();
     powerFlask.setGraphic(new ImageView(northImage));
     powerFlask.setPrefSize(40, 40);
@@ -91,7 +91,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(powerFlask, 1, 0);
 
     // add health flask icon
-    Image northEastImage = new Image(getClass().getResourceAsStream("icons/healthFlask_empty.png"));
+    Image northEastImage = new Image(getClass().getResourceAsStream("icons/healthFlask_none.png"));
     healthFlask = new Button();
     healthFlask.setGraphic(new ImageView(northEastImage));
     healthFlask.setPrefSize(40, 40);
@@ -99,7 +99,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(healthFlask, 2, 0);
 
     // add torch icon
-    Image westImage = new Image(getClass().getResourceAsStream("icons/torch_empty.png"));
+    Image westImage = new Image(getClass().getResourceAsStream("icons/torch_none.png"));
     torch = new Button();
     torch.setGraphic(new ImageView(westImage));
     torch.setPrefSize(40, 40);
@@ -107,7 +107,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(torch, 0, 1);
 
     // add bolt cutter icon
-    Image emptyImage = new Image(getClass().getResourceAsStream("icons/boltCutters_empty.png"));
+    Image emptyImage = new Image(getClass().getResourceAsStream("icons/boltCutters_none.png"));
     boltCutters = new Button();
     boltCutters.setGraphic(new ImageView(emptyImage));
     boltCutters.setPrefSize(40, 40);
@@ -115,7 +115,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(boltCutters, 1, 1);
 
     // add crowbar icon
-    Image eastImage = new Image(getClass().getResourceAsStream("icons/crowbar_empty.png"));
+    Image eastImage = new Image(getClass().getResourceAsStream("icons/crowbar_none.png"));
     crowbar = new Button();
     crowbar.setGraphic(new ImageView(eastImage));
     crowbar.setPrefSize(40, 40);
@@ -123,7 +123,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(crowbar, 2, 1);
 
     // add hammer icon
-    Image southWestImage = new Image(getClass().getResourceAsStream("icons/hammer_empty.png"));
+    Image southWestImage = new Image(getClass().getResourceAsStream("icons/hammer_none.png"));
     hammer = new Button();
     hammer.setGraphic(new ImageView(southWestImage));
     hammer.setPrefSize(40, 40);
@@ -131,7 +131,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(hammer, 0, 2);
 
     // add khopesh icon
-    Image southImage = new Image(getClass().getResourceAsStream("icons/khopesh_empty.png"));
+    Image southImage = new Image(getClass().getResourceAsStream("icons/khopesh_none.png"));
     khopesh = new Button();
     khopesh.setGraphic(new ImageView(southImage));
     khopesh.setPrefSize(40, 40);
@@ -139,7 +139,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(khopesh, 1, 2);
 
     // add pickaxe
-    Image southEastImage = new Image(getClass().getResourceAsStream("icons/pickaxe_empty.png"));
+    Image southEastImage = new Image(getClass().getResourceAsStream("icons/pickaxe_none.png"));
     pickaxe = new Button();
     pickaxe.setGraphic(new ImageView(southEastImage));
     pickaxe.setPrefSize(40, 40);
@@ -153,7 +153,6 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   public void handle(ActionEvent event) {
     if (event.getSource() == emptyFlask) {
       MapEditor.setSelectedIcon("emptyFlask");
-      System.out.println("selected icon: " + MapEditor.getSelectedIcon());
       primaryStage.close();
     } else if (event.getSource() == powerFlask) {
       MapEditor.setSelectedIcon("powerFlask");
@@ -180,5 +179,6 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
       MapEditor.setSelectedIcon("pickaxe");
       primaryStage.close();
     }
+    System.out.println("selected icon: " + MapEditor.getSelectedIcon());
   }
 }
