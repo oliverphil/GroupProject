@@ -42,13 +42,18 @@ public class UserInterface extends Application {
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
+
+  // load arrow images and resize them to 60x60px
+  private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
+      60, 60, false, false);
+  private Image backArrowImage = new Image(getClass().getResourceAsStream("icons/back.png"), 60, 60,
+      false, false);
+  private Image leftArrowImage = new Image(getClass().getResourceAsStream("icons/left.png"), 60, 60,
+      false, false);
+  private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
+      60, false, false);
   
-  //load arrow images and resize them to 60x60px
-  private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"), 60, 60, false, false);
-  private Image backArrowImage = new Image(getClass().getResourceAsStream("icons/back.png"), 60, 60, false, false);
-  private Image leftArrowImage = new Image(getClass().getResourceAsStream("icons/left.png"), 60, 60, false, false);
-  private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60, 60, false, false);
-  
+
   private GameWorld game;
 
   public static void main(String[] args) {
@@ -60,19 +65,18 @@ public class UserInterface extends Application {
     game = new GameWorld();
     window = primaryStage;
     window.setTitle("An Adventure Game!");
-   // window.setFullScreen(true);
+    // window.setFullScreen(true);
 
     /* MENU START */
     // Game Menu
-    Menu gameMenu = new Menu(""); 
+    Menu gameMenu = new Menu("");
     Label t = new Label("Game");
     t.setStyle("-fx-text-fill: #D39365; ");
     gameMenu.setGraphic(t);
-    
+
     MenuItem gameRestartArea = new MenuItem("Restart Area");
     gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
     MenuItem gameRestart = new MenuItem("Restart Game");
-    gameRestart.setOnAction(e -> System.out.println("Restart Game"));
     gameMenu.getItems().add(new MenuItem("Save..."));
     gameMenu.getItems().add(new MenuItem("Load..."));
     gameMenu.getItems().add(gameRestartArea);
@@ -139,23 +143,38 @@ public class UserInterface extends Application {
     s.setStyle("-fx-text-fill: #D39365; ");
     optionsMenu.setGraphic(s);
     optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
+    
+    // Map Editor Menu
+    CheckMenuItem launchMapEditor = new CheckMenuItem("Launch Map Editor");
+    launchMapEditor.setOnAction(e -> { System.out.println("Map Editor Running."); });
+    
+    Menu mapEditorMenu = new Menu("");
+    Label q = new Label("Map Editor");
+    q.setStyle("-fx-text-fill: #D39365; ");
+    mapEditorMenu.setGraphic(q);
+    mapEditorMenu.getItems().addAll(launchMapEditor);
 
     // Main menu bar
     MenuBar menuBar = new MenuBar();
     menuBar.setStyle("-fx-background-color: #1d1f23; ");
-    menuBar.getMenus().addAll(gameMenu, optionsMenu);
+    menuBar.getMenus().addAll(gameMenu, optionsMenu, mapEditorMenu);
     /* MENU END */
 
     /* CANVAS START */
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
-    Renderer gameScreen = new Renderer(700, 700); // TODO: Scale Shape Property for Renderer 
+    Renderer gameScreen = new Renderer(700, 700); // TODO: Scale Shape Property for Renderer
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
     });
     centerScreen.getChildren().add(gameScreen);
-    centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    gameRestart.setOnAction(e -> {
+      game = new GameWorld();
+      game.addObserver(gameScreen);
+      game.update();
+    });
     /* CANVAS END */
 
     /* BOTTOM SCREEN START */
@@ -180,8 +199,8 @@ public class UserInterface extends Application {
     moveForward.scaleShapeProperty();
     moveForward.setGraphic(new ImageView(forwardArrowImage));
     moveForward.setStyle("-fx-background-color: #1d1f23; ");
-    moveForward.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        new CornerRadii(3), BorderWidths.DEFAULT)));
+    moveForward.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
     moveForward.setOnAction(e -> game.moveForward());
 
     Button moveBack = new Button();
@@ -191,7 +210,7 @@ public class UserInterface extends Application {
     moveBack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
     moveBack.setOnAction(e -> game.moveBackwards());
-    
+
     Button dropItem = new Button("Drop Item");
     dropItem.scaleShapeProperty();
     dropItem.setTextFill(Color.rgb(211, 147, 101));
@@ -212,8 +231,8 @@ public class UserInterface extends Application {
 
     VBox bottomScreen = new VBox();
     bottomScreen.scaleShapeProperty();
-    bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     HBox backpack = new HBox();
     backpack.scaleShapeProperty();
@@ -229,35 +248,34 @@ public class UserInterface extends Application {
 
     VBox bottomScreenLeft = new VBox();
     bottomScreenLeft.scaleShapeProperty();
-    bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    
+    bottomScreenLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
     // Button Grid
     GridPane buttonGrid = new GridPane();
     buttonGrid.scaleShapeProperty();
-    
-    buttonGrid.setRowIndex(moveForward, 0);
-    buttonGrid.setColumnIndex(moveForward, 1);
-    buttonGrid.setRowIndex(lookRight, 1);
-    buttonGrid.setColumnIndex(lookRight, 2);
-    buttonGrid.setRowIndex(moveBack, 2);
-    buttonGrid.setColumnIndex(moveBack, 1);
-    buttonGrid.setRowIndex(lookLeft, 1);
-    buttonGrid.setColumnIndex(lookLeft, 0);
-    buttonGrid.setRowIndex(dropItem, 0);
-    buttonGrid.setColumnIndex(dropItem, 0);
-    buttonGrid.setRowIndex(useItem, 0);
-    buttonGrid.setColumnIndex(useItem, 2);
-    
+
+    GridPane.setRowIndex(moveForward, 0);
+    GridPane.setColumnIndex(moveForward, 1);
+    GridPane.setRowIndex(lookRight, 1);
+    GridPane.setColumnIndex(lookRight, 2);
+    GridPane.setRowIndex(moveBack, 2);
+    GridPane.setColumnIndex(moveBack, 1);
+    GridPane.setRowIndex(lookLeft, 1);
+    GridPane.setColumnIndex(lookLeft, 0);
+    GridPane.setRowIndex(dropItem, 0);
+    GridPane.setColumnIndex(dropItem, 0);
+    GridPane.setRowIndex(useItem, 0);
+    GridPane.setColumnIndex(useItem, 2);
+
     buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft, dropItem, useItem);
-    
+
     bottomScreenLeft.getChildren().addAll(buttonGrid);
 
-    
     VBox bottomScreenRight = new VBox();
     bottomScreenRight.scaleShapeProperty();
-    bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
@@ -267,7 +285,7 @@ public class UserInterface extends Application {
     game.addObserver(gameScreen);
     game.update();
 
-    //allows scene to be visible
+    // allows scene to be visible
     layout.setBackground(Background.EMPTY);
     layout.scaleShapeProperty();
     layout.setTop(menuBar);
