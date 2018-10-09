@@ -12,5 +12,8 @@ class HealthFlaskStrategy implements ContentsStrategy {
   public void use(Player pl) {
     pl.giveHealth();
   }
-
+  
+  public String toString() {
+    return "healthFlask";
+  }
 }

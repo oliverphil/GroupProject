@@ -561,8 +561,9 @@ public class Board {
     String dir = p.getDirection();
     Point point = p.getLocation();
 
-    item = new Tool();
-    item.setName("crowbar");
+    System.out.println("Item: " + item.getName());
+    
+    item.setName(item.getName());
 
     //place the object on the floor in the selected position
     switch (dir) {

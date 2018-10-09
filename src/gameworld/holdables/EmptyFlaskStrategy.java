@@ -12,5 +12,8 @@ class EmptyFlaskStrategy implements ContentsStrategy {
   public void use(Player pl) {
     //do nothing
   }
-
+  
+  public String toString() {
+    return "emptyFlask";
+  }
 }

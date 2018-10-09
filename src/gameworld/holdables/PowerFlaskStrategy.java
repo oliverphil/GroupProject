@@ -12,5 +12,8 @@ class PowerFlaskStrategy implements ContentsStrategy {
   public void use(Player pl) {
     // TODO increase player damage or resistence
   }
-
+  
+  public String toString() {
+    return "powerFlask";
+  }
 }

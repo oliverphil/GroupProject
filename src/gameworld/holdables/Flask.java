@@ -59,6 +59,10 @@ public class Flask extends Item {
     this.strat = strat;
   }
 
+  public String toString() {
+    return strat.toString();
+  }
+  
   @XmlTransient
   public interface ContentsStrategy {
     public void use(Player pl);

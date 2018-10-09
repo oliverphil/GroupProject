@@ -120,6 +120,7 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(cb);
           player.dropItem(tool);
+          board.removeObject(player, name.getTile());
           board.place(player, tool, name.getTile());
         } else {
           Tool cb = new Tool();
@@ -135,7 +136,6 @@ public class GameWorld extends Observable {
           pa.setMaterial("stoneBlockade");
           pa.setName("pickaxe");
           Tool tool = player.getTool();
-          System.out.println(tool.getName());
           player.pickUp(pa);
           player.dropItem(tool);
           board.removeObject(player, name.getTile());
@@ -156,6 +156,7 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(bc);
           player.dropItem(tool);
+          board.removeObject(player, name.getTile());
           board.place(player, tool, name.getTile());
         } else {
           Tool bc = new Tool();
