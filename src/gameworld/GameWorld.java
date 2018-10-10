@@ -34,6 +34,7 @@ public class GameWorld extends Observable {
     player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board, won));
+    player.setLocation(new Point(13, 1));
 
     setWon(false);
   }
@@ -284,6 +285,7 @@ public class GameWorld extends Observable {
   }
 
   private void win() {
+    setChanged();
     notifyObservers("won");
   }
 
@@ -360,6 +362,7 @@ public class GameWorld extends Observable {
 
     if (player.getHealth() < 1) {
       setPlayerAlive(false);
+      setChanged();
       notifyObservers("dead");
     }
 

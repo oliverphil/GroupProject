@@ -286,11 +286,30 @@ public class Renderer extends Canvas implements Observer {
     return new ItemOnScreen(0, 0, 0, 0, 0, "");
   }
 
+  private void fadeToBlack() {
+    System.out.println("DEAD");
+  }
+
+  private void fadeToWhite() {
+    System.out.println("WON");
+  }
+
   @Override
   public void update(Observable arg0, Object arg1) {
     // *********OBSERVER PATTERN********* //
     if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof ViewDescriptor) {
       redraw((ViewDescriptor) arg1);
+    } else if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof String) {
+      switch ((String) arg1) {
+        case "won":
+          fadeToWhite();
+          break;
+        case "dead":
+          fadeToBlack();
+          break;
+        default:
+          break;
+      }
     }
   }
 
