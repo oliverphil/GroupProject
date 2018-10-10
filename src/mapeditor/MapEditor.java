@@ -53,7 +53,7 @@ public class MapEditor extends Application {
         grid[x][y] = "0_none";
       }
     }
-    
+
     grid[9][9] = "empty_NW";
     grid[10][9] = "empty_N";
     grid[11][9] = "emptyFlask_NE";
@@ -63,7 +63,7 @@ public class MapEditor extends Application {
     grid[9][11] = "empty_SW";
     grid[10][11] = "empty_S";
     grid[11][11] = "empty_SE";
-    
+
 
     primaryStage.setTitle("Map Editor");
     BorderPane border = new BorderPane();
@@ -211,7 +211,7 @@ public class MapEditor extends Application {
         currentDir = gridSquare[1];
 
         Image img = new Image(
-            getClass().getResourceAsStream("icons/" + currentIcon + "_" + currentDir + ".png"));
+            getClass().getResource("icons/" + currentIcon + "_" + currentDir + ".png").toString());
         rec.setFill(new ImagePattern(img));
 
         gridPane.add(rec, x, y);
