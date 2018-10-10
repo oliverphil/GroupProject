@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +25,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+@XmlRootElement
 public class MapEditor extends Application {
 
   private static final int GRID_WIDTH = 21;
@@ -229,4 +235,16 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
+
+  public String[][] getGrid() {
+    return grid;
+  }
+
+  @XmlElementWrapper(name = "grid")
+  @XmlElement(name = "gridItem")
+  public void setGrid(String[][] grid) {
+    this.grid = grid;
+  }
+  
+  
 }
