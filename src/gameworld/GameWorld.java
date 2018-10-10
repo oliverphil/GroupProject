@@ -1,6 +1,7 @@
 package gameworld;
 
 import gameworld.holdables.Flask;
+import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
 
@@ -433,6 +434,7 @@ public class GameWorld extends Observable {
   /**
    * @param won the won to set
    */
+  @XmlElement
   public void setWon(boolean won) {
     this.won = won;
   }
