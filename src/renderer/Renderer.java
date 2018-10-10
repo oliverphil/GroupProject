@@ -222,32 +222,34 @@ public class Renderer extends Canvas implements Observer {
       i++;
     }
 
-    String musicFile = visibleTiles.get(7);
-    if (musicFile.equals("")) {
-      musicFile = "tunnels";
-    }
-    musicPlayer.update(musicFile);
+    if (visibleTiles.size() == 8) {
+      String musicFile = visibleTiles.get(7);
+      if (musicFile.equals("")) {
+        musicFile = "tunnels";
+      }
+      musicPlayer.update(musicFile);
 
-    String dir = visibleTiles.get(6);
-    String dirIcon;
-    switch (dir) {
-      case "north":
-        dirIcon = "N";
-        break;
-      case "south":
-        dirIcon = "S";
-        break;
-      case "east":
-        dirIcon = "E";
-        break;
-      case "west":
-        dirIcon = "W";
-        break;
-      default:
-        dirIcon = "";
-        break;
+      String dir = visibleTiles.get(6);
+      String dirIcon;
+      switch (dir) {
+        case "north":
+          dirIcon = "N";
+          break;
+        case "south":
+          dirIcon = "S";
+          break;
+        case "east":
+          dirIcon = "E";
+          break;
+        case "west":
+          dirIcon = "W";
+          break;
+        default:
+          dirIcon = "";
+          break;
+      }
+      gc.fillText(dirIcon, getWidth() - 30, 30);
     }
-    gc.fillText(dirIcon, getWidth() - 30, 30);
 
     Collections.reverse(objectsOnScreen);
   }

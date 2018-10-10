@@ -74,7 +74,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.setVgap(20);
 
     // add north west walls
-    Image northWestImage = new Image(getClass().getResourceAsStream("icons/empty_NW.png"));
+    Image northWestImage = new Image(getClass().getResource("icons/empty_NW.png").toString());
     northWest = new Button();
     northWest.setGraphic(new ImageView(northWestImage));
     northWest.setPrefSize(40, 40);
@@ -82,7 +82,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(northWest, 0, 0);
 
     // add north wall
-    Image northImage = new Image(getClass().getResourceAsStream("icons/empty_N.png"));
+    Image northImage = new Image(getClass().getResource("icons/empty_N.png").toString());
     north = new Button();
     north.setGraphic(new ImageView(northImage));
     north.setPrefSize(40, 40);
@@ -90,7 +90,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(north, 1, 0);
 
     // add north east walls
-    Image northEastImage = new Image(getClass().getResourceAsStream("icons/empty_NE.png"));
+    Image northEastImage = new Image(getClass().getResource("icons/empty_NE.png").toString());
     northEast = new Button();
     northEast.setGraphic(new ImageView(northEastImage));
     northEast.setPrefSize(40, 40);
@@ -98,7 +98,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(northEast, 2, 0);
 
     // add west wall
-    Image westImage = new Image(getClass().getResourceAsStream("icons/empty_W.png"));
+    Image westImage = new Image(getClass().getResource("icons/empty_W.png").toString());
     west = new Button();
     west.setGraphic(new ImageView(westImage));
     west.setPrefSize(40, 40);
@@ -106,7 +106,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(west, 0, 1);
 
     // add empty tile
-    Image emptyImage = new Image(getClass().getResourceAsStream("icons/empty_none.png"));
+    Image emptyImage = new Image(getClass().getResource("icons/empty_none.png").toString());
     none = new Button();
     none.setGraphic(new ImageView(emptyImage));
     none.setPrefSize(40, 40);
@@ -114,7 +114,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(none, 1, 1);
 
     // add east wall
-    Image eastImage = new Image(getClass().getResourceAsStream("icons/empty_E.png"));
+    Image eastImage = new Image(getClass().getResource("icons/empty_E.png").toString());
     east = new Button();
     east.setGraphic(new ImageView(eastImage));
     east.setPrefSize(40, 40);
@@ -122,7 +122,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(east, 2, 1);
 
     // add south west walls
-    Image southWestImage = new Image(getClass().getResourceAsStream("icons/empty_SW.png"));
+    Image southWestImage = new Image(getClass().getResource("icons/empty_SW.png").toString());
     southWest = new Button();
     southWest.setGraphic(new ImageView(southWestImage));
     southWest.setPrefSize(40, 40);
@@ -130,7 +130,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(southWest, 0, 2);
 
     // add south wall
-    Image southImage = new Image(getClass().getResourceAsStream("icons/empty_S.png"));
+    Image southImage = new Image(getClass().getResource("icons/empty_S.png").toString());
     south = new Button();
     south.setGraphic(new ImageView(southImage));
     south.setPrefSize(40, 40);
@@ -138,7 +138,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(south, 1, 2);
 
     // add south east walls
-    Image eastSouthImage = new Image(getClass().getResourceAsStream("icons/empty_SE.png"));
+    Image eastSouthImage = new Image(getClass().getResource("icons/empty_SE.png").toString());
     southEast = new Button();
     southEast.setGraphic(new ImageView(eastSouthImage));
     southEast.setPrefSize(40, 40);
