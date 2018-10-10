@@ -1,6 +1,5 @@
 package gameworld.holdables;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +15,6 @@ public class Weapon extends Item {
     super();
   }
 
-  @XmlAttribute(name = "damage")
   public int getDamage() {
     return damage;
   }

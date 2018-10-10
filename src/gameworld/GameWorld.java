@@ -286,6 +286,7 @@ public class GameWorld extends Observable {
   }
 
   private void win() {
+    setChanged();
     notifyObservers("won");
   }
 
@@ -362,6 +363,7 @@ public class GameWorld extends Observable {
 
     if (player.getHealth() < 1) {
       setPlayerAlive(false);
+      setChanged();
       notifyObservers("dead");
     }
 

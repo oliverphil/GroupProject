@@ -4,9 +4,7 @@ import gameworld.FloorObject;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlTransient;
 
-@XmlTransient
 public abstract class Item extends FloorObject {
 
   private int weight;

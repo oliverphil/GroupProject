@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ewensdyla
  *
  */
-@XmlTransient
 public abstract class FloorObject {
   private String name;
   private Point location;

@@ -1,11 +1,9 @@
 package gameworld.barriers;
 
-import gameworld.barriers.Barrier.BarrierStrategy;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class PileOfRocksStrategy implements BarrierStrategy {
+public class PileOfRocksStrategy extends BarrierStrategy {
 
   @Override
   public String tool() {
