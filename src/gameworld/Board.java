@@ -124,7 +124,7 @@ public class Board {
     boltCutters.setLocation(new Point(11, 0));
     this.board[0][11].setObj(boltCutters);
 
-    //Add weapons
+    // Add weapons
     Weapon hammer = new Weapon();
     hammer.setName("hammer");
     hammer.setDamage(10);
@@ -145,24 +145,24 @@ public class Board {
     crowbar.setWeight(4);
     sword.setLocation(new Point(13, 3));
     this.board[3][13].setObj(sword);
-    
-    //Bombs
+
+    // Bombs
     Explosive ex1 = new Explosive();
     ex1.setName("bomb");
     ex1.setLocation(new Point(10, 6));
     this.board[6][10].setObj(ex1);
-    
+
     Explosive ex2 = new Explosive();
     ex2.setName("bomb");
     ex2.setLocation(new Point(0, 11));
     this.board[11][0].setObj(ex2);
-    
+
     Explosive ex3 = new Explosive();
     ex3.setName("bomb");
     ex3.setLocation(new Point(5, 14));
     this.board[14][5].setObj(ex3);
 
-    //Fountains
+    // Fountains
     Fountain powerFountain = new Fountain();
     powerFountain.setName("powerFountain");
     powerFountain.setLiquid("power");
@@ -175,8 +175,8 @@ public class Board {
     healthFountain.setLocation(new Point(5, 10));
     this.board[10][5].setObj(healthFountain);
 
-    //Add barriers
-    //wooden barriers
+    // Add barriers
+    // wooden barriers
     Barrier wBar1 = new Barrier();
     wBar1.setName("woodenBlockade");
     wBar1.setStrat(new WoodenPlanksStrategy());
@@ -219,7 +219,7 @@ public class Board {
     wBar7.setLocation(new Point(7, 3));
     this.board[3][7].setObj(wBar7);
 
-    //stone barriers
+    // stone barriers
     Barrier sBar1 = new Barrier();
     sBar1.setName("stoneBlockade");
     sBar1.setStrat(new PileOfRocksStrategy());
@@ -256,7 +256,7 @@ public class Board {
     sBar6.setLocation(new Point(13, 6));
     this.board[6][13].setObj(sBar6);
 
-    //chain
+    // chain
     Barrier chBar1 = new Barrier();
     chBar1.setName("chainBlockade");
     chBar1.setStrat(new ChainsStrategy());
@@ -394,6 +394,7 @@ public class Board {
 
   /**
    * Gets the board.
+   *
    * @return the board
    */
   public Tile[][] getBoard() {
@@ -450,9 +451,9 @@ public class Board {
   /**
    * Sets the tile with the coords to the specified Tile object.
    *
-   * @param row
-   * @param col
-   * @param tile
+   * @param row row
+   * @param col column
+   * @param tile Tile
    */
   public void setTile(int row, int col, Tile tile) {
     board[row][col] = tile;
@@ -461,7 +462,7 @@ public class Board {
   /**
    * Moves the player backwards.
    *
-   * @param player
+   * @param p the current player
    */
   public void goBack(Player p, boolean won) {
     // check if there is a wall or an open door behind them
@@ -476,7 +477,7 @@ public class Board {
         if (!behind.hasDoor("south") && !behind.hasWall("south")) {
           p.setLocation(new Point(point.x, point.y + 3));
         } else {
-          // TODO cannot move
+          // cannot move
         }
         break;
       case "south":
@@ -484,7 +485,7 @@ public class Board {
         if (!behind.hasDoor("north") && !behind.hasWall("north")) {
           p.setLocation(new Point(point.x, point.y - 3));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       case "east":
@@ -492,7 +493,7 @@ public class Board {
         if (!behind.hasDoor("west") && !behind.hasWall("west")) {
           p.setLocation(new Point(point.x - 3, point.y));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       case "west":
@@ -500,7 +501,7 @@ public class Board {
         if (!behind.hasDoor("east") && !behind.hasWall("east")) {
           p.setLocation(new Point(point.x + 3, point.y));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       default:
@@ -514,7 +515,8 @@ public class Board {
   /**
    * Moves the player forwards.
    *
-   * @param player
+   * @param p the current player
+   * @param won whether the game is won
    */
   public void goForwards(Player p, boolean won) {
     // check if there is a wall or an open door behind them
@@ -529,7 +531,7 @@ public class Board {
         if (!forward.hasDoor("north") && !forward.hasWall("north")) {
           p.setLocation(new Point(point.x, point.y - 3));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       case "south":
@@ -537,7 +539,7 @@ public class Board {
         if (!forward.hasDoor("south") && !forward.hasWall("south")) {
           p.setLocation(new Point(point.x, point.y + 3));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       case "east":
@@ -545,7 +547,7 @@ public class Board {
         if (!forward.hasDoor("east") && !forward.hasWall("east")) {
           p.setLocation(new Point(point.x + 3, point.y));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       case "west":
@@ -553,7 +555,7 @@ public class Board {
         if (!forward.hasDoor("west") && !forward.hasWall("west")) {
           p.setLocation(new Point(point.x - 3, point.y));
         } else {
-          ;// TODO cannot move
+          ;// cannot move
         }
         break;
       default:
@@ -584,42 +586,24 @@ public class Board {
    * @param p the current player
    */
   public void removeBarrier(Player p) {
-    String dir = p.getDirection();
-    Point point = p.getLocation();
-
-    //remove the barrier the player is facing
-    switch (dir) {
-      case "north":
-        board[point.y - 1][point.x].removeFloorObject();
-        break;
-      case "south":
-        board[point.y + 1][point.x].removeFloorObject();
-        break;
-      case "east":
-        board[point.y][point.x + 1].removeFloorObject();
-        break;
-      case "west":
-        board[point.y][point.x - 1].removeFloorObject();
-        break;
-      default:
-        break;
-    }
+    getfacingTile(p).removeFloorObject();
   }
 
   /**
    * Called by the GameWorld to place an item on the floor.
-   * @param p
-   * @param tool
-   * @param location
+   *
+   * @param p the current player
+   * @param item the FloorObject to place
+   * @param location location to place the object
    */
   public void place(Player p, FloorObject item, int location) {
     String dir = p.getDirection();
     Point point = p.getLocation();
 
-    //place the object on the floor in the selected position
+    // place the object on the floor in the selected position
     switch (dir) {
       case "north":
-        board[point.y - 1][point.x - (2 - location)].setFloorObject(item);
+        getfacingTile(p).setFloorObject(item);
         break;
       case "south":
         board[point.y + 1][point.x + (2 - location)].setFloorObject(item);
@@ -637,15 +621,15 @@ public class Board {
 
   /**
    * Removes the object in the specified location.
-   * @param p
-   * @param item
-   * @param location
+   *
+   * @param p the current player
+   * @param location the location of the item in relation to the player
    */
   public void removeObject(Player p, int location) {
     String dir = p.getDirection();
     Point point = p.getLocation();
 
-    //remove the object on the floor in the selected position
+    // remove the object on the floor in the selected position
     switch (dir) {
       case "north":
         board[point.y - 1][point.x - (2 - location)].setFloorObject(null);

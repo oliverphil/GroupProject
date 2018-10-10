@@ -34,7 +34,7 @@ import renderer.Renderer.ItemOnScreen;
 
 /**
  * A suite of tests written to test the functionality of the renderer.
- * 
+ *
  * @author Philip Oliver - 300398228
  *
  */
@@ -53,22 +53,14 @@ public class RendererTests {
 
   private Renderer getMutedRenderer() {
     Renderer renderer = new Renderer(3, 3);
-    try {
-      Field music = Renderer.class.getDeclaredField("musicPlayer");
-      music.setAccessible(true);
-      Music player = (Music) music.get(renderer);
-      player.mute();
-    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-        | IllegalAccessException e) {
-      fail("Should be able to mute music");
-    }
+    renderer.mute();
     return renderer;
   }
 
   /**
    * Creates a new JFXPanel so that when Renderer is created there is an application for the
    * MediaPlayer to use.
-   * 
+   *
    * @throws InterruptedException exception to ensure tests aren't run without a JFXPanel
    */
   @BeforeAll

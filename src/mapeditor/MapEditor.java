@@ -1,5 +1,9 @@
 package mapeditor;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -64,7 +68,6 @@ public class MapEditor extends Application {
     grid[10][11] = "empty_S";
     grid[11][11] = "empty_SE";
 
-
     primaryStage.setTitle("Map Editor");
     BorderPane border = new BorderPane();
     gridPane = new GridPane();
@@ -82,9 +85,9 @@ public class MapEditor extends Application {
       if (openWindow != null) {
         try {
           if (openWindow instanceof FloorTileMenu) {
-            ((FloorTileMenu) openWindow).primaryStage.close();
+            // ((FloorTileMenu) openWindow).primaryStage.close();
           } else if (openWindow instanceof IconsMenu) {
-            ((IconsMenu) openWindow).primaryStage.close();
+            // ((IconsMenu) openWindow).primaryStage.close();
           }
         } catch (Exception e1) {
           e1.printStackTrace();
@@ -151,7 +154,7 @@ public class MapEditor extends Application {
   };
 
   private int getCol(int x) {
-    return (int)((x - 10) / 22);
+    return (int) ((x - 10) / 22);
   }
 
   private int getRow(int y) {
@@ -204,14 +207,13 @@ public class MapEditor extends Application {
 
     for (int y = 0; y < GRID_HEIGHT; y++) {
       for (int x = 0; x < GRID_WIDTH; x++) {
-        Rectangle rec = new Rectangle(x, y, 20, 20);
-
         String[] gridSquare = (grid[x][y]).split("_");
         currentIcon = gridSquare[0];
         currentDir = gridSquare[1];
-
         Image img = new Image(
             getClass().getResource("icons/" + currentIcon + "_" + currentDir + ".png").toString());
+        Rectangle rec = new Rectangle(x, y, 20, 20);
+
         rec.setFill(new ImagePattern(img));
 
         gridPane.add(rec, x, y);
@@ -227,9 +229,4 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
-
-  public static String getSelectedIcon() {
-    return selectedIcon;
-  }
-
 }
