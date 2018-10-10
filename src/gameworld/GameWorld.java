@@ -1,5 +1,7 @@
 package gameworld;
 
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
@@ -400,6 +402,11 @@ public class GameWorld extends Observable {
   public void useItem(Item item) {
     if (item instanceof Flask) {
       ((Flask) item).use(player);
+    } else if (item instanceof Explosive) {
+      FloorObject obj = board.getfacingTile(player).getFloorObject();
+      if (obj instanceof Barrier) {
+        board.getfacingTile(player).removeFloorObject();
+      }
     }
 
   }
