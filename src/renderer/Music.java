@@ -10,7 +10,7 @@ import javafx.util.Duration;
 
 /**
  * A class to handle running of music within the game.
- * 
+ *
  * @author Philip Oliver - 300398228 *
  */
 public class Music {
@@ -30,7 +30,7 @@ public class Music {
   /**
    * Update the media player to play the file specified by track. If the file is not a valid media
    * file or that track is already playing, don't do anything.
-   * 
+   *
    * @param track the name of the media file to play
    */
   public void update(String track) {
@@ -58,5 +58,9 @@ public class Music {
    */
   public void mute() {
     player.setVolume(0);
+  }
+
+  public void unmute() {
+    player.setVolume(1);
   }
 }

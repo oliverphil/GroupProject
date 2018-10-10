@@ -27,6 +27,7 @@ public class Renderer extends Canvas implements Observer {
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
+  private boolean muted = false;
 
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
@@ -228,6 +229,11 @@ public class Renderer extends Canvas implements Observer {
         musicFile = "tunnels";
       }
       musicPlayer.update(musicFile);
+      if (muted) {
+        musicPlayer.mute();
+      } else {
+        musicPlayer.unmute();
+      }
 
       String dir = visibleTiles.get(6);
       String dirIcon;
@@ -252,6 +258,16 @@ public class Renderer extends Canvas implements Observer {
     }
 
     Collections.reverse(objectsOnScreen);
+  }
+
+  public void mute() {
+    muted = true;
+    musicPlayer.mute();
+  }
+
+  public void unmute() {
+    muted = false;
+    musicPlayer.unmute();
   }
 
   /**
