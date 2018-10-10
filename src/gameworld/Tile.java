@@ -37,7 +37,7 @@ public class Tile {
   }
 
   /**
-   * No-args constructor for JAXB.
+   * Zero-args constructor for JAXB.
    */
   public Tile() {
     this.row = 0;
@@ -125,10 +125,11 @@ public class Tile {
 
   /**
    * Removes the floor object.
+   * 
    * @param item the item to set
    */
   public void removeFloorObject() {
-      this.obj = null;
+    this.obj = null;
   }
 
   /**

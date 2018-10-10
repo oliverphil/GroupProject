@@ -19,7 +19,7 @@ public class Point {
     this.x = x;
     this.y = y;
   }
-  
+
   public Point() {
     this.x = 0;
     this.y = 0;
