@@ -1,12 +1,18 @@
 package application;
 
 import gameworld.GameWorld;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Item;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -21,6 +27,8 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
@@ -34,14 +42,32 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import mapeditor.MapEditor;
+import persistence.Persistence;
 import renderer.Renderer;
 
 public class UserInterface extends Application {
 
+  // TODO:
+  // Fix Help Printing 
+  // Backpack and move buttons
+  // Fix Help Printing
+  // Health bar *Note: Power Flask duration = 10sec 
+  // Write Tests [Renderer Tests, add 'Before All' to tests]
+
+  // Have a variable in GUI that is filled when an item is selected for either use/drop
+  // Make sure that GUI updates backpack and healthbar each time (Need a redraw for backpack and healthbar)
+  // Is player alive (checked on each event) -> Fade to black if dead (call to renderer)
+  // Make healthbar a canvas (player.gethealth())
+  
+  // CRC Card for GUI
+  // Read Me for Game (WITH CHARLOTTE)
+  // Howard Lukefah = Clippy for Help Page
+
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
+  private Item selectedItem;
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
@@ -53,6 +79,25 @@ public class UserInterface extends Application {
   private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
       60, false, false);
   
+  // load backpack icon images
+  private Image boltCutterImage = new Image(getClass().getResourceAsStream("icons/boltCutters.png"),
+      60, 60, false, false);
+  private Image crowbarImage = new Image(getClass().getResourceAsStream("icons/crowbar.png"),
+      60, 60, false, false);
+  private Image hammerImage = new Image(getClass().getResourceAsStream("icons/hammer.png"),
+      60, 60, false, false);
+  private Image khopeshImage = new Image(getClass().getResourceAsStream("icons/khopesh.png"),
+      60, 60, false, false);
+  private Image pickaxeImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"),
+      60, 60, false, false);
+  private Image torchImage = new Image(getClass().getResourceAsStream("icons/torch.png"),
+      60, 60, false, false);
+  private Image emptyFlaskImage = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"),
+      60, 60, false, false);
+  private Image healthFlaskImage = new Image(getClass().getResourceAsStream("icons/healthFlask.png"),
+      60, 60, false, false);
+  private Image powerFlaskImage = new Image(getClass().getResourceAsStream("icons/powerFlask.png"),
+      60, 60, false, false);
 
   private GameWorld game;
 
@@ -65,7 +110,7 @@ public class UserInterface extends Application {
     game = new GameWorld();
     window = primaryStage;
     window.setTitle("An Adventure Game!");
-    // window.setFullScreen(true);
+    window.setResizable(false);
 
     /* MENU START */
     // Game Menu
@@ -73,19 +118,27 @@ public class UserInterface extends Application {
     Label t = new Label("Game");
     t.setStyle("-fx-text-fill: #D39365; ");
     gameMenu.setGraphic(t);
+    
+    MenuItem save = new MenuItem("Save...");
+    save.setOnAction(e -> {
+      JFileChooser getFile = new JFileChooser();
+      int returnVal = getFile.showOpenDialog(null);
+      if (returnVal == JFileChooser.APPROVE_OPTION) {
+        Persistence.saveGame(game, getFile.getSelectedFile().toString());
+      }
 
-    MenuItem gameRestartArea = new MenuItem("Restart Area");
-    gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
+    });
+    gameMenu.getItems().add(save);
+    MenuItem load = new MenuItem("Load...");
+
+    gameMenu.getItems().add(load);
     MenuItem gameRestart = new MenuItem("Restart Game");
-    gameMenu.getItems().add(new MenuItem("Save..."));
-    gameMenu.getItems().add(new MenuItem("Load..."));
-    gameMenu.getItems().add(gameRestartArea);
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
     // Help Section
-    gameMenu.getItems().add(new MenuItem("Help"));
-    gameMenu.getItems().get(5).setOnAction(e -> {
+    MenuItem help = new MenuItem("Help");
+    help.setOnAction(e -> {
       try {
         Scanner sc = new Scanner(new File("src/application/help.txt"));
 
@@ -96,26 +149,13 @@ public class UserInterface extends Application {
       } catch (FileNotFoundException e1) {
         System.out.println("Help File Not Found");
       }
+      gameMenu.getItems().add(help);
 
       new Notification("Instructions", HELP_MESSAGE, "Got it!");
     });
-    gameMenu.getItems().add(new MenuItem("Exit"));
-
-    // Difficulty Menu
-    ToggleGroup difficultyToggle = new ToggleGroup();
-
-    RadioMenuItem easy = new RadioMenuItem("Easy");
-    easy.setToggleGroup(difficultyToggle);
-    RadioMenuItem medium = new RadioMenuItem("Medium");
-    medium.setToggleGroup(difficultyToggle);
-    RadioMenuItem hard = new RadioMenuItem("Hard");
-    hard.setToggleGroup(difficultyToggle);
-
-    // start at medium difficulty
-    medium.setSelected(true);
-
-    Menu difficultyMenu = new Menu("Difficulty");
-    difficultyMenu.getItems().addAll(easy, medium, hard);
+    MenuItem exit = new MenuItem("Exit");
+    exit.setOnAction(e -> System.exit(0));
+    gameMenu.getItems().add(exit);
 
     // Settings Menu
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
@@ -128,26 +168,23 @@ public class UserInterface extends Application {
       }
     });
 
-    CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
-    autoSave.setOnAction(e -> {
-      if (autoSave.isSelected()) {
-        System.out.println("Autosave is enabled");
-      } else {
-        System.out.println("Autosave is disabled");
-      }
-    });
-
     // Options Menu
     Menu optionsMenu = new Menu("");
     Label s = new Label("Options");
     s.setStyle("-fx-text-fill: #D39365; ");
     optionsMenu.setGraphic(s);
-    optionsMenu.getItems().addAll(difficultyMenu, autoSave, toggleMusic);
-    
+    optionsMenu.getItems().addAll(toggleMusic);
+
     // Map Editor Menu
     CheckMenuItem launchMapEditor = new CheckMenuItem("Launch Map Editor");
-    launchMapEditor.setOnAction(e -> { System.out.println("Map Editor Running."); });
-    
+    launchMapEditor.setOnAction(e -> {
+      try {
+        new MapEditor().start(new Stage());
+      } catch (Exception e1) {
+        e1.printStackTrace();
+      }
+    });
+
     Menu mapEditorMenu = new Menu("");
     Label q = new Label("Map Editor");
     q.setStyle("-fx-text-fill: #D39365; ");
@@ -163,7 +200,7 @@ public class UserInterface extends Application {
     /* CANVAS START */
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
-    Renderer gameScreen = new Renderer(700, 700); // TODO: Scale Shape Property for Renderer
+    Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
     });
@@ -174,6 +211,15 @@ public class UserInterface extends Application {
       game = new GameWorld();
       game.addObserver(gameScreen);
       game.update();
+    });
+    load.setOnAction(e -> {
+      JFileChooser getFile = new JFileChooser();
+      int returnVal = getFile.showOpenDialog(null);
+      if (returnVal == JFileChooser.APPROVE_OPTION) {
+        game = Persistence.loadGame(getFile.getSelectedFile().toString());
+        game.addObserver(gameScreen);
+        game.update();
+      }
     });
     /* CANVAS END */
 
@@ -234,10 +280,30 @@ public class UserInterface extends Application {
     bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    HBox backpack = new HBox();
-    backpack.scaleShapeProperty();
-    backpack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+    // Backpack
+    GridPane backpackGrid = new GridPane();
+    backpackGrid.scaleShapeProperty();
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
+    
+    ArrayList<Button> packItemsArray = new ArrayList<Button>();
+    
+    for(int i = 0; i < game.getPlayer().getBag().size(); i++) {
+      Item itemInPack = game.getPlayer().getBag().get(i);
+      itemButton itemButton;
+      
+      switch (itemInPack.getName()) {
+        case "emptyFlask":
+          itemButton = new itemButton(new ImageView(emptyFlaskImage));
+          packItemsArray.add(itemButton.getItemButton());
+          break;
+      }
+      
+      for(int i1 = 0; i1 < packItemsArray.size(); i1++) {
+        backpackGrid.add(packItemsArray.get(i1), 0, i1);
+      }
+      
+    }
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -276,14 +342,28 @@ public class UserInterface extends Application {
     bottomScreenRight.scaleShapeProperty();
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    
+    bottomScreenRight.getChildren().addAll(backpackGrid);                        //TODO: Figure out why not displaying
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
-    bottomScreen.getChildren().addAll(backpack, bottomMostScreen);
+    bottomScreen.getChildren().addAll(bottomMostScreen);
     /* BOTTOM SCREEN END */
 
     game.addObserver(gameScreen);
     game.update();
+
+    window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
+      if (k.getCode() == KeyCode.W) {
+        game.moveForward();
+      } else if (k.getCode() == KeyCode.S) {
+        game.moveBackwards();
+      } else if (k.getCode() == KeyCode.A) {
+        game.rotateLeft();
+      } else if (k.getCode() == KeyCode.D) {
+        game.rotateRight();
+      }
+    });
 
     // allows scene to be visible
     layout.setBackground(Background.EMPTY);
@@ -296,5 +376,27 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
+  }
+}
+
+/*
+ * A special kind of Button that represents an item
+ * To be used in the display of 'Backpack'
+ */
+class itemButton extends Button {
+  
+  private itemButton anItemButton;
+  
+  public itemButton(ImageView imageView) {
+    anItemButton = (itemButton) new Button();
+    anItemButton.setGraphic(imageView);
+    anItemButton.setStyle("-fx-background-color: #1d1f23; ");
+    anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+    //anItemButton.setOnAction(e -> System.out.println("Used Item"));             // TODO: Highlight an item that is selected
+  }
+  
+  public itemButton getItemButton() {
+    return anItemButton;
   }
 }

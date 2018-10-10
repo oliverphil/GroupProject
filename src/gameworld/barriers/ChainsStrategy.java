@@ -7,8 +7,8 @@ import gameworld.barriers.Barrier.BarrierStrategy;
 @XmlRootElement
 public class ChainsStrategy implements BarrierStrategy {
 
-    @Override
-    public String tool() {
-      return "boltCutters";
-    }
+  @Override
+  public String tool() {
+    return "boltCutters";
+  }
 }

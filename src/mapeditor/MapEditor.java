@@ -57,10 +57,16 @@ public class MapEditor extends Application {
         grid[x][y] = "0_none";
       }
     }
-    grid[10][10] = "empty_none";
+
     grid[9][9] = "empty_NW";
     grid[10][9] = "empty_N";
-    grid[11][9] = "empty_NE";
+    grid[11][9] = "emptyFlask_NE";
+    grid[9][10] = "empty_W";
+    grid[10][10] = "empty_none";
+    grid[11][10] = "empty_E";
+    grid[9][11] = "empty_SW";
+    grid[10][11] = "empty_S";
+    grid[11][11] = "empty_SE";
 
     primaryStage.setTitle("Map Editor");
     BorderPane border = new BorderPane();
@@ -84,7 +90,6 @@ public class MapEditor extends Application {
             // ((IconsMenu) openWindow).primaryStage.close();
           }
         } catch (Exception e1) {
-          // TODO Auto-generated catch block
           e1.printStackTrace();
         }
       }
@@ -121,21 +126,21 @@ public class MapEditor extends Application {
         if (row != -1 && col != -1) {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
-          } else if (grid[col][row].endsWith("NE")) {
+          } else if (grid[col][row].endsWith("_NE")) {
             direction = "NE";
-          } else if (grid[col][row].endsWith("E")) {
+          } else if (grid[col][row].endsWith("_E")) {
             direction = "E";
-          } else if (grid[col][row].endsWith("ES")) {
-            direction = "ES";
-          } else if (grid[col][row].endsWith("S")) {
+          } else if (grid[col][row].endsWith("_SE")) {
+            direction = "SE";
+          } else if (grid[col][row].endsWith("_S")) {
             direction = "S";
-          } else if (grid[col][row].endsWith("SW")) {
+          } else if (grid[col][row].endsWith("_SW")) {
             direction = "SW";
-          } else if (grid[col][row].endsWith("W")) {
+          } else if (grid[col][row].endsWith("_W")) {
             direction = "W";
-          } else if (grid[col][row].endsWith("NW")) {
+          } else if (grid[col][row].endsWith("_NW")) {
             direction = "NW";
-          } else if (grid[col][row].endsWith("none")) {
+          } else if (grid[col][row].endsWith("_none")) {
             direction = "none";
           }
           grid[col][row] = selectedIcon + "_" + direction;
@@ -145,16 +150,15 @@ public class MapEditor extends Application {
       if (selectedBtn == "remove") {
         remove(x, y);
       }
-      System.out.println(grid[col][row]);
     }
   };
 
   private int getCol(int x) {
-    return (int) Math.floor((x - 10) / 22);
+    return (int) ((x - 10) / 22);
   }
 
   private int getRow(int y) {
-    return (int) Math.floor((y - 65) / 22);
+    return (int) ((y - 65) / 22);
   }
 
   private void remove(int x, int y) {
@@ -201,26 +205,19 @@ public class MapEditor extends Application {
     gridPane.setHgap(2);
     gridPane.setVgap(2);
 
-    try {
-      for (int y = 0; y < GRID_HEIGHT; y++) {
-        for (int x = 0; x < GRID_WIDTH; x++) {
-          String[] gridSquare = (grid[x][y]).split("_");
-          currentIcon = gridSquare[0];
-          currentDir = gridSquare[1];
+    for (int y = 0; y < GRID_HEIGHT; y++) {
+      for (int x = 0; x < GRID_WIDTH; x++) {
+        String[] gridSquare = (grid[x][y]).split("_");
+        currentIcon = gridSquare[0];
+        currentDir = gridSquare[1];
+        Image img = new Image(
+            getClass().getResource("icons/" + currentIcon + "_" + currentDir + ".png").toString());
+        Rectangle rec = new Rectangle(x, y, 20, 20);
 
-          InputStream in = getClass().getResourceAsStream(
-              "icons" + File.separatorChar + currentIcon + "_" + currentDir + ".png");
-          Image img = new Image(in);
-          in.close();
+        rec.setFill(new ImagePattern(img));
 
-          Rectangle rec = new Rectangle(x, y, 20, 20);
-          rec.setFill(new ImagePattern(img));
-
-          gridPane.add(rec, x, y);
-        }
+        gridPane.add(rec, x, y);
       }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     }
     return gridPane;
   }

@@ -19,15 +19,15 @@ import org.xml.sax.SAXException;
 
 /**
  * Provides static methods for saving and loading the game state.
- * 
+ *
  * @author Wanja
  *
  */
 public class Persistence {
   /**
    * Saves the current state of the gameWorld to a file in XML format.
-   * 
-   * @param world    the GameWorld to be saved
+   *
+   * @param world the GameWorld to be saved
    * @param fileName the name of the file to save the world to
    */
   public static void saveGame(GameWorld world, String fileName) throws PersistenceException {
@@ -45,14 +45,14 @@ public class Persistence {
       gameMarshaller.marshal(world, saveFile);
     } catch (JAXBException e) {
       throw new PersistenceException("Failed to save the GameWorld file. \n" + e.getMessage());
-    } /*catch (SAXException e) {
-      e.printStackTrace();
-    }*/
+    } /*
+       * catch (SAXException e) { e.printStackTrace(); }
+       */
   }
 
   /**
    * Loads and returns a 'GameWorld' object from an XML file.
-   * 
+   *
    * @param fileName the name of the file to load from
    * @return the loaded 'GameWorld'
    */
@@ -74,8 +74,8 @@ public class Persistence {
 
   /**
    * Saves the state of the 'MapEditor' to an XML file.
-   * 
-   * @param editor   the 'MapEditor' to be saved
+   *
+   * @param editor the 'MapEditor' to be saved
    * @param fileName the name of the file to be saved to
    */
   public static void saveMapEditor(MapEditor editor, String fileName) throws PersistenceException {
@@ -95,7 +95,7 @@ public class Persistence {
 
   /**
    * Loads and returns a MapEditor object from an XML file.
-   * 
+   *
    * @param fileName the name of the file to load from
    * @return the loaded MapEditor file
    */
