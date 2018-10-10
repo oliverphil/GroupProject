@@ -13,7 +13,7 @@ import persistence.PersistenceException;
 public class PersistenceTests {
 
   @Test
-  public void testSaving() {
+  public void testErrorFreeGameSaving() {
     try {
       GameWorld testWorld = new GameWorld();
       Persistence.saveGame(testWorld, "saveTest.xml");
@@ -24,7 +24,7 @@ public class PersistenceTests {
   }
 
   @Test
-  public void testLoading() {
+  public void testGameLoading() {
     try {
       GameWorld testWorld = new GameWorld();
       Persistence.saveGame(testWorld, "loadTest.xml");
@@ -36,5 +36,14 @@ public class PersistenceTests {
     }
   }
   
+  @Test
+  public void testErrorFreeMapEditorSaving() {
+    fail("not yet implemented");
+  }
+  
+  @Test
+  public void testMapEditorLoading() {
+    fail("not yet implemented");
+  }
   
 }

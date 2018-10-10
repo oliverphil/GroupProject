@@ -1,21 +1,18 @@
 package persistence;
 
 import gameworld.GameWorld;
+import gameworld.Monster;
+import gameworld.barriers.BarrierStrategy;
+import gameworld.holdables.EmptyFlaskStrategy;
 
 import java.io.File;
-
-import javax.xml.XMLConstants;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import mapeditor.MapEditor;
-
-import org.xml.sax.SAXException;
 
 /**
  * Provides static methods for saving and loading the game state.
@@ -27,24 +24,26 @@ public class Persistence {
   /**
    * Saves the current state of the gameWorld to a file in XML format.
    *
-   * @param world the GameWorld to be saved
+   * @param world    the GameWorld to be saved
    * @param fileName the name of the file to save the world to
    */
   public static void saveGame(GameWorld world, String fileName) throws PersistenceException {
 
     try {
       File saveFile = new File(fileName);
-      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
+      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class, Monster.class,
+          EmptyFlaskStrategy.class, BarrierStrategy.class);
       Marshaller gameMarshaller = gameContext.createMarshaller();
 
-//      final Schema schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-//          .newSchema(GameWorld.class.getResource("/META-INF/wsdl/schema.xsd"));
-//      gameMarshaller.setSchema(schema);
+      //final Schema schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+      //    .newSchema(GameWorld.class.getResource("/META-INF/wsdl/schema.xsd"));
+      //gameMarshaller.setSchema(schema);
 
       gameMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       gameMarshaller.marshal(world, saveFile);
     } catch (JAXBException e) {
-      throw new PersistenceException("Failed to save the GameWorld file. \n" + e.getMessage());
+      e.printStackTrace();
+      throw new PersistenceException("Failed to save the GameWorld file. \n");
     } /*
        * catch (SAXException e) { e.printStackTrace(); }
        */
@@ -68,14 +67,15 @@ public class Persistence {
       return newWorld;
 
     } catch (JAXBException e) {
-      throw new PersistenceException("Failed to load the GameWorld file. \n" + e.getMessage());
+      e.printStackTrace();
+      throw new PersistenceException("Failed to load the GameWorld file. \n");
     }
   }
 
   /**
    * Saves the state of the 'MapEditor' to an XML file.
    *
-   * @param editor the 'MapEditor' to be saved
+   * @param editor   the 'MapEditor' to be saved
    * @param fileName the name of the file to be saved to
    */
   public static void saveMapEditor(MapEditor editor, String fileName) throws PersistenceException {
@@ -89,7 +89,8 @@ public class Persistence {
       editorMarshaller.marshal(editor, saveFile);
 
     } catch (JAXBException e) {
-      throw new PersistenceException("Failed to save the MapEditor file. \n" + e.getMessage());
+      e.printStackTrace();
+      throw new PersistenceException("Failed to save the MapEditor file. \n");
     }
   }
 
@@ -110,7 +111,8 @@ public class Persistence {
       return (MapEditor) editorUnmarshaller.unmarshal(editorSave);
 
     } catch (JAXBException e) {
-      throw new PersistenceException("Failed to load the MapEditor file. \n" + e.getMessage());
+      e.printStackTrace();
+      throw new PersistenceException("Failed to load the MapEditor file. \n");
     }
 
   }

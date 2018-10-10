@@ -26,11 +26,6 @@ public class Barrier extends FloorObject {
     return strat.tool();
   }
 
-  @XmlTransient
-  interface BarrierStrategy {
-    public String tool();
-  }
-
   public BarrierStrategy getStrat() {
     return strat;
   }
@@ -39,7 +34,6 @@ public class Barrier extends FloorObject {
    * Sets the current Strategy.
    * @param strat the Strategy
    */
-  @XmlElement
   public void setStrat(BarrierStrategy strat) {
     this.strat = strat;
   }
