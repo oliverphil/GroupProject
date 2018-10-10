@@ -37,7 +37,7 @@ public class Barrier extends FloorObject {
 
   /**
    * Sets the current Strategy.
-   * @param st Strategy
+   * @param strat the Strategy
    */
   @XmlElement
   public void setStrat(BarrierStrategy strat) {

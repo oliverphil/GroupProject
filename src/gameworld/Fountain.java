@@ -1,5 +1,9 @@
 package gameworld;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Fountain extends FloorObject{
   
   private String liquid;
@@ -14,6 +18,7 @@ public class Fountain extends FloorObject{
   /**
    * @param liquid the liquid to set
    */
+  @XmlElement
   public void setLiquid(String liquid) {
     this.liquid = liquid;
   }
