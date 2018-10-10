@@ -60,7 +60,7 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveForward() {
-    board.goForwards(this.player);
+    board.goForwards(this.player, won);
     update();
   }
 
@@ -69,7 +69,7 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveBackwards() {
-    board.goBack(this.player);
+    board.goBack(this.player, won);
     update();
   }
 
