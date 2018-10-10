@@ -22,6 +22,7 @@ import renderer.Renderer.ItemOnScreen;
 public class GameWorld extends Observable {
 
   private boolean won;
+  private boolean playerAlive;
 
   private Player player;
   private Board board;
@@ -283,12 +284,12 @@ public class GameWorld extends Observable {
   }
 
   private void win() {
-    //TODO
+    notifyObservers("won");
   }
 
   /**
    * Called by the interact method when the player is fighting a boss.
-   * @param name of the boss to fight
+   * @param name the name of the boss to fight
    */
   private void attack(String boss) {
 
@@ -358,7 +359,8 @@ public class GameWorld extends Observable {
     }
 
     if (player.getHealth() < 1) {
-      //TODO player loses
+      setPlayerAlive(false);
+      notifyObservers("dead");
     }
 
   }
@@ -390,23 +392,26 @@ public class GameWorld extends Observable {
   public Board getBoard() {
     return board;
   }
-  
+
   /**
    * Uses the item that is selected on the players hot bar.
-   * @param item
+   * @param item the item to be used.
    */
   public void useItem(Item item) {
-    //TODO
+    if (item instanceof Flask) {
+      ((Flask) item).use(player);
+    }
+
   }
 
   /**
    * Drops the item that is selected on the players hot bar.
-   * @param item
+   * @param item the item to be dropped.
    */
   public void dropItem(Item item) {
     //TODO
   }
-  
+
   /**
    * Called when the player clicks on the door in front of them.
    */
@@ -424,18 +429,20 @@ public class GameWorld extends Observable {
     return false;
   }
 
-  /**
-   * @return the won
-   */
   public boolean isWon() {
     return won;
   }
 
-  /**
-   * @param won the won to set
-   */
   @XmlElement
   public void setWon(boolean won) {
     this.won = won;
+  }
+
+  public boolean isPlayerAlive() {
+    return playerAlive;
+  }
+
+  public void setPlayerAlive(boolean playerAlive) {
+    this.playerAlive = playerAlive;
   }
 }
