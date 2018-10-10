@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 /**
  * Implementation of a Canvas which draws images on the screen based on a ViewDescriptor object from
  * GameWorld. Uses the Observer pattern to receive ViewDescriptor
- * 
+ *
  * @author Philip Oliver - 300398228
  *
  */
@@ -30,8 +30,8 @@ public class Renderer extends Canvas implements Observer {
 
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
-   * 
-   * @param width  the width of the renderer
+   *
+   * @param width the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -83,8 +83,6 @@ public class Renderer extends Canvas implements Observer {
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
-
-    String musicFile = "";
 
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
@@ -161,7 +159,6 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
               getHeight(), 2, "david"));
-          musicFile = "boss";
           break;
         case "marco":
           Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
@@ -169,7 +166,6 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
               getHeight(), 2, "marco"));
-          musicFile = "boss";
           break;
         case "thomas":
           Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
@@ -177,7 +173,6 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
               getHeight(), 2, "thomas"));
-          musicFile = "boss";
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -205,7 +200,6 @@ public class Renderer extends Canvas implements Observer {
           objectsOnScreen.add(new ItemOnScreen(
               x + ((getWidth() / 3) - healthFountain.getWidth()) / 2, getHeight() - 400,
               healthFountain.getWidth(), healthFountain.getHeight(), i % 3 + 1, "healthFountain"));
-          musicFile = "mysteries";
           break;
         case "powerFountain":
           Image powerFountain = new Image(
@@ -215,14 +209,12 @@ public class Renderer extends Canvas implements Observer {
           objectsOnScreen.add(new ItemOnScreen(
               x + ((getWidth() / 3) - powerFountain.getWidth()) / 2, getHeight() - 400,
               powerFountain.getWidth(), powerFountain.getHeight(), i % 3 + 1, "powerFountain"));
-          musicFile = "mysteries";
           break;
         case "ladder":
           Image ladder = new Image(getClass().getResourceAsStream("images/ladder.png"));
           gc.drawImage(ladder, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           objectsOnScreen
               .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "ladder"));
-          musicFile = "escape";
           break;
         default:
           break;
@@ -230,10 +222,32 @@ public class Renderer extends Canvas implements Observer {
       i++;
     }
 
+    String musicFile = visibleTiles.get(7);
     if (musicFile.equals("")) {
       musicFile = "tunnels";
     }
     musicPlayer.update(musicFile);
+
+    String dir = visibleTiles.get(6);
+    String dirIcon;
+    switch (dir) {
+      case "north":
+        dirIcon = "N";
+        break;
+      case "south":
+        dirIcon = "S";
+        break;
+      case "east":
+        dirIcon = "E";
+        break;
+      case "west":
+        dirIcon = "W";
+        break;
+      default:
+        dirIcon = "";
+        break;
+    }
+    gc.fillText(dirIcon, getWidth() - 30, 30);
 
     Collections.reverse(objectsOnScreen);
   }
@@ -302,12 +316,12 @@ public class Renderer extends Canvas implements Observer {
 
     /**
      * Create a new dimension object.
-     * 
-     * @param x      the top-left x value
-     * @param y      the top-left y value
-     * @param width  the width
+     *
+     * @param x the top-left x value
+     * @param y the top-left y value
+     * @param width the width
      * @param height the height
-     * @param obj    a String describing the object on the screen
+     * @param obj a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;
@@ -329,7 +343,7 @@ public class Renderer extends Canvas implements Observer {
 
     /**
      * Get the tile that this item is on. 1-3 from left to right.
-     * 
+     *
      * @return 1 for left, 2 for middle, 3 for right
      */
     public int getTile() {

@@ -1,12 +1,15 @@
 package application;
 
 import gameworld.GameWorld;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Item;
 
 import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -47,9 +50,9 @@ public class UserInterface extends Application {
 
   // TODO:
   // Fix the size of the GUI
-  // Remove Restart Area and all but Enable Sound on Options: DONE
+  // Fix Help Printing 
+  // Backpack and move buttons
   // Fix Help Printing
-  // Backpack and move items
   // Health bar
   // Write Tests [Renderer Tests, add 'Before All' to tests]
 
@@ -66,6 +69,26 @@ public class UserInterface extends Application {
       false, false);
   private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
       60, false, false);
+  
+  // load backpack icon images
+  private Image boltCutterImage = new Image(getClass().getResourceAsStream("icons/boltCutters.png"),
+      60, 60, false, false);
+  private Image crowbarImage = new Image(getClass().getResourceAsStream("icons/crowbar.png"),
+      60, 60, false, false);
+  private Image hammerImage = new Image(getClass().getResourceAsStream("icons/hammer.png"),
+      60, 60, false, false);
+  private Image khopeshImage = new Image(getClass().getResourceAsStream("icons/khopesh.png"),
+      60, 60, false, false);
+  private Image pickaxeImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"),
+      60, 60, false, false);
+  private Image torchImage = new Image(getClass().getResourceAsStream("icons/torch.png"),
+      60, 60, false, false);
+  private Image emptyFlaskImage = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"),
+      60, 60, false, false);
+  private Image healthFlaskImage = new Image(getClass().getResourceAsStream("icons/healthFlask.png"),
+      60, 60, false, false);
+  private Image powerFlaskImage = new Image(getClass().getResourceAsStream("icons/powerFlask.png"),
+      60, 60, false, false);
 
   private GameWorld game;
 
@@ -127,18 +150,6 @@ public class UserInterface extends Application {
     MenuItem exit = new MenuItem("Exit");
     exit.setOnAction(e -> System.exit(0));
     gameMenu.getItems().add(exit);
-
-    /*
-     * TBD IF WANTED // Difficulty Menu ToggleGroup difficultyToggle = new ToggleGroup();
-     * RadioMenuItem easy = new RadioMenuItem("Easy"); easy.setToggleGroup(difficultyToggle);
-     * RadioMenuItem medium = new RadioMenuItem("Medium"); medium.setToggleGroup(difficultyToggle);
-     * RadioMenuItem hard = new RadioMenuItem("Hard"); hard.setToggleGroup(difficultyToggle); //
-     * start at medium difficulty medium.setSelected(true); Menu difficultyMenu = new
-     * Menu("Difficulty"); difficultyMenu.getItems().addAll(easy, medium, hard); // autosave option
-     * CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave"); autoSave.setOnAction(e -> { if
-     * (autoSave.isSelected()) { System.out.println("Autosave is enabled"); } else {
-     * System.out.println("Autosave is disabled"); } });
-     */
 
     // Settings Menu
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
@@ -263,10 +274,30 @@ public class UserInterface extends Application {
     bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    HBox backpack = new HBox();
-    backpack.scaleShapeProperty();
-    backpack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+    // Backpack
+    GridPane backpackGrid = new GridPane();
+    backpackGrid.scaleShapeProperty();
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
+    
+    ArrayList<Button> packItemsArray = new ArrayList<Button>();
+    
+    for(int i = 0; i < game.getPlayer().getBag().size(); i++) {
+      Item itemInPack = game.getPlayer().getBag().get(i);
+      itemButton itemButton;
+      
+      switch (itemInPack.getName()) {
+        case "emptyFlask":
+          itemButton = new itemButton(new ImageView(emptyFlaskImage));
+          packItemsArray.add(itemButton.getItemButton());
+          break;
+      }
+      
+      for(int i1 = 0; i1 < packItemsArray.size(); i1++) {
+        backpackGrid.add(packItemsArray.get(i1), 0, i1);
+      }
+      
+    }
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -305,10 +336,12 @@ public class UserInterface extends Application {
     bottomScreenRight.scaleShapeProperty();
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    
+    bottomScreenRight.getChildren().addAll(backpackGrid);                           //TODO: Figure out why not displaying
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
-    bottomScreen.getChildren().addAll(backpack, bottomMostScreen);
+    bottomScreen.getChildren().addAll(bottomMostScreen);
     /* BOTTOM SCREEN END */
 
     game.addObserver(gameScreen);
@@ -337,5 +370,27 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
+  }
+}
+
+/*
+ * A special kind of Button that represents an item
+ * To be used in the display of 'Backpack'
+ */
+class itemButton extends Button {
+  
+  private itemButton anItemButton;
+  
+  public itemButton(ImageView imageView) {
+    anItemButton = (itemButton) new Button();
+    anItemButton.setGraphic(imageView);
+    anItemButton.setStyle("-fx-background-color: #1d1f23; ");
+    anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+    //anItemButton.setOnAction(e -> System.out.println("Used Item"));             // TODO: Highlight an item that is selected
+  }
+  
+  public itemButton getItemButton() {
+    return anItemButton;
   }
 }
