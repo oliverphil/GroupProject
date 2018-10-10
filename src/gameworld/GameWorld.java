@@ -402,15 +402,11 @@ public class GameWorld extends Observable {
    * @param item the item to be used.
    */
   public void useItem(Item item) {
-    if (item instanceof Flask) {
-      ((Flask) item).use(player);
-    } else if (item instanceof Explosive) {
-      FloorObject obj = board.getfacingTile(player).getFloorObject();
-      if (obj instanceof Barrier) {
-        board.getfacingTile(player).removeFloorObject();
-      }
-    }
+    item.use(player, board.getfacingTile(player));
 
+    if (board.getfacingTile(player).getFloorObject().getName().equals("ladder")) {
+      setWon(true);
+    }
   }
 
   /**
