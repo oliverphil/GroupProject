@@ -1,5 +1,9 @@
 package mapeditor;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -75,9 +79,9 @@ public class MapEditor extends Application {
       if (openWindow != null) {
         try {
           if (openWindow instanceof FloorTileMenu) {
-            ((FloorTileMenu) openWindow).primaryStage.close();
+            // ((FloorTileMenu) openWindow).primaryStage.close();
           } else if (openWindow instanceof IconsMenu) {
-            ((IconsMenu) openWindow).primaryStage.close();
+            // ((IconsMenu) openWindow).primaryStage.close();
           }
         } catch (Exception e1) {
           // TODO Auto-generated catch block
@@ -197,20 +201,26 @@ public class MapEditor extends Application {
     gridPane.setHgap(2);
     gridPane.setVgap(2);
 
-    for (int y = 0; y < GRID_HEIGHT; y++) {
-      for (int x = 0; x < GRID_WIDTH; x++) {
-        Rectangle rec = new Rectangle(x, y, 20, 20);
+    try {
+      for (int y = 0; y < GRID_HEIGHT; y++) {
+        for (int x = 0; x < GRID_WIDTH; x++) {
+          String[] gridSquare = (grid[x][y]).split("_");
+          currentIcon = gridSquare[0];
+          currentDir = gridSquare[1];
 
-        String[] gridSquare = (grid[x][y]).split("_");
-        currentIcon = gridSquare[0];
-        currentDir = gridSquare[1];
+          InputStream in = getClass().getResourceAsStream(
+              "icons" + File.separatorChar + currentIcon + "_" + currentDir + ".png");
+          Image img = new Image(in);
+          in.close();
 
-        Image img = new Image(
-            getClass().getResourceAsStream("icons/" + currentIcon + "_" + currentDir + ".png"));
-        rec.setFill(new ImagePattern(img));
+          Rectangle rec = new Rectangle(x, y, 20, 20);
+          rec.setFill(new ImagePattern(img));
 
-        gridPane.add(rec, x, y);
+          gridPane.add(rec, x, y);
+        }
       }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
     return gridPane;
   }
@@ -222,9 +232,4 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
-
-  public static String getSelectedIcon() {
-    return selectedIcon;
-  }
-
 }
