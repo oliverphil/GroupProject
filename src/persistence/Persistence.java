@@ -31,8 +31,7 @@ public class Persistence {
 
     try {
       File saveFile = new File(fileName);
-      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class, Monster.class,
-          EmptyFlaskStrategy.class, BarrierStrategy.class);
+      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
       Marshaller gameMarshaller = gameContext.createMarshaller();
 
       //final Schema schema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
