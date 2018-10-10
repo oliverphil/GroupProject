@@ -2,11 +2,14 @@ package application;
 
 import gameworld.GameWorld;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -37,18 +40,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mapeditor.MapEditor;
+import persistence.Persistence;
 import renderer.Renderer;
 
 public class UserInterface extends Application {
 
-  // TODO: 
+  // TODO:
   // Fix the size of the GUI
   // Remove Restart Area and all but Enable Sound on Options: DONE
-  // Fix Help Printing 
+  // Fix Help Printing
   // Backpack and move items
   // Health bar
   // Write Tests [Renderer Tests, add 'Before All' to tests]
-  
+
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
@@ -83,18 +87,29 @@ public class UserInterface extends Application {
     t.setStyle("-fx-text-fill: #D39365; ");
     gameMenu.setGraphic(t);
 
-    MenuItem gameRestartArea = new MenuItem("Restart Area");
-    gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
+    // MenuItem gameRestartArea = new MenuItem("Restart Area");
+    // gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
+    MenuItem save = new MenuItem("Save...");
+    save.setOnAction(e -> {
+      JFileChooser getFile = new JFileChooser();
+      int returnVal = getFile.showOpenDialog(null);
+      if (returnVal == JFileChooser.APPROVE_OPTION) {
+        Persistence.saveGame(game, getFile.getSelectedFile().toString());
+      }
+
+    });
+    gameMenu.getItems().add(save);
+    MenuItem load = new MenuItem("Load...");
+
+    gameMenu.getItems().add(load);
+    // gameMenu.getItems().add(gameRestartArea);
     MenuItem gameRestart = new MenuItem("Restart Game");
-    gameMenu.getItems().add(new MenuItem("Save..."));
-    gameMenu.getItems().add(new MenuItem("Load..."));
-    gameMenu.getItems().add(gameRestartArea);
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
     // Help Section
-    gameMenu.getItems().add(new MenuItem("Help"));
-    gameMenu.getItems().get(5).setOnAction(e -> {
+    MenuItem help = new MenuItem("Help");
+    help.setOnAction(e -> {
       try {
         Scanner sc = new Scanner(new File("src/application/help.txt"));
 
@@ -105,6 +120,7 @@ public class UserInterface extends Application {
       } catch (FileNotFoundException e1) {
         System.out.println("Help File Not Found");
       }
+      gameMenu.getItems().add(help);
 
       new Notification("Instructions", HELP_MESSAGE, "Got it!");
     });
@@ -112,34 +128,18 @@ public class UserInterface extends Application {
     exit.setOnAction(e -> System.exit(0));
     gameMenu.getItems().add(exit);
 
-    /* TBD IF WANTED
-    // Difficulty Menu
-    ToggleGroup difficultyToggle = new ToggleGroup();
+    /*
+     * TBD IF WANTED // Difficulty Menu ToggleGroup difficultyToggle = new ToggleGroup();
+     * RadioMenuItem easy = new RadioMenuItem("Easy"); easy.setToggleGroup(difficultyToggle);
+     * RadioMenuItem medium = new RadioMenuItem("Medium"); medium.setToggleGroup(difficultyToggle);
+     * RadioMenuItem hard = new RadioMenuItem("Hard"); hard.setToggleGroup(difficultyToggle); //
+     * start at medium difficulty medium.setSelected(true); Menu difficultyMenu = new
+     * Menu("Difficulty"); difficultyMenu.getItems().addAll(easy, medium, hard); // autosave option
+     * CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave"); autoSave.setOnAction(e -> { if
+     * (autoSave.isSelected()) { System.out.println("Autosave is enabled"); } else {
+     * System.out.println("Autosave is disabled"); } });
+     */
 
-    RadioMenuItem easy = new RadioMenuItem("Easy");
-    easy.setToggleGroup(difficultyToggle);
-    RadioMenuItem medium = new RadioMenuItem("Medium");
-    medium.setToggleGroup(difficultyToggle);
-    RadioMenuItem hard = new RadioMenuItem("Hard");
-    hard.setToggleGroup(difficultyToggle);
-
-    // start at medium difficulty
-    medium.setSelected(true);
-
-    Menu difficultyMenu = new Menu("Difficulty");
-    difficultyMenu.getItems().addAll(easy, medium, hard);
-
-    // autosave option
-    CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
-    autoSave.setOnAction(e -> {
-      if (autoSave.isSelected()) {
-        System.out.println("Autosave is enabled");
-      } else {
-        System.out.println("Autosave is disabled");
-      }
-    });
-    */
-    
     // Settings Menu
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
     toggleMusic.setSelected(true);
@@ -194,6 +194,15 @@ public class UserInterface extends Application {
       game = new GameWorld();
       game.addObserver(gameScreen);
       game.update();
+    });
+    load.setOnAction(e -> {
+      JFileChooser getFile = new JFileChooser();
+      int returnVal = getFile.showOpenDialog(null);
+      if (returnVal == JFileChooser.APPROVE_OPTION) {
+        game = Persistence.loadGame(getFile.getSelectedFile().toString());
+        game.addObserver(gameScreen);
+        game.update();
+      }
     });
     /* CANVAS END */
 
