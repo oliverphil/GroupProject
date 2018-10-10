@@ -20,7 +20,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   private Button north;
   private Button northEast;
   private Button east;
-  private Button eastSouth;
+  private Button southEast;
   private Button south;
   private Button southWest;
   private Button west;
@@ -137,13 +137,13 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     south.setOnAction(this);
     gridPane.add(south, 1, 2);
 
-    // add east south walls
-    Image eastSouthImage = new Image(getClass().getResourceAsStream("icons/empty_ES.png"));
-    eastSouth = new Button();
-    eastSouth.setGraphic(new ImageView(eastSouthImage));
-    eastSouth.setPrefSize(40, 40);
-    eastSouth.setOnAction(this);
-    gridPane.add(eastSouth, 2, 2);
+    // add south east walls
+    Image eastSouthImage = new Image(getClass().getResourceAsStream("icons/empty_SE.png"));
+    southEast = new Button();
+    southEast.setGraphic(new ImageView(eastSouthImage));
+    southEast.setPrefSize(40, 40);
+    southEast.setOnAction(this);
+    gridPane.add(southEast, 2, 2);
     return gridPane;
   }
 
@@ -157,8 +157,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
       MapEditor.setDirection("NE");
     } else if (event.getSource() == east) {
       MapEditor.setDirection("E");
-    } else if (event.getSource() == eastSouth) {
-      MapEditor.setDirection("ES");
+    } else if (event.getSource() == southEast) {
+      MapEditor.setDirection("SE");
     } else if (event.getSource() == south) {
       MapEditor.setDirection("S");
     } else if (event.getSource() == southWest) {

@@ -1,7 +1,5 @@
 package gameworld;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.EmptyFilter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,9 @@ public class Player  {
   private Point location;
   private ViewDescriptor view;
   private int health = 100;
+  
+  private int currentWeight;
+  private static final int MAX_WEIGHT = 15;
 
   /**
    * Constructs a player.
@@ -35,6 +36,8 @@ public class Player  {
     bag = new ArrayList<Item>();
     location = new Point(7, 7);
     this.setDirection("north");
+    
+    setCurrentWeight(0);
   }
 
   /**
@@ -156,7 +159,9 @@ public class Player  {
    * @param obj the object to add to the bag
    */
   public void addToBag(Item obj) {
-    this.bag.add(obj);
+    if (obj.getWeight() + currentWeight <= MAX_WEIGHT) {
+      this.bag.add(obj);
+    }
   }
 
   /**
@@ -279,5 +284,19 @@ public class Player  {
     //  System.out.println("filled");
     //  System.out.println(bag.toString());
     }    
+  }
+
+  /**
+   * @return the currentWeight
+   */
+  public int getCurrentWeight() {
+    return currentWeight;
+  }
+
+  /**
+   * @param currentWeight the currentWeight to set
+   */
+  public void setCurrentWeight(int currentWeight) {
+    this.currentWeight = currentWeight;
   }
 }

@@ -2,11 +2,10 @@ package gameworld;
 
 import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
-
-import java.io.File;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -94,50 +93,74 @@ public class Board {
     Flask flask1 = new Flask();
     flask1.setLocation(new Point(8, 6));
     flask1.setName("emptyFlask");
+    flask1.setWeight(1);
     this.board[6][8].setObj(flask1);
 
     Flask flask2 = new Flask();
     flask2.setLocation(new Point(0, 7));
     flask2.setName("emptyFlask");
+    flask1.setWeight(1);
     this.board[7][0].setObj(flask2);
 
     // Add tools
     Tool crowbar = new Tool();
     crowbar.setMaterial("woodenBlockade");
     crowbar.setName("crowbar");
+    crowbar.setWeight(4);
     crowbar.setLocation(new Point(11, 5));
     this.board[5][11].setObj(crowbar);
 
     Tool pickaxe = new Tool();
     pickaxe.setMaterial("stoneBlockade");
     pickaxe.setName("pickaxe");
+    crowbar.setWeight(5);
     pickaxe.setLocation(new Point(14, 13));
     this.board[13][14].setObj(pickaxe);
 
     Tool boltCutters = new Tool();
     boltCutters.setMaterial("chainBlockade");
     boltCutters.setName("boltCutters");
+    crowbar.setWeight(3);
     boltCutters.setLocation(new Point(11, 0));
     this.board[0][11].setObj(boltCutters);
-    
+
     //Add weapons
     Weapon hammer = new Weapon();
     hammer.setName("hammer");
     hammer.setDamage(10);
+    crowbar.setWeight(6);
     hammer.setLocation(new Point(4, 0));
     this.board[0][4].setObj(hammer);
-    
+
     Weapon torch = new Weapon();
     torch.setName("torch");
     torch.setDamage(15);
+    crowbar.setWeight(2);
     torch.setLocation(new Point(9, 13));
     this.board[13][9].setObj(torch);
-    
+
     Weapon sword = new Weapon();
     sword.setName("khopesh");
     sword.setDamage(20);
+    crowbar.setWeight(4);
     sword.setLocation(new Point(13, 3));
     this.board[3][13].setObj(sword);
+    
+    //Bombs
+    Explosive ex1 = new Explosive();
+    ex1.setName("bomb");
+    ex1.setLocation(new Point(10, 6));
+    this.board[6][10].setObj(ex1);
+    
+    Explosive ex2 = new Explosive();
+    ex2.setName("bomb");
+    ex2.setLocation(new Point(0, 11));
+    this.board[11][0].setObj(ex2);
+    
+    Explosive ex3 = new Explosive();
+    ex3.setName("bomb");
+    ex3.setLocation(new Point(5, 14));
+    this.board[14][5].setObj(ex3);
 
     //Fountains
     Fountain powerFountain = new Fountain();
@@ -145,13 +168,13 @@ public class Board {
     powerFountain.setLiquid("power");
     powerFountain.setLocation(new Point(13, 14));
     this.board[14][13].setObj(powerFountain);
-    
+
     Fountain healthFountain = new Fountain();
     healthFountain.setName("healthFountain");
     healthFountain.setLiquid("healthFountain");
     healthFountain.setLocation(new Point(5, 10));
     this.board[10][5].setObj(healthFountain);
-    
+
     //Add barriers
     //wooden barriers
     Barrier wBar1 = new Barrier();
@@ -226,7 +249,7 @@ public class Board {
     sBar5.setStrat(new PileOfRocksStrategy());
     sBar5.setLocation(new Point(10, 11));
     this.board[11][10].setObj(sBar5);
-    
+
     Barrier sBar6 = new Barrier();
     sBar6.setName("stoneBlockade");
     sBar6.setStrat(new PileOfRocksStrategy());
@@ -440,7 +463,7 @@ public class Board {
    *
    * @param player
    */
-  public void goBack(Player p) {
+  public void goBack(Player p, boolean won) {
     // check if there is a wall or an open door behind them
     String dir = p.getDirection();
     Point point = p.getLocation();
@@ -485,7 +508,7 @@ public class Board {
     }
 
     // update the player's view.
-    p.setView(new ViewDescriptor(p, this));
+    p.setView(new ViewDescriptor(p, this, won));
   }
 
   /**
@@ -493,7 +516,7 @@ public class Board {
    *
    * @param player
    */
-  public void goForwards(Player p) {
+  public void goForwards(Player p, boolean won) {
     // check if there is a wall or an open door behind them
     String dir = p.getDirection();
     Point point = p.getLocation();
@@ -538,7 +561,7 @@ public class Board {
     }
 
     // update the player's view.
-    p.setView(new ViewDescriptor(p, this));
+    p.setView(new ViewDescriptor(p, this, won));
   }
 
   @XmlElementWrapper(name = "board")
