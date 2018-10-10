@@ -49,16 +49,25 @@ import renderer.Renderer;
 public class UserInterface extends Application {
 
   // TODO:
-  // Fix the size of the GUI
   // Fix Help Printing 
   // Backpack and move buttons
   // Fix Help Printing
-  // Health bar
+  // Health bar *Note: Power Flask duration = 10sec 
   // Write Tests [Renderer Tests, add 'Before All' to tests]
+
+  // Have a variable in GUI that is filled when an item is selected for either use/drop
+  // Make sure that GUI updates backpack and healthbar each time (Need a redraw for backpack and healthbar)
+  // Is player alive (checked on each event) -> Fade to black if dead (call to renderer)
+  // Make healthbar a canvas (player.gethealth())
+  
+  // CRC Card for GUI
+  // Read Me for Game (WITH CHARLOTTE)
+  // Howard Lukefah = Clippy for Help Page
 
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
+  private Item selectedItem;
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
@@ -101,7 +110,7 @@ public class UserInterface extends Application {
     game = new GameWorld();
     window = primaryStage;
     window.setTitle("An Adventure Game!");
-    // window.setFullScreen(true);
+    window.setResizable(false);
 
     /* MENU START */
     // Game Menu
@@ -109,9 +118,7 @@ public class UserInterface extends Application {
     Label t = new Label("Game");
     t.setStyle("-fx-text-fill: #D39365; ");
     gameMenu.setGraphic(t);
-
-    // MenuItem gameRestartArea = new MenuItem("Restart Area");
-    // gameRestartArea.setOnAction(e -> System.out.println("Restart Area"));
+    
     MenuItem save = new MenuItem("Save...");
     save.setOnAction(e -> {
       JFileChooser getFile = new JFileChooser();
@@ -125,7 +132,6 @@ public class UserInterface extends Application {
     MenuItem load = new MenuItem("Load...");
 
     gameMenu.getItems().add(load);
-    // gameMenu.getItems().add(gameRestartArea);
     MenuItem gameRestart = new MenuItem("Restart Game");
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
@@ -194,7 +200,7 @@ public class UserInterface extends Application {
     /* CANVAS START */
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
-    Renderer gameScreen = new Renderer(700, 700); // TODO: Scale Shape Property for Renderer
+    Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
     });
@@ -337,7 +343,7 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     
-    bottomScreenRight.getChildren().addAll(backpackGrid);                           //TODO: Figure out why not displaying
+    bottomScreenRight.getChildren().addAll(backpackGrid);                        //TODO: Figure out why not displaying
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
