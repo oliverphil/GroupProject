@@ -35,6 +35,7 @@ public class Flask extends Item {
     if (strat instanceof HealthFlaskStrategy || strat instanceof PowerFlaskStrategy) {
       strat = new EmptyFlaskStrategy();
     }
+    this.setWeight(1);
   }
 
   /**
@@ -48,6 +49,7 @@ public class Flask extends Item {
     } else if (fountain.equals("power") && strat instanceof EmptyFlaskStrategy) {
       strat = new PowerFlaskStrategy();
     }
+    this.setWeight(3);
   }
   
   /**

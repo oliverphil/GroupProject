@@ -389,6 +389,14 @@ public class GameWorld extends Observable {
   public Board getBoard() {
     return board;
   }
+  
+  /**
+   * Uses the item that is selected on the players hot bar.
+   * @param item
+   */
+  public void useItem(Item item) {
+    //TODO
+  }
 
   /**
    * Called when the player clicks on the door in front of them.
