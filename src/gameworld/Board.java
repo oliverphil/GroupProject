@@ -2,6 +2,7 @@ package gameworld;
 
 import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
@@ -144,6 +145,22 @@ public class Board {
     crowbar.setWeight(4);
     sword.setLocation(new Point(13, 3));
     this.board[3][13].setObj(sword);
+    
+    //Bombs
+    Explosive ex1 = new Explosive();
+    ex1.setName("bomb");
+    ex1.setLocation(new Point(10, 6));
+    this.board[6][10].setObj(ex1);
+    
+    Explosive ex2 = new Explosive();
+    ex2.setName("bomb");
+    ex2.setLocation(new Point(0, 11));
+    this.board[11][0].setObj(ex2);
+    
+    Explosive ex3 = new Explosive();
+    ex3.setName("bomb");
+    ex3.setLocation(new Point(5, 14));
+    this.board[14][5].setObj(ex3);
 
     //Fountains
     Fountain powerFountain = new Fountain();

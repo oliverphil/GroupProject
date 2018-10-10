@@ -399,6 +399,14 @@ public class GameWorld extends Observable {
   }
 
   /**
+   * Drops the item that is selected on the players hot bar.
+   * @param item
+   */
+  public void dropItem(Item item) {
+    //TODO
+  }
+  
+  /**
    * Called when the player clicks on the door in front of them.
    */
   public void openDoor() {
