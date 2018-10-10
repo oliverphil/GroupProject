@@ -20,6 +20,8 @@ import renderer.Renderer.ItemOnScreen;
 @XmlRootElement
 public class GameWorld extends Observable {
 
+  private boolean won;
+
   private Player player;
   private Board board;
 
@@ -29,7 +31,9 @@ public class GameWorld extends Observable {
   public GameWorld() {
     player = new Player();
     board = new Board();
-    player.setView(new ViewDescriptor(player, board));
+    player.setView(new ViewDescriptor(player, board, won));
+
+    setWon(false);
   }
 
   /**
@@ -46,7 +50,7 @@ public class GameWorld extends Observable {
    */
   public void update() {
     // whenever a view changes use update();
-    player.setView(new ViewDescriptor(player, board));
+    player.setView(new ViewDescriptor(player, board, won));
     setChanged();
     notifyObservers(getViewDescriptor());
   }
@@ -105,7 +109,7 @@ public class GameWorld extends Observable {
       case "thomas":
         attack("thomas");
         break;
-        
+
       // Items
       case "emptyFlask":
         player.pickUp(new Flask());
@@ -258,7 +262,7 @@ public class GameWorld extends Observable {
           }
         }
         break;
-        
+
       //fountains
       case "powerFountain":
         player.fill("power");
@@ -266,10 +270,19 @@ public class GameWorld extends Observable {
       case "healthFountain":
         player.fill("health");
         break;
+
+        //game won
+      case "ladder":
+        win();
+        break;
       default:
         break;
     }
     update();
+  }
+
+  private void win() {
+    //TODO
   }
 
   /**
@@ -279,7 +292,7 @@ public class GameWorld extends Observable {
   private void attack(String boss) {
 
     Weapon weap = player.getWeapon();
-    
+
     switch (boss) {
       case "david":
         Monster dave = (Monster) this.board.getBoard()[13][0].getFloorObject();
@@ -296,10 +309,12 @@ public class GameWorld extends Observable {
         if (dave.getHealth() > 0) {
           player.setHealth(player.getHealth() - dave.getDamage());
         } else {
-          //TODO boss dies
+          this.board.getBoard()[13][0].setFloorObject(null);
+          this.board.getBoard()[13][0].setFloorObject(new Ladder());
+          setWon(true);
         }
         break;
-        
+
       case "marco":
         Monster marco = (Monster) this.board.getBoard()[0][1].getFloorObject();
 
@@ -315,10 +330,10 @@ public class GameWorld extends Observable {
         if (marco.getHealth() > 0) {
           player.setHealth(player.getHealth() - marco.getDamage());
         } else {
-          //TODO boss dies
+          this.board.getBoard()[0][1].setFloorObject(null);
         }
         break;
-        
+
       case "thomas":
         Monster thomas = (Monster) this.board.getBoard()[1][14].getFloorObject();
 
@@ -334,15 +349,17 @@ public class GameWorld extends Observable {
         if (thomas.getHealth() > 0) {
           player.setHealth(player.getHealth() - thomas.getDamage());
         } else {
-          //TODO boss dies
+          this.board.getBoard()[1][14].setFloorObject(null);
         }
         break;
+      default:
+        break;
     }
-   
+
     if (player.getHealth() < 1) {
       //TODO player loses
     }
-    
+
   }
 
   @XmlElement(name = "player")
@@ -388,5 +405,19 @@ public class GameWorld extends Observable {
       return this.player.equals(other.getPlayer()) && this.board.equals(other.getBoard());
     }
     return false;
+  }
+
+  /**
+   * @return the won
+   */
+  public boolean isWon() {
+    return won;
+  }
+
+  /**
+   * @param won the won to set
+   */
+  public void setWon(boolean won) {
+    this.won = won;
   }
 }

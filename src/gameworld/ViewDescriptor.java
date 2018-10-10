@@ -24,14 +24,14 @@ public class ViewDescriptor {
    * @param p the current player
    * @param b the current board
    */
-  public ViewDescriptor(Player p, Board b) {
+  public ViewDescriptor(Player p, Board b, boolean isWon) {
     view = new ArrayList<String>();
-    generate(p, b);
+    generate(p, b, isWon);
   }
 
   public ViewDescriptor() {
     view = new ArrayList<>();
-    generate(new Player(), new Board());
+    generate(new Player(), new Board(), false);
   }
 
   public List<String> getView() {
@@ -47,10 +47,10 @@ public class ViewDescriptor {
   /**
    * Uses the player and board to determine what the player's view will be.
    *
-   * @param player
-   * @param board
+   * @param player the current player
+   * @param board the current board
    */
-  private void generate(Player p, Board b) {
+  private void generate(Player p, Board b, boolean isWon) {
     String dir = p.getDirection();
     int y = p.getLocation().y;
     int x = p.getLocation().x;
@@ -134,12 +134,30 @@ public class ViewDescriptor {
       default:
         break;
     }
+    //this will pass the direction for the compass in the corner
+    view.add(dir);
+
+    Point pos = p.getLocation();
+
+    //this determines the song that will play in the background
+    if (((pos.x == 1 && pos.y == 1) || (pos.x == 13 && pos.y == 1)
+        || (pos.x == 1 && pos.y == 13)) && !isWon) {
+      view.add("boss");
+    } else if (((pos.x == 13 && pos.y == 13)
+        || (pos.x == 4 && pos.y == 10)) && !isWon) {
+      view.add("mysteries");
+    } else if (isWon) {
+      view.add("escape");
+    } else {
+      view.add("tunnels");
+    }
+
   }
 
   /**
    * Adds the specified string to the view descriptor.
    *
-   * @param s
+   * @param s the string to pass
    */
   public void addString(String s) {
     if (view.size() < 6) {
