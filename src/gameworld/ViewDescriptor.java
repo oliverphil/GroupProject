@@ -14,9 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ViewDescriptor {
-  // need to have left, middle, right walls or door
-  // need to know what items are on the floor + monsters/weapons
-  List<String> view;
+  private List<String> view;
+  private int monsterHealth;
 
   /**
    * Constructs a new ViewDescriptor.
@@ -73,7 +72,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y - 1][x - 1 + i].hasObject()
-              ? b.getBoard()[y - 1][x - 1 + i].getFloorObject().getName()
+              ? b.getBoard()[y - 1][x - 1 + i].getObj().getName()
               : "clear");
         }
         break;
@@ -91,7 +90,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y - 1 + i][x + 1].hasObject()
-              ? b.getBoard()[y - 1 + i][x + 1].getFloorObject().getName()
+              ? b.getBoard()[y - 1 + i][x + 1].getObj().getName()
               : "clear");
         }
         break;
@@ -109,7 +108,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y + 1][x + 1 - i].hasObject()
-              ? b.getBoard()[y + 1][x + 1 - i].getFloorObject().getName()
+              ? b.getBoard()[y + 1][x + 1 - i].getObj().getName()
               : "clear");
         }
         break;
@@ -127,7 +126,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y + 1 - i][x - 1].hasObject()
-              ? b.getBoard()[y + 1 - i][x - 1].getFloorObject().getName()
+              ? b.getBoard()[y + 1 - i][x - 1].getObj().getName()
               : "clear");
         }
         break;
@@ -152,6 +151,12 @@ public class ViewDescriptor {
       view.add("tunnels");
     }
 
+    if (b.getfacingTile(p).getObj() instanceof Monster) {
+      monsterHealth =  ((Monster) b.getfacingTile(p).getObj()).getHealth();
+    } else {
+      monsterHealth = -1;
+    }
+
   }
 
   /**
@@ -163,6 +168,14 @@ public class ViewDescriptor {
     if (view.size() < 6) {
       view.add(s);
     }
+  }
+
+  public int getMonsterHealth() {
+    return monsterHealth;
+  }
+
+  public void setMonsterHealth(int monsterHealth) {
+    this.monsterHealth = monsterHealth;
   }
 
 }

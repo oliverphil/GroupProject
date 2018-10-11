@@ -23,7 +23,7 @@ public class Explosive extends Item {
 
   @Override
   public void use(Player p, Tile tile) {
-    FloorObject obj = tile.getFloorObject();
+    FloorObject obj = tile.getObj();
 
     if (obj != null) {
       if (obj instanceof Monster) {
@@ -31,7 +31,7 @@ public class Explosive extends Item {
         if (((Monster) obj).getHealth() < 1) {
           tile.removeFloorObject();
           if (obj.getName().equals("david")) {
-            tile.setFloorObject(new Ladder());
+            tile.setObj(new Ladder());
           }
         }
       } else if (obj instanceof Barrier) {

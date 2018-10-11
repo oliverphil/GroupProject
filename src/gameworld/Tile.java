@@ -65,7 +65,6 @@ public class Tile {
     this.walls.addAll(walls);
   }
 
-
   public boolean hasWall(String dir) {
     return walls.contains(dir);
   }
@@ -100,20 +99,6 @@ public class Tile {
     }
     this.doors.add(door);
     return true;
-  }
-
-  public FloorObject getFloorObject() {
-    return obj;
-  }
-
-  /**
-   * Sets the FloorObject of this tile to the given object.
-   * @param obj the item to set
-   */
-  public void setFloorObject(FloorObject obj) {
-    if (!hasObject() || obj == null) {
-      this.obj = obj;
-    }
   }
 
   /**
