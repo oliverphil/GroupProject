@@ -51,8 +51,8 @@ public class ViewDescriptor {
    */
   private void generate(Player p, Board b, boolean isWon) {
     String dir = p.getDirection();
-    int y = p.getLocation().y;
-    int x = p.getLocation().x;
+    int y = p.getLocation().valueY;
+    int x = p.getLocation().valueX;
 
     // add the 2 visible walls
     view.add("wall");
@@ -139,11 +139,11 @@ public class ViewDescriptor {
     Point pos = p.getLocation();
 
     //this determines the song that will play in the background
-    if (((pos.x == 1 && pos.y == 1) || (pos.x == 13 && pos.y == 1)
-        || (pos.x == 1 && pos.y == 13)) && !isWon) {
+    if (((pos.valueX == 1 && pos.valueY == 1) || (pos.valueX == 13 && pos.valueY == 1)
+        || (pos.valueX == 1 && pos.valueY == 13)) && !isWon) {
       view.add("boss");
-    } else if (((pos.x == 13 && pos.y == 13)
-        || (pos.x == 4 && pos.y == 10)) && !isWon) {
+    } else if (((pos.valueX == 13 && pos.valueY == 13)
+        || (pos.valueX == 4 && pos.valueY == 10)) && !isWon) {
       view.add("mysteries");
     } else if (isWon) {
       view.add("escape");
@@ -176,6 +176,34 @@ public class ViewDescriptor {
 
   public void setMonsterHealth(int monsterHealth) {
     this.monsterHealth = monsterHealth;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + monsterHealth;
+    result = prime * result + ((view == null) ? 0 : view.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ViewDescriptor other = (ViewDescriptor) obj;
+    if (monsterHealth != other.monsterHealth)
+      return false;
+    if (view == null) {
+      if (other.view != null)
+        return false;
+    } else if (!view.equals(other.view))
+      return false;
+    return true;
   }
 
 }

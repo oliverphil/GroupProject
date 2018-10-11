@@ -1,5 +1,11 @@
 package gameworld;
 
+import gameworld.holdables.Explosive;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Item;
+import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import gameworld.holdables.Explosive;
-import gameworld.holdables.Flask;
-import gameworld.holdables.Item;
-import gameworld.holdables.Tool;
-import gameworld.holdables.Weapon;
 
 /**
  * A Player is a character controlled by the user.
@@ -339,8 +339,8 @@ public class Player {
   }
 
   /**
-   * Determine whether the player used a power potion within
-   * the past 10 seconds.
+   * Determine whether the player used a power potion within the past 10 seconds.
+   * 
    * @return true if the player drank a power potion within 10 secs ago
    */
   public boolean isStrengthened() {
@@ -354,5 +354,67 @@ public class Player {
 
   public void setTime(double time) {
     this.time = time;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((bag == null) ? 0 : bag.hashCode());
+    result = prime * result + currentWeight;
+    result = prime * result + ((direction == null) ? 0 : direction.hashCode());
+    result = prime * result + health;
+    result = prime * result + ((location == null) ? 0 : location.hashCode());
+    result = prime * result + ((view == null) ? 0 : view.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Player other = (Player) obj;
+    if (bag == null) {
+      if (other.bag != null) {
+        return false;
+      }
+    } else if (!bag.equals(other.bag)) {
+      return false;
+    }
+    if (currentWeight != other.currentWeight) {
+      return false;
+    }
+    if (direction == null) {
+      if (other.direction != null) {
+        return false;
+      }
+    } else if (!direction.equals(other.direction)) {
+      return false;
+    }
+    if (health != other.health) {
+      return false;
+    }
+    if (location == null) {
+      if (other.location != null) {
+        return false;
+      }
+    } else if (!location.equals(other.location)) {
+      return false;
+    }
+    if (view == null) {
+      if (other.view != null) {
+        return false;
+      }
+    } else if (!view.equals(other.view)) {
+      return false;
+    }
+    return true;
   }
 }

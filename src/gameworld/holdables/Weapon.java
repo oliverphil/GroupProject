@@ -1,10 +1,10 @@
 package gameworld.holdables;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import gameworld.Player;
 import gameworld.Tile;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Weapon extends Item {
@@ -33,6 +33,32 @@ public class Weapon extends Item {
 
   @Override
   public void use(Player p, Tile tile) {
-    //do nothing
+    // do nothing
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + damage;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Weapon other = (Weapon) obj;
+    if (damage != other.damage) {
+      return false;
+    }
+    return true;
   }
 }

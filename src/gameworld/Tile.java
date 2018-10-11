@@ -219,4 +219,50 @@ public class Tile {
     return obj;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + col;
+    result = prime * result + ((doors == null) ? 0 : doors.hashCode());
+    result = prime * result + ((obj == null) ? 0 : obj.hashCode());
+    result = prime * result + (occupiedByPlayer ? 1231 : 1237);
+    result = prime * result + row;
+    result = prime * result + ((walls == null) ? 0 : walls.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Tile other = (Tile) obj;
+    if (col != other.col)
+      return false;
+    if (doors == null) {
+      if (other.doors != null)
+        return false;
+    } else if (!doors.equals(other.doors))
+      return false;
+    if (this.obj == null) {
+      if (other.obj != null)
+        return false;
+    } else if (!this.obj.equals(other.obj))
+      return false;
+    if (occupiedByPlayer != other.occupiedByPlayer)
+      return false;
+    if (row != other.row)
+      return false;
+    if (walls == null) {
+      if (other.walls != null)
+        return false;
+    } else if (!walls.equals(other.walls))
+      return false;
+    return true;
+  }
+
 }

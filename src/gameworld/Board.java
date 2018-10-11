@@ -1,6 +1,8 @@
 package gameworld;
 
 import gameworld.barriers.Barrier;
+import gameworld.barriers.ChainsStrategy;
+import gameworld.barriers.PileOfRocksStrategy;
 import gameworld.barriers.WoodenPlanksStrategy;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
@@ -8,13 +10,12 @@ import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
 
+import java.util.Arrays;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import gameworld.barriers.ChainsStrategy;
-import gameworld.barriers.PileOfRocksStrategy;
 
 @XmlRootElement
 public class Board {
@@ -178,84 +179,84 @@ public class Board {
 
     // Add barriers
     // wooden barriers
-    Barrier wBar1 = new Barrier();
-    wBar1.setName("woodenBlockade");
-    wBar1.setStrat(new WoodenPlanksStrategy());
-    wBar1.setLocation(new Point(1, 3));
-    this.board[3][1].setObj(wBar1);
+    Barrier woodenBar1 = new Barrier();
+    woodenBar1.setName("woodenBlockade");
+    woodenBar1.setStrat(new WoodenPlanksStrategy());
+    woodenBar1.setLocation(new Point(1, 3));
+    this.board[3][1].setObj(woodenBar1);
 
-    Barrier wBar2 = new Barrier();
-    wBar2.setName("woodenBlockade");
-    wBar2.setStrat(new WoodenPlanksStrategy());
-    wBar2.setLocation(new Point(3, 4));
-    this.board[4][3].setObj(wBar2);
+    Barrier woodenBar2 = new Barrier();
+    woodenBar2.setName("woodenBlockade");
+    woodenBar2.setStrat(new WoodenPlanksStrategy());
+    woodenBar2.setLocation(new Point(3, 4));
+    this.board[4][3].setObj(woodenBar2);
 
-    Barrier wBar3 = new Barrier();
-    wBar3.setName("woodenBlockade");
-    wBar3.setStrat(new WoodenPlanksStrategy());
-    wBar3.setLocation(new Point(8, 7));
-    this.board[7][8].setObj(wBar3);
+    Barrier woodenBar3 = new Barrier();
+    woodenBar3.setName("woodenBlockade");
+    woodenBar3.setStrat(new WoodenPlanksStrategy());
+    woodenBar3.setLocation(new Point(8, 7));
+    this.board[7][8].setObj(woodenBar3);
 
-    Barrier wBar4 = new Barrier();
-    wBar4.setName("woodenBlockade");
-    wBar4.setStrat(new WoodenPlanksStrategy());
-    wBar4.setLocation(new Point(7, 8));
-    this.board[8][7].setObj(wBar4);
+    Barrier woodenBar4 = new Barrier();
+    woodenBar4.setName("woodenBlockade");
+    woodenBar4.setStrat(new WoodenPlanksStrategy());
+    woodenBar4.setLocation(new Point(7, 8));
+    this.board[8][7].setObj(woodenBar4);
 
-    Barrier wBar5 = new Barrier();
-    wBar5.setName("woodenBlockade");
-    wBar5.setStrat(new WoodenPlanksStrategy());
-    wBar5.setLocation(new Point(11, 10));
-    this.board[10][11].setObj(wBar5);
+    Barrier woodenBar5 = new Barrier();
+    woodenBar5.setName("woodenBlockade");
+    woodenBar5.setStrat(new WoodenPlanksStrategy());
+    woodenBar5.setLocation(new Point(11, 10));
+    this.board[10][11].setObj(woodenBar5);
 
-    Barrier wBar6 = new Barrier();
-    wBar6.setName("woodenBlockade");
-    wBar6.setStrat(new WoodenPlanksStrategy());
-    wBar6.setLocation(new Point(13, 11));
-    this.board[11][13].setObj(wBar6);
+    Barrier woodenBar6 = new Barrier();
+    woodenBar6.setName("woodenBlockade");
+    woodenBar6.setStrat(new WoodenPlanksStrategy());
+    woodenBar6.setLocation(new Point(13, 11));
+    this.board[11][13].setObj(woodenBar6);
 
-    Barrier wBar7 = new Barrier();
-    wBar7.setName("woodenBlockade");
-    wBar7.setStrat(new WoodenPlanksStrategy());
-    wBar7.setLocation(new Point(7, 3));
-    this.board[3][7].setObj(wBar7);
+    Barrier woodenBar7 = new Barrier();
+    woodenBar7.setName("woodenBlockade");
+    woodenBar7.setStrat(new WoodenPlanksStrategy());
+    woodenBar7.setLocation(new Point(7, 3));
+    this.board[3][7].setObj(woodenBar7);
 
     // stone barriers
-    Barrier sBar1 = new Barrier();
-    sBar1.setName("stoneBlockade");
-    sBar1.setStrat(new PileOfRocksStrategy());
-    sBar1.setLocation(new Point(8, 1));
-    this.board[1][8].setObj(sBar1);
+    Barrier stoneBar1 = new Barrier();
+    stoneBar1.setName("stoneBlockade");
+    stoneBar1.setStrat(new PileOfRocksStrategy());
+    stoneBar1.setLocation(new Point(8, 1));
+    this.board[1][8].setObj(stoneBar1);
 
-    Barrier sBar2 = new Barrier();
-    sBar2.setName("stoneBlockade");
-    sBar2.setStrat(new PileOfRocksStrategy());
-    sBar2.setLocation(new Point(11, 1));
-    this.board[1][11].setObj(sBar2);
+    Barrier stoneBar2 = new Barrier();
+    stoneBar2.setName("stoneBlockade");
+    stoneBar2.setStrat(new PileOfRocksStrategy());
+    stoneBar2.setLocation(new Point(11, 1));
+    this.board[1][11].setObj(stoneBar2);
 
-    Barrier sBar3 = new Barrier();
-    sBar3.setName("stoneBlockade");
-    sBar3.setStrat(new PileOfRocksStrategy());
-    sBar3.setLocation(new Point(1, 8));
-    this.board[8][1].setObj(sBar3);
+    Barrier stoneBar3 = new Barrier();
+    stoneBar3.setName("stoneBlockade");
+    stoneBar3.setStrat(new PileOfRocksStrategy());
+    stoneBar3.setLocation(new Point(1, 8));
+    this.board[8][1].setObj(stoneBar3);
 
-    Barrier sBar4 = new Barrier();
-    sBar4.setName("stoneBlockade");
-    sBar4.setStrat(new PileOfRocksStrategy());
-    sBar4.setLocation(new Point(2, 10));
-    this.board[10][2].setObj(sBar4);
+    Barrier stoneBar4 = new Barrier();
+    stoneBar4.setName("stoneBlockade");
+    stoneBar4.setStrat(new PileOfRocksStrategy());
+    stoneBar4.setLocation(new Point(2, 10));
+    this.board[10][2].setObj(stoneBar4);
 
-    Barrier sBar5 = new Barrier();
-    sBar5.setName("stoneBlockade");
-    sBar5.setStrat(new PileOfRocksStrategy());
-    sBar5.setLocation(new Point(10, 11));
-    this.board[11][10].setObj(sBar5);
+    Barrier stoneBar5 = new Barrier();
+    stoneBar5.setName("stoneBlockade");
+    stoneBar5.setStrat(new PileOfRocksStrategy());
+    stoneBar5.setLocation(new Point(10, 11));
+    this.board[11][10].setObj(stoneBar5);
 
-    Barrier sBar6 = new Barrier();
-    sBar6.setName("stoneBlockade");
-    sBar6.setStrat(new PileOfRocksStrategy());
-    sBar6.setLocation(new Point(13, 6));
-    this.board[6][13].setObj(sBar6);
+    Barrier stoneBar6 = new Barrier();
+    stoneBar6.setName("stoneBlockade");
+    stoneBar6.setStrat(new PileOfRocksStrategy());
+    stoneBar6.setLocation(new Point(13, 6));
+    this.board[6][13].setObj(stoneBar6);
 
     // chain
     Barrier chBar1 = new Barrier();
@@ -270,23 +271,23 @@ public class Board {
     chBar2.setLocation(new Point(3, 7));
     this.board[7][3].setObj(chBar2);
 
-    Barrier cBar3 = new Barrier();
-    cBar3.setName("chainBlockade");
-    cBar3.setStrat(new ChainsStrategy());
-    cBar3.setLocation(new Point(7, 11));
-    this.board[11][7].setObj(cBar3);
+    Barrier chBar3 = new Barrier();
+    chBar3.setName("chainBlockade");
+    chBar3.setStrat(new ChainsStrategy());
+    chBar3.setLocation(new Point(7, 11));
+    this.board[11][7].setObj(chBar3);
 
-    Barrier cBar4 = new Barrier();
-    cBar4.setName("chainBlockade");
-    cBar4.setStrat(new ChainsStrategy());
-    cBar4.setLocation(new Point(3, 13));
-    this.board[13][3].setObj(cBar4);
+    Barrier chBar4 = new Barrier();
+    chBar4.setName("chainBlockade");
+    chBar4.setStrat(new ChainsStrategy());
+    chBar4.setLocation(new Point(3, 13));
+    this.board[13][3].setObj(chBar4);
 
-    Barrier cBar5 = new Barrier();
-    cBar5.setName("chainBlockade");
-    cBar5.setStrat(new ChainsStrategy());
-    cBar5.setLocation(new Point(6, 13));
-    this.board[13][6].setObj(cBar5);
+    Barrier chBar5 = new Barrier();
+    chBar5.setName("chainBlockade");
+    chBar5.setStrat(new ChainsStrategy());
+    chBar5.setLocation(new Point(6, 13));
+    this.board[13][6].setObj(chBar5);
   }
 
   /**
@@ -361,30 +362,30 @@ public class Board {
 
     switch (dir) {
       case "north":
-        if (board[pt.y - 1][pt.x].hasDoor("north")) {
-          board[pt.y - 2][pt.x].removeDoor("south");
-          board[pt.y - 1][pt.x].removeDoor("north");
+        if (board[pt.valueY - 1][pt.valueX].hasDoor("north")) {
+          board[pt.valueY - 2][pt.valueX].removeDoor("south");
+          board[pt.valueY - 1][pt.valueX].removeDoor("north");
           return true;
         }
         return false;
       case "south":
-        if (board[pt.y + 1][pt.x].hasDoor("south")) {
-          board[pt.y + 2][pt.x].removeDoor("north");
-          board[pt.y + 1][pt.x].removeDoor("south");
+        if (board[pt.valueY + 1][pt.valueX].hasDoor("south")) {
+          board[pt.valueY + 2][pt.valueX].removeDoor("north");
+          board[pt.valueY + 1][pt.valueX].removeDoor("south");
           return true;
         }
         return false;
       case "east":
-        if (board[pt.y][pt.x + 1].hasDoor("east")) {
-          board[pt.y][pt.x + 1].removeDoor("east");
-          board[pt.y][pt.x + 2].removeDoor("west");
+        if (board[pt.valueY][pt.valueX + 1].hasDoor("east")) {
+          board[pt.valueY][pt.valueX + 1].removeDoor("east");
+          board[pt.valueY][pt.valueX + 2].removeDoor("west");
           return true;
         }
         return false;
       case "west":
-        if (board[pt.y][pt.x - 1].hasDoor("west")) {
-          board[pt.y][pt.x - 1].removeDoor("west");
-          board[pt.y][pt.x - 2].removeDoor("east");
+        if (board[pt.valueY][pt.valueX - 1].hasDoor("west")) {
+          board[pt.valueY][pt.valueX - 1].removeDoor("west");
+          board[pt.valueY][pt.valueX - 2].removeDoor("east");
           return true;
         }
         return false;
@@ -421,8 +422,8 @@ public class Board {
    */
   public Tile getfacingTile(Player p) {
     // get the players current location
-    int dx = p.getLocation().x;
-    int dy = p.getLocation().y;
+    int dx = p.getLocation().valueX;
+    int dy = p.getLocation().valueY;
 
     // use the players current direction to determine the
     // tile they are looking at
@@ -452,8 +453,8 @@ public class Board {
   /**
    * Sets the tile with the coords to the specified Tile object.
    *
-   * @param row row
-   * @param col column
+   * @param row  row
+   * @param col  column
    * @param tile Tile
    */
   public void setTile(int row, int col, Tile tile) {
@@ -474,33 +475,33 @@ public class Board {
     // move the player backwards if there is nothing behind them
     switch (dir) {
       case "north":
-        behind = board[point.y + 1][point.x];
+        behind = board[point.valueY + 1][point.valueX];
         if (!behind.hasDoor("south") && !behind.hasWall("south")) {
-          p.setLocation(new Point(point.x, point.y + 3));
+          p.setLocation(new Point(point.valueX, point.valueY + 3));
         } else {
           // cannot move
         }
         break;
       case "south":
-        behind = board[point.y - 1][point.x];
+        behind = board[point.valueY - 1][point.valueX];
         if (!behind.hasDoor("north") && !behind.hasWall("north")) {
-          p.setLocation(new Point(point.x, point.y - 3));
+          p.setLocation(new Point(point.valueX, point.valueY - 3));
         } else {
           ;// cannot move
         }
         break;
       case "east":
-        behind = board[point.y][point.x - 1];
+        behind = board[point.valueY][point.valueX - 1];
         if (!behind.hasDoor("west") && !behind.hasWall("west")) {
-          p.setLocation(new Point(point.x - 3, point.y));
+          p.setLocation(new Point(point.valueX - 3, point.valueY));
         } else {
           ;// cannot move
         }
         break;
       case "west":
-        behind = board[point.y][point.x + 1];
+        behind = board[point.valueY][point.valueX + 1];
         if (!behind.hasDoor("east") && !behind.hasWall("east")) {
-          p.setLocation(new Point(point.x + 3, point.y));
+          p.setLocation(new Point(point.valueX + 3, point.valueY));
         } else {
           ;// cannot move
         }
@@ -516,7 +517,7 @@ public class Board {
   /**
    * Moves the player forwards.
    *
-   * @param p the current player
+   * @param p   the current player
    * @param won whether the game is won
    */
   public void goForwards(Player p, boolean won) {
@@ -528,33 +529,33 @@ public class Board {
     // move the player forwards if there is nothing in front them
     switch (dir) {
       case "north":
-        forward = board[point.y - 1][point.x];
+        forward = board[point.valueY - 1][point.valueX];
         if (!forward.hasDoor("north") && !forward.hasWall("north")) {
-          p.setLocation(new Point(point.x, point.y - 3));
+          p.setLocation(new Point(point.valueX, point.valueY - 3));
         } else {
           ;// cannot move
         }
         break;
       case "south":
-        forward = board[point.y + 1][point.x];
+        forward = board[point.valueY + 1][point.valueX];
         if (!forward.hasDoor("south") && !forward.hasWall("south")) {
-          p.setLocation(new Point(point.x, point.y + 3));
+          p.setLocation(new Point(point.valueX, point.valueY + 3));
         } else {
           ;// cannot move
         }
         break;
       case "east":
-        forward = board[point.y][point.x + 1];
+        forward = board[point.valueY][point.valueX + 1];
         if (!forward.hasDoor("east") && !forward.hasWall("east")) {
-          p.setLocation(new Point(point.x + 3, point.y));
+          p.setLocation(new Point(point.valueX + 3, point.valueY));
         } else {
           ;// cannot move
         }
         break;
       case "west":
-        forward = board[point.y][point.x - 1];
+        forward = board[point.valueY][point.valueX - 1];
         if (!forward.hasDoor("west") && !forward.hasWall("west")) {
-          p.setLocation(new Point(point.x - 3, point.y));
+          p.setLocation(new Point(point.valueX - 3, point.valueY));
         } else {
           ;// cannot move
         }
@@ -593,8 +594,8 @@ public class Board {
   /**
    * Called by the GameWorld to place an item on the floor.
    *
-   * @param p the current player
-   * @param item the FloorObject to place
+   * @param p        the current player
+   * @param item     the FloorObject to place
    * @param location location to place the object
    */
   public void place(Player p, FloorObject item, int location) {
@@ -607,13 +608,13 @@ public class Board {
         getfacingTile(p).setObj(item);
         break;
       case "south":
-        board[point.y + 1][point.x + (2 - location)].setObj(item);
+        board[point.valueY + 1][point.valueX + (2 - location)].setObj(item);
         break;
       case "east":
-        board[point.y - (2 - location)][point.x + 1].setObj(item);
+        board[point.valueY - (2 - location)][point.valueX + 1].setObj(item);
         break;
       case "west":
-        board[point.y + (2 - location)][point.x - 1].setObj(item);
+        board[point.valueY + (2 - location)][point.valueX - 1].setObj(item);
         break;
       default:
         break;
@@ -623,7 +624,7 @@ public class Board {
   /**
    * Removes the object in the specified location.
    *
-   * @param p the current player
+   * @param p        the current player
    * @param location the location of the item in relation to the player
    */
   public void removeObject(Player p, int location) {
@@ -633,16 +634,16 @@ public class Board {
     // remove the object on the floor in the selected position
     switch (dir) {
       case "north":
-        board[point.y - 1][point.x - (2 - location)].setObj(null);
+        board[point.valueY - 1][point.valueX - (2 - location)].setObj(null);
         break;
       case "south":
-        board[point.y + 1][point.x + (2 - location)].setObj(null);
+        board[point.valueY + 1][point.valueX + (2 - location)].setObj(null);
         break;
       case "east":
-        board[point.y - (2 - location)][point.x + 1].setObj(null);
+        board[point.valueY - (2 - location)][point.valueX + 1].setObj(null);
         break;
       case "west":
-        board[point.y + (2 - location)][point.x - 1].setObj(null);
+        board[point.valueY + (2 - location)][point.valueX - 1].setObj(null);
         break;
       default:
         break;
@@ -652,25 +653,51 @@ public class Board {
   /**
    * Called when a player selects an item and drops it.
    *
-   * @param p the current player
+   * @param p    the current player
    * @param item the item to be dropped
    */
   public void dropItem(Player p, Item item) {
     Point point = p.getLocation();
 
-    //go around each corner of the room trying to drop the item
-    boolean dropped = board[point.y - 1][point.x - 1].setObj(item);
+    // go around each corner of the room trying to drop the item
+    boolean dropped = board[point.valueY - 1][point.valueX - 1].setObj(item);
     if (!dropped) {
-      dropped = board[point.y - 1][point.x + 1].setObj(item);
+      dropped = board[point.valueY - 1][point.valueX + 1].setObj(item);
     } else if (!dropped) {
-      dropped = board[point.y + 1][point.x + 1].setObj(item);
+      dropped = board[point.valueY + 1][point.valueX + 1].setObj(item);
     } else if (!dropped) {
-      dropped = board[point.y + 1][point.x - 1].setObj(item);
+      dropped = board[point.valueY + 1][point.valueX - 1].setObj(item);
     }
 
-    //only drop the item from the bag if item was dropped
+    // only drop the item from the bag if item was dropped
     if (dropped) {
       p.dropItem(item);
     }
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + Arrays.deepHashCode(board);
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Board other = (Board) obj;
+    if (!Arrays.deepEquals(board, other.board)) {
+      return false;
+    }
+    return true;
   }
 }
