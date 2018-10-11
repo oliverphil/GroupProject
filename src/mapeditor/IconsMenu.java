@@ -21,6 +21,7 @@ import javafx.stage.Stage;
  *
  * @author Charlotte Gimblett
  */
+
 public class IconsMenu extends Application implements EventHandler<ActionEvent> {
   private Button emptyFlask;
   private Button powerFlask;
@@ -30,7 +31,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   private Button crowbar;
   private Button hammer;
   private Button khopesh;
-  private Button pickaxe;
+  private Button pickAxe;
   Stage primaryStage;
 
   /**
@@ -43,6 +44,10 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public static void main(String[] args) {
+    launch(args);
   }
 
   @Override
@@ -149,11 +154,11 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
 
     // adds pick axe
     Image southEastImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
-    pickaxe = new Button();
-    pickaxe.setGraphic(new ImageView(southEastImage));
-    pickaxe.setPrefSize(40, 40);
-    pickaxe.setOnAction(this);
-    gridPane.add(pickaxe, 2, 2);
+    pickAxe = new Button();
+    pickAxe.setGraphic(new ImageView(southEastImage));
+    pickAxe.setPrefSize(40, 40);
+    pickAxe.setOnAction(this);
+    gridPane.add(pickAxe, 2, 2);
 
     return gridPane;
   }
@@ -185,9 +190,10 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     if (event.getSource() == khopesh) {
       MapEditor.setSelectedIcon("khopesh");
     }
-    if (event.getSource() == pickaxe) {
+    if (event.getSource() == pickAxe) {
       MapEditor.setSelectedIcon("pickaxe");
     }
     primaryStage.close();
+
   }
 }

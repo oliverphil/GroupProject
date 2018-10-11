@@ -127,6 +127,10 @@ public class MapEditor extends Application {
         selectedBtn = "itemBtn";
         openWindow = new IconsMenu();
       }
+      if (e.getSource() == itemBtn) {
+        selectedBtn = "itemBtn";
+        new IconsMenu();
+      }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
       }
@@ -189,6 +193,15 @@ public class MapEditor extends Application {
           drawGrid();
         }
       }
+      if (selectedBtn == "itemBtn") {
+        if (row != -1 && col != -1) {
+          if(grid[col][row] == "0") {
+           // add shit here 
+          }
+          grid[col][row] = selectedIcon;
+          drawGrid();
+        }
+      }
       // removes the appropriate tile/icon from map
       if (selectedBtn == "remove") {
         remove(x, y);
@@ -207,6 +220,7 @@ public class MapEditor extends Application {
   }
 
   private void remove(int x, int y) {
+    grid[col][row] = "0";
     // removes the tile that was at the row and column which was clicked on
     grid[col][row] = "0_none";
     drawGrid();
@@ -228,7 +242,8 @@ public class MapEditor extends Application {
     load.setPrefSize(60, 20);
     load.addEventHandler(ActionEvent.ACTION, actionEventHandler);
 
-    box.getChildren().addAll(save, load);
+    box.getChildren().addAll(floorBtn, itemBtn, remove, save, load);
+
     return box;
   }
 
