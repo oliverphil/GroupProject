@@ -15,6 +15,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import persistence.Persistence;
 
 /**
@@ -22,6 +27,7 @@ import persistence.Persistence;
  *
  * @author Charlotte Gimblett
  */
+@XmlRootElement
 public class MapEditor extends Application {
 
   private static final int GRID_WIDTH = 21;
@@ -260,4 +266,15 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
+
+  public String[][] getGrid() {
+    return grid;
+  }
+
+  @XmlElementWrapper(name = "grid")
+  @XmlElement(name = "gridItem")
+  public void setGrid(String[][] grid) {
+    this.grid = grid;
+  }
+
 }

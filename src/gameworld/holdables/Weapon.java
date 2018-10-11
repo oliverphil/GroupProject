@@ -1,8 +1,10 @@
 package gameworld.holdables;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import gameworld.Player;
+import gameworld.Tile;
 
 @XmlRootElement
 public class Weapon extends Item {
@@ -10,13 +12,12 @@ public class Weapon extends Item {
 
   /**
    * Creates a weapon.
-   * 
+   *
    */
   public Weapon() {
     super();
   }
 
-  @XmlAttribute(name = "damage")
   public int getDamage() {
     return damage;
   }
@@ -25,8 +26,13 @@ public class Weapon extends Item {
   public void setDamage(int damage) {
     this.damage = damage;
   }
-  
+
   public String toString() {
     return this.getName();
+  }
+
+  @Override
+  public void use(Player p, Tile tile) {
+    //do nothing
   }
 }
