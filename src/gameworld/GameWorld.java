@@ -453,6 +453,7 @@ public class GameWorld extends Observable {
         setWon(true);
       }
     }
+    update();
   }
 
   /**
@@ -462,6 +463,7 @@ public class GameWorld extends Observable {
    */
   public void dropItem(Item item) {
     board.dropItem(player, item);
+    update();
   }
 
   /**
