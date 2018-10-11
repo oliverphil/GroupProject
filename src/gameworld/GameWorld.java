@@ -449,7 +449,7 @@ public class GameWorld extends Observable {
 
     FloorObject obj = board.getfacingTile(player).getObj();
     if (obj != null) {
-      if (obj.equals("ladder")) {
+      if (obj.getName().equals("ladder")) {
         setWon(true);
       }
     }
