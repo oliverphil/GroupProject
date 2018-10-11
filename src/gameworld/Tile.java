@@ -175,6 +175,12 @@ public class Tile {
     this.doors = doors;
   }
 
+  /**
+   * Sets the object to be the selected object or null, if there is no object currently in this
+   * Tile.
+   *
+   * @param obj object to add to the tile
+   */
   @XmlElements({ @XmlElement(name = "barrier", type = Barrier.class),
       @XmlElement(name = "fountain", type = Fountain.class),
       @XmlElement(name = "explosive", type = Explosive.class),
@@ -183,8 +189,12 @@ public class Tile {
       @XmlElement(name = "weapon", type = Weapon.class),
       @XmlElement(name = "ladder", type = Ladder.class),
       @XmlElement(name = "monster", type = Monster.class) })
-  public void setObj(FloorObject obj) {
-    this.obj = obj;
+  public boolean setObj(FloorObject obj) {
+    if (this.obj != null || obj == null) {
+      this.obj = obj;
+      return true;
+    }
+    return false;
   }
 
   @XmlElement(name = "col")
