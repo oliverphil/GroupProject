@@ -192,6 +192,7 @@ public class Tile {
   public boolean setObj(FloorObject obj) {
     if (this.obj == null || obj == null) {
       this.obj = obj;
+      System.out.println(obj);
       return true;
     }
     return false;

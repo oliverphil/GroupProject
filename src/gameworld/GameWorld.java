@@ -36,7 +36,7 @@ public class GameWorld extends Observable {
     player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board, won));
-    
+
     setWon(false);
   }
 
@@ -105,7 +105,7 @@ public class GameWorld extends Observable {
         openDoor();
         break;
 
-      //bosses
+      // bosses
       case "david":
         attack("david");
         break;
@@ -269,7 +269,7 @@ public class GameWorld extends Observable {
         }
         break;
 
-      //fountains
+      // fountains
       case "powerFountain":
         player.fill("power");
         break;
@@ -277,7 +277,7 @@ public class GameWorld extends Observable {
         player.fill("health");
         break;
 
-        //game won
+      // game won
       case "ladder":
         win();
         break;
@@ -294,6 +294,7 @@ public class GameWorld extends Observable {
 
   /**
    * Called by the interact method when the player is fighting a boss.
+   * 
    * @param name the name of the boss to fight
    */
   private void attack(String boss) {
@@ -318,7 +319,7 @@ public class GameWorld extends Observable {
               dave.removeHealth(weap.getDamage());
             }
           }
-          //unarmed combat
+          // unarmed combat
         } else {
           if (player.isStrengthened()) {
             dave.removeHealth(25);
@@ -352,7 +353,7 @@ public class GameWorld extends Observable {
               marco.removeHealth(weap.getDamage());
             }
           }
-          //unarmed combat
+          // unarmed combat
         } else {
           if (player.isStrengthened()) {
             marco.removeHealth(25);
@@ -384,7 +385,7 @@ public class GameWorld extends Observable {
               thomas.removeHealth(weap.getDamage());
             }
           }
-          //unarmed combat
+          // unarmed combat
         } else {
           if (player.isStrengthened()) {
             thomas.removeHealth(25);
@@ -440,18 +441,23 @@ public class GameWorld extends Observable {
 
   /**
    * Uses the item that is selected on the players hot bar.
+   * 
    * @param item the item to be used.
    */
   public void useItem(Item item) {
     item.use(player, board.getfacingTile(player));
 
-    if (board.getfacingTile(player).getObj().getName().equals("ladder")) {
-      setWon(true);
+    FloorObject obj = board.getfacingTile(player).getObj();
+    if (obj != null) {
+      if (obj.equals("ladder")) {
+        setWon(true);
+      }
     }
   }
 
   /**
    * Drops the item that is selected on the players hot bar.
+   * 
    * @param item the item to be dropped.
    */
   public void dropItem(Item item) {

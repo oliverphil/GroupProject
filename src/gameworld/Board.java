@@ -661,6 +661,7 @@ public class Board {
 
     // go around each corner of the room trying to drop the item
     boolean dropped = board[point.valueY - 1][point.valueX - 1].setObj(item);
+    
     if (!dropped) {
       dropped = board[point.valueY - 1][point.valueX + 1].setObj(item);
     } else if (!dropped) {
@@ -669,6 +670,7 @@ public class Board {
       dropped = board[point.valueY + 1][point.valueX - 1].setObj(item);
     }
 
+    
     // only drop the item from the bag if item was dropped
     if (dropped) {
       p.dropItem(item);
