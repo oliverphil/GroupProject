@@ -603,16 +603,16 @@ public class Board {
     // place the object on the floor in the selected position
     switch (dir) {
       case "north":
-        getfacingTile(p).setFloorObject(item);
+        getfacingTile(p).setObj(item);
         break;
       case "south":
-        board[point.y + 1][point.x + (2 - location)].setFloorObject(item);
+        board[point.y + 1][point.x + (2 - location)].setObj(item);
         break;
       case "east":
-        board[point.y - (2 - location)][point.x + 1].setFloorObject(item);
+        board[point.y - (2 - location)][point.x + 1].setObj(item);
         break;
       case "west":
-        board[point.y + (2 - location)][point.x - 1].setFloorObject(item);
+        board[point.y + (2 - location)][point.x - 1].setObj(item);
         break;
       default:
         break;
@@ -632,16 +632,16 @@ public class Board {
     // remove the object on the floor in the selected position
     switch (dir) {
       case "north":
-        board[point.y - 1][point.x - (2 - location)].setFloorObject(null);
+        board[point.y - 1][point.x - (2 - location)].setObj(null);
         break;
       case "south":
-        board[point.y + 1][point.x + (2 - location)].setFloorObject(null);
+        board[point.y + 1][point.x + (2 - location)].setObj(null);
         break;
       case "east":
-        board[point.y - (2 - location)][point.x + 1].setFloorObject(null);
+        board[point.y - (2 - location)][point.x + 1].setObj(null);
         break;
       case "west":
-        board[point.y + (2 - location)][point.x - 1].setFloorObject(null);
+        board[point.y + (2 - location)][point.x - 1].setObj(null);
         break;
       default:
         break;

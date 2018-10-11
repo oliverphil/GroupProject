@@ -298,7 +298,7 @@ public class GameWorld extends Observable {
 
     switch (boss) {
       case "david":
-        Monster dave = (Monster) this.board.getBoard()[13][0].getFloorObject();
+        Monster dave = (Monster) this.board.getBoard()[13][0].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("khopesh")) {
@@ -312,14 +312,14 @@ public class GameWorld extends Observable {
         if (dave.getHealth() > 0) {
           player.setHealth(player.getHealth() - dave.getDamage());
         } else {
-          this.board.getBoard()[13][0].setFloorObject(null);
-          this.board.getBoard()[13][0].setFloorObject(new Ladder());
+          this.board.getBoard()[13][0].setObj(null);
+          this.board.getBoard()[13][0].setObj(new Ladder());
           setWon(true);
         }
         break;
 
       case "marco":
-        Monster marco = (Monster) this.board.getBoard()[0][1].getFloorObject();
+        Monster marco = (Monster) this.board.getBoard()[0][1].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("torch")) {
@@ -333,12 +333,12 @@ public class GameWorld extends Observable {
         if (marco.getHealth() > 0) {
           player.setHealth(player.getHealth() - marco.getDamage());
         } else {
-          this.board.getBoard()[0][1].setFloorObject(null);
+          this.board.getBoard()[0][1].setObj(null);
         }
         break;
 
       case "thomas":
-        Monster thomas = (Monster) this.board.getBoard()[1][14].getFloorObject();
+        Monster thomas = (Monster) this.board.getBoard()[1][14].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("hammer")) {
@@ -352,7 +352,7 @@ public class GameWorld extends Observable {
         if (thomas.getHealth() > 0) {
           player.setHealth(player.getHealth() - thomas.getDamage());
         } else {
-          this.board.getBoard()[1][14].setFloorObject(null);
+          this.board.getBoard()[1][14].setObj(null);
         }
         break;
       default:
