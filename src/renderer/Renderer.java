@@ -24,6 +24,7 @@ import javafx.scene.paint.Color;
  */
 public class Renderer extends Canvas implements Observer {
 
+  //TODO: bombs, credits, tests, fade to white and black
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
