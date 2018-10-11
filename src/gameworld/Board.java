@@ -4,6 +4,7 @@ import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
+import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
 
@@ -645,6 +646,31 @@ public class Board {
         break;
       default:
         break;
+    }
+  }
+
+  /**
+   * Called when a player selects an item and drops it.
+   *
+   * @param p the current player
+   * @param item the item to be dropped
+   */
+  public void dropItem(Player p, Item item) {
+    Point point = p.getLocation();
+
+    //go around each corner of the room trying to drop the item
+    boolean dropped = board[point.y - 1][point.x - 1].setObj(item);
+    if (!dropped) {
+      dropped = board[point.y - 1][point.x + 1].setObj(item);
+    } else if (!dropped) {
+      dropped = board[point.y + 1][point.x + 1].setObj(item);
+    } else if (!dropped) {
+      dropped = board[point.y + 1][point.x - 1].setObj(item);
+    }
+
+    //only drop the item from the bag if item was dropped
+    if (dropped) {
+      p.dropItem(item);
     }
   }
 }

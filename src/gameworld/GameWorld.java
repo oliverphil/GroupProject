@@ -416,7 +416,7 @@ public class GameWorld extends Observable {
    * @param item the item to be dropped.
    */
   public void dropItem(Item item) {
-    //TODO
+    board.dropItem(player, item);
   }
 
   /**

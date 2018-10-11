@@ -168,9 +168,18 @@ public class Tile {
     this.doors = doors;
   }
 
+  /**
+   * Sets the object to be the selected object or null, if there is no
+   * object currently in this Tile.
+   * @param obj object to add to the tile
+   */
   @XmlElement(name = "obj")
-  public void setObj(FloorObject obj) {
-    this.obj = obj;
+  public boolean setObj(FloorObject obj) {
+    if (this.obj != null || obj == null) {
+      this.obj = obj;
+      return true;
+    }
+    return false;
   }
 
   @XmlElement(name = "col")
