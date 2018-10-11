@@ -477,11 +477,17 @@ public class GameWorld extends Observable {
   private void resetMonsterHealth() {
     if (!won) {
       Monster david = (Monster) board.getBoard()[13][0].getObj();
-      david.setHealth(250);
+      if (david != null) {
+        david.setHealth(250);
+      }
       Monster marco = (Monster) board.getBoard()[0][1].getObj();
-      marco.setHealth(250);
+      if (marco != null) {
+        marco.setHealth(250);
+      }
       Monster thomas = (Monster) board.getBoard()[1][14].getObj();
-      thomas.setHealth(250);
+      if (thomas != null) {
+        thomas.setHealth(250);
+      }
     }
   }
 

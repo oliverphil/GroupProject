@@ -67,6 +67,10 @@ public class Monster extends FloorObject {
   public void setDamage(int damage) {
     this.damage = damage;
   }
+  
+  public String toString() {
+    return this.getName();
+  }
 
   @Override
   public int hashCode() {
