@@ -347,7 +347,7 @@ public class UserInterface extends Application {
       if (!items.isEmpty()) {
         game.dropItem(items.get(selectedItem));
         items.remove(selectedItem);
-        selectedItem--;
+        selectedItem = selectedItem > 0 ? selectedItem - 1 : 0;
       }
       update();
     });
