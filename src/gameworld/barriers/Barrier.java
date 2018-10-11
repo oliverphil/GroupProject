@@ -32,6 +32,9 @@ public class Barrier extends FloorObject {
     return strat;
   }
 
+  public String toString() {
+    return this.getName();
+  }
   /**
    * Sets the current Strategy.
    * 
