@@ -80,14 +80,14 @@ public class Board {
     marco.setLocation(new Point(1, 0));
     marco.setName("marco");
     marco.setDamage(20);
-    marco.setHealth(200);
+    marco.setHealth(250);
     this.board[0][1].setObj(marco);
 
     Monster thomas = new Monster();
     thomas.setLocation(new Point(14, 1));
     thomas.setName("thomas");
     thomas.setDamage(10);
-    thomas.setHealth(100);
+    thomas.setHealth(250);
     this.board[1][14].setObj(thomas);
 
     // add flasks

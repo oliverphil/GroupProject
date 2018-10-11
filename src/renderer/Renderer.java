@@ -32,7 +32,7 @@ public class Renderer extends Canvas implements Observer {
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width the width of the renderer
+   * @param width  the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -84,6 +84,8 @@ public class Renderer extends Canvas implements Observer {
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
+
+    boolean boss = false;
 
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
@@ -160,6 +162,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
               getHeight(), 2, "david"));
+          boss = true;
           break;
         case "marco":
           Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
@@ -167,6 +170,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
               getHeight(), 2, "marco"));
+          boss = true;
           break;
         case "thomas":
           Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
@@ -174,6 +178,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
               getHeight(), 2, "thomas"));
+          boss = true;
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -221,6 +226,17 @@ public class Renderer extends Canvas implements Observer {
           break;
       }
       i++;
+    }
+
+    if (boss && view.getMonsterHealth() != -1) {
+      double scale = 200.0 / 250.0;
+      gc.setFill(Color.GREEN);
+      gc.fillRect((getWidth() / 2) - 100, 50, view.getMonsterHealth() * scale, 10);
+      gc.setFill(Color.RED);
+      gc.fillRect(((getWidth() / 2) - 100) + (view.getMonsterHealth() * scale), 50,
+          (250 - view.getMonsterHealth()) * scale, 10);
+      gc.setFill(Color.BLACK);
+      gc.strokeRect((getWidth() / 2) - 100, 50, 200, 10);
     }
 
     if (visibleTiles.size() == 8) {
@@ -354,11 +370,11 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param obj    a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;

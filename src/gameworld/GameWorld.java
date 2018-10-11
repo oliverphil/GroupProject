@@ -36,7 +36,7 @@ public class GameWorld extends Observable {
     player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board, won));
-
+    
     setWon(false);
   }
 
