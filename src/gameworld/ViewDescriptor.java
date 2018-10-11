@@ -14,7 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ViewDescriptor {
-  List<String> view;
+  private List<String> view;
+  private int monsterHealth;
 
   /**
    * Constructs a new ViewDescriptor.
@@ -150,6 +151,12 @@ public class ViewDescriptor {
       view.add("tunnels");
     }
 
+    if (b.getfacingTile(p).getObj() instanceof Monster) {
+      monsterHealth =  ((Monster) b.getfacingTile(p).getObj()).getHealth();
+    } else {
+      monsterHealth = -1;
+    }
+
   }
 
   /**
@@ -161,6 +168,14 @@ public class ViewDescriptor {
     if (view.size() < 6) {
       view.add(s);
     }
+  }
+
+  public int getMonsterHealth() {
+    return monsterHealth;
+  }
+
+  public void setMonsterHealth(int monsterHealth) {
+    this.monsterHealth = monsterHealth;
   }
 
 }
