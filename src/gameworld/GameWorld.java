@@ -99,8 +99,12 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(ItemOnScreen name) {
-
-    switch (name.toString()) {
+    interact(name.toString(), name.getTile());  
+    update();
+  }
+  
+  private void interact(String name, int tile) {
+    switch (name) {
       case "door":
         openDoor();
         break;
@@ -119,19 +123,19 @@ public class GameWorld extends Observable {
       // Items
       case "emptyFlask":
         player.pickUp(new Flask());
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
       case "powerFlask":
         Flask pf = new Flask();
         pf.fill("power");
         player.pickUp(pf);
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
       case "healthFlask":
         Flask hf = new Flask();
         hf.fill("health");
         player.pickUp(hf);
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
 
       // tools
@@ -143,14 +147,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(cb);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool cb = new Tool();
           cb.setMaterial("woodenBlockade");
           cb.setName("crowbar");
           player.pickUp(cb);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "pickaxe":
@@ -161,14 +165,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(pa);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool pa = new Tool();
           pa.setMaterial("stoneBlockade");
           pa.setName("pickaxe");
           player.pickUp(pa);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "boltCutters":
@@ -179,14 +183,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(bc);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
           bc.setName("boltCutters");
           player.pickUp(bc);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
 
@@ -199,14 +203,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(hm);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon hm = new Weapon();
           hm.setDamage(10);
           hm.setName("hammer");
           player.pickUp(hm);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "torch":
@@ -217,14 +221,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(tr);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon tr = new Weapon();
           tr.setDamage(15);
           tr.setName("torch");
           player.pickUp(tr);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "khopesh":
@@ -235,14 +239,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(kp);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon kp = new Weapon();
           kp.setDamage(20);
           kp.setName("khopesh");
           player.pickUp(kp);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
 
@@ -284,7 +288,6 @@ public class GameWorld extends Observable {
       default:
         break;
     }
-    update();
   }
 
   private void win() {
