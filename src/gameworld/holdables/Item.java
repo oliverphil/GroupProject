@@ -5,7 +5,6 @@ import gameworld.Player;
 import gameworld.Tile;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 
 public abstract class Item extends FloorObject {
 
@@ -30,12 +29,7 @@ public abstract class Item extends FloorObject {
    * sets the weight.
    * @param weight the weight to set
    */
-  @XmlElements({ @XmlElement(name = "explosiveWeight", type = Explosive.class),
-      @XmlElement(name = "flaskWeight", type = Flask.class),
-      @XmlElement(name = "toolWeight", type = Tool.class),
-      @XmlElement(name = "weaponWeight", type = Weapon.class),
-
-  })
+  @XmlElement
   public void setWeight(int weight) {
     this.weight = weight;
   }

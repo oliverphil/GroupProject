@@ -1,11 +1,6 @@
 package gameworld;
 
-import gameworld.barriers.Barrier;
-import gameworld.holdables.Item;
-
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Items are objects found in the game world that can be weapons or tools to help a player along
