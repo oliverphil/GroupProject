@@ -1,14 +1,5 @@
 package mapeditor;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,38 +16,50 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import persistence.Persistence;
+
+/**
+ * The MapEditor class creates a window where a map can be created by the user.
+ *
+ * @author Charlotte Gimblett
+ */
 @XmlRootElement
 public class MapEditor extends Application {
 
   private static final int GRID_WIDTH = 21;
   private static final int GRID_HEIGHT = 21;
   private GridPane gridPane;
-
   private Button floorBtn;
   private Button itemBtn;
   private Button save;
   private Button load;
   private Button remove;
-
   private String[][] grid;
   private static String selectedIcon = "0";
   private static String selectedBtn = "floorBtn";
   private static String direction = "none";
   private String currentIcon = "0";
   private String currentDir = "none";
-  int row;
-  int col;
-  String[] args;
-
+  private int row;
+  private int col;
   private Application openWindow;
 
+  /**
+   * The main method which launches the window.
+   *
+   * @param args command line arguments
+   */
   public static void main(String[] args) {
     launch(args);
   }
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    // initialize array for the grid
+    // initializes 2D array that holds the map values
     grid = new String[GRID_WIDTH][GRID_HEIGHT];
     for (int y = 0; y < GRID_HEIGHT; y++) {
       for (int x = 0; x < GRID_WIDTH; x++) {
@@ -64,6 +67,7 @@ public class MapEditor extends Application {
       }
     }
 
+    // adds the first room to the map
     grid[9][9] = "empty_NW";
     grid[10][9] = "empty_N";
     grid[11][9] = "emptyFlask_NE";
@@ -74,13 +78,16 @@ public class MapEditor extends Application {
     grid[10][11] = "empty_S";
     grid[11][11] = "empty_SE";
 
+    // initializes the stage, border pane, and scene
     primaryStage.setTitle("Map Editor");
     BorderPane border = new BorderPane();
     gridPane = new GridPane();
     HBox topHBox = drawTop();
+    HBox bottomHBox = drawBottom();
     border.setTop(topHBox);
     border.setCenter(drawGrid());
-    Scene scene = new Scene(border, 480, 535);
+    border.setBottom(bottomHBox);
+    Scene scene = new Scene(border, 480, 581);
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -88,17 +95,19 @@ public class MapEditor extends Application {
   EventHandler<ActionEvent> actionEventHandler = new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent e) {
+      // makes sure only one extra window is open at once
       if (openWindow != null) {
         try {
           if (openWindow instanceof FloorTileMenu) {
-            // ((FloorTileMenu) openWindow).primaryStage.close();
+            ((FloorTileMenu) openWindow).primaryStage.close();
           } else if (openWindow instanceof IconsMenu) {
-            // ((IconsMenu) openWindow).primaryStage.close();
+            ((IconsMenu) openWindow).primaryStage.close();
           }
         } catch (Exception e1) {
           e1.printStackTrace();
         }
       }
+      // do the appropriate action depending on what buttons are pushed
       if (e.getSource() == floorBtn) {
         selectedBtn = "floorBtn";
         openWindow = new FloorTileMenu();
@@ -109,6 +118,12 @@ public class MapEditor extends Application {
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
+      }
+      if (e.getSource() == load) {
+        Persistence.loadMapEditor("mapEditorLoad");
+      }
+      if (e.getSource() == save) {
+        Persistence.saveMapEditor(MapEditor.this, "mapEditorSave");
       }
     }
   };
@@ -121,13 +136,15 @@ public class MapEditor extends Application {
       row = getRow(y);
       col = getCol(x);
 
+      // adds appropriate floor tile to map
       if (selectedBtn == "floorBtn") {
-        if (row != -1 && col != -1) {
+        if (row != -1 && col != -1 && row <= 20 && col <= 20) {
           selectedIcon = "empty";
           grid[col][row] = selectedIcon + "_" + direction;
           drawGrid();
         }
       }
+      // adds the appropriate icon to map
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
           if (grid[col][row].endsWith("N")) {
@@ -153,6 +170,7 @@ public class MapEditor extends Application {
           drawGrid();
         }
       }
+      // removes the appropriate tile/icon from map
       if (selectedBtn == "remove") {
         remove(x, y);
       }
@@ -160,36 +178,28 @@ public class MapEditor extends Application {
   };
 
   private int getCol(int x) {
+    // calculates which column was clicked on
     return (int) ((x - 10) / 22);
   }
 
   private int getRow(int y) {
+    // calculates which row was clicked on
     return (int) ((y - 65) / 22);
   }
 
   private void remove(int x, int y) {
+    // removes the tile that was at the row and column which was clicked on
     grid[col][row] = "0_none";
     drawGrid();
 
   }
 
   private HBox drawTop() {
+    // initializes the top section of the scene
     HBox box = new HBox();
-    box.setPadding(new Insets(15, 15, 15, 15));
+    box.setPadding(new Insets(8, 10, 8, 10)); // top, right, bottom, left
     box.setSpacing(10);
     box.setStyle("-fx-background-color: #9b9781;");
-
-    floorBtn = new Button("Add Floor Tile");
-    floorBtn.setPrefSize(90, 20);
-    floorBtn.addEventHandler(ActionEvent.ACTION, actionEventHandler);
-
-    itemBtn = new Button("Add Floor Object");
-    itemBtn.setPrefSize(110, 20);
-    itemBtn.addEventHandler(ActionEvent.ACTION, actionEventHandler);
-
-    remove = new Button("Remove");
-    remove.setPrefSize(60, 20);
-    remove.addEventHandler(ActionEvent.ACTION, actionEventHandler);
 
     save = new Button("Save");
     save.setPrefSize(60, 20);
@@ -199,12 +209,12 @@ public class MapEditor extends Application {
     load.setPrefSize(60, 20);
     load.addEventHandler(ActionEvent.ACTION, actionEventHandler);
 
-    box.getChildren().addAll(floorBtn, itemBtn, remove, save, load);
-
+    box.getChildren().addAll(save, load);
     return box;
   }
 
   private Node drawGrid() {
+    // clears and redraws the grid in the center section
     gridPane.getChildren().clear();
     gridPane.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandler);
     gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -219,13 +229,34 @@ public class MapEditor extends Application {
         Image img = new Image(
             getClass().getResource("icons/" + currentIcon + "_" + currentDir + ".png").toString());
         Rectangle rec = new Rectangle(x, y, 20, 20);
-
         rec.setFill(new ImagePattern(img));
-
         gridPane.add(rec, x, y);
       }
     }
     return gridPane;
+  }
+
+  private HBox drawBottom() {
+    // initializes the bottom section of the scene
+    HBox box = new HBox();
+    box.setPadding(new Insets(15, 15, 15, 15));
+    box.setSpacing(10);
+    box.setStyle("-fx-background-color: #9b9781;");
+
+    floorBtn = new Button("Add Floor Tile");
+    floorBtn.setPrefSize(110, 20);
+    floorBtn.addEventHandler(ActionEvent.ACTION, actionEventHandler);
+
+    itemBtn = new Button("Add Floor Object");
+    itemBtn.setPrefSize(130, 20);
+    itemBtn.addEventHandler(ActionEvent.ACTION, actionEventHandler);
+
+    remove = new Button("Remove");
+    remove.setPrefSize(90, 20);
+    remove.addEventHandler(ActionEvent.ACTION, actionEventHandler);
+
+    box.getChildren().addAll(floorBtn, itemBtn, remove);
+    return box;
   }
 
   public static void setSelectedIcon(String icon) {
@@ -245,6 +276,5 @@ public class MapEditor extends Application {
   public void setGrid(String[][] grid) {
     this.grid = grid;
   }
-  
-  
+
 }

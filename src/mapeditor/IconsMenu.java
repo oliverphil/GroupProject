@@ -16,6 +16,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The IconsMenu class creates a window where icons (items) can be selected.
+ *
+ * @author Charlotte Gimblett
+ */
 public class IconsMenu extends Application implements EventHandler<ActionEvent> {
   private Button emptyFlask;
   private Button powerFlask;
@@ -28,7 +33,11 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   private Button pickaxe;
   Stage primaryStage;
 
+  /**
+   * The constructor calls the start method.
+   */
   public IconsMenu() {
+    // calls the start method
     try {
       start(new Stage());
     } catch (Exception e) {
@@ -36,12 +45,9 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     }
   }
 
-  public static void main(String[] args) {
-    launch(args);
-  }
-
   @Override
   public void start(Stage primaryStage) throws Exception {
+    // initializes the stage, border pane, and scene
     this.primaryStage = primaryStage;
     BorderPane border = new BorderPane();
     HBox topHBox = drawTop();
@@ -54,6 +60,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   }
 
   private HBox drawTop() {
+    // draws the top section of the scene
     HBox box = new HBox();
     box.setPadding(new Insets(15, 15, 15, 15));
     box.setSpacing(10);
@@ -68,20 +75,22 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   }
 
   private Node drawItems() {
+    // draws the center section of the scene with all the icons (items)
     GridPane gridPane = new GridPane();
     gridPane.setPadding(new Insets(20, 20, 20, 20));
     gridPane.setHgap(20);
     gridPane.setVgap(20);
 
-    // add empty flask icon
-    Image northWestImage = new Image(getClass().getResource("icons/emptyFlask_none.png").toString());
+    // adds empty flask icon
+    Image northWestImage = new Image(
+        getClass().getResource("icons/emptyFlask_none.png").toString());
     emptyFlask = new Button();
     emptyFlask.setGraphic(new ImageView(northWestImage));
     emptyFlask.setPrefSize(40, 40);
     emptyFlask.setOnAction(this);
     gridPane.add(emptyFlask, 0, 0);
 
-    // add power flask icon
+    // adds power flask icon
     Image northImage = new Image(getClass().getResource("icons/powerFlask_none.png").toString());
     powerFlask = new Button();
     powerFlask.setGraphic(new ImageView(northImage));
@@ -89,15 +98,16 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     powerFlask.setOnAction(this);
     gridPane.add(powerFlask, 1, 0);
 
-    // add health flask icon
-    Image northEastImage = new Image(getClass().getResource("icons/healthFlask_none.png").toString());
+    // adds health flask icon
+    Image northEastImage = new Image(
+        getClass().getResource("icons/healthFlask_none.png").toString());
     healthFlask = new Button();
     healthFlask.setGraphic(new ImageView(northEastImage));
     healthFlask.setPrefSize(40, 40);
     healthFlask.setOnAction(this);
     gridPane.add(healthFlask, 2, 0);
 
-    // add torch icon
+    // adds torch icon
     Image westImage = new Image(getClass().getResource("icons/torch_none.png").toString());
     torch = new Button();
     torch.setGraphic(new ImageView(westImage));
@@ -105,7 +115,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     torch.setOnAction(this);
     gridPane.add(torch, 0, 1);
 
-    // add bolt cutter icon
+    // adds bolt cutter icon
     Image emptyImage = new Image(getClass().getResource("icons/boltCutters_none.png").toString());
     boltCutters = new Button();
     boltCutters.setGraphic(new ImageView(emptyImage));
@@ -113,7 +123,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     boltCutters.setOnAction(this);
     gridPane.add(boltCutters, 1, 1);
 
-    // add crowbar icon
+    // adds crow bar icon
     Image eastImage = new Image(getClass().getResource("icons/crowbar_none.png").toString());
     crowbar = new Button();
     crowbar.setGraphic(new ImageView(eastImage));
@@ -121,7 +131,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     crowbar.setOnAction(this);
     gridPane.add(crowbar, 2, 1);
 
-    // add hammer icon
+    // adds hammer icon
     Image southWestImage = new Image(getClass().getResource("icons/hammer_none.png").toString());
     hammer = new Button();
     hammer.setGraphic(new ImageView(southWestImage));
@@ -129,7 +139,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     hammer.setOnAction(this);
     gridPane.add(hammer, 0, 2);
 
-    // add khopesh icon
+    // adds khopesh icon
     Image southImage = new Image(getClass().getResource("icons/khopesh_none.png").toString());
     khopesh = new Button();
     khopesh.setGraphic(new ImageView(southImage));
@@ -137,7 +147,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     khopesh.setOnAction(this);
     gridPane.add(khopesh, 1, 2);
 
-    // add pickaxe
+    // adds pick axe
     Image southEastImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
     pickaxe = new Button();
     pickaxe.setGraphic(new ImageView(southEastImage));
@@ -150,23 +160,32 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
 
   @Override
   public void handle(ActionEvent event) {
+    // changed the selected icon depending on which button is clicked.
     if (event.getSource() == emptyFlask) {
       MapEditor.setSelectedIcon("emptyFlask");
-    } else if (event.getSource() == powerFlask) {
+    }
+    if (event.getSource() == powerFlask) {
       MapEditor.setSelectedIcon("powerFlask");
-    } else if (event.getSource() == healthFlask) {
+    }
+    if (event.getSource() == healthFlask) {
       MapEditor.setSelectedIcon("healthFlask");
-    } else if (event.getSource() == torch) {
+    }
+    if (event.getSource() == torch) {
       MapEditor.setSelectedIcon("torch");
-    } else if (event.getSource() == boltCutters) {
+    }
+    if (event.getSource() == boltCutters) {
       MapEditor.setSelectedIcon("boltCutters");
-    } else if (event.getSource() == crowbar) {
+    }
+    if (event.getSource() == crowbar) {
       MapEditor.setSelectedIcon("crowbar");
-    } else if (event.getSource() == hammer) {
+    }
+    if (event.getSource() == hammer) {
       MapEditor.setSelectedIcon("hammer");
-    } else if (event.getSource() == khopesh) {
+    }
+    if (event.getSource() == khopesh) {
       MapEditor.setSelectedIcon("khopesh");
-    } else if (event.getSource() == pickaxe) {
+    }
+    if (event.getSource() == pickaxe) {
       MapEditor.setSelectedIcon("pickaxe");
     }
     primaryStage.close();
