@@ -73,7 +73,7 @@ public class MapEditor extends Application {
     for (int i = 0; i < icons.length; i++) {
       String s = icons[i].getName().replaceAll(".png", "");
       String toString = icons[i].toString()
-          .replaceAll("src" + File.separator + "mapeditor" + File.separator + "", "");
+          .replace("src" + File.separator + "mapeditor" + File.separator + "", "");
       Image img = new Image(getClass().getResource(toString).toString());
       images.put(s, img);
     }
