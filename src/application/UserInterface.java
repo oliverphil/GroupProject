@@ -10,11 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JFileChooser;
-
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
@@ -42,6 +41,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+
 import mapeditor.MapEditor;
 import persistence.Persistence;
 import renderer.Renderer;
@@ -68,7 +69,8 @@ public class UserInterface extends Application {
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
-  private Item selectedItem;
+  private int selectedItem;
+  private List<Item> items = new ArrayList<Item>();
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
@@ -101,9 +103,79 @@ public class UserInterface extends Application {
       60, 60, false, false);
 
   private GameWorld game;
+  private GridPane backpackGrid;
 
   public static void main(String[] args) {
     launch(args);
+  }
+
+  private void update() {
+    backpackGrid.getChildren().clear();
+    items.clear();
+    items.addAll(game.getPlayer().getBag());
+    ArrayList<Button> packItemsArray = new ArrayList<Button>();
+
+    for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
+      Item itemInPack = game.getPlayer().getBag().get(i);
+      Button itemButton = new Button();
+
+      switch (itemInPack.toString()) {
+        case "emptyFlask":
+          itemButton.setGraphic(new ImageView(emptyFlaskImage));
+          break;
+        case "crowbar":
+          itemButton.setGraphic(new ImageView(crowbarImage));
+          break;
+        case "powerFlask":
+          itemButton.setGraphic(new ImageView(powerFlaskImage));
+          break;
+        case "healthFlask":
+          itemButton.setGraphic(new ImageView(healthFlaskImage));
+          break;
+        case "pickaxe":
+          itemButton.setGraphic(new ImageView(pickaxeImage));
+          break;
+        case "boltCutters":
+          itemButton.setGraphic(new ImageView(boltCutterImage));
+          break;
+        case "khopesh":
+          itemButton.setGraphic(new ImageView(khopeshImage));
+          break;
+        case "torch":
+          itemButton.setGraphic(new ImageView(torchImage));
+          break;
+        case "hammer":
+          itemButton.setGraphic(new ImageView(hammerImage));
+          break;
+        default:
+          return;
+
+      }
+      itemButton.setAccessibleHelp(((Integer) i).toString());
+      itemButton.setStyle("-fx-background-color: #1d1f23; ");
+      itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+          BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+      itemButton.setOnAction(e -> {
+        selectedItem = Integer.parseInt(itemButton.accessibleHelpProperty().get());
+        drawBorder();
+      });
+      packItemsArray.add(itemButton);
+      backpackGrid.add(itemButton, i, 0);
+    }
+    drawBorder();
+  }
+
+  private void drawBorder() {
+    if (!items.isEmpty()) {
+      for (Node n : backpackGrid.getChildren()) {
+        Button b = (Button) n;
+        b.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+            new CornerRadii(3), BorderWidths.DEFAULT)));
+      }
+      ((Button) backpackGrid.getChildren().get(selectedItem))
+          .setBorder(new Border(new BorderStroke(Color.rgb(255, 0, 0), BorderStrokeStyle.SOLID,
+              new CornerRadii(3), BorderWidths.DEFAULT)));
+    }
   }
 
   @Override
@@ -197,6 +269,7 @@ public class UserInterface extends Application {
     Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
+      update();
     });
     centerScreen.getChildren().add(gameScreen);
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -232,7 +305,10 @@ public class UserInterface extends Application {
     lookLeft.setStyle("-fx-background-color: #1d1f23; ");
     lookLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    lookLeft.setOnAction(e -> game.rotateLeft());
+    lookLeft.setOnAction(e -> {
+      game.rotateLeft();
+      update();
+    });
 
     Button lookRight = new Button();
     lookRight.scaleShapeProperty();
@@ -240,7 +316,10 @@ public class UserInterface extends Application {
     lookRight.setStyle("-fx-background-color: #1d1f23; ");
     lookRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    lookRight.setOnAction(e -> game.rotateRight());
+    lookRight.setOnAction(e -> {
+      game.rotateRight();
+      update();
+    });
 
     Button moveForward = new Button();
     moveForward.scaleShapeProperty();
@@ -248,7 +327,10 @@ public class UserInterface extends Application {
     moveForward.setStyle("-fx-background-color: #1d1f23; ");
     moveForward.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    moveForward.setOnAction(e -> game.moveForward());
+    moveForward.setOnAction(e -> {
+      game.moveForward();
+      update();
+    });
 
     Button moveBack = new Button();
     moveBack.scaleShapeProperty();
@@ -256,7 +338,10 @@ public class UserInterface extends Application {
     moveBack.setStyle("-fx-background-color: #1d1f23; ");
     moveBack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    moveBack.setOnAction(e -> game.moveBackwards());
+    moveBack.setOnAction(e -> {
+      game.moveBackwards();
+      update();
+    });
 
     Button dropItem = new Button("Drop Item");
     dropItem.scaleShapeProperty();
@@ -264,7 +349,14 @@ public class UserInterface extends Application {
     dropItem.setStyle("-fx-background-color: #1d1f23; ");
     dropItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    dropItem.setOnAction(e -> System.out.println("Dropped Item"));
+    dropItem.setOnAction(e -> {
+      if (!items.isEmpty()) {
+        game.dropItem(items.get(selectedItem));
+        items.remove(selectedItem);
+        selectedItem--;
+      }
+      update();
+    });
 
     Button useItem = new Button("Use Item");
     useItem.scaleShapeProperty();
@@ -272,9 +364,16 @@ public class UserInterface extends Application {
     useItem.setStyle("-fx-background-color: #1d1f23; ");
     useItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    useItem.setOnAction(e -> System.out.println("Used Item"));
+    useItem.setOnAction(e -> {
+      if (!items.isEmpty()) {
+        game.useItem(items.get(selectedItem));
+      }
+      update();
+    });
 
-    moveBack.setOnAction(e -> game.moveBackwards());
+    moveBack.setOnAction(e -> {
+      game.moveBackwards();
+    });
 
     VBox bottomScreen = new VBox();
     bottomScreen.scaleShapeProperty();
@@ -282,31 +381,11 @@ public class UserInterface extends Application {
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     // Backpack
-    GridPane backpackGrid = new GridPane();
+    backpackGrid = new GridPane();
+    backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
-    ArrayList<Button> packItemsArray = new ArrayList<Button>();
-
-    for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
-      Item itemInPack = game.getPlayer().getBag().get(i);
-      ItemButton itemButton;
-
-      switch (itemInPack.getName()) {
-        case "emptyFlask":
-          itemButton = new ItemButton(new ImageView(emptyFlaskImage));
-          packItemsArray.add(itemButton.getItemButton());
-          break;
-        default:
-          break;
-      }
-
-      for (int i1 = 0; i1 < packItemsArray.size(); i1++) {
-        backpackGrid.add(packItemsArray.get(i1), 0, i1);
-      }
-
-    }
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -342,11 +421,12 @@ public class UserInterface extends Application {
     bottomScreenLeft.getChildren().addAll(buttonGrid);
 
     VBox bottomScreenRight = new VBox();
+    bottomScreenRight.setScaleShape(true);
     bottomScreenRight.scaleShapeProperty();
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(backpackGrid); // TODO: Figure out why not displaying
+    bottomScreenRight.getChildren().addAll(backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
@@ -366,7 +446,10 @@ public class UserInterface extends Application {
       } else if (k.getCode() == KeyCode.D) {
         game.rotateRight();
       }
+      update();
     });
+
+    update();
 
     // allows scene to be visible
     layout.setBackground(Background.EMPTY);
@@ -379,27 +462,5 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
-  }
-
-  /*
-   * A special kind of Button that represents an item To be used in the display of 'Backpack'
-   */
-  private class ItemButton extends Button {
-
-    private ItemButton anItemButton;
-
-    public ItemButton(ImageView imageView) {
-      anItemButton = (ItemButton) new Button();
-      anItemButton.setGraphic(imageView);
-      anItemButton.setStyle("-fx-background-color: #1d1f23; ");
-      anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-          BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-      // anItemButton.setOnAction(e -> System.out.println("Used Item")); // TODO: Highlight an item
-      // that is selected
-    }
-
-    public ItemButton getItemButton() {
-      return anItemButton;
-    }
   }
 }

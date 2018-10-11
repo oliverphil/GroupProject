@@ -188,9 +188,10 @@ public class Renderer extends Canvas implements Observer {
           break;
         case "stoneBlockade":
           Image stoneBlock = new Image(getClass().getResourceAsStream("images/stoneBlockade.png"));
-          gc.drawImage(stoneBlock, (getWidth() / 2) - (stoneBlock.getWidth() / 2), 100);
-          objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (stoneBlock.getWidth() / 2), 0,
-              stoneBlock.getWidth(), stoneBlock.getHeight(), 2, "stoneBlockade"));
+          gc.drawImage(stoneBlock, getWidth() / 3, 100,
+              getWidth() / 3, stoneBlock.getHeight());
+          objectsOnScreen.add(new ItemOnScreen(getWidth() / 3, 0,
+              stoneBlock.getWidth(), getHeight() * 2 / 3, 2, "stoneBlockade"));
           break;
         case "chainBlockade":
           Image chainBlock = new Image(getClass().getResourceAsStream("images/chainBlockade.png"));
