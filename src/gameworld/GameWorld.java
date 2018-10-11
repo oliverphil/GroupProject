@@ -306,12 +306,25 @@ public class GameWorld extends Observable {
 
         if (weap != null) {
           if (weap.getName().equals("khopesh")) {
-            dave.removeHealth(50);
+            if (player.isStrengthened()) {
+              dave.removeHealth(70);
+            } else {
+              dave.removeHealth(50);
+            }
           } else {
-            dave.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              dave.removeHealth(weap.getDamage() + 20);
+            } else {
+              dave.removeHealth(weap.getDamage());
+            }
           }
+          //unarmed combat
         } else {
-          dave.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            dave.removeHealth(25);
+          } else {
+            dave.removeHealth(5);
+          }
         }
         if (dave.getHealth() > 0) {
           player.setHealth(player.getHealth() - dave.getDamage());
@@ -327,12 +340,25 @@ public class GameWorld extends Observable {
 
         if (weap != null) {
           if (weap.getName().equals("torch")) {
-            marco.removeHealth(50);
+            if (player.isStrengthened()) {
+              marco.removeHealth(70);
+            } else {
+              marco.removeHealth(50);
+            }
           } else {
-            marco.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              marco.removeHealth(weap.getDamage() + 20);
+            } else {
+              marco.removeHealth(weap.getDamage());
+            }
           }
+          //unarmed combat
         } else {
-          marco.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            marco.removeHealth(25);
+          } else {
+            marco.removeHealth(5);
+          }
         }
         if (marco.getHealth() > 0) {
           player.setHealth(player.getHealth() - marco.getDamage());
@@ -346,12 +372,25 @@ public class GameWorld extends Observable {
 
         if (weap != null) {
           if (weap.getName().equals("hammer")) {
-            thomas.removeHealth(50);
+            if (player.isStrengthened()) {
+              thomas.removeHealth(70);
+            } else {
+              thomas.removeHealth(50);
+            }
           } else {
-            thomas.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              thomas.removeHealth(weap.getDamage() + 20);
+            } else {
+              thomas.removeHealth(weap.getDamage());
+            }
           }
+          //unarmed combat
         } else {
-          thomas.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            thomas.removeHealth(25);
+          } else {
+            thomas.removeHealth(5);
+          }
         }
         if (thomas.getHealth() > 0) {
           player.setHealth(player.getHealth() - thomas.getDamage());

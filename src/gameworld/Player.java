@@ -27,6 +27,7 @@ public class Player {
   private Point location;
   private ViewDescriptor view;
   private int health = 100;
+  private double time;
 
   private int currentWeight;
   private static final int MAX_WEIGHT = 15;
@@ -88,7 +89,7 @@ public class Player {
 
   /**
    * Get the Direction.
-   * 
+   *
    * @return the direction
    */
   public String getDirection() {
@@ -97,7 +98,7 @@ public class Player {
 
   /**
    * Set the direction.
-   * 
+   *
    * @param direction the direction to set
    */
   @XmlElement(name = "direction")
@@ -107,7 +108,7 @@ public class Player {
 
   /**
    * Get location (Point).
-   * 
+   *
    * @return the location
    */
   public Point getLocation() {
@@ -116,7 +117,7 @@ public class Player {
 
   /**
    * Set location (Point).
-   * 
+   *
    * @param loc the location to set
    */
   @XmlElement(name = "location")
@@ -126,7 +127,7 @@ public class Player {
 
   /**
    * Returns the viewDescriptor that the player current holds.
-   * 
+   *
    * @return a view object
    */
   public ViewDescriptor getView() {
@@ -135,7 +136,7 @@ public class Player {
 
   /**
    * Sets the current ViewDescripor.
-   * 
+   *
    * @param view the view to set
    */
   @XmlElement(name = "view")
@@ -145,7 +146,7 @@ public class Player {
 
   /**
    * Gets the bag.
-   * 
+   *
    * @return the bag
    */
   public List<Item> getBag() {
@@ -168,7 +169,7 @@ public class Player {
 
   /**
    * Add the object to the players bag.
-   * 
+   *
    * @param obj the object to add to the bag
    */
   public void addToBag(Item obj) {
@@ -179,7 +180,7 @@ public class Player {
 
   /**
    * Gets the health.
-   * 
+   *
    * @return the health
    */
   public int getHealth() {
@@ -188,7 +189,7 @@ public class Player {
 
   /**
    * Sets the Health.
-   * 
+   *
    * @param health the health to set
    */
   @XmlElement(name = "health")
@@ -208,7 +209,7 @@ public class Player {
 
   /**
    * Picks up the item clicked on.
-   * 
+   *
    * @param item item to pick up
    */
   public void pickUp(Item item) {
@@ -217,7 +218,7 @@ public class Player {
 
   /**
    * Drops the item selected in the hot bar.
-   * 
+   *
    * @param item item to be dropped.
    */
   public void dropItem(Item item) {
@@ -226,7 +227,7 @@ public class Player {
 
   /**
    * Returns true if the player has a weapon in their bag.
-   * 
+   *
    * @return a boolean
    */
   public boolean hasWeapon() {
@@ -240,7 +241,7 @@ public class Player {
 
   /**
    * Returns true if the player has a Tool in their bag.
-   * 
+   *
    * @return
    */
   public boolean hasTool() {
@@ -254,7 +255,7 @@ public class Player {
 
   /**
    * Returns the weapon the player in holding.
-   * 
+   *
    * @return a boolean
    */
   public Weapon getWeapon() {
@@ -268,7 +269,7 @@ public class Player {
 
   /**
    * Returns the tool the player in holding.
-   * 
+   *
    * @return the players tool
    */
   public Tool getTool() {
@@ -289,6 +290,15 @@ public class Player {
     return false;
   }
 
+  private boolean hasPowerFlask() {
+    for (FloorObject obj : bag) {
+      if (obj instanceof Flask && ((Flask) obj).isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private Flask getEmptyFlask() {
     for (FloorObject obj : bag) {
       if (obj instanceof Flask && ((Flask) obj).isEmpty()) {
@@ -300,20 +310,18 @@ public class Player {
 
   /**
    * fills the first empty flask with the liquid from the fountain.
-   * 
+   *
    * @param fountain the fountain to fill from
    */
   public void fill(String fountain) {
     if (hasEmptyFlask()) {
       getEmptyFlask().fill(fountain);
-      // System.out.println("filled");
-      // System.out.println(bag.toString());
     }
   }
 
   /**
    * returns the current weight.
-   * 
+   *
    * @return the currentWeight
    */
   public int getCurrentWeight() {
@@ -322,11 +330,29 @@ public class Player {
 
   /**
    * sets the current weight.
-   * 
+   *
    * @param currentWeight the currentWeight to set
    */
   @XmlElement(name = "weight")
   public void setCurrentWeight(int currentWeight) {
     this.currentWeight = currentWeight;
+  }
+
+  /**
+   * Determine whether the player used a power potion within
+   * the past 10 seconds.
+   * @return true if the player drank a power potion within 10 secs ago
+   */
+  public boolean isStrengthened() {
+    double newTime = System.currentTimeMillis() - time;
+    return (newTime > 0.0 && newTime < 10000.0);
+  }
+
+  public double getTime() {
+    return time;
+  }
+
+  public void setTime(double time) {
+    this.time = time;
   }
 }

@@ -9,9 +9,9 @@ class PowerFlaskStrategy extends ContentsStrategy {
 
   @Override
   public void use(Player pl) {
-    // TODO increase player damage or resistence
+    pl.setTime((double) System.currentTimeMillis());
   }
-  
+
   public String toString() {
     return "powerFlask";
   }

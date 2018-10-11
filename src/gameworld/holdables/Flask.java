@@ -19,7 +19,7 @@ import gameworld.barriers.ChainsStrategy;
 @XmlRootElement
 public class Flask extends Item {
 
-  ContentsStrategy strat;
+  private ContentsStrategy strat;
 
   /**
    * Constructs a new Flask open with the empty Strategy.
@@ -57,7 +57,7 @@ public class Flask extends Item {
 
   /**
    * Returns true if the Flask is empty.
-   * 
+   *
    * @return true or false
    */
   public boolean isEmpty() {
