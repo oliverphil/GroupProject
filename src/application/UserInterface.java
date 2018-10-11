@@ -298,6 +298,8 @@ public class UserInterface extends Application {
           itemButton = new ItemButton(new ImageView(emptyFlaskImage));
           packItemsArray.add(itemButton.getItemButton());
           break;
+        default:
+          break;
       }
 
       for (int i1 = 0; i1 < packItemsArray.size(); i1++) {

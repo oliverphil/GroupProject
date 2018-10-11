@@ -1,15 +1,17 @@
 package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import gameworld.Player;
 import gameworld.Tile;
+import gameworld.barriers.ChainsStrategy;
 
 /**
- * A Flask is a multi-use item that can be filled with different liquids.
- * This uses the ***STRATEGY PATTERN***.
+ * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
+ * PATTERN***.
  *
  * @author ewensdyla
  *
@@ -55,6 +57,7 @@ public class Flask extends Item {
 
   /**
    * Returns true if the Flask is empty.
+   * 
    * @return true or false
    */
   public boolean isEmpty() {
@@ -65,7 +68,9 @@ public class Flask extends Item {
     return strat;
   }
 
-  @XmlElement
+  @XmlElements({ @XmlElement(name = "emptyStrat", type = EmptyFlaskStrategy.class),
+      @XmlElement(name = "powerStrat", type = PowerFlaskStrategy.class),
+      @XmlElement(name = "healthStrat", type = HealthFlaskStrategy.class), })
   public void setStrat(ContentsStrategy strat) {
     this.strat = strat;
   }

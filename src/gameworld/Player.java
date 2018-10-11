@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
@@ -156,7 +158,10 @@ public class Player {
    * @param bag the new bag contents
    */
   @XmlElementWrapper(name = "bag")
-  @XmlElement(name = "item")
+  @XmlElements({ @XmlElement(name = "explosive", type = Explosive.class),
+      @XmlElement(name = "flask", type = Flask.class),
+      @XmlElement(name = "tool", type = Tool.class),
+      @XmlElement(name = "weapon", type = Weapon.class) })
   public void setBag(List<Item> bag) {
     this.bag = bag;
   }
@@ -308,6 +313,7 @@ public class Player {
 
   /**
    * returns the current weight.
+   * 
    * @return the currentWeight
    */
   public int getCurrentWeight() {
@@ -316,6 +322,7 @@ public class Player {
 
   /**
    * sets the current weight.
+   * 
    * @param currentWeight the currentWeight to set
    */
   @XmlElement(name = "weight")

@@ -5,7 +5,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
 
 /**
  * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
@@ -168,7 +175,14 @@ public class Tile {
     this.doors = doors;
   }
 
-  @XmlElement(name = "obj")
+  @XmlElements({ @XmlElement(name = "barrier", type = Barrier.class),
+      @XmlElement(name = "fountain", type = Fountain.class),
+      @XmlElement(name = "explosive", type = Explosive.class),
+      @XmlElement(name = "flask", type = Flask.class),
+      @XmlElement(name = "tool", type = Tool.class),
+      @XmlElement(name = "weapon", type = Weapon.class),
+      @XmlElement(name = "ladder", type = Ladder.class),
+      @XmlElement(name = "monster", type = Monster.class) })
   public void setObj(FloorObject obj) {
     this.obj = obj;
   }
