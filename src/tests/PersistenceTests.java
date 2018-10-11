@@ -49,10 +49,10 @@ public class PersistenceTests {
     grid[8][2] = "empty_NW";
     grid[9][2] = "empty_NW";
     grid[13][2] = "empty_NW";
-    
+
     MapEditor editor = new MapEditor();
     editor.setGrid(grid);
-    
+
     try {
       Persistence.saveMapEditor(editor, "testEditorSave.xml");
     } catch (PersistenceException e) {
@@ -65,6 +65,11 @@ public class PersistenceTests {
   @Test
   public void testMapEditorLoading() {
     String[][] grid = new String[21][21];
+    for (int i = 0; i < 21; i++) {
+      for (int j = 0; j < 21; j++) {
+        grid[i][j] = "empty_none";
+      }
+    }
     grid[2][2] = "empty_NW";
     grid[3][2] = "empty_NW";
     grid[4][2] = "empty_NW";
@@ -74,10 +79,10 @@ public class PersistenceTests {
     grid[8][2] = "empty_NW";
     grid[9][2] = "empty_NW";
     grid[13][2] = "empty_NW";
-    
+
     MapEditor editor = new MapEditor();
     editor.setGrid(grid);
-    
+
     try {
       Persistence.saveMapEditor(editor, "testEditorLoad.xml");
       MapEditor editor2 = Persistence.loadMapEditor("testEditorLoad.xml");
