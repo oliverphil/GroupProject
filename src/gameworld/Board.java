@@ -131,8 +131,8 @@ public class Board {
     hammer.setName("hammer");
     hammer.setDamage(10);
     crowbar.setWeight(6);
-    hammer.setLocation(new Point(4, 0));
-    this.board[0][4].setObj(hammer);
+    hammer.setLocation(new Point(13, 3));
+    this.board[3][13].setObj(hammer);
 
     Weapon torch = new Weapon();
     torch.setName("torch");
@@ -145,8 +145,8 @@ public class Board {
     sword.setName("khopesh");
     sword.setDamage(20);
     crowbar.setWeight(4);
-    sword.setLocation(new Point(13, 3));
-    this.board[3][13].setObj(sword);
+    sword.setLocation(new Point(0, 4));
+    this.board[4][0].setObj(sword);
 
     // Bombs
     Explosive ex1 = new Explosive();
