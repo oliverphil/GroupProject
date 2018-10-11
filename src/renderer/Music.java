@@ -42,8 +42,8 @@ public class Music {
   }
 
   private void playTrack() {
-    Media track = new Media(
-        new File("src/renderer/music/" + currentFile + ".wav").toURI().toString());
+    Media track = new Media(new File("src" + File.separator + "renderer" + File.separator + "music"
+        + File.separator + currentFile + ".wav").toURI().toString());
     player = new MediaPlayer(track);
     player.setOnEndOfMedia(new Runnable() {
       public void run() {

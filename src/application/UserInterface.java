@@ -67,34 +67,43 @@ public class UserInterface extends Application {
   private List<Item> items = new ArrayList<Item>();
 
   // load arrow images and resize them to 60x60px
-  private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
-      60, 60, false, false);
-  private Image backArrowImage = new Image(getClass().getResourceAsStream("icons/back.png"), 60, 60,
-      false, false);
-  private Image leftArrowImage = new Image(getClass().getResourceAsStream("icons/left.png"), 60, 60,
-      false, false);
-  private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
-      60, false, false);
+  private Image forwardArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false,
+      false);
+  private Image backArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "back.png"), 60, 60, false, false);
+  private Image leftArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "left.png"), 60, 60, false, false);
+  private Image rightArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "right.png"), 60, 60, false, false);
 
   // load backpack icon images
-  private Image boltCutterImage = new Image(getClass().getResourceAsStream("icons/boltCutters.png"),
-      60, 60, false, false);
-  private Image crowbarImage = new Image(getClass().getResourceAsStream("icons/crowbar.png"), 60,
-      60, false, false);
-  private Image hammerImage = new Image(getClass().getResourceAsStream("icons/hammer.png"), 60, 60,
-      false, false);
-  private Image khopeshImage = new Image(getClass().getResourceAsStream("icons/khopesh.png"), 60,
-      60, false, false);
-  private Image pickaxeImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"), 60,
-      60, false, false);
-  private Image torchImage = new Image(getClass().getResourceAsStream("icons/torch.png"), 60, 60,
-      false, false);
-  private Image emptyFlaskImage = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"),
-      60, 60, false, false);
+  private Image boltCutterImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "boltCutters.png"), 60, 60, false,
+      false);
+  private Image crowbarImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "crowbar.png"), 60, 60, false,
+      false);
+  private Image hammerImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "hammer.png"), 60, 60, false,
+      false);
+  private Image khopeshImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "khopesh.png"), 60, 60, false,
+      false);
+  private Image pickaxeImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "pickaxe.png"), 60, 60, false,
+      false);
+  private Image torchImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "torch.png"), 60, 60, false, false);
+  private Image emptyFlaskImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "emptyFlask.png"), 60, 60, false,
+      false);
   private Image healthFlaskImage = new Image(
-      getClass().getResourceAsStream("icons/healthFlask.png"), 60, 60, false, false);
-  private Image powerFlaskImage = new Image(getClass().getResourceAsStream("icons/powerFlask.png"),
-      60, 60, false, false);
+      getClass().getResourceAsStream("icons" + File.separator + "healthFlask.png"), 60, 60, false,
+      false);
+  private Image powerFlaskImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "powerFlask.png"), 60, 60, false,
+      false);
 
   private GameWorld game;
   private GridPane backpackGrid;
