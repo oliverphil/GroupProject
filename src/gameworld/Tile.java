@@ -52,7 +52,7 @@ public class Tile {
   /**
    * Constructs a Tile object using a list of Strings to indicate walls.
    *
-   * @param walls
+   * @param walls a list of walls in the tile
    */
   public Tile(List<String> walls) {
     this.row = 0;
@@ -65,24 +65,18 @@ public class Tile {
     this.walls.addAll(walls);
   }
 
-  /**
-   * @return whether the Tile contains a wall int that direction
-   */
   public boolean hasWall(String dir) {
     return walls.contains(dir);
   }
 
-  /**
-   * @return whether the Tile contains a door in the specified direction.
-   */
   public boolean hasDoor(String dir) {
     return doors.contains(dir);
   }
 
   /**
-   * Adds a wall to a tile if it is not already added
+   * Adds a wall to a tile if it is not already added.
    *
-   * @param wall
+   * @param wall wall to add
    * @return whether the wall was successfully added
    */
   public boolean addWall(String wall) {
@@ -94,9 +88,9 @@ public class Tile {
   }
 
   /**
-   * Adds a door to a tile if it is not already added in that direction
+   * Adds a door to a tile if it is not already added in that direction.
    *
-   * @param door
+   * @param door the door to add
    * @return whether the door was successfully added
    */
   public boolean addDoor(String door) {
@@ -109,8 +103,6 @@ public class Tile {
 
   /**
    * Removes the floor object.
-   * 
-   * @param item the item to set
    */
   public void removeFloorObject() {
     this.obj = null;
@@ -126,9 +118,9 @@ public class Tile {
   }
 
   /**
-   * Removes the specified wall from the Tile object
+   * Removes the specified wall from the Tile object.
    *
-   * @param wall
+   * @param wall wall to remove
    */
   public void removeWall(String wall) {
     if (this.walls.contains(wall)) {
@@ -137,9 +129,9 @@ public class Tile {
   }
 
   /**
-   * Removes the specified door from the Tile object
+   * Removes the specified door from the Tile object.
    *
-   * @param wall
+   * @param door door to remove
    */
   public void removeDoor(String door) {
     if (this.doors.contains(door)) {
@@ -147,23 +139,14 @@ public class Tile {
     }
   }
 
-  /**
-   * @return the column
-   */
   public int getCol() {
     return col;
   }
 
-  /**
-   * @return the row
-   */
   public int getRow() {
     return row;
   }
 
-  /**
-   * @return the occupiedByPlayer
-   */
   public boolean isOccupiedByPlayer() {
     return occupiedByPlayer;
   }

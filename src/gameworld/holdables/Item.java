@@ -1,6 +1,8 @@
 package gameworld.holdables;
 
 import gameworld.FloorObject;
+import gameworld.Player;
+import gameworld.Tile;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
@@ -38,4 +40,8 @@ public abstract class Item extends FloorObject {
     this.weight = weight;
   }
 
+  /**
+   * Use the item if possible.
+   */
+  public abstract void use(Player p, Tile tile);
 }

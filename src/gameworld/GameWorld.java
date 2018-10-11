@@ -1,5 +1,7 @@
 package gameworld;
 
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
@@ -400,10 +402,11 @@ public class GameWorld extends Observable {
    * @param item the item to be used.
    */
   public void useItem(Item item) {
-    if (item instanceof Flask) {
-      ((Flask) item).use(player);
-    }
+    item.use(player, board.getfacingTile(player));
 
+    if (board.getfacingTile(player).getObj().getName().equals("ladder")) {
+      setWon(true);
+    }
   }
 
   /**

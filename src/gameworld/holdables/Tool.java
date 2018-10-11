@@ -2,6 +2,9 @@ package gameworld.holdables;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import gameworld.Player;
+import gameworld.Tile;
+
 public class Tool extends Item {
   private String material;
 
@@ -27,5 +30,10 @@ public class Tool extends Item {
    */
   public String toString() {
     return this.getName();
+  }
+
+  @Override
+  public void use(Player p, Tile tile) {
+    //do nothing
   }
 }
