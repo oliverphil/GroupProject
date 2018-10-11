@@ -87,7 +87,7 @@ public class Board {
     Monster thomas = new Monster();
     thomas.setLocation(new Point(14, 1));
     thomas.setName("thomas");
-    thomas.setDamage(10);
+    thomas.setDamage(15);
     thomas.setHealth(250);
     this.board[1][14].setObj(thomas);
 
