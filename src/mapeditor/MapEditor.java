@@ -1,5 +1,9 @@
 package mapeditor;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,14 +52,7 @@ public class MapEditor extends Application {
   private int col;
   private Application openWindow;
 
-  /**
-   * The main method which launches the window.
-   *
-   * @param args command line arguments
-   */
-  public static void main(String[] args) {
-    launch(args);
-  }
+  private static Map<String, Image> images;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -65,6 +62,18 @@ public class MapEditor extends Application {
       for (int x = 0; x < GRID_WIDTH; x++) {
         grid[x][y] = "0_none";
       }
+    }
+
+    // creates a map of images so
+    images = new HashMap<String, Image>();
+    File iconFolder = new File("src/mapeditor/icons");
+    File[] icons = iconFolder.listFiles();
+
+    for (int i = 0; i < icons.length; i++) {
+      String s = icons[i].getName().replaceAll(".png", "");
+      String toString = icons[i].toString().replaceAll("src/mapeditor/", "");
+      Image img = new Image(getClass().getResource(toString).toString());
+      images.put(s, img);
     }
 
     // adds the first room to the map
@@ -184,7 +193,7 @@ public class MapEditor extends Application {
 
   private int getRow(int y) {
     // calculates which row was clicked on
-    return (int) ((y - 65) / 22);
+    return (int) ((y - 51) / 22);
   }
 
   private void remove(int x, int y) {
@@ -226,8 +235,7 @@ public class MapEditor extends Application {
         String[] gridSquare = (grid[x][y]).split("_");
         currentIcon = gridSquare[0];
         currentDir = gridSquare[1];
-        Image img = new Image(
-            getClass().getResource("icons/" + currentIcon + "_" + currentDir + ".png").toString());
+        Image img = images.get(currentIcon + "_" + currentDir);
         Rectangle rec = new Rectangle(x, y, 20, 20);
         rec.setFill(new ImagePattern(img));
         gridPane.add(rec, x, y);
