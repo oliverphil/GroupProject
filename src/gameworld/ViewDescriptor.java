@@ -90,7 +90,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y - 1 + i][x + 1].hasObject()
-              ? b.getBoard()[y - 1 + i][x + 1].getObj().getName()
+              ? b.getBoard()[y - 1 + i][x + 1].getObj().toString()
               : "clear");
         }
         break;
@@ -108,7 +108,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y + 1][x + 1 - i].hasObject()
-              ? b.getBoard()[y + 1][x + 1 - i].getObj().getName()
+              ? b.getBoard()[y + 1][x + 1 - i].getObj().toString()
               : "clear");
         }
         break;
@@ -126,7 +126,7 @@ public class ViewDescriptor {
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
           view.add(b.getBoard()[y + 1 - i][x - 1].hasObject()
-              ? b.getBoard()[y + 1 - i][x - 1].getObj().getName()
+              ? b.getBoard()[y + 1 - i][x - 1].getObj().toString()
               : "clear");
         }
         break;

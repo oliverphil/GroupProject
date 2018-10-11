@@ -664,9 +664,11 @@ public class Board {
     
     if (!dropped) {
       dropped = board[point.valueY - 1][point.valueX + 1].setObj(item);
-    } else if (!dropped) {
+    }
+    if (!dropped) {
       dropped = board[point.valueY + 1][point.valueX + 1].setObj(item);
-    } else if (!dropped) {
+    }
+    if (!dropped) {
       dropped = board[point.valueY + 1][point.valueX - 1].setObj(item);
     }
 
