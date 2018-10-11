@@ -605,7 +605,7 @@ public class Board {
     // place the object on the floor in the selected position
     switch (dir) {
       case "north":
-        getfacingTile(p).setObj(item);
+        board[point.valueY - 1][point.valueX - (2 - location)].setObj(item);
         break;
       case "south":
         board[point.valueY + 1][point.valueX + (2 - location)].setObj(item);
