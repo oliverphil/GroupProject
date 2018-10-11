@@ -101,7 +101,7 @@ public class Board {
     Flask flask2 = new Flask();
     flask2.setLocation(new Point(0, 7));
     flask2.setName("emptyFlask");
-    flask1.setWeight(1);
+    flask2.setWeight(1);
     this.board[7][0].setObj(flask2);
 
     // Add tools

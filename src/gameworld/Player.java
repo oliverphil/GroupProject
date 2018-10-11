@@ -36,7 +36,7 @@ public class Player {
    * Constructs a player.
    */
   public Player() {
-    bag = new ArrayList<Item>();
+    setBag(new ArrayList<Item>());
     location = new Point(7, 7);
     this.setDirection("north");
 
@@ -213,7 +213,7 @@ public class Player {
    * @param item item to pick up
    */
   public void pickUp(Item item) {
-    this.bag.add(item);
+    addToBag(item);
   }
 
   /**

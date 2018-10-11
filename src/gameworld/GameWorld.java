@@ -103,7 +103,12 @@ public class GameWorld extends Observable {
     update();
   }
   
-  private void interact(String name, int tile) {
+  /**
+   * Overloading the other interact method for ease of testing.
+   * @param name the name of the object
+   * @param tile the tile it is on
+   */
+  public void interact(String name, int tile) {
     switch (name) {
       case "door":
         openDoor();
