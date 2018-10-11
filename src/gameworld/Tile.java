@@ -190,7 +190,7 @@ public class Tile {
       @XmlElement(name = "ladder", type = Ladder.class),
       @XmlElement(name = "monster", type = Monster.class) })
   public boolean setObj(FloorObject obj) {
-    if (this.obj != null || obj == null) {
+    if (this.obj == null || obj == null) {
       this.obj = obj;
       return true;
     }
