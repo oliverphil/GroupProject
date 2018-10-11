@@ -67,12 +67,13 @@ public class MapEditor extends Application {
 
     // creates a map of images so
     images = new HashMap<String, Image>();
-    File iconFolder = new File("src/mapeditor/icons");
+    File iconFolder = new File("src" + File.separator + "mapeditor" + File.separator + "icons");
     File[] icons = iconFolder.listFiles();
 
     for (int i = 0; i < icons.length; i++) {
       String s = icons[i].getName().replaceAll(".png", "");
-      String toString = icons[i].toString().replaceAll("src/mapeditor/", "");
+      String toString = icons[i].toString()
+          .replaceAll("src" + File.separator + "mapeditor" + File.separator + "", "");
       Image img = new Image(getClass().getResource(toString).toString());
       images.put(s, img);
     }
@@ -159,21 +160,29 @@ public class MapEditor extends Application {
         if (row != -1 && col != -1) {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
-          } else if (grid[col][row].endsWith("_NE")) {
+          }
+          if (grid[col][row].endsWith("_NE")) {
             direction = "NE";
-          } else if (grid[col][row].endsWith("_E")) {
+          }
+          if (grid[col][row].endsWith("_E")) {
             direction = "E";
-          } else if (grid[col][row].endsWith("_SE")) {
+          }
+          if (grid[col][row].endsWith("_SE")) {
             direction = "SE";
-          } else if (grid[col][row].endsWith("_S")) {
+          }
+          if (grid[col][row].endsWith("_S")) {
             direction = "S";
-          } else if (grid[col][row].endsWith("_SW")) {
+          }
+          if (grid[col][row].endsWith("_SW")) {
             direction = "SW";
-          } else if (grid[col][row].endsWith("_W")) {
+          }
+          if (grid[col][row].endsWith("_W")) {
             direction = "W";
-          } else if (grid[col][row].endsWith("_NW")) {
+          }
+          if (grid[col][row].endsWith("_NW")) {
             direction = "NW";
-          } else if (grid[col][row].endsWith("_none")) {
+          }
+          if (grid[col][row].endsWith("_none")) {
             direction = "none";
           }
           grid[col][row] = selectedIcon + "_" + direction;
