@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import persistence.Persistence;
@@ -279,10 +280,34 @@ public class MapEditor extends Application {
     return grid;
   }
 
-  @XmlElementWrapper(name = "grid")
-  @XmlElement(name = "gridItem")
+  /*
+   * @XmlElementWrapper(name = "grid")
+   * @XmlElements({ @XmlElement(name = "row", type = String[].class),
+   * @XmlElement(name = "gridItem", type = String.class) })
+   */
+  @XmlElement
   public void setGrid(String[][] grid) {
     this.grid = grid;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof MapEditor)) {
+      return false;
+    }
+    MapEditor o = (MapEditor) other;
+    if (grid == null) {
+      return o.getGrid() == null;
+    }
+    for (int i = 0; i < grid.length; i++) {
+      for (int j = 0; j < grid[i].length; j++) {
+        if (grid[i][j] != null && !grid[i][j].equals(o.getGrid()[i][j])
+            || (grid[i][j] == null && o.getGrid()[i][j] != null)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
 }

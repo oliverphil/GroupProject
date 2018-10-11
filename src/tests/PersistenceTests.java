@@ -64,7 +64,28 @@ public class PersistenceTests {
 
   @Test
   public void testMapEditorLoading() {
-    fail("not yet implemented");
+    String[][] grid = new String[21][21];
+    grid[2][2] = "empty_NW";
+    grid[3][2] = "empty_NW";
+    grid[4][2] = "empty_NW";
+    grid[5][2] = "empty_NW";
+    grid[6][2] = "empty_NW";
+    grid[7][2] = "empty_NW";
+    grid[8][2] = "empty_NW";
+    grid[9][2] = "empty_NW";
+    grid[13][2] = "empty_NW";
+    
+    MapEditor editor = new MapEditor();
+    editor.setGrid(grid);
+    
+    try {
+      Persistence.saveMapEditor(editor, "testEditorLoad.xml");
+      MapEditor editor2 = Persistence.loadMapEditor("testEditorLoad.xml");
+      assertTrue(editor.equals(editor2));
+    } catch (PersistenceException e) {
+      e.printStackTrace();
+      fail("should save mapEditor without errors.");
+    }
   }
 
 }
