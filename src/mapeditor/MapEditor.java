@@ -20,9 +20,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlElement;// 
+// import javax.xml.bind.annotation.XmlElementWrapper;
+// import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import persistence.Persistence;
@@ -126,10 +126,6 @@ public class MapEditor extends Application {
       if (e.getSource() == itemBtn) {
         selectedBtn = "itemBtn";
         openWindow = new IconsMenu();
-      }
-      if (e.getSource() == itemBtn) {
-        selectedBtn = "itemBtn";
-        new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
@@ -242,7 +238,7 @@ public class MapEditor extends Application {
     load.setPrefSize(60, 20);
     load.addEventHandler(ActionEvent.ACTION, actionEventHandler);
 
-    box.getChildren().addAll(floorBtn, itemBtn, remove, save, load);
+    box.getChildren().addAll(save, load);
 
     return box;
   }
