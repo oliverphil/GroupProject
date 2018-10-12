@@ -119,7 +119,7 @@ public class UserInterface extends Application {
     items.clear();
     items.addAll(game.getPlayer().getBag());
     if (selectedItem >= items.size()) {
-      selectedItem = items.size() - 1;
+      selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
     }
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
