@@ -1,20 +1,15 @@
 package application;
 
 import gameworld.GameWorld;
-import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 
-import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JFileChooser;
-
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
@@ -22,9 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -42,6 +35,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+
 import mapeditor.MapEditor;
 import persistence.Persistence;
 import renderer.Renderer;
@@ -49,17 +44,18 @@ import renderer.Renderer;
 public class UserInterface extends Application {
 
   // TODO:
-  // Fix Help Printing 
+  // Fix Help Printing
   // Backpack and move buttons
   // Fix Help Printing
-  // Health bar *Note: Power Flask duration = 10sec 
+  // Health bar *Note: Power Flask duration = 10sec
   // Write Tests [Renderer Tests, add 'Before All' to tests]
 
   // Have a variable in GUI that is filled when an item is selected for either use/drop
-  // Make sure that GUI updates backpack and healthbar each time (Need a redraw for backpack and healthbar)
+  // Make sure that GUI updates backpack and healthbar each time (Need a redraw for backpack and
+  // healthbar)
   // Is player alive (checked on each event) -> Fade to black if dead (call to renderer)
   // Make healthbar a canvas (player.gethealth())
-  
+
   // CRC Card for GUI
   // Read Me for Game (WITH CHARLOTTE)
   // Howard Lukefah = Clippy for Help Page
@@ -67,42 +63,122 @@ public class UserInterface extends Application {
   public static final String HELP_MESSAGE = " ";
   private Stage window;
   private BorderPane layout = new BorderPane();
-  private Item selectedItem;
+  private int selectedItem;
+  private List<Item> items = new ArrayList<Item>();
 
   // load arrow images and resize them to 60x60px
-  private Image forwardArrowImage = new Image(getClass().getResourceAsStream("icons/forward.png"),
-      60, 60, false, false);
-  private Image backArrowImage = new Image(getClass().getResourceAsStream("icons/back.png"), 60, 60,
-      false, false);
-  private Image leftArrowImage = new Image(getClass().getResourceAsStream("icons/left.png"), 60, 60,
-      false, false);
-  private Image rightArrowImage = new Image(getClass().getResourceAsStream("icons/right.png"), 60,
-      60, false, false);
-  
+  private Image forwardArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false,
+      false);
+  private Image backArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "back.png"), 60, 60, false, false);
+  private Image leftArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "left.png"), 60, 60, false, false);
+  private Image rightArrowImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "right.png"), 60, 60, false, false);
+
   // load backpack icon images
-  private Image boltCutterImage = new Image(getClass().getResourceAsStream("icons/boltCutters.png"),
-      60, 60, false, false);
-  private Image crowbarImage = new Image(getClass().getResourceAsStream("icons/crowbar.png"),
-      60, 60, false, false);
-  private Image hammerImage = new Image(getClass().getResourceAsStream("icons/hammer.png"),
-      60, 60, false, false);
-  private Image khopeshImage = new Image(getClass().getResourceAsStream("icons/khopesh.png"),
-      60, 60, false, false);
-  private Image pickaxeImage = new Image(getClass().getResourceAsStream("icons/pickaxe.png"),
-      60, 60, false, false);
-  private Image torchImage = new Image(getClass().getResourceAsStream("icons/torch.png"),
-      60, 60, false, false);
-  private Image emptyFlaskImage = new Image(getClass().getResourceAsStream("icons/emptyFlask.png"),
-      60, 60, false, false);
-  private Image healthFlaskImage = new Image(getClass().getResourceAsStream("icons/healthFlask.png"),
-      60, 60, false, false);
-  private Image powerFlaskImage = new Image(getClass().getResourceAsStream("icons/powerFlask.png"),
-      60, 60, false, false);
+  private Image boltCutterImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "boltCutters.png"), 60, 60, false,
+      false);
+  private Image crowbarImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "crowbar.png"), 60, 60, false,
+      false);
+  private Image hammerImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "hammer.png"), 60, 60, false,
+      false);
+  private Image khopeshImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "khopesh.png"), 60, 60, false,
+      false);
+  private Image pickaxeImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "pickaxe.png"), 60, 60, false,
+      false);
+  private Image torchImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "torch.png"), 60, 60, false, false);
+  private Image emptyFlaskImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "emptyFlask.png"), 60, 60, false,
+      false);
+  private Image healthFlaskImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "healthFlask.png"), 60, 60, false,
+      false);
+  private Image powerFlaskImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "powerFlask.png"), 60, 60, false,
+      false);
 
   private GameWorld game;
+  private GridPane backpackGrid;
 
   public static void main(String[] args) {
     launch(args);
+  }
+
+  private void update() {
+    backpackGrid.getChildren().clear();
+    items.clear();
+    items.addAll(game.getPlayer().getBag());
+    ArrayList<Button> packItemsArray = new ArrayList<Button>();
+
+    for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
+      Item itemInPack = game.getPlayer().getBag().get(i);
+      Button itemButton = new Button();
+
+      switch (itemInPack.toString()) {
+        case "emptyFlask":
+          itemButton.setGraphic(new ImageView(emptyFlaskImage));
+          break;
+        case "crowbar":
+          itemButton.setGraphic(new ImageView(crowbarImage));
+          break;
+        case "powerFlask":
+          itemButton.setGraphic(new ImageView(powerFlaskImage));
+          break;
+        case "healthFlask":
+          itemButton.setGraphic(new ImageView(healthFlaskImage));
+          break;
+        case "pickaxe":
+          itemButton.setGraphic(new ImageView(pickaxeImage));
+          break;
+        case "boltCutters":
+          itemButton.setGraphic(new ImageView(boltCutterImage));
+          break;
+        case "khopesh":
+          itemButton.setGraphic(new ImageView(khopeshImage));
+          break;
+        case "torch":
+          itemButton.setGraphic(new ImageView(torchImage));
+          break;
+        case "hammer":
+          itemButton.setGraphic(new ImageView(hammerImage));
+          break;
+        default:
+          return;
+
+      }
+      itemButton.setAccessibleHelp(((Integer) i).toString());
+      itemButton.setStyle("-fx-background-color: #1d1f23; ");
+      itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+          BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+      itemButton.setOnAction(e -> {
+        selectedItem = Integer.parseInt(itemButton.accessibleHelpProperty().get());
+        drawBorder();
+      });
+      packItemsArray.add(itemButton);
+      backpackGrid.add(itemButton, i, 0);
+    }
+    drawBorder();
+  }
+
+  private void drawBorder() {
+    if (!items.isEmpty()) {
+      for (Node n : backpackGrid.getChildren()) {
+        Button b = (Button) n;
+        b.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+            new CornerRadii(3), BorderWidths.DEFAULT)));
+      }
+      ((Button) backpackGrid.getChildren().get(selectedItem))
+          .setBorder(new Border(new BorderStroke(Color.rgb(255, 0, 0), BorderStrokeStyle.SOLID,
+              new CornerRadii(3), BorderWidths.DEFAULT)));
+    }
   }
 
   @Override
@@ -118,7 +194,7 @@ public class UserInterface extends Application {
     Label t = new Label("Game");
     t.setStyle("-fx-text-fill: #D39365; ");
     gameMenu.setGraphic(t);
-    
+
     MenuItem save = new MenuItem("Save...");
     save.setOnAction(e -> {
       JFileChooser getFile = new JFileChooser();
@@ -160,13 +236,6 @@ public class UserInterface extends Application {
     // Settings Menu
     CheckMenuItem toggleMusic = new CheckMenuItem("Enable Sound");
     toggleMusic.setSelected(true);
-    toggleMusic.setOnAction(e -> {
-      if (toggleMusic.isSelected()) {
-        System.out.println("Audio is on");
-      } else {
-        System.out.println("Audio is off");
-      }
-    });
 
     // Options Menu
     Menu optionsMenu = new Menu("");
@@ -203,6 +272,7 @@ public class UserInterface extends Application {
     Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
+      update();
     });
     centerScreen.getChildren().add(gameScreen);
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -221,6 +291,13 @@ public class UserInterface extends Application {
         game.update();
       }
     });
+    toggleMusic.setOnAction(e -> {
+      if (toggleMusic.isSelected()) {
+        gameScreen.unmute();
+      } else {
+        gameScreen.mute();
+      }
+    });
     /* CANVAS END */
 
     /* BOTTOM SCREEN START */
@@ -231,7 +308,10 @@ public class UserInterface extends Application {
     lookLeft.setStyle("-fx-background-color: #1d1f23; ");
     lookLeft.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    lookLeft.setOnAction(e -> game.rotateLeft());
+    lookLeft.setOnAction(e -> {
+      game.rotateLeft();
+      update();
+    });
 
     Button lookRight = new Button();
     lookRight.scaleShapeProperty();
@@ -239,7 +319,10 @@ public class UserInterface extends Application {
     lookRight.setStyle("-fx-background-color: #1d1f23; ");
     lookRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    lookRight.setOnAction(e -> game.rotateRight());
+    lookRight.setOnAction(e -> {
+      game.rotateRight();
+      update();
+    });
 
     Button moveForward = new Button();
     moveForward.scaleShapeProperty();
@@ -247,7 +330,10 @@ public class UserInterface extends Application {
     moveForward.setStyle("-fx-background-color: #1d1f23; ");
     moveForward.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    moveForward.setOnAction(e -> game.moveForward());
+    moveForward.setOnAction(e -> {
+      game.moveForward();
+      update();
+    });
 
     Button moveBack = new Button();
     moveBack.scaleShapeProperty();
@@ -255,7 +341,10 @@ public class UserInterface extends Application {
     moveBack.setStyle("-fx-background-color: #1d1f23; ");
     moveBack.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    moveBack.setOnAction(e -> game.moveBackwards());
+    moveBack.setOnAction(e -> {
+      game.moveBackwards();
+      update();
+    });
 
     Button dropItem = new Button("Drop Item");
     dropItem.scaleShapeProperty();
@@ -263,7 +352,14 @@ public class UserInterface extends Application {
     dropItem.setStyle("-fx-background-color: #1d1f23; ");
     dropItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    dropItem.setOnAction(e -> System.out.println("Dropped Item"));
+    dropItem.setOnAction(e -> {
+      if (!items.isEmpty()) {
+        game.dropItem(items.get(selectedItem));
+        items.remove(selectedItem);
+        selectedItem = selectedItem > 0 ? selectedItem - 1 : 0;
+      }
+      update();
+    });
 
     Button useItem = new Button("Use Item");
     useItem.scaleShapeProperty();
@@ -271,9 +367,16 @@ public class UserInterface extends Application {
     useItem.setStyle("-fx-background-color: #1d1f23; ");
     useItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
-    useItem.setOnAction(e -> System.out.println("Used Item"));
+    useItem.setOnAction(e -> {
+      if (!items.isEmpty()) {
+        game.useItem(items.get(selectedItem));
+      }
+      update();
+    });
 
-    moveBack.setOnAction(e -> game.moveBackwards());
+    moveBack.setOnAction(e -> {
+      game.moveBackwards();
+    });
 
     VBox bottomScreen = new VBox();
     bottomScreen.scaleShapeProperty();
@@ -281,8 +384,10 @@ public class UserInterface extends Application {
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
     // Backpack
-    GridPane backpackGrid = new GridPane();
+    backpackGrid = new GridPane();
+    backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
+
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
     
@@ -304,6 +409,10 @@ public class UserInterface extends Application {
       }
       
     }
+
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -339,11 +448,12 @@ public class UserInterface extends Application {
     bottomScreenLeft.getChildren().addAll(buttonGrid);
 
     VBox bottomScreenRight = new VBox();
+    bottomScreenRight.setScaleShape(true);
     bottomScreenRight.scaleShapeProperty();
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    
-    bottomScreenRight.getChildren().addAll(backpackGrid);                        //TODO: Figure out why not displaying
+
+    bottomScreenRight.getChildren().addAll(backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
@@ -363,7 +473,10 @@ public class UserInterface extends Application {
       } else if (k.getCode() == KeyCode.D) {
         game.rotateRight();
       }
+      update();
     });
+
+    update();
 
     // allows scene to be visible
     layout.setBackground(Background.EMPTY);
@@ -378,6 +491,7 @@ public class UserInterface extends Application {
     window.show();
   }
 }
+
 
 /*
  * A special kind of Button that represents an item
@@ -405,3 +519,4 @@ class itemButton extends Label {
     return anItemButton;
   }
 }
+

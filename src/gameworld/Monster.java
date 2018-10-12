@@ -14,6 +14,7 @@ public class Monster extends FloorObject {
 
   /**
    * Return the current health of the Monster.
+   * 
    * @return the health
    */
   public int getHealth() {
@@ -22,6 +23,7 @@ public class Monster extends FloorObject {
 
   /**
    * Sets the monsters health.
+   * 
    * @param health health to set the monster to
    */
   @XmlElement(name = "health")
@@ -31,6 +33,7 @@ public class Monster extends FloorObject {
 
   /**
    * Add health to the Monster.
+   * 
    * @param health to add
    */
   public void addHealth(int health) {
@@ -39,6 +42,7 @@ public class Monster extends FloorObject {
 
   /**
    * Remove health from the Monster.
+   * 
    * @param health to remove
    */
   public void removeHealth(int health) {
@@ -47,6 +51,7 @@ public class Monster extends FloorObject {
 
   /**
    * Returns damage dealt by monster.
+   * 
    * @return the damage
    */
   public int getDamage() {
@@ -55,10 +60,45 @@ public class Monster extends FloorObject {
 
   /**
    * Sets damage.
+   * 
    * @param damage the damage to set
    */
   @XmlElement(name = "damage")
   public void setDamage(int damage) {
     this.damage = damage;
+  }
+  
+  public String toString() {
+    return this.getName();
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + damage;
+    result = prime * result + health;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Monster other = (Monster) obj;
+    if (damage != other.damage) {
+      return false;
+    }
+    if (health != other.health) {
+      return false;
+    }
+    return true;
   }
 }

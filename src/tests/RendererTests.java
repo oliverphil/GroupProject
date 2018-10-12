@@ -34,7 +34,7 @@ import renderer.Renderer.ItemOnScreen;
 
 /**
  * A suite of tests written to test the functionality of the renderer.
- * 
+ *
  * @author Philip Oliver - 300398228
  *
  */
@@ -53,22 +53,14 @@ public class RendererTests {
 
   private Renderer getMutedRenderer() {
     Renderer renderer = new Renderer(3, 3);
-    try {
-      Field music = Renderer.class.getDeclaredField("musicPlayer");
-      music.setAccessible(true);
-      Music player = (Music) music.get(renderer);
-      player.mute();
-    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-        | IllegalAccessException e) {
-      fail("Should be able to mute music");
-    }
+    renderer.mute();
     return renderer;
   }
 
   /**
    * Creates a new JFXPanel so that when Renderer is created there is an application for the
    * MediaPlayer to use.
-   * 
+   *
    * @throws InterruptedException exception to ensure tests aren't run without a JFXPanel
    */
   @BeforeAll
@@ -707,7 +699,7 @@ public class RendererTests {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
       objects.set(other, Arrays.asList(new ItemOnScreen[] {
-          other.new ItemOnScreen((3.0 / 2) - (500.0 / 2), 0, 500.0, 500.0, 2, "stoneBlockade") }));
+          other.new ItemOnScreen((3.0 / 2) - (400.0 / 2), 0, 400.0, 400.0, 2, "stoneBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");

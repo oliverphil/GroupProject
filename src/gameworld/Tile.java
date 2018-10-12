@@ -5,7 +5,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
 
 /**
  * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
@@ -52,7 +59,7 @@ public class Tile {
   /**
    * Constructs a Tile object using a list of Strings to indicate walls.
    *
-   * @param walls
+   * @param walls a list of walls in the tile
    */
   public Tile(List<String> walls) {
     this.row = 0;
@@ -65,24 +72,18 @@ public class Tile {
     this.walls.addAll(walls);
   }
 
-  /**
-   * @return whether the Tile contains a wall int that direction
-   */
   public boolean hasWall(String dir) {
     return walls.contains(dir);
   }
 
-  /**
-   * @return whether the Tile contains a door in the specified direction.
-   */
   public boolean hasDoor(String dir) {
     return doors.contains(dir);
   }
 
   /**
-   * Adds a wall to a tile if it is not already added
+   * Adds a wall to a tile if it is not already added.
    *
-   * @param wall
+   * @param wall wall to add
    * @return whether the wall was successfully added
    */
   public boolean addWall(String wall) {
@@ -94,9 +95,9 @@ public class Tile {
   }
 
   /**
-   * Adds a door to a tile if it is not already added in that direction
+   * Adds a door to a tile if it is not already added in that direction.
    *
-   * @param door
+   * @param door the door to add
    * @return whether the door was successfully added
    */
   public boolean addDoor(String door) {
@@ -108,25 +109,7 @@ public class Tile {
   }
 
   /**
-   * @return the object on
-   */
-  public FloorObject getFloorObject() {
-    return obj;
-  }
-
-  /**
-   * @param item the item to set
-   */
-  public void setFloorObject(FloorObject item) {
-    if (!hasObject() || item == null) {
-      this.obj = item;
-    }
-  }
-
-  /**
    * Removes the floor object.
-   * 
-   * @param item the item to set
    */
   public void removeFloorObject() {
     this.obj = null;
@@ -142,9 +125,9 @@ public class Tile {
   }
 
   /**
-   * Removes the specified wall from the Tile object
+   * Removes the specified wall from the Tile object.
    *
-   * @param wall
+   * @param wall wall to remove
    */
   public void removeWall(String wall) {
     if (this.walls.contains(wall)) {
@@ -153,9 +136,9 @@ public class Tile {
   }
 
   /**
-   * Removes the specified door from the Tile object
+   * Removes the specified door from the Tile object.
    *
-   * @param wall
+   * @param door door to remove
    */
   public void removeDoor(String door) {
     if (this.doors.contains(door)) {
@@ -163,23 +146,14 @@ public class Tile {
     }
   }
 
-  /**
-   * @return the column
-   */
   public int getCol() {
     return col;
   }
 
-  /**
-   * @return the row
-   */
   public int getRow() {
     return row;
   }
 
-  /**
-   * @return the occupiedByPlayer
-   */
   public boolean isOccupiedByPlayer() {
     return occupiedByPlayer;
   }
@@ -201,9 +175,26 @@ public class Tile {
     this.doors = doors;
   }
 
-  @XmlElement(name = "obj")
-  public void setObj(FloorObject obj) {
-    this.obj = obj;
+  /**
+   * Sets the object to be the selected object or null, if there is no object currently in this
+   * Tile.
+   *
+   * @param obj object to add to the tile
+   */
+  @XmlElements({ @XmlElement(name = "barrier", type = Barrier.class),
+      @XmlElement(name = "fountain", type = Fountain.class),
+      @XmlElement(name = "explosive", type = Explosive.class),
+      @XmlElement(name = "flask", type = Flask.class),
+      @XmlElement(name = "tool", type = Tool.class),
+      @XmlElement(name = "weapon", type = Weapon.class),
+      @XmlElement(name = "ladder", type = Ladder.class),
+      @XmlElement(name = "monster", type = Monster.class) })
+  public boolean setObj(FloorObject obj) {
+    if (this.obj == null || obj == null) {
+      this.obj = obj;
+      return true;
+    }
+    return false;
   }
 
   @XmlElement(name = "col")
@@ -226,6 +217,52 @@ public class Tile {
 
   public FloorObject getObj() {
     return obj;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + col;
+    result = prime * result + ((doors == null) ? 0 : doors.hashCode());
+    result = prime * result + ((obj == null) ? 0 : obj.hashCode());
+    result = prime * result + (occupiedByPlayer ? 1231 : 1237);
+    result = prime * result + row;
+    result = prime * result + ((walls == null) ? 0 : walls.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Tile other = (Tile) obj;
+    if (col != other.col)
+      return false;
+    if (doors == null) {
+      if (other.doors != null)
+        return false;
+    } else if (!doors.equals(other.doors))
+      return false;
+    if (this.obj == null) {
+      if (other.obj != null)
+        return false;
+    } else if (!this.obj.equals(other.obj))
+      return false;
+    if (occupiedByPlayer != other.occupiedByPlayer)
+      return false;
+    if (row != other.row)
+      return false;
+    if (walls == null) {
+      if (other.walls != null)
+        return false;
+    } else if (!walls.equals(other.walls))
+      return false;
+    return true;
   }
 
 }

@@ -1,27 +1,21 @@
 package gameworld;
 
-import gameworld.barriers.Barrier;
-import gameworld.holdables.Item;
-
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Items are objects found in the game world that can be weapons or tools to help a player along
  * their journey.
- * 
+ *
  * @author ewensdyla
  *
  */
-@XmlTransient
 public abstract class FloorObject {
   private String name;
   private Point location;
 
   /**
    * Construct a new FloorObject.
-   * 
+   *
    */
   public FloorObject() {
     setName("");
@@ -30,7 +24,7 @@ public abstract class FloorObject {
 
   /**
    * getName.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -39,21 +33,17 @@ public abstract class FloorObject {
 
   /**
    * setName.
-   * 
+   *
    * @param name the name to set
    */
-  @XmlElements({ @XmlElement(name = "fountainName", type = Fountain.class),
-      @XmlElement(name = "itemName", type = Item.class),
-      @XmlElement(name = "ladderName", type = Ladder.class),
-      @XmlElement(name = "monsterName", type = Monster.class),
-      @XmlElement(name = "barrierName", type = Barrier.class) })
+  @XmlElement
   public void setName(String name) {
     this.name = name;
   }
 
   /**
    * getLocation.
-   * 
+   *
    * @return the location
    */
   public Point getLocation() {
@@ -62,16 +52,51 @@ public abstract class FloorObject {
 
   /**
    * setLocation.
-   * 
+   *
    * @param location the location to set
    */
-  @XmlElements({ @XmlElement(name = "fountainLocation", type = Fountain.class),
-      @XmlElement(name = "itemLocation", type = Item.class),
-      @XmlElement(name = "ladderLocation", type = Ladder.class),
-      @XmlElement(name = "monsterLocation", type = Monster.class),
-      @XmlElement(name = "barrierLocation", type = Barrier.class) })
+
+  @XmlElement
   public void setLocation(Point location) {
     this.location = location;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((location == null) ? 0 : location.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    FloorObject other = (FloorObject) obj;
+    if (location == null) {
+      if (other.location != null) {
+        return false;
+      }
+    } else if (!location.equals(other.location)) {
+      return false;
+    }
+    if (name == null) {
+      if (other.name != null) {
+        return false;
+      }
+    } else if (!name.equals(other.name)) {
+      return false;
+    }
+    return true;
   }
 
 }

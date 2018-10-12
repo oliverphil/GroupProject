@@ -24,14 +24,16 @@ import javafx.scene.paint.Color;
  */
 public class Renderer extends Canvas implements Observer {
 
+  //TODO: bombs, credits, tests, fade to white and black
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
+  private boolean muted = false;
 
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width the width of the renderer
+   * @param width  the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -83,6 +85,8 @@ public class Renderer extends Canvas implements Observer {
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
+
+    boolean boss = false;
 
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
@@ -159,6 +163,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
               getHeight(), 2, "david"));
+          boss = true;
           break;
         case "marco":
           Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
@@ -166,6 +171,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
               getHeight(), 2, "marco"));
+          boss = true;
           break;
         case "thomas":
           Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
@@ -173,6 +179,7 @@ public class Renderer extends Canvas implements Observer {
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
               getHeight(), 2, "thomas"));
+          boss = true;
           break;
         case "woodenBlockade":
           Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
@@ -182,9 +189,10 @@ public class Renderer extends Canvas implements Observer {
           break;
         case "stoneBlockade":
           Image stoneBlock = new Image(getClass().getResourceAsStream("images/stoneBlockade.png"));
-          gc.drawImage(stoneBlock, (getWidth() / 2) - (stoneBlock.getWidth() / 2), 0);
-          objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (stoneBlock.getWidth() / 2), 0,
-              stoneBlock.getWidth(), stoneBlock.getHeight(), 2, "stoneBlockade"));
+          gc.drawImage(stoneBlock, getWidth() / 3, 100,
+              getWidth() / 3, stoneBlock.getHeight());
+          objectsOnScreen.add(new ItemOnScreen(getWidth() / 3, 0,
+              stoneBlock.getWidth(), getHeight() * 2 / 3, 2, "stoneBlockade"));
           break;
         case "chainBlockade":
           Image chainBlock = new Image(getClass().getResourceAsStream("images/chainBlockade.png"));
@@ -222,12 +230,28 @@ public class Renderer extends Canvas implements Observer {
       i++;
     }
 
+    if (boss && view.getMonsterHealth() != -1) {
+      double scale = 200.0 / 250.0;
+      gc.setFill(Color.GREEN);
+      gc.fillRect((getWidth() / 2) - 100, 50, view.getMonsterHealth() * scale, 10);
+      gc.setFill(Color.RED);
+      gc.fillRect(((getWidth() / 2) - 100) + (view.getMonsterHealth() * scale), 50,
+          (250 - view.getMonsterHealth()) * scale, 10);
+      gc.setFill(Color.BLACK);
+      gc.strokeRect((getWidth() / 2) - 100, 50, 200, 10);
+    }
+
     if (visibleTiles.size() == 8) {
       String musicFile = visibleTiles.get(7);
       if (musicFile.equals("")) {
         musicFile = "tunnels";
       }
       musicPlayer.update(musicFile);
+      if (muted) {
+        musicPlayer.mute();
+      } else {
+        musicPlayer.unmute();
+      }
 
       String dir = visibleTiles.get(6);
       String dirIcon;
@@ -254,6 +278,16 @@ public class Renderer extends Canvas implements Observer {
     Collections.reverse(objectsOnScreen);
   }
 
+  public void mute() {
+    muted = true;
+    musicPlayer.mute();
+  }
+
+  public void unmute() {
+    muted = false;
+    musicPlayer.unmute();
+  }
+
   /**
    * A method which takes a mouse click and returns a string describing the object that the player
    * has clicked on.
@@ -270,11 +304,30 @@ public class Renderer extends Canvas implements Observer {
     return new ItemOnScreen(0, 0, 0, 0, 0, "");
   }
 
+  private void fadeToBlack() {
+    System.out.println("DEAD");
+  }
+
+  private void fadeToWhite() {
+    System.out.println("WON");
+  }
+
   @Override
   public void update(Observable arg0, Object arg1) {
     // *********OBSERVER PATTERN********* //
     if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof ViewDescriptor) {
       redraw((ViewDescriptor) arg1);
+    } else if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof String) {
+      switch ((String) arg1) {
+        case "won":
+          fadeToWhite();
+          break;
+        case "dead":
+          fadeToBlack();
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -319,11 +372,11 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param obj    a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;

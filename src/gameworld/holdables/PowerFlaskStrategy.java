@@ -1,18 +1,17 @@
 package gameworld.holdables;
 
+import gameworld.Player;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-import gameworld.Player;
-import gameworld.holdables.Flask.ContentsStrategy;
-
 @XmlRootElement
-class PowerFlaskStrategy implements ContentsStrategy {
+class PowerFlaskStrategy extends ContentsStrategy {
 
   @Override
   public void use(Player pl) {
-    // TODO increase player damage or resistence
+    pl.setTime((double) System.currentTimeMillis());
   }
-  
+
   public String toString() {
     return "powerFlask";
   }

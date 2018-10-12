@@ -1,5 +1,7 @@
 package gameworld;
 
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
@@ -22,6 +24,7 @@ import renderer.Renderer.ItemOnScreen;
 public class GameWorld extends Observable {
 
   private boolean won;
+  private boolean playerAlive;
 
   private Player player;
   private Board board;
@@ -62,6 +65,7 @@ public class GameWorld extends Observable {
    */
   public void moveForward() {
     board.goForwards(this.player, won);
+    resetMonsterHealth();
     update();
   }
 
@@ -71,6 +75,7 @@ public class GameWorld extends Observable {
    */
   public void moveBackwards() {
     board.goBack(this.player, won);
+    resetMonsterHealth();
     update();
   }
 
@@ -94,13 +99,22 @@ public class GameWorld extends Observable {
    * Called on click, passes the image clicked on.
    */
   public void interact(ItemOnScreen name) {
-
-    switch (name.toString()) {
+    interact(name.toString(), name.getTile());  
+    update();
+  }
+  
+  /**
+   * Overloading the other interact method for ease of testing.
+   * @param name the name of the object
+   * @param tile the tile it is on
+   */
+  public void interact(String name, int tile) {
+    switch (name) {
       case "door":
         openDoor();
         break;
 
-      //bosses
+      // bosses
       case "david":
         attack("david");
         break;
@@ -114,19 +128,19 @@ public class GameWorld extends Observable {
       // Items
       case "emptyFlask":
         player.pickUp(new Flask());
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
       case "powerFlask":
         Flask pf = new Flask();
         pf.fill("power");
         player.pickUp(pf);
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
       case "healthFlask":
         Flask hf = new Flask();
         hf.fill("health");
         player.pickUp(hf);
-        board.removeObject(player, name.getTile());
+        board.removeObject(player, tile);
         break;
 
       // tools
@@ -138,14 +152,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(cb);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool cb = new Tool();
           cb.setMaterial("woodenBlockade");
           cb.setName("crowbar");
           player.pickUp(cb);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "pickaxe":
@@ -156,14 +170,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(pa);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool pa = new Tool();
           pa.setMaterial("stoneBlockade");
           pa.setName("pickaxe");
           player.pickUp(pa);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "boltCutters":
@@ -174,14 +188,14 @@ public class GameWorld extends Observable {
           Tool tool = player.getTool();
           player.pickUp(bc);
           player.dropItem(tool);
-          board.removeObject(player, name.getTile());
-          board.place(player, tool, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, tool, tile);
         } else {
           Tool bc = new Tool();
           bc.setMaterial("chainBlockade");
           bc.setName("boltCutters");
           player.pickUp(bc);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
 
@@ -194,14 +208,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(hm);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon hm = new Weapon();
           hm.setDamage(10);
           hm.setName("hammer");
           player.pickUp(hm);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "torch":
@@ -212,14 +226,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(tr);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon tr = new Weapon();
           tr.setDamage(15);
           tr.setName("torch");
           player.pickUp(tr);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
       case "khopesh":
@@ -230,14 +244,14 @@ public class GameWorld extends Observable {
           Weapon weap = player.getWeapon();
           player.pickUp(kp);
           player.dropItem(weap);
-          board.removeObject(player, name.getTile());
-          board.place(player, weap, name.getTile());
+          board.removeObject(player, tile);
+          board.place(player, weap, tile);
         } else {
           Weapon kp = new Weapon();
           kp.setDamage(20);
           kp.setName("khopesh");
           player.pickUp(kp);
-          board.removeObject(player, name.getTile());
+          board.removeObject(player, tile);
         }
         break;
 
@@ -264,7 +278,7 @@ public class GameWorld extends Observable {
         }
         break;
 
-      //fountains
+      // fountains
       case "powerFountain":
         player.fill("power");
         break;
@@ -272,23 +286,24 @@ public class GameWorld extends Observable {
         player.fill("health");
         break;
 
-        //game won
+      // game won
       case "ladder":
         win();
         break;
       default:
         break;
     }
-    update();
   }
 
   private void win() {
-    //TODO
+    setChanged();
+    notifyObservers("won");
   }
 
   /**
    * Called by the interact method when the player is fighting a boss.
-   * @param name of the boss to fight
+   * 
+   * @param name the name of the boss to fight
    */
   private void attack(String boss) {
 
@@ -296,61 +311,100 @@ public class GameWorld extends Observable {
 
     switch (boss) {
       case "david":
-        Monster dave = (Monster) this.board.getBoard()[13][0].getFloorObject();
+        Monster dave = (Monster) this.board.getBoard()[13][0].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("khopesh")) {
-            dave.removeHealth(50);
+            if (player.isStrengthened()) {
+              dave.removeHealth(70);
+            } else {
+              dave.removeHealth(50);
+            }
           } else {
-            dave.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              dave.removeHealth(weap.getDamage() + 20);
+            } else {
+              dave.removeHealth(weap.getDamage());
+            }
           }
+          // unarmed combat
         } else {
-          dave.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            dave.removeHealth(25);
+          } else {
+            dave.removeHealth(5);
+          }
         }
         if (dave.getHealth() > 0) {
           player.setHealth(player.getHealth() - dave.getDamage());
         } else {
-          this.board.getBoard()[13][0].setFloorObject(null);
-          this.board.getBoard()[13][0].setFloorObject(new Ladder());
+          this.board.getBoard()[13][0].setObj(null);
+          this.board.getBoard()[13][0].setObj(new Ladder());
           setWon(true);
         }
         break;
 
       case "marco":
-        Monster marco = (Monster) this.board.getBoard()[0][1].getFloorObject();
+        Monster marco = (Monster) this.board.getBoard()[0][1].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("torch")) {
-            marco.removeHealth(50);
+            if (player.isStrengthened()) {
+              marco.removeHealth(70);
+            } else {
+              marco.removeHealth(50);
+            }
           } else {
-            marco.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              marco.removeHealth(weap.getDamage() + 20);
+            } else {
+              marco.removeHealth(weap.getDamage());
+            }
           }
+          // unarmed combat
         } else {
-          marco.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            marco.removeHealth(25);
+          } else {
+            marco.removeHealth(5);
+          }
         }
         if (marco.getHealth() > 0) {
           player.setHealth(player.getHealth() - marco.getDamage());
         } else {
-          this.board.getBoard()[0][1].setFloorObject(null);
+          this.board.getBoard()[0][1].setObj(null);
         }
         break;
 
       case "thomas":
-        Monster thomas = (Monster) this.board.getBoard()[1][14].getFloorObject();
+        Monster thomas = (Monster) this.board.getBoard()[1][14].getObj();
 
         if (weap != null) {
           if (weap.getName().equals("hammer")) {
-            thomas.removeHealth(50);
+            if (player.isStrengthened()) {
+              thomas.removeHealth(70);
+            } else {
+              thomas.removeHealth(50);
+            }
           } else {
-            thomas.removeHealth(weap.getDamage());
+            if (player.isStrengthened()) {
+              thomas.removeHealth(weap.getDamage() + 20);
+            } else {
+              thomas.removeHealth(weap.getDamage());
+            }
           }
+          // unarmed combat
         } else {
-          thomas.removeHealth(5); //unarmed combat
+          if (player.isStrengthened()) {
+            thomas.removeHealth(25);
+          } else {
+            thomas.removeHealth(5);
+          }
         }
         if (thomas.getHealth() > 0) {
           player.setHealth(player.getHealth() - thomas.getDamage());
         } else {
-          this.board.getBoard()[1][14].setFloorObject(null);
+          this.board.getBoard()[1][14].setObj(null);
         }
         break;
       default:
@@ -358,7 +412,9 @@ public class GameWorld extends Observable {
     }
 
     if (player.getHealth() < 1) {
-      //TODO player loses
+      setPlayerAlive(false);
+      setChanged();
+      notifyObservers("dead");
     }
 
   }
@@ -390,29 +446,57 @@ public class GameWorld extends Observable {
   public Board getBoard() {
     return board;
   }
-  
+
   /**
    * Uses the item that is selected on the players hot bar.
-   * @param item
+   * 
+   * @param item the item to be used.
    */
   public void useItem(Item item) {
-    //TODO
+    item.use(player, board.getfacingTile(player));
+
+    FloorObject obj = board.getfacingTile(player).getObj();
+    if (obj != null) {
+      if (obj.getName().equals("ladder")) {
+        setWon(true);
+      }
+    }
+    update();
   }
 
   /**
    * Drops the item that is selected on the players hot bar.
-   * @param item
+   * 
+   * @param item the item to be dropped.
    */
   public void dropItem(Item item) {
-    //TODO
+    board.dropItem(player, item);
+    update();
   }
-  
+
   /**
    * Called when the player clicks on the door in front of them.
    */
   public void openDoor() {
     board.openDoor(player);
     update();
+  }
+
+  private void resetMonsterHealth() {
+    if (!won) {
+      Monster david = (Monster) board.getBoard()[13][0].getObj();
+      if (david != null) {
+        david.setHealth(250);
+      }
+      Monster marco = (Monster) board.getBoard()[0][1].getObj();
+      if (marco != null) {
+        marco.setHealth(250);
+      }
+      Monster thomas = (Monster) board.getBoard()[1][14].getObj();
+      if (thomas != null) {
+        thomas.setHealth(250);
+      }
+    }
   }
 
   @Override
@@ -424,18 +508,20 @@ public class GameWorld extends Observable {
     return false;
   }
 
-  /**
-   * @return the won
-   */
   public boolean isWon() {
     return won;
   }
 
-  /**
-   * @param won the won to set
-   */
   @XmlElement
   public void setWon(boolean won) {
     this.won = won;
+  }
+
+  public boolean isPlayerAlive() {
+    return playerAlive;
+  }
+
+  public void setPlayerAlive(boolean playerAlive) {
+    this.playerAlive = playerAlive;
   }
 }
