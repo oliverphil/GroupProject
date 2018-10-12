@@ -3,6 +3,7 @@ package renderer;
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,7 @@ import javafx.scene.paint.Color;
  */
 public class Renderer extends Canvas implements Observer {
 
-  //TODO: bombs, credits, tests, fade to white and black
+  // TODO: bombs, credits, tests, fade to white and black
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
@@ -33,7 +34,7 @@ public class Renderer extends Canvas implements Observer {
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width  the width of the renderer
+   * @param width the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -59,26 +60,30 @@ public class Renderer extends Canvas implements Observer {
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "door":
-          Image closedDoor = new Image(getClass().getResourceAsStream("images/closedDoor.png"));
+          Image closedDoor = new Image(
+              getClass().getResource("images" + File.separator + "closedDoor.png").toString());
           gc.drawImage(closedDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           objectsOnScreen
               .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "door"));
           break;
         case "clear":
-          Image openDoor = new Image(getClass().getResourceAsStream("images/openDoor.png"));
+          Image openDoor = new Image(
+              getClass().getResource("images" + File.separator + "openDoor.png").toString());
           gc.drawImage(openDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           objectsOnScreen
               .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "clear"));
           break;
         default:
-          Image wall = new Image(getClass().getResourceAsStream("images/wall.png"));
+          Image wall = new Image(
+              getClass().getResource("images" + File.separator + "wall.png").toString());
           gc.drawImage(wall, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           break;
       }
       i++;
     }
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
-      Image floor = new Image(getClass().getResourceAsStream("images/floor.png"));
+      Image floor = new Image(
+          getClass().getResource("images" + File.separator + "floor.png").toString());
       gc.drawImage(floor, x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
     }
 
@@ -91,7 +96,8 @@ public class Renderer extends Canvas implements Observer {
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       switch (visibleTiles.get(i)) {
         case "emptyFlask":
-          Image emptyFlask = new Image(getClass().getResourceAsStream("images/emptyFlask.png"));
+          Image emptyFlask = new Image(
+              getClass().getResource("images" + File.separator + "emptyFlask.png").toString());
           gc.drawImage(emptyFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
@@ -99,7 +105,8 @@ public class Renderer extends Canvas implements Observer {
               "emptyFlask"));
           break;
         case "healthFlask":
-          Image healthFlask = new Image(getClass().getResourceAsStream("images/healthFlask.png"));
+          Image healthFlask = new Image(
+              getClass().getResource("images" + File.separator + "healthFlask.png").toString());
           gc.drawImage(healthFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
@@ -107,7 +114,8 @@ public class Renderer extends Canvas implements Observer {
               "healthFlask"));
           break;
         case "powerFlask":
-          Image powerFlask = new Image(getClass().getResourceAsStream("images/powerFlask.png"));
+          Image powerFlask = new Image(
+              getClass().getResource("images" + File.separator + "powerFlask.png").toString());
           gc.drawImage(powerFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
@@ -115,21 +123,24 @@ public class Renderer extends Canvas implements Observer {
               "powerFlask"));
           break;
         case "crowbar":
-          Image crowbar = new Image(getClass().getResourceAsStream("images/crowbar.png"));
+          Image crowbar = new Image(
+              getClass().getResource("images" + File.separator + "crowbar.png").toString());
           gc.drawImage(crowbar, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "crowbar"));
           break;
         case "pickaxe":
-          Image pickaxe = new Image(getClass().getResourceAsStream("images/pickaxe.png"));
+          Image pickaxe = new Image(
+              getClass().getResource("images" + File.separator + "pickaxe.png").toString());
           gc.drawImage(pickaxe, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "pickaxe"));
           break;
         case "boltCutters":
-          Image boltCutters = new Image(getClass().getResourceAsStream("images/boltCutters.png"));
+          Image boltCutters = new Image(
+              getClass().getResource("images" + File.separator + "boltCutters.png").toString());
           gc.drawImage(boltCutters, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
@@ -137,28 +148,34 @@ public class Renderer extends Canvas implements Observer {
               "boltCutters"));
           break;
         case "khopesh":
-          Image khopesh = new Image(getClass().getResourceAsStream("images/khopesh.png"));
+          Image khopesh = new Image(
+              getClass().getResource("images" + File.separator + "khopesh.png").toString());
           gc.drawImage(khopesh, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "khopesh"));
           break;
         case "torch":
-          Image torch = new Image(getClass().getResourceAsStream("images/torch.png"));
+          Image torch = new Image(
+              getClass().getResource("images" + File.separator + "torch.png").toString());
           gc.drawImage(torch, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "torch"));
           break;
         case "hammer":
-          Image hammer = new Image(getClass().getResourceAsStream("images/hammer.png"));
+          Image hammer = new Image(
+              getClass().getResource("images" + File.separator + "hammer.png").toString());
           gc.drawImage(hammer, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "hammer"));
           break;
+        case "bomb":
+
         case "david":
-          Image david = new Image(getClass().getResourceAsStream("images/pharohDavid.png"));
+          Image david = new Image(
+              getClass().getResource("images" + File.separator + "pharohDavid.png").toString());
           gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE,
               getHeight() - david.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
@@ -166,7 +183,8 @@ public class Renderer extends Canvas implements Observer {
           boss = true;
           break;
         case "marco":
-          Image marco = new Image(getClass().getResourceAsStream("images/mummyMarco.png"));
+          Image marco = new Image(
+              getClass().getResource("images" + File.separator + "mummyMarco.png").toString());
           gc.drawImage(marco, (getWidth() / 2) - ITEM_SIZE,
               getHeight() - marco.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
@@ -174,7 +192,8 @@ public class Renderer extends Canvas implements Observer {
           boss = true;
           break;
         case "thomas":
-          Image thomas = new Image(getClass().getResourceAsStream("images/tombstoneThomas.png"));
+          Image thomas = new Image(
+              getClass().getResource("images" + File.separator + "tombstoneThomas.png").toString());
           gc.drawImage(thomas, (getWidth() / 2) - ITEM_SIZE,
               getHeight() - thomas.getWidth() - ITEM_SIZE);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
@@ -182,27 +201,29 @@ public class Renderer extends Canvas implements Observer {
           boss = true;
           break;
         case "woodenBlockade":
-          Image woodBlock = new Image(getClass().getResourceAsStream("images/woodenBlockade.png"));
+          Image woodBlock = new Image(
+              getClass().getResource("images" + File.separator + "woodenBlockade.png").toString());
           gc.drawImage(woodBlock, (getWidth() / 2) - (woodBlock.getWidth() / 2), 0);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (woodBlock.getWidth() / 2), 0,
               woodBlock.getWidth(), woodBlock.getHeight(), 2, "woodenBlockade"));
           break;
         case "stoneBlockade":
-          Image stoneBlock = new Image(getClass().getResourceAsStream("images/stoneBlockade.png"));
-          gc.drawImage(stoneBlock, getWidth() / 3, 100,
-              getWidth() / 3, stoneBlock.getHeight());
-          objectsOnScreen.add(new ItemOnScreen(getWidth() / 3, 0,
-              stoneBlock.getWidth(), getHeight() * 2 / 3, 2, "stoneBlockade"));
+          Image stoneBlock = new Image(
+              getClass().getResource("images" + File.separator + "stoneBlockade.png").toString());
+          gc.drawImage(stoneBlock, getWidth() / 3, 100, getWidth() / 3, stoneBlock.getHeight());
+          objectsOnScreen.add(new ItemOnScreen(getWidth() / 3, 0, stoneBlock.getWidth(),
+              getHeight() * 2 / 3, 2, "stoneBlockade"));
           break;
         case "chainBlockade":
-          Image chainBlock = new Image(getClass().getResourceAsStream("images/chainBlockade.png"));
+          Image chainBlock = new Image(
+              getClass().getResource("images" + File.separator + "chainBlockade.png").toString());
           gc.drawImage(chainBlock, (getWidth() / 2) - (chainBlock.getWidth() / 2), 0);
           objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (chainBlock.getWidth() / 2), 0,
               chainBlock.getWidth(), chainBlock.getHeight(), 2, "chainBlockade"));
           break;
         case "healthFountain":
           Image healthFountain = new Image(
-              getClass().getResourceAsStream("images/healthFountain.png"));
+              getClass().getResource("images" + File.separator + "healthFountain.png").toString());
           gc.drawImage(healthFountain, x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
               getHeight() - 400);
           objectsOnScreen.add(new ItemOnScreen(
@@ -211,7 +232,7 @@ public class Renderer extends Canvas implements Observer {
           break;
         case "powerFountain":
           Image powerFountain = new Image(
-              getClass().getResourceAsStream("images/powerFountain.png"));
+              getClass().getResource("images" + File.separator + "powerFountain.png").toString());
           gc.drawImage(powerFountain, x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
               getHeight() - 400);
           objectsOnScreen.add(new ItemOnScreen(
@@ -219,7 +240,8 @@ public class Renderer extends Canvas implements Observer {
               powerFountain.getWidth(), powerFountain.getHeight(), i % 3 + 1, "powerFountain"));
           break;
         case "ladder":
-          Image ladder = new Image(getClass().getResourceAsStream("images/ladder.png"));
+          Image ladder = new Image(
+              getClass().getResource("images" + File.separator + "ladder.png").toString());
           gc.drawImage(ladder, x, 0, getWidth() / 3, getHeight() * 2 / 3);
           objectsOnScreen
               .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "ladder"));
@@ -372,11 +394,11 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x      the top-left x value
-     * @param y      the top-left y value
-     * @param width  the width
+     * @param x the top-left x value
+     * @param y the top-left y value
+     * @param width the width
      * @param height the height
-     * @param obj    a String describing the object on the screen
+     * @param obj a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;
