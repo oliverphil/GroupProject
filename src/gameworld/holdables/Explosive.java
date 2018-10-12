@@ -38,5 +38,6 @@ public class Explosive extends Item {
         tile.removeFloorObject();
       }
     }
+    p.dropItem(this);
   }
 }
