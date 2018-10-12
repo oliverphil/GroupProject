@@ -295,7 +295,7 @@ public class UserInterface extends Application {
       switch (itemInPack.getName()) {
         case "emptyFlask":
           itemButton = new itemButton(new ImageView(emptyFlaskImage));
-          packItemsArray.add(itemButton.getItemButton());
+         // packItemsArray.add(itemButton.getItemButton());
           break;
       }
       
@@ -383,12 +383,12 @@ public class UserInterface extends Application {
  * A special kind of Button that represents an item
  * To be used in the display of 'Backpack'
  */
-class itemButton extends Button {
+class itemButton extends Label {
   
   private itemButton anItemButton;
   
   public itemButton(ImageView imageView) {
-    anItemButton = (itemButton) new Button();
+    anItemButton = (itemButton) new Label();
     anItemButton.setGraphic(imageView);
     anItemButton.setStyle("-fx-background-color: #1d1f23; ");
     anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -396,6 +396,11 @@ class itemButton extends Button {
     //anItemButton.setOnAction(e -> System.out.println("Used Item"));             // TODO: Highlight an item that is selected
   }
   
+  private void setOnAction(Object object) {
+    // TODO Auto-generated method stub
+    
+  }
+
   public itemButton getItemButton() {
     return anItemButton;
   }
