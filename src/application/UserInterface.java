@@ -104,6 +104,8 @@ public class UserInterface extends Application {
   private Image powerFlaskImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "powerFlask.png"), 60, 60, false,
       false);
+  private Image bombImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
 
   private GameWorld game;
   private GridPane backpackGrid;
@@ -149,6 +151,9 @@ public class UserInterface extends Application {
           break;
         case "hammer":
           itemButton.setGraphic(new ImageView(hammerImage));
+          break;
+        case "bomb":
+          itemButton.setGraphic(new ImageView(bombImage));
           break;
         default:
           return;
@@ -388,31 +393,30 @@ public class UserInterface extends Application {
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
 
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        new CornerRadii(3), BorderWidths.DEFAULT)));
-    
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
-    
-    for(int i = 0; i < game.getPlayer().getBag().size(); i++) {
+
+    for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
       Item itemInPack = game.getPlayer().getBag().get(i);
       itemButton itemButton;
-      
+
       switch (itemInPack.getName()) {
         case "emptyFlask":
           itemButton = new itemButton(new ImageView(emptyFlaskImage));
-         // packItemsArray.add(itemButton.getItemButton());
+          // packItemsArray.add(itemButton.getItemButton());
           break;
       }
-      
-      for(int i1 = 0; i1 < packItemsArray.size(); i1++) {
+
+      for (int i1 = 0; i1 < packItemsArray.size(); i1++) {
         backpackGrid.add(packItemsArray.get(i1), 0, i1);
       }
-      
+
     }
 
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -492,31 +496,29 @@ public class UserInterface extends Application {
   }
 }
 
-
 /*
- * A special kind of Button that represents an item
- * To be used in the display of 'Backpack'
+ * A special kind of Button that represents an item To be used in the display of 'Backpack'
  */
 class itemButton extends Label {
-  
+
   private itemButton anItemButton;
-  
+
   public itemButton(ImageView imageView) {
     anItemButton = (itemButton) new Label();
     anItemButton.setGraphic(imageView);
     anItemButton.setStyle("-fx-background-color: #1d1f23; ");
     anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    //anItemButton.setOnAction(e -> System.out.println("Used Item"));             // TODO: Highlight an item that is selected
+    // anItemButton.setOnAction(e -> System.out.println("Used Item")); // TODO: Highlight an item
+    // that is selected
   }
-  
+
   private void setOnAction(Object object) {
     // TODO Auto-generated method stub
-    
+
   }
 
   public itemButton getItemButton() {
     return anItemButton;
   }
 }
-

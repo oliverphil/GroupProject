@@ -172,7 +172,13 @@ public class Renderer extends Canvas implements Observer {
               (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "hammer"));
           break;
         case "bomb":
-
+          Image bomb = new Image(
+              getClass().getResource("images" + File.separator + "bomb.png").toString());
+          gc.drawImage(bomb, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
+          objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
+              (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "bomb"));
+          break;
         case "david":
           Image david = new Image(
               getClass().getResource("images" + File.separator + "pharohDavid.png").toString());
