@@ -19,15 +19,6 @@ public class Barrier extends FloorObject {
     strat = null;
   }
 
-  /**
-   * Returns the tool required to break the Barrier.
-   * 
-   * @return
-   */
-  public String requiredTool() {
-    return strat.tool();
-  }
-
   public BarrierStrategy getStrat() {
     return strat;
   }

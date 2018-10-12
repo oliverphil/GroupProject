@@ -290,15 +290,6 @@ public class Player {
     return false;
   }
 
-  private boolean hasPowerFlask() {
-    for (FloorObject obj : bag) {
-      if (obj instanceof Flask && ((Flask) obj).isEmpty()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   private Flask getEmptyFlask() {
     for (FloorObject obj : bag) {
       if (obj instanceof Flask && ((Flask) obj).isEmpty()) {

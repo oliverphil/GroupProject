@@ -11,6 +11,7 @@ import gameworld.Monster;
 import gameworld.Player;
 import gameworld.Point;
 import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
 import renderer.Renderer;
 import renderer.Renderer.ItemOnScreen;
 
@@ -199,59 +200,49 @@ public class GameWorldTests {
     //check player health
     assert(game.getPlayer().getHealth() == 80);
     
-    Flask flask = new Flask();
-    flask.setName("healthFlask");
-    flask.fill("health");
-    flask.setWeight(1);
-    game.getBoard().getBoard()[6][7].setObj(flask);
-    
-    game.interact("healthFlask", 2);
-    game.useItem(flask);
+    game.interact("emptyFlask", 3);
+    game.interact("healthFountain", 0);
+    game.useItem(game.getPlayer().getBag().get(0));
     
     //check player health
     assert(game.getPlayer().getHealth() == 100);
-    assert(flask.isEmpty());
+    assert(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
+    
+    //attempt to use an empty flask
+    game.useItem(game.getPlayer().getBag().get(0));
+    assert(game.getPlayer().getBag().get(0).toString().equals("emptyFlask"));
   }
   
   @Test
   public void testInteract_7() {
-    GameWorld game = new GameWorld();
+GameWorld game = new GameWorld();
     
     game.getPlayer().setHealth(82);
     
     //check player health
     assert(game.getPlayer().getHealth() == 82);
     
-    Flask flask = new Flask();
-    flask.setName("healthFlask");
-    flask.fill("health");
-    flask.setWeight(1);
-    game.getBoard().getBoard()[6][7].setObj(flask);
-    
-    game.interact("healthFlask", 2);
-    assert(flask.toString().equals("healthFlask"));
-    game.useItem(flask);
-    game.useItem(flask);
+    game.interact("emptyFlask", 3);
+    game.interact("healthFountain", 0);
+    assert(game.getPlayer().getBag().get(0).toString().equals("healthFlask"));
+    game.useItem(game.getPlayer().getBag().get(0));
     
     //check player health
     assert(game.getPlayer().getHealth() == 100);
-    assert(flask.isEmpty());
+    assert(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
   }
   
   @Test
   public void testInteract_8() {
     GameWorld game = new GameWorld();
     
-    Flask flask = new Flask();
-    flask.setName("powerFlask");
-    flask.setWeight(1);
-    flask.fill("power");
-    game.getBoard().getBoard()[6][7].setObj(flask);
+    game.interact("emptyFlask", 3);
+    game.interact("powerFountain", 0);
+    assert(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
     
-    game.interact("powerFlask", 2);
-    assert(flask.toString().equals("powerFlask"));
-    game.useItem(flask);
-    
+    game.useItem(game.getPlayer().getBag().get(0));
+       
+    //sleep to register the time change
     try {
       Thread.sleep(100);
     } catch (InterruptedException e) {
@@ -261,6 +252,77 @@ public class GameWorldTests {
     
     //check player health
     assert(game.getPlayer().isStrengthened());
-    assert(flask.isEmpty());
+    assert(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
+  }
+  
+  @Test
+  public void testInteract_9() {
+GameWorld game = new GameWorld();
+    
+    game.interact("emptyFlask", 3);
+    game.interact("powerFountain", 0);
+    assert(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
+    
+    game.useItem(game.getPlayer().getBag().get(0));
+       
+    //sleep to register the time change
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      assert(false);
+      e.printStackTrace();
+    }
+    
+    //check player health
+    assert(!game.getPlayer().isStrengthened());
+    assert(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
+  }
+  
+  @Test
+  public void testInteract_10() {
+    GameWorld game = new GameWorld();
+    
+    Tool crowbar = new Tool();
+    crowbar.setMaterial("woodenBlockade");
+    crowbar.setName("crowbar");
+    crowbar.setWeight(4);
+    crowbar.setLocation(new Point(6, 6));
+    game.getBoard().getBoard()[6][6].setObj(crowbar);
+    
+    game.interact("crowbar", 1);
+    
+    //make sure the crowbar is in the bag
+    assert(game.getPlayer().getBag().size() == 1);
+    
+    //
+    assert(game.getBoard().getBoard()[7][8].getObj() != null);
+
+    game.rotateRight();
+    game.interact("woodenBlockade", 0);
+    assert(game.getBoard().getBoard()[7][8].getObj() == null);
+  }
+  
+  @Test
+  public void testEquals_1() {
+    GameWorld game1 = new GameWorld();
+    GameWorld game2 = new GameWorld();
+    
+    assert(game1.equals(game2));
+  }
+  
+  @Test
+  public void testEquals_2() {
+    GameWorld game1 = new GameWorld();
+    GameWorld game2 = new GameWorld();
+    
+    assert(game1.hashCode() != game2.hashCode());
+  }
+  
+  @Test
+  public void testEquals_3() {
+    Flask flask1 = new Flask();
+    Flask flask2 = new Flask();
+    
+    assert(flask1.hashCode() != flask2.hashCode());
   }
 }
