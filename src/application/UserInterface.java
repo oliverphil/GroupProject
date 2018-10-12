@@ -118,6 +118,9 @@ public class UserInterface extends Application {
     backpackGrid.getChildren().clear();
     items.clear();
     items.addAll(game.getPlayer().getBag());
+    if (selectedItem >= items.size()) {
+      selectedItem = items.size() - 1;
+    }
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
