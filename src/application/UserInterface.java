@@ -72,6 +72,8 @@ public class UserInterface extends Application {
   private BorderPane layout = new BorderPane();
   private int selectedItem;
   private List<Item> items = new ArrayList<Item>();
+  private double HEALTHBAR_SCALE = 4.35;
+  private double CARRYBAR_SCALE = 29;
 
   private Rectangle healthBar;
   private BorderPane healthBarLayout = new BorderPane();
@@ -79,9 +81,9 @@ public class UserInterface extends Application {
   private Rectangle carryingCapacityBar;
   private BorderPane carryingCapacityLayout = new BorderPane();
 
-  BorderPane flaskStatusScreen = new BorderPane();
-  Label filledFlask = new Label("FILLED");
-  Label emptyFlask = new Label("EMPTY");
+  private static Item itemInPack;
+  private static BorderPane statusScreen = new BorderPane();
+  static Label itemLabel = new Label("");
 
   private GameWorld game;
   private GridPane backpackGrid;
@@ -132,19 +134,15 @@ public class UserInterface extends Application {
 
   private void update() {
 
-    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 15);
+    double healthBarWidth = game.getPlayer().getHealth() * HEALTHBAR_SCALE;
+    healthBar = new Rectangle(10, 3, healthBarWidth, 15);
     healthBar.setFill(Color.DARKSEAGREEN);
     healthBarLayout.setCenter(healthBar);   
     
-    int carryBarWidth = (game.getPlayer().getCarryingCapacity()) - (game.getPlayer().getCurrentWeight());
-    carryingCapacityBar = new Rectangle(10, 3, game.getPlayer().getCurrentWeight()*4.35, 15);
+    double carryBarWidth = ((game.getPlayer().getCarryingCapacity()) - (game.getPlayer().getCurrentWeight())) * CARRYBAR_SCALE;
+    carryingCapacityBar = new Rectangle(10, 3, carryBarWidth, 15);
     carryingCapacityBar.setFill(Color.DARKORANGE);
     carryingCapacityLayout.setCenter(carryingCapacityBar);  
-
-    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth() * 4.35, 35);
-    healthBar.setFill(Color.DARKRED);
-    healthBarLayout.setCenter(healthBar);
-
 
     backpackGrid.getChildren().clear();
     items.clear();
@@ -155,7 +153,7 @@ public class UserInterface extends Application {
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
-      Item itemInPack = game.getPlayer().getBag().get(i);
+      itemInPack = game.getPlayer().getBag().get(i);
       Button itemButton = new Button();
 
       switch (itemInPack.toString()) {
@@ -194,29 +192,6 @@ public class UserInterface extends Application {
 
       }
 
-      // Flask Label Animations
-      ParallelTransition filledLabelAnimation = new ParallelTransition();
-      filledLabelAnimation.setOnFinished(e -> {
-        flaskStatusScreen.setCenter(filledFlask);
-        filledFlask.setTextFill(Color.WHITE);
-        filledFlask.setFont(new Font("Arial", 30));
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), filledFlask);
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-        fadeOut.play();
-      });
-
-      ParallelTransition emptyLabelAnimation = new ParallelTransition();
-      emptyLabelAnimation.setOnFinished(e -> {
-        flaskStatusScreen.setCenter(emptyFlask);
-        emptyFlask.setTextFill(Color.WHITE);
-        emptyFlask.setFont(new Font("Arial", 30));
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), emptyFlask);
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-        fadeOut.play();
-      });
-
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -224,17 +199,7 @@ public class UserInterface extends Application {
       itemButton.setOnAction(e -> {
         selectedItem = Integer.parseInt(itemButton.accessibleHelpProperty().get());
         drawBorder();
-        switch (itemInPack.toString()) {
-          case "emptyFlask":
-            emptyLabelAnimation.play();
-            break;
-          case "powerFlask":
-            filledLabelAnimation.play();
-            break;
-          case "healthFlask":
-            filledLabelAnimation.play();
-            break;
-        }
+        animateLabel(itemInPack.toString());
       });
       packItemsArray.add(itemButton);
       backpackGrid.add(itemButton, i, 0);
@@ -253,6 +218,84 @@ public class UserInterface extends Application {
           .setBorder(new Border(new BorderStroke(Color.rgb(255, 0, 0), BorderStrokeStyle.SOLID,
               new CornerRadii(3), BorderWidths.DEFAULT)));
     }
+  }
+  
+  public static void animateLabel(String label) {
+    ParallelTransition labelAnimation = new ParallelTransition();
+    
+    switch (label) {
+      case "emptyFlask":
+        itemLabel.setText("An empty flask");
+        break;
+      case "powerFlask":
+        itemLabel.setText("A full flask; the liquid looks powerful");
+        break;
+      case "healthFlask":
+        itemLabel.setText("A full flask; the liquid looks invigorating");
+        break;
+      case "crowbar":
+        itemLabel.setText("A rusty crowbar");
+        break;
+      case "pickaxe":
+        itemLabel.setText("A sharp pickaxe; good for mining");
+        break;
+      case "boltCutters":
+        itemLabel.setText("A pair of bolt cutters");
+        break;
+      case "khopesh":
+        itemLabel.setText("A mysterious and powerful ancient sword...");
+        break;
+      case "torch":
+        itemLabel.setText("A blazing torch");
+        break;
+      case "hammer":
+        itemLabel.setText("A heavy hammer");
+        break;
+      case "bomb":
+        itemLabel.setText("An odd bomb");
+        break;
+      case "david":
+        itemLabel.setText("You attacked Pharoh Pierce!");
+        break;
+      case "marco":
+        itemLabel.setText("You attacked Mummy Marco!");
+        break;
+      case "thomas":
+        itemLabel.setText("You attacked Tombstone Thomas!");
+        break;
+      case "woodenBlockade":
+        itemLabel.setText("Some wooden planks; looks like they might pry away");
+        break;
+      case "stoneBlockade":
+        itemLabel.setText("Crumbled stones block your path");
+        break; 
+      case "chainBlockade":
+        itemLabel.setText("Rusted chains are covering the stone door");
+        break; 
+      case "healthFountain":
+        itemLabel.setText("A spring bubbling with life!");
+        break; 
+      case "powerFountain":
+        itemLabel.setText("A spring bubbling with power!");
+        break;
+      case "ladder":
+        itemLabel.setText("The old ladder takes you to the surface...");
+        break;
+      default:
+        return;
+    }
+    
+    labelAnimation.setOnFinished(e -> {
+      statusScreen.setCenter(itemLabel);
+      itemLabel.setTextFill(Color.WHITE);
+      itemLabel.setFont(new Font("Arial", 26));
+      FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), itemLabel);
+      fadeOut.setFromValue(1.0);
+      fadeOut.setToValue(0.0);
+      fadeOut.play();
+    });
+    
+    labelAnimation.play();
   }
 
   @Override
@@ -351,9 +394,9 @@ public class UserInterface extends Application {
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
 
-    flaskStatusScreen.setStyle("-fx-background-color: #1d1f23; ");
-    flaskStatusScreen.setMinHeight(32);
-    flaskStatusScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+    statusScreen.setStyle("-fx-background-color: #1d1f23; ");
+    statusScreen.setMinHeight(32);
+    statusScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     Renderer gameScreen = new Renderer(700, 700);
@@ -361,7 +404,7 @@ public class UserInterface extends Application {
       game.interact(gameScreen.onClick(e));
       update();
     });
-    centerScreen.getChildren().addAll(gameScreen, flaskStatusScreen);
+    centerScreen.getChildren().addAll(gameScreen, statusScreen);
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     gameRestart.setOnAction(e -> {

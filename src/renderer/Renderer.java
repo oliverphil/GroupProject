@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import application.UserInterface;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -321,6 +322,7 @@ public class Renderer extends Canvas implements Observer {
   public ItemOnScreen onClick(MouseEvent e) {
     for (ItemOnScreen d : objectsOnScreen) {
       if (d.on(e)) {
+        UserInterface.animateLabel(d.toString());
         return d;
       }
     }
