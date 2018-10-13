@@ -289,6 +289,7 @@ public class Renderer extends Canvas implements Observer {
         dirIcon = "E";
       }
 
+      gc.setFill(Color.BLACK);
       gc.fillText(dirIcon, getWidth() - 30, 30);
     }
 
