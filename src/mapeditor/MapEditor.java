@@ -53,7 +53,7 @@ public class MapEditor extends Application {
   private int col;
   private Application openWindow;
 
-  private static Map<String, Image> images;
+  private static Map<String, Image> images = new HashMap<String, Image>();
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -66,10 +66,9 @@ public class MapEditor extends Application {
     }
 
     // creates a map of images so
-    images = new HashMap<String, Image>();
     File iconFolder = new File("src" + File.separator + "mapeditor" + File.separator + "icons");
     File[] icons = iconFolder.listFiles();
-
+    assert icons != null;
     for (int i = 0; i < icons.length; i++) {
       String s = icons[i].getName().replaceAll(".png", "");
       String toString = icons[i].toString()
@@ -191,8 +190,8 @@ public class MapEditor extends Application {
       }
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
-          if(grid[col][row] == "0") {
-           // add shit here 
+          if (grid[col][row] == "0") {
+            // add shit here
           }
           grid[col][row] = selectedIcon;
           drawGrid();
