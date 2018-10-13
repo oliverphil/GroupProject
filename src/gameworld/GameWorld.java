@@ -33,6 +33,7 @@ public class GameWorld extends Observable {
    * Constructs the GameWorld object, allowing you to play the game.
    */
   public GameWorld() {
+    won = false;
     player = new Player();
     board = new Board();
     player.setView(new ViewDescriptor(player, board, won));
@@ -539,12 +540,41 @@ public class GameWorld extends Observable {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o instanceof GameWorld) {
-      GameWorld other = (GameWorld) o;
-      return this.player.equals(other.getPlayer()) && this.board.equals(other.getBoard());
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((board == null) ? 0 : board.hashCode());
+    result = prime * result + ((player == null) ? 0 : player.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
-    return false;
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    GameWorld other = (GameWorld) obj;
+    if (board == null) {
+      if (other.board != null) {
+        return false;
+      }
+    } else if (!board.equals(other.board)) {
+      return false;
+    }
+    if (player == null) {
+      if (other.player != null) {
+        return false;
+      }
+    } else if (!player.equals(other.player)) {
+      return false;
+    }
+    return true;
   }
 
   public boolean isWon() {

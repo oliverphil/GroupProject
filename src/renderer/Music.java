@@ -14,7 +14,7 @@ import javafx.util.Duration;
  * @author Philip Oliver - 300398228 *
  */
 public class Music {
-  private static String currentFile;
+  private String currentFile;
   private static MediaPlayer player;
   private static final List<String> TRACK_NAMES = Arrays
       .asList(new String[] { "tunnels", "escape", "mysteries" });

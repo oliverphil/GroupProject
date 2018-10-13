@@ -33,7 +33,6 @@ import javafx.util.Duration;
  */
 public class Renderer extends Canvas implements Observer {
 
-  // TODO: tests
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
@@ -99,7 +98,7 @@ public class Renderer extends Canvas implements Observer {
     }
 
     // draw a separating line between the wall and the floor
-    gc.setFill(Color.BLACK);
+    gc.setStroke(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
@@ -258,7 +257,7 @@ public class Renderer extends Canvas implements Observer {
       gc.setFill(Color.RED);
       gc.fillRect(((getWidth() / 2) - 100) + (view.getMonsterHealth() * scale), 50,
           (250 - view.getMonsterHealth()) * scale, 10);
-      gc.setFill(Color.BLACK);
+      gc.setStroke(Color.BLACK);
       gc.strokeRect((getWidth() / 2) - 100, 50, 200, 10);
     }
 
@@ -354,6 +353,9 @@ public class Renderer extends Canvas implements Observer {
   private void credits() {
     File creditFolder = new File("src" + File.separator + "renderer" + File.separator + "credits");
     File[] icons = creditFolder.listFiles();
+    if (icons == null) {
+      return;
+    }
     List<Image> credits = new ArrayList<Image>();
     for (int i = 0; i < icons.length; i++) {
       String fileName = icons[i].toString()
@@ -386,6 +388,14 @@ public class Renderer extends Canvas implements Observer {
 
     timeline.setOnFinished(e -> s.close());
     timeline.play();
+  }
+
+  /**
+   * Ensure the game redraws correctly on a restart.
+   */
+  public void restartGame() {
+    won = false;
+    dead = false;
   }
 
   @Override
