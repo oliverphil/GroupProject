@@ -58,8 +58,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
 
     // sets position of floor tile menu
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 4));
-    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 2);
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 5));
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 2));
 
     primaryStage.setScene(scene);
     primaryStage.show();

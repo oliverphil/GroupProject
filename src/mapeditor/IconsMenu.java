@@ -64,7 +64,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
 
     // sets position of icons menu
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 4));
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 5));
     primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 4);
 
     primaryStage.setScene(scene);
