@@ -184,6 +184,15 @@ public class Player {
   public int getHealth() {
     return health;
   }
+  
+  /**
+   * Gets the max weight of a player's carrying capacity.
+   *
+   * @return the health
+   */
+  public int getCarryingCapacity() {
+    return MAX_WEIGHT;
+  }
 
   /**
    * Sets the Health.

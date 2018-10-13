@@ -75,7 +75,9 @@ public class UserInterface extends Application {
 
   private Rectangle healthBar;
   private BorderPane healthBarLayout = new BorderPane();
-  private HBox healthBarBox = new HBox();
+  
+  private Rectangle carryingCapacityBar;
+  private BorderPane carryingCapacityLayout = new BorderPane();
 
   BorderPane flaskStatusScreen = new BorderPane();
   Label filledFlask = new Label("FILLED");
@@ -88,8 +90,7 @@ public class UserInterface extends Application {
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false,
-      false);
+      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false, false);
   private Image backArrowImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "back.png"), 60, 60, false, false);
   private Image leftArrowImage = new Image(
@@ -134,17 +135,15 @@ public class UserInterface extends Application {
 
   private void update() {
 
-    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 35);
-    healthBar.setFill(Color.DARKRED);
+    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 15);
+    healthBar.setFill(Color.DARKSEAGREEN);
     healthBarLayout.setCenter(healthBar);
-
-    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth() * 4.6, 35);
-    healthBar.setFill(Color.GREEN);
-    Rectangle background = new Rectangle(50, 3, (100 - game.getPlayer().getHealth()) * 4.6, 35);
-    background.setFill(Color.RED);
-    healthBarBox.getChildren().clear();
-    healthBarBox.getChildren().addAll(healthBar, background);
-
+    
+    
+    int carryBarWidth = (game.getPlayer().getCarryingCapacity()) - (game.getPlayer().getCurrentWeight());
+    carryingCapacityBar = new Rectangle(10, 3, game.getPlayer().getCurrentWeight()*4.35, 15);
+    carryingCapacityBar.setFill(Color.DARKORANGE);
+    carryingCapacityLayout.setCenter(carryingCapacityBar);
     
     backpackGrid.getChildren().clear();
     items.clear();
@@ -284,6 +283,13 @@ public class UserInterface extends Application {
 
     gameMenu.getItems().add(load);
     MenuItem gameRestart = new MenuItem("Restart Game");
+    gameRestart.setOnAction(e -> {
+      game = new GameWorld();
+      items.clear(); 
+      selectedItem = 0;
+      update();
+    });
+    
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
@@ -472,19 +478,18 @@ public class UserInterface extends Application {
     backpackGrid = new GridPane();
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
-
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     // Health Bar
     healthBarLayout.setStyle("-fx-background-color: #171916; ");
     healthBarLayout.setMinWidth(462);
-    healthBarLayout.setMinHeight(43);
-
-    healthBarBox = new HBox();
-    healthBarBox.setStyle("-fx-background-color: #171916; ");
-    healthBarBox.setMinWidth(462);
-    healthBarBox.setMinHeight(43);
+    healthBarLayout.setMinHeight(20);
+    
+    // Carrying Capacity Bar
+    carryingCapacityLayout.setStyle("-fx-background-color: #171916; ");
+    carryingCapacityLayout.setMinWidth(462);
+    carryingCapacityLayout.setMinHeight(20);
 
     // Use and Drop Format
     BorderPane useDropLayout = new BorderPane();
@@ -529,7 +534,7 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(healthBarLayout, useDropLayout, backpackGrid);
+    bottomScreenRight.getChildren().addAll(healthBarLayout, carryingCapacityLayout, useDropLayout, backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
