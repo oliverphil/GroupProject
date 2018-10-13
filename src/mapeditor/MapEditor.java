@@ -51,7 +51,8 @@ public class MapEditor extends Application {
   private String currentDir = "none";
   private int row;
   private int col;
-  private Application openWindow;
+  private Application openWindowFTM;
+  private Application openWindowIM;
 
   private static Map<String, Image> images = new HashMap<String, Image>();
 
@@ -106,25 +107,24 @@ public class MapEditor extends Application {
     @Override
     public void handle(ActionEvent e) {
       // makes sure only one extra window is open at once
-      if (openWindow != null) {
-        try {
-          if (openWindow instanceof FloorTileMenu) {
-            ((FloorTileMenu) openWindow).primaryStage.close();
-          } else if (openWindow instanceof IconsMenu) {
-            ((IconsMenu) openWindow).primaryStage.close();
-          }
-        } catch (Exception e1) {
-          e1.printStackTrace();
+      try {
+        if (openWindowFTM != null && e.getSource() == floorBtn) {
+          ((FloorTileMenu) openWindowFTM).primaryStage.close();
+        } else if (openWindowIM != null && e.getSource() == itemBtn) {
+          ((IconsMenu) openWindowIM).primaryStage.close();
         }
+      } catch (Exception e1) {
+        e1.printStackTrace();
       }
+
       // do the appropriate action depending on what buttons are pushed
       if (e.getSource() == floorBtn) {
         selectedBtn = "floorBtn";
-        openWindow = new FloorTileMenu();
+        openWindowFTM = new FloorTileMenu();
       }
       if (e.getSource() == itemBtn) {
         selectedBtn = "itemBtn";
-        openWindow = new IconsMenu();
+        openWindowIM = new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
@@ -146,17 +146,9 @@ public class MapEditor extends Application {
       row = getRow(y);
       col = getCol(x);
 
-      // adds appropriate floor tile to map
-      if (selectedBtn == "floorBtn") {
+      // adds appropriate floor tile or icon to map
+      if (selectedBtn == "floorBtn" || selectedBtn == "itemBtn") {
         if (row != -1 && col != -1 && row <= 20 && col <= 20) {
-          selectedIcon = "empty";
-          grid[col][row] = selectedIcon + "_" + direction;
-          drawGrid();
-        }
-      }
-      // adds the appropriate icon to map
-      if (selectedBtn == "itemBtn") {
-        if (row != -1 && col != -1) {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
           }
@@ -188,12 +180,7 @@ public class MapEditor extends Application {
           drawGrid();
         }
       }
-      if (selectedBtn == "itemBtn") {
-        if (row != -1 && col != -1) {
-          grid[col][row] = selectedIcon + "_" + direction;;
-          drawGrid();
-        }
-      }
+      
       // removes the appropriate tile/icon from map
       if (selectedBtn == "remove") {
         remove(x, y);

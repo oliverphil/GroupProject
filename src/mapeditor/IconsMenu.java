@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -58,8 +60,13 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     HBox topHBox = drawTop();
     border.setTop(topHBox);
     border.setCenter(drawItems());
-
     Scene scene = new Scene(border, 200, 245);
+
+    // sets position of icons menu
+    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 4));
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 4);
+
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -193,7 +200,6 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     if (event.getSource() == pickAxe) {
       MapEditor.setSelectedIcon("pickaxe");
     }
-    primaryStage.close();
 
   }
 }
