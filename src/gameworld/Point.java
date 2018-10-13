@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A representation of a 2D point. Serves to make persistence work because the native java.awt.Point
- * doesn't play nice with JAXB.
+ * A representation of a 2D point. Serves to make persistence function because the native
+ * java.awt.Point class doesn't get marshalled properly with JAXB.
  * 
- * @author wanja
+ * @author Wanja Leuthold - 300424190
  *
  */
 @XmlRootElement
