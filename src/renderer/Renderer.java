@@ -2,35 +2,33 @@ package renderer;
 
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.scene.BoundsAccessor;
-import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.jmx.MXNodeAlgorithm;
+import com.sun.javafx.jmx.MXNodeAlgorithmContext;
+import com.sun.javafx.sg.prism.NGNode;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -42,7 +40,7 @@ import javafx.util.Duration;
  */
 public class Renderer extends Canvas implements Observer {
 
-  // TODO: credits, tests, fade to white and black
+  // TODO: credits, tests
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
@@ -363,6 +361,44 @@ public class Renderer extends Canvas implements Observer {
     gc.fillRect(0, 0, getWidth(), getHeight());
     gc.setStroke(Color.BLANCHEDALMOND.darker());
     gc.strokeText("You Won", (getWidth() / 2) - 20, getHeight() / 2);
+    credits();
+  }
+
+  private void credits() {
+    File creditFolder = new File("src" + File.separator + "renderer" + File.separator + "credits");
+    File[] icons = creditFolder.listFiles();
+    List<Image> credits = new ArrayList<Image>();
+    for (int i = 0; i < icons.length; i++) {
+      String fileName = icons[i].toString()
+          .replace("src" + File.separator + "renderer" + File.separator + "", "");
+      credits.add(new Image(getClass().getResource(fileName).toString()));
+    }
+
+    Pane pane = new Pane();
+    Timeline timeline = new Timeline();
+    Duration timepoint = Duration.ZERO;
+    Duration pause = Duration.seconds(2);
+
+    for (Image i : credits) {
+      KeyFrame keyFrame = new KeyFrame(timepoint, e -> pane.getChildren().add(new ImageView(i)));
+      timeline.getKeyFrames().add(keyFrame);
+      timepoint = timepoint.add(pause);
+    }
+
+    KeyFrame keyFrame = new KeyFrame(timepoint, e -> {
+    });
+    timeline.getKeyFrames().add(keyFrame);
+
+    Scene scene = new Scene(pane);
+    Stage s = new Stage();
+    s.setScene(scene);
+    s.setHeight(700);
+    s.setWidth(700);
+    s.setResizable(false);
+    s.show();
+
+    timeline.setOnFinished(e -> s.close());
+    timeline.play();
   }
 
   @Override
