@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -35,7 +38,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import javax.swing.JFileChooser;
 
 import mapeditor.MapEditor;
@@ -66,6 +72,16 @@ public class UserInterface extends Application {
   private BorderPane layout = new BorderPane();
   private int selectedItem;
   private List<Item> items = new ArrayList<Item>();
+  private Rectangle healthBar;
+  private BorderPane healthBarLayout = new BorderPane();
+
+  BorderPane flaskStatusScreen = new BorderPane();
+  Label filledFlask = new Label("FILLED");
+  Label emptyFlask = new Label("EMPTY");
+
+  private GameWorld game;
+  private GridPane backpackGrid;
+  
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(
@@ -108,14 +124,16 @@ public class UserInterface extends Application {
   private Image bombImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
 
-  private GameWorld game;
-  private GridPane backpackGrid;
 
   public static void main(String[] args) {
     launch(args);
   }
 
   private void update() {
+    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 35);
+    healthBar.setFill(Color.DARKRED);
+    healthBarLayout.setCenter(healthBar);
+    
     backpackGrid.getChildren().clear();
     items.clear();
     items.addAll(game.getPlayer().getBag());
@@ -123,7 +141,7 @@ public class UserInterface extends Application {
       selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
     }
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
-
+    
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
       Item itemInPack = game.getPlayer().getBag().get(i);
       Button itemButton = new Button();
@@ -164,6 +182,29 @@ public class UserInterface extends Application {
 
       }
       
+      // Flask Label Animations
+      ParallelTransition filledLabelAnimation = new ParallelTransition();
+      filledLabelAnimation.setOnFinished(e -> {
+        flaskStatusScreen.setCenter(filledFlask);
+        filledFlask.setTextFill(Color.WHITE);
+        filledFlask.setFont(new Font("Arial", 30));
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), filledFlask);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+        fadeOut.play();
+      });      
+
+      ParallelTransition emptyLabelAnimation = new ParallelTransition(); 
+      emptyLabelAnimation.setOnFinished(e -> {
+        flaskStatusScreen.setCenter(emptyFlask);
+        emptyFlask.setTextFill(Color.WHITE);
+        emptyFlask.setFont(new Font("Arial", 30));
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), emptyFlask);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+        fadeOut.play();
+      });
+      
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -171,6 +212,17 @@ public class UserInterface extends Application {
       itemButton.setOnAction(e -> {
         selectedItem = Integer.parseInt(itemButton.accessibleHelpProperty().get());
         drawBorder();
+        switch (itemInPack.toString()) {
+          case "emptyFlask":
+            emptyLabelAnimation.play();
+            break;
+          case "powerFlask":
+            filledLabelAnimation.play();
+            break;
+          case "healthFlask":
+            filledLabelAnimation.play();
+            break;
+            }
       });
       packItemsArray.add(itemButton);
       backpackGrid.add(itemButton, i, 0);
@@ -197,7 +249,7 @@ public class UserInterface extends Application {
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
-
+    
     /* MENU START */
     // Game Menu
     Menu gameMenu = new Menu("");
@@ -279,12 +331,18 @@ public class UserInterface extends Application {
     /* CANVAS START */
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
+    
+    flaskStatusScreen.setStyle("-fx-background-color: #1d1f23; ");
+    flaskStatusScreen.setMinHeight(32);
+    flaskStatusScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
+    
     Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
       update();
     });
-    centerScreen.getChildren().add(gameScreen);
+    centerScreen.getChildren().addAll(gameScreen, flaskStatusScreen);
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     gameRestart.setOnAction(e -> {
@@ -362,6 +420,8 @@ public class UserInterface extends Application {
     dropItem.setStyle("-fx-background-color: #1d1f23; ");
     dropItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
+    dropItem.setMinHeight(35);
+    dropItem.setMinWidth(231);
     dropItem.setOnAction(e -> {
       if (!items.isEmpty()) {
         game.dropItem(items.get(selectedItem));
@@ -377,6 +437,8 @@ public class UserInterface extends Application {
     useItem.setStyle("-fx-background-color: #1d1f23; ");
     useItem.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
         new CornerRadii(3), BorderWidths.DEFAULT)));
+    useItem.setMinHeight(35);
+    useItem.setMinWidth(231);
     useItem.setOnAction(e -> {
       if (!items.isEmpty()) {
         game.useItem(items.get(selectedItem));
@@ -402,19 +464,18 @@ public class UserInterface extends Application {
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
     
     // Health Bar
-    HBox healthBarBox = new HBox();
-    healthBarBox.setStyle("-fx-background-color: #171916; ");
-    healthBarBox.setMinWidth(462);
-    healthBarBox.setMinHeight(43);
-    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth()*4.6, 35);
-    healthBar.setFill(Color.DARKRED);
-    healthBarBox.getChildren().add(healthBar);
+    healthBarLayout.setStyle("-fx-background-color: #171916; ");
+    healthBarLayout.setMinWidth(462);
+    healthBarLayout.setMinHeight(43);
 
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+    // Use and Drop Format
+    BorderPane useDropLayout = new BorderPane();
+    useDropLayout.setMinWidth(462);
+    useDropLayout.setMinHeight(35);
+    HBox useDropBox = new HBox();
+    useDropBox.getChildren().addAll(dropItem, useItem);
+    useDropLayout.setCenter(useDropBox);
 
 
     // Build scene
@@ -452,7 +513,7 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(healthBarBox, backpackGrid, dropItem, useItem);
+    bottomScreenRight.getChildren().addAll(healthBarLayout, useDropLayout, backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
