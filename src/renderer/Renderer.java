@@ -2,6 +2,14 @@ package renderer;
 
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.scene.BoundsAccessor;
+import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
+
+import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,11 +18,20 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Implementation of a Canvas which draws images on the screen based on a ViewDescriptor object from
@@ -25,7 +42,7 @@ import javafx.scene.paint.Color;
  */
 public class Renderer extends Canvas implements Observer {
 
-  // TODO: bombs, credits, tests, fade to white and black
+  // TODO: credits, tests, fade to white and black
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
@@ -332,12 +349,20 @@ public class Renderer extends Canvas implements Observer {
     return new ItemOnScreen(0, 0, 0, 0, 0, "");
   }
 
-  private void fadeToBlack() {
-    System.out.println("DEAD");
+  private void toBlack() {
+    GraphicsContext gc = getGraphicsContext2D();
+    gc.setFill(Color.BLACK);
+    gc.fillRect(0, 0, getWidth(), getHeight());
+    gc.setStroke(Color.RED);
+    gc.strokeText("You Died", (getWidth() / 2) - 20, getHeight() / 2);
   }
 
-  private void fadeToWhite() {
-    System.out.println("WON");
+  private void toWhite() {
+    GraphicsContext gc = getGraphicsContext2D();
+    gc.setFill(Color.WHITE);
+    gc.fillRect(0, 0, getWidth(), getHeight());
+    gc.setStroke(Color.BLANCHEDALMOND.darker());
+    gc.strokeText("You Won", (getWidth() / 2) - 20, getHeight() / 2);
   }
 
   @Override
@@ -348,10 +373,10 @@ public class Renderer extends Canvas implements Observer {
     } else if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof String) {
       switch ((String) arg1) {
         case "won":
-          fadeToWhite();
+          toWhite();
           break;
         case "dead":
-          fadeToBlack();
+          toBlack();
           break;
         default:
           break;
