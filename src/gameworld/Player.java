@@ -211,7 +211,6 @@ public class Player {
    * @param item item to pick up
    */
   public boolean pickUp(Item item) {
-    System.out.println("Item: " + item.getWeight() + ". Current Weight: " + getCurrentWeight());
     if (item.getWeight() + getCurrentWeight() <= MAX_WEIGHT) {
       addToBag(item);
       return true;
