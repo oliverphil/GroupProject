@@ -228,16 +228,16 @@ public class UserInterface extends Application {
         itemLabel.setText("An empty flask");
         break;
       case "powerFlask":
-        itemLabel.setText("A full flask; the liquid looks powerful");
+        itemLabel.setText("A full flask. The liquid looks powerful");
         break;
       case "healthFlask":
-        itemLabel.setText("A full flask; the liquid looks invigorating");
+        itemLabel.setText("A full flask. The liquid looks invigorating");
         break;
       case "crowbar":
         itemLabel.setText("A rusty crowbar");
         break;
       case "pickaxe":
-        itemLabel.setText("A sharp pickaxe; good for mining");
+        itemLabel.setText("A sharp pickaxe. Good for mining");
         break;
       case "boltCutters":
         itemLabel.setText("A pair of bolt cutters");
@@ -264,7 +264,7 @@ public class UserInterface extends Application {
         itemLabel.setText("You attacked Tombstone Thomas!");
         break;
       case "woodenBlockade":
-        itemLabel.setText("Some wooden planks; looks like they might pry away");
+        itemLabel.setText("Some wooden planks. Looks like they might pry away");
         break;
       case "stoneBlockade":
         itemLabel.setText("Crumbled stones block your path");
