@@ -143,10 +143,14 @@ public class MapEditor extends Application {
       int y = (int) e.getSceneY();
       row = getRow(y);
       col = getCol(x);
+      if (row != -1 && col != -1 && row <= 20 && col <= 20) {
+       
+        if (selectedBtn == "floorBtn") {
+          grid[col][row] = "empty_" + direction;
+        }
 
-      // adds appropriate floor tile or icon to map
-      if (selectedBtn == "floorBtn" || selectedBtn == "itemBtn") {
-        if (row != -1 && col != -1 && row <= 20 && col <= 20) {
+        // adds appropriate item to map
+        if (selectedBtn == "itemBtn") {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
           } else if (grid[col][row].endsWith("_NE")) {
@@ -168,13 +172,13 @@ public class MapEditor extends Application {
           }
           grid[col][row] = selectedIcon + "_" + direction;
         }
-      }
 
-      // removes the appropriate tile/icon from map
-      if (selectedBtn == "remove") {
-        remove();
+        // removes the appropriate tile/icon from map
+        if (selectedBtn == "remove") {
+          remove();
+        }
+        drawGrid();
       }
-      drawGrid();
     }
   };
 
@@ -191,18 +195,11 @@ public class MapEditor extends Application {
   private void remove() {
     // removes the tile that was at the row and column which was clicked on
     String[] gridSquare = (grid[col][row]).split("_");
-    String s1 = gridSquare[0];
     String s2 = gridSquare[1];
-    
-    System.out.println("grid square: " + grid[col][row]);
-    System.out.println("s1: " + s1);
-    System.out.println("s2: " + s2);
-    
-    if(grid[col][row].startsWith("empty")) {
-      System.out.println("if");
+
+    if (grid[col][row].startsWith("empty_")) {
       grid[col][row] = "0_none";
-    } else if ( s1 != "0") {
-      System.out.println("else if");
+    } else if (!grid[col][row].startsWith("0")) {
       grid[col][row] = "empty_" + s2;
     }
     drawGrid();
@@ -280,7 +277,7 @@ public class MapEditor extends Application {
   public static void setDirection(String dir) {
     direction = dir;
   }
-  
+
   public static void setButton(String btn) {
     selectedBtn = btn;
   }
