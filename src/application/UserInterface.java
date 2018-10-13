@@ -66,6 +66,7 @@ public class UserInterface extends Application {
   private BorderPane layout = new BorderPane();
   private int selectedItem;
   private List<Item> items = new ArrayList<Item>();
+  private HBox healthBarBox;
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(
@@ -116,6 +117,13 @@ public class UserInterface extends Application {
   }
 
   private void update() {
+    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth() * 4.6, 35);
+    healthBar.setFill(Color.GREEN);
+    Rectangle background = new Rectangle(50, 3, (100 - game.getPlayer().getHealth()) * 4.6, 35);
+    background.setFill(Color.RED);
+    healthBarBox.getChildren().clear();
+    healthBarBox.getChildren().addAll(healthBar, background);
+    
     backpackGrid.getChildren().clear();
     items.clear();
     items.addAll(game.getPlayer().getBag());
@@ -163,7 +171,7 @@ public class UserInterface extends Application {
           return;
 
       }
-      
+
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -397,25 +405,22 @@ public class UserInterface extends Application {
     backpackGrid = new GridPane();
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
-    
+
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    
+
     // Health Bar
-    HBox healthBarBox = new HBox();
+    healthBarBox = new HBox();
     healthBarBox.setStyle("-fx-background-color: #171916; ");
     healthBarBox.setMinWidth(462);
     healthBarBox.setMinHeight(43);
-    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth()*4.6, 35);
-    healthBar.setFill(Color.DARKRED);
-    healthBarBox.getChildren().add(healthBar);
+    
 
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
 
     // Build scene
     Scene scene = new Scene(layout);
