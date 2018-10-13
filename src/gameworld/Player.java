@@ -173,9 +173,7 @@ public class Player {
    * @param obj the object to add to the bag
    */
   public void addToBag(Item obj) {
-    if (obj.getWeight() + currentWeight <= MAX_WEIGHT) {
-      this.bag.add(obj);
-    }
+    this.bag.add(obj);
   }
 
   /**
@@ -212,8 +210,13 @@ public class Player {
    *
    * @param item item to pick up
    */
-  public void pickUp(Item item) {
-    addToBag(item);
+  public boolean pickUp(Item item) {
+    System.out.println("Item: " + item.getWeight() + ". Current Weight: " + getCurrentWeight());
+    if (item.getWeight() + getCurrentWeight() <= MAX_WEIGHT) {
+      addToBag(item);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -316,7 +319,11 @@ public class Player {
    * @return the currentWeight
    */
   public int getCurrentWeight() {
-    return currentWeight;
+    int weight = 0;
+    for (Item itm : bag) {
+      weight += itm.getWeight();
+    }
+    return weight;
   }
 
   /**
