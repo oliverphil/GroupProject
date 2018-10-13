@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import gameworld.FloorObject;
 import gameworld.GameWorld;
@@ -122,7 +123,7 @@ public class GameWorldTests {
 
     // make sure the flask is no longer there
     obj = game.getBoard().getBoard()[6][8].getObj();
-    assertTrue(obj == null);
+    assertEquals(null, obj);
   }
 
   @Test
@@ -136,7 +137,7 @@ public class GameWorldTests {
     game.interact("door", 0);
 
     // make sure that tile no longer has a door
-    assertTrue(!game.getBoard().getBoard()[7][6].hasDoor("west"));
+    assertFalse(game.getBoard().getBoard()[7][6].hasDoor("west"));
   }
 
   @Test
@@ -157,7 +158,7 @@ public class GameWorldTests {
     game.interact("david", 2);
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 75);
+    assertEquals(75, game.getPlayer().getHealth());
   }
 
   @Test
@@ -178,7 +179,7 @@ public class GameWorldTests {
     game.interact("marco", 2);
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 80);
+    assertEquals(80, game.getPlayer().getHealth());
   }
 
   @Test
@@ -199,7 +200,7 @@ public class GameWorldTests {
     game.interact("thomas", 2);
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 85);
+    assertEquals(85, game.getPlayer().getHealth());
   }
 
   @Test
@@ -209,14 +210,14 @@ public class GameWorldTests {
     game.getPlayer().setHealth(80);
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 80);
+    assertEquals(80, game.getPlayer().getHealth());
 
     game.interact("emptyFlask", 3);
     game.interact("healthFountain", 0);
     game.useItem(game.getPlayer().getBag().get(0));
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 100);
+    assertEquals(100, game.getPlayer().getHealth());
     assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
 
     // attempt to use an empty flask
@@ -231,7 +232,7 @@ public class GameWorldTests {
     game.getPlayer().setHealth(82);
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 82);
+    assertEquals(82, game.getPlayer().getHealth());
 
     game.interact("emptyFlask", 3);
     game.interact("healthFountain", 0);
@@ -244,7 +245,7 @@ public class GameWorldTests {
     game.useItem(game.getPlayer().getBag().get(0));
 
     // check player health
-    assertTrue(game.getPlayer().getHealth() == 100);
+    assertEquals(100, game.getPlayer().getHealth());
     assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
   }
 
@@ -266,7 +267,7 @@ public class GameWorldTests {
     try {
       Thread.sleep(100);
     } catch (InterruptedException e) {
-      assertTrue(false);
+      fail();
       e.printStackTrace();
     }
 
@@ -385,7 +386,7 @@ public class GameWorldTests {
     game.interact("khopesh", 3);
 
     // test equals
-    assertTrue(!torch.equals(hammer));
+    assertFalse(torch.equals(hammer));
     assertTrue(hammer.equals(hammer));
   }
 
