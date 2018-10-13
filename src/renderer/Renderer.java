@@ -3,12 +3,6 @@ package renderer;
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
 
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-
 import java.io.File;
 
 import java.util.ArrayList;
@@ -19,7 +13,6 @@ import java.util.Observer;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,11 +33,13 @@ import javafx.util.Duration;
  */
 public class Renderer extends Canvas implements Observer {
 
-  // TODO: credits, tests
+  // TODO: tests
   private static final int ITEM_SIZE = 200;
   private List<ItemOnScreen> objectsOnScreen;
   private Music musicPlayer;
   private boolean muted = false;
+  private boolean won = false;
+  private boolean dead = false;
 
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
@@ -352,6 +347,7 @@ public class Renderer extends Canvas implements Observer {
     gc.setFill(Color.BLACK);
     gc.fillRect(0, 0, getWidth(), getHeight());
     gc.setStroke(Color.RED);
+    gc.setLineWidth(1);
     gc.strokeText("You Died", (getWidth() / 2) - 20, getHeight() / 2);
   }
 
@@ -404,14 +400,17 @@ public class Renderer extends Canvas implements Observer {
   @Override
   public void update(Observable arg0, Object arg1) {
     // *********OBSERVER PATTERN********* //
-    if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof ViewDescriptor) {
+    if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof ViewDescriptor && !dead
+        && !won) {
       redraw((ViewDescriptor) arg1);
     } else if (arg0.getClass().equals(GameWorld.class) && arg1 instanceof String) {
       switch ((String) arg1) {
         case "won":
+          won = true;
           toWhite();
           break;
         case "dead":
+          dead = true;
           toBlack();
           break;
         default:
