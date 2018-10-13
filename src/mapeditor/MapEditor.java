@@ -105,7 +105,8 @@ public class MapEditor extends Application {
     // sets position window to be slightly to the right
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
     primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 2));
-    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 4);;
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 4);
+    ;
 
     primaryStage.setScene(scene);
     primaryStage.show();
