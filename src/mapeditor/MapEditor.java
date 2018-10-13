@@ -151,40 +151,32 @@ public class MapEditor extends Application {
         if (row != -1 && col != -1 && row <= 20 && col <= 20) {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
-          }
-          if (grid[col][row].endsWith("_NE")) {
+          } else if (grid[col][row].endsWith("_NE")) {
             direction = "NE";
-          }
-          if (grid[col][row].endsWith("_E")) {
+          } else if (grid[col][row].endsWith("_E")) {
             direction = "E";
-          }
-          if (grid[col][row].endsWith("_SE")) {
+          } else if (grid[col][row].endsWith("_SE")) {
             direction = "SE";
-          }
-          if (grid[col][row].endsWith("_S")) {
+          } else if (grid[col][row].endsWith("_S")) {
             direction = "S";
-          }
-          if (grid[col][row].endsWith("_SW")) {
+          } else if (grid[col][row].endsWith("_SW")) {
             direction = "SW";
-          }
-          if (grid[col][row].endsWith("_W")) {
+          } else if (grid[col][row].endsWith("_W")) {
             direction = "W";
-          }
-          if (grid[col][row].endsWith("_NW")) {
+          } else if (grid[col][row].endsWith("_NW")) {
             direction = "NW";
-          }
-          if (grid[col][row].endsWith("_none")) {
+          } else if (grid[col][row].endsWith("_none")) {
             direction = "none";
           }
           grid[col][row] = selectedIcon + "_" + direction;
-          drawGrid();
         }
       }
-      
+
       // removes the appropriate tile/icon from map
       if (selectedBtn == "remove") {
-        remove(x, y);
+        remove();
       }
+      drawGrid();
     }
   };
 
@@ -198,11 +190,24 @@ public class MapEditor extends Application {
     return (int) ((y - 51) / 22);
   }
 
-  private void remove(int x, int y) {
+  private void remove() {
     // removes the tile that was at the row and column which was clicked on
-    grid[col][row] = "0_none";
+    String[] gridSquare = (grid[col][row]).split("_");
+    String s1 = gridSquare[0];
+    String s2 = gridSquare[1];
+    
+    System.out.println("grid square: " + grid[col][row]);
+    System.out.println("s1: " + s1);
+    System.out.println("s2: " + s2);
+    
+    if(s1 == "empty") {
+      System.out.println("if");
+      grid[col][row] = "0_none";
+    } else if ( s1 != "0") {
+      System.out.println("else if");
+      grid[col][row] = "empty_" + s2;
+    }
     drawGrid();
-
   }
 
   private HBox drawTop() {

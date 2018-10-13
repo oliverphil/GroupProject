@@ -163,6 +163,7 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   @Override
   public void handle(ActionEvent event) {
     // changed the selected direction depending on which button is clicked.
+    MapEditor.setSelectedIcon("empty");
     if (event.getSource() == northWest) {
       MapEditor.setDirection("NW");
     } else if (event.getSource() == north) {
@@ -182,6 +183,5 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     } else if (event.getSource() == none) {
       MapEditor.setDirection("none");
     }
-    MapEditor.setSelectedIcon("empty");
   }
 }
