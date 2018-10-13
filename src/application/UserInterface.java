@@ -83,8 +83,6 @@ public class UserInterface extends Application {
 
   private GameWorld game;
   private GridPane backpackGrid;
-  
-
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(
@@ -127,14 +125,13 @@ public class UserInterface extends Application {
   private Image bombImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
 
-
   public static void main(String[] args) {
     launch(args);
   }
 
   private void update() {
 
-    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 35);
+    healthBar = new Rectangle(10, 3, game.getPlayer().getHealth() * 4.35, 35);
     healthBar.setFill(Color.DARKRED);
     healthBarLayout.setCenter(healthBar);
 
@@ -145,7 +142,6 @@ public class UserInterface extends Application {
     healthBarBox.getChildren().clear();
     healthBarBox.getChildren().addAll(healthBar, background);
 
-    
     backpackGrid.getChildren().clear();
     items.clear();
     items.addAll(game.getPlayer().getBag());
@@ -153,7 +149,7 @@ public class UserInterface extends Application {
       selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
     }
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
-    
+
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
       Item itemInPack = game.getPlayer().getBag().get(i);
       Button itemButton = new Button();
@@ -193,7 +189,7 @@ public class UserInterface extends Application {
           return;
 
       }
-      
+
       // Flask Label Animations
       ParallelTransition filledLabelAnimation = new ParallelTransition();
       filledLabelAnimation.setOnFinished(e -> {
@@ -204,9 +200,9 @@ public class UserInterface extends Application {
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.play();
-      });      
+      });
 
-      ParallelTransition emptyLabelAnimation = new ParallelTransition(); 
+      ParallelTransition emptyLabelAnimation = new ParallelTransition();
       emptyLabelAnimation.setOnFinished(e -> {
         flaskStatusScreen.setCenter(emptyFlask);
         emptyFlask.setTextFill(Color.WHITE);
@@ -216,7 +212,6 @@ public class UserInterface extends Application {
         fadeOut.setToValue(0.0);
         fadeOut.play();
       });
-      
 
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
@@ -235,7 +230,7 @@ public class UserInterface extends Application {
           case "healthFlask":
             filledLabelAnimation.play();
             break;
-            }
+        }
       });
       packItemsArray.add(itemButton);
       backpackGrid.add(itemButton, i, 0);
@@ -262,7 +257,7 @@ public class UserInterface extends Application {
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
-    
+
     /* MENU START */
     // Game Menu
     Menu gameMenu = new Menu("");
@@ -344,12 +339,12 @@ public class UserInterface extends Application {
     /* CANVAS START */
     VBox centerScreen = new VBox();
     centerScreen.scaleShapeProperty();
-    
+
     flaskStatusScreen.setStyle("-fx-background-color: #1d1f23; ");
     flaskStatusScreen.setMinHeight(32);
-    flaskStatusScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        new CornerRadii(3), BorderWidths.DEFAULT)));
-    
+    flaskStatusScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
     Renderer gameScreen = new Renderer(700, 700);
     gameScreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       game.interact(gameScreen.onClick(e));
@@ -359,6 +354,7 @@ public class UserInterface extends Application {
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     gameRestart.setOnAction(e -> {
+      gameScreen.restartGame();
       game = new GameWorld();
       game.addObserver(gameScreen);
       game.update();
