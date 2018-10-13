@@ -115,14 +115,14 @@ public class Board {
     Tool pickaxe = new Tool();
     pickaxe.setMaterial("stoneBlockade");
     pickaxe.setName("pickaxe");
-    crowbar.setWeight(5);
+    pickaxe.setWeight(5);
     pickaxe.setLocation(new Point(14, 13));
     this.board[13][14].setObj(pickaxe);
 
     Tool boltCutters = new Tool();
     boltCutters.setMaterial("chainBlockade");
     boltCutters.setName("boltCutters");
-    crowbar.setWeight(3);
+    boltCutters.setWeight(4);
     boltCutters.setLocation(new Point(11, 0));
     this.board[0][11].setObj(boltCutters);
 
@@ -130,37 +130,40 @@ public class Board {
     Weapon hammer = new Weapon();
     hammer.setName("hammer");
     hammer.setDamage(10);
-    crowbar.setWeight(6);
+    hammer.setWeight(6);
     hammer.setLocation(new Point(13, 3));
     this.board[3][13].setObj(hammer);
 
     Weapon torch = new Weapon();
     torch.setName("torch");
     torch.setDamage(15);
-    crowbar.setWeight(2);
+    torch.setWeight(2);
     torch.setLocation(new Point(9, 13));
     this.board[13][9].setObj(torch);
 
     Weapon sword = new Weapon();
     sword.setName("khopesh");
     sword.setDamage(20);
-    crowbar.setWeight(4);
+    sword.setWeight(4);
     sword.setLocation(new Point(0, 4));
     this.board[4][0].setObj(sword);
 
     // Bombs
     Explosive ex1 = new Explosive();
     ex1.setName("bomb");
+    ex1.setWeight(3);
     ex1.setLocation(new Point(10, 6));
     this.board[6][10].setObj(ex1);
 
     Explosive ex2 = new Explosive();
     ex2.setName("bomb");
+    ex2.setWeight(3);
     ex2.setLocation(new Point(0, 11));
     this.board[11][0].setObj(ex2);
 
     Explosive ex3 = new Explosive();
     ex3.setName("bomb");
+    ex3.setWeight(3);
     ex3.setLocation(new Point(5, 14));
     this.board[14][5].setObj(ex3);
 
