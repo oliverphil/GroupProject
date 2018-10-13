@@ -190,10 +190,7 @@ public class MapEditor extends Application {
       }
       if (selectedBtn == "itemBtn") {
         if (row != -1 && col != -1) {
-          if (grid[col][row] == "0") {
-            // add shit here
-          }
-          grid[col][row] = selectedIcon;
+          grid[col][row] = selectedIcon + "_" + direction;;
           drawGrid();
         }
       }
@@ -215,7 +212,6 @@ public class MapEditor extends Application {
   }
 
   private void remove(int x, int y) {
-    grid[col][row] = "0";
     // removes the tile that was at the row and column which was clicked on
     grid[col][row] = "0_none";
     drawGrid();

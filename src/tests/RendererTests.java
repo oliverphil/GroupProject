@@ -1263,7 +1263,7 @@ public class RendererTests {
       player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
-      assertEquals("tunnels", (String) track.get(music));
+      assertEquals("tunnels", (String) track.get(player));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access music");
@@ -1280,7 +1280,7 @@ public class RendererTests {
       player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
-      assertEquals("tunnels", (String) track.get(music));
+      assertEquals("tunnels", (String) track.get(player));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access music");
@@ -1297,7 +1297,7 @@ public class RendererTests {
       player.mute();
       Field track = Music.class.getDeclaredField("currentFile");
       track.setAccessible(true);
-      assertEquals("escape", (String) track.get(music));
+      assertEquals("escape", (String) track.get(player));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access music");
