@@ -34,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 
@@ -154,6 +155,7 @@ public class UserInterface extends Application {
           return;
 
       }
+      
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -387,32 +389,18 @@ public class UserInterface extends Application {
     backpackGrid = new GridPane();
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
-
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
-        new CornerRadii(3), BorderWidths.DEFAULT)));
     
-    ArrayList<Button> packItemsArray = new ArrayList<Button>();
-    
-    for(int i = 0; i < game.getPlayer().getBag().size(); i++) {
-      Item itemInPack = game.getPlayer().getBag().get(i);
-      itemButton itemButton;
-      
-      switch (itemInPack.getName()) {
-        case "emptyFlask":
-          itemButton = new itemButton(new ImageView(emptyFlaskImage));
-         // packItemsArray.add(itemButton.getItemButton());
-          break;
-      }
-      
-      for(int i1 = 0; i1 < packItemsArray.size(); i1++) {
-        backpackGrid.add(packItemsArray.get(i1), 0, i1);
-      }
-      
-    }
-
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
+    
+    // Health Bar
+    HBox healthBarBox = new HBox();
+    healthBarBox.setStyle("-fx-background-color: #171916; ");
+    healthBarBox.setMinWidth(462);
+    healthBarBox.setMinHeight(43);
+    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth()*4.6, 35);
+    healthBar.setFill(Color.DARKRED);
+    healthBarBox.getChildren().add(healthBar);
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -438,12 +426,8 @@ public class UserInterface extends Application {
     GridPane.setColumnIndex(moveBack, 1);
     GridPane.setRowIndex(lookLeft, 1);
     GridPane.setColumnIndex(lookLeft, 0);
-    GridPane.setRowIndex(dropItem, 0);
-    GridPane.setColumnIndex(dropItem, 0);
-    GridPane.setRowIndex(useItem, 0);
-    GridPane.setColumnIndex(useItem, 2);
 
-    buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft, dropItem, useItem);
+    buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft);
 
     bottomScreenLeft.getChildren().addAll(buttonGrid);
 
@@ -453,7 +437,7 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(backpackGrid);
+    bottomScreenRight.getChildren().addAll(healthBarBox, backpackGrid, dropItem, useItem);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
@@ -489,34 +473,6 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
-  }
-}
-
-
-/*
- * A special kind of Button that represents an item
- * To be used in the display of 'Backpack'
- */
-class itemButton extends Label {
-  
-  private itemButton anItemButton;
-  
-  public itemButton(ImageView imageView) {
-    anItemButton = (itemButton) new Label();
-    anItemButton.setGraphic(imageView);
-    anItemButton.setStyle("-fx-background-color: #1d1f23; ");
-    anItemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    //anItemButton.setOnAction(e -> System.out.println("Used Item"));             // TODO: Highlight an item that is selected
-  }
-  
-  private void setOnAction(Object object) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public itemButton getItemButton() {
-    return anItemButton;
   }
 }
 
