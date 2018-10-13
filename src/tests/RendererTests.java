@@ -19,12 +19,10 @@ import java.util.Observable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import javax.swing.SwingUtilities;
 
@@ -32,7 +30,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import application.UserInterface;
 import renderer.Music;
 import renderer.Renderer;
 import renderer.Renderer.ItemOnScreen;

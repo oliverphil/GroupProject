@@ -68,6 +68,8 @@ public class Renderer extends Canvas implements Observer {
     GraphicsContext gc = getGraphicsContext2D();
     int i = 0;
     List<String> visibleTiles = view.getView();
+
+    // for each tile on the wall
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       String tile = visibleTiles.get(i);
       if (tile.equals("door")) {
@@ -88,20 +90,23 @@ public class Renderer extends Canvas implements Observer {
       }
       i++;
     }
+
+    // draw the floor tiles
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       Image floor = new Image(
           getClass().getResource("images" + File.separator + "floor.png").toString());
       gc.drawImage(floor, x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
     }
 
+    // draw a separating line between the wall and the floor
     gc.setFill(Color.BLACK);
     gc.setLineWidth(3);
     gc.strokeLine(0, getHeight() * 2 / 3 + 1, getWidth(), getHeight() * 2 / 3 + 1);
 
     boolean boss = false;
 
+    // for each item on the floor
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
-
       String visibleTile = visibleTiles.get(i);
       if (visibleTile.equals("emptyFlask")) {
         Image emptyFlask = new Image(
@@ -245,6 +250,7 @@ public class Renderer extends Canvas implements Observer {
       i++;
     }
 
+    // if there is a boss, draw the health bar
     if (boss && view.getMonsterHealth() != -1) {
       double scale = 200.0 / 250.0;
       gc.setFill(Color.GREEN);
@@ -256,7 +262,10 @@ public class Renderer extends Canvas implements Observer {
       gc.strokeRect((getWidth() / 2) - 100, 50, 200, 10);
     }
 
+    // if there is a music file and directions
     if (visibleTiles.size() == 8) {
+
+      // update the music
       String musicFile = visibleTiles.get(7);
       if (musicFile.equals("")) {
         musicFile = "tunnels";
@@ -268,6 +277,7 @@ public class Renderer extends Canvas implements Observer {
         musicPlayer.unmute();
       }
 
+      // update the direction
       String dir = visibleTiles.get(6);
       String dirIcon = "";
       if (dir.equals("north")) {
@@ -286,11 +296,17 @@ public class Renderer extends Canvas implements Observer {
     Collections.reverse(objectsOnScreen);
   }
 
+  /**
+   * Mute the music player.
+   */
   public void mute() {
     muted = true;
     musicPlayer.mute();
   }
 
+  /**
+   * Unmute the music player.
+   */
   public void unmute() {
     muted = false;
     musicPlayer.unmute();
@@ -332,6 +348,9 @@ public class Renderer extends Canvas implements Observer {
     }
   }
 
+  /**
+   * Open a new window and display the credits.
+   */
   private void credits() {
     File creditFolder = new File("src" + File.separator + "renderer" + File.separator + "credits");
     File[] icons = creditFolder.listFiles();
@@ -417,6 +436,12 @@ public class Renderer extends Canvas implements Observer {
     return true;
   }
 
+  /**
+   * A class to hold information about tiles on the screen.
+   * 
+   * @author Philip Oliver - 300398228
+   *
+   */
   public class ItemOnScreen {
     private final double leftX;
     private final double topY;
@@ -447,6 +472,12 @@ public class Renderer extends Canvas implements Observer {
       return obj;
     }
 
+    /**
+     * A method to check if a mouse event happens on this item.
+     * 
+     * @param e the mouse event
+     * @return true if the mouse event occured on this item
+     */
     private boolean on(MouseEvent e) {
       return e.getSceneX() >= leftX && e.getSceneX() <= leftX + width && e.getSceneY() >= topY
           && e.getSceneY() <= topY + height;
