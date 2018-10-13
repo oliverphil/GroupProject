@@ -72,8 +72,10 @@ public class UserInterface extends Application {
   private BorderPane layout = new BorderPane();
   private int selectedItem;
   private List<Item> items = new ArrayList<Item>();
+
   private Rectangle healthBar;
   private BorderPane healthBarLayout = new BorderPane();
+  private HBox healthBarBox = new HBox();
 
   BorderPane flaskStatusScreen = new BorderPane();
   Label filledFlask = new Label("FILLED");
@@ -82,6 +84,7 @@ public class UserInterface extends Application {
   private GameWorld game;
   private GridPane backpackGrid;
   
+
 
   // load arrow images and resize them to 60x60px
   private Image forwardArrowImage = new Image(
@@ -130,9 +133,18 @@ public class UserInterface extends Application {
   }
 
   private void update() {
+
     healthBar = new Rectangle(10, 3, game.getPlayer().getHealth()*4.35, 35);
     healthBar.setFill(Color.DARKRED);
     healthBarLayout.setCenter(healthBar);
+
+    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth() * 4.6, 35);
+    healthBar.setFill(Color.GREEN);
+    Rectangle background = new Rectangle(50, 3, (100 - game.getPlayer().getHealth()) * 4.6, 35);
+    background.setFill(Color.RED);
+    healthBarBox.getChildren().clear();
+    healthBarBox.getChildren().addAll(healthBar, background);
+
     
     backpackGrid.getChildren().clear();
     items.clear();
@@ -205,6 +217,7 @@ public class UserInterface extends Application {
         fadeOut.play();
       });
       
+
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -459,15 +472,19 @@ public class UserInterface extends Application {
     backpackGrid = new GridPane();
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
-    
+
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-    
+
     // Health Bar
     healthBarLayout.setStyle("-fx-background-color: #171916; ");
     healthBarLayout.setMinWidth(462);
     healthBarLayout.setMinHeight(43);
 
+    healthBarBox = new HBox();
+    healthBarBox.setStyle("-fx-background-color: #171916; ");
+    healthBarBox.setMinWidth(462);
+    healthBarBox.setMinHeight(43);
 
     // Use and Drop Format
     BorderPane useDropLayout = new BorderPane();
@@ -476,7 +493,6 @@ public class UserInterface extends Application {
     HBox useDropBox = new HBox();
     useDropBox.getChildren().addAll(dropItem, useItem);
     useDropLayout.setCenter(useDropBox);
-
 
     // Build scene
     Scene scene = new Scene(layout);
