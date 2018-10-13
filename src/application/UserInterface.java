@@ -105,6 +105,8 @@ public class UserInterface extends Application {
   private Image powerFlaskImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "powerFlask.png"), 60, 60, false,
       false);
+  private Image bombImage = new Image(
+      getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
 
   private GameWorld game;
   private GridPane backpackGrid;
@@ -117,6 +119,9 @@ public class UserInterface extends Application {
     backpackGrid.getChildren().clear();
     items.clear();
     items.addAll(game.getPlayer().getBag());
+    if (selectedItem >= items.size()) {
+      selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
+    }
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
@@ -150,6 +155,9 @@ public class UserInterface extends Application {
           break;
         case "hammer":
           itemButton.setGraphic(new ImageView(hammerImage));
+          break;
+        case "bomb":
+          itemButton.setGraphic(new ImageView(bombImage));
           break;
         default:
           return;
@@ -402,6 +410,13 @@ public class UserInterface extends Application {
     healthBar.setFill(Color.DARKRED);
     healthBarBox.getChildren().add(healthBar);
 
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
+
     // Build scene
     Scene scene = new Scene(layout);
     scene.setFill(Color.rgb(43, 42, 41));
@@ -475,4 +490,3 @@ public class UserInterface extends Application {
     window.show();
   }
 }
-

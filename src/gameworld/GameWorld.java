@@ -143,6 +143,13 @@ public class GameWorld extends Observable {
         board.removeObject(player, tile);
         break;
 
+      case "bomb":
+        Explosive bomb = new Explosive();
+        bomb.setName("bomb");
+        player.pickUp(bomb);
+        board.removeObject(player, tile);
+        break;
+        
       // tools
       case "crowbar":
         if (player.hasTool()) {

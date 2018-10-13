@@ -699,7 +699,7 @@ public class RendererTests {
       objects = Renderer.class.getDeclaredField("objectsOnScreen");
       objects.setAccessible(true);
       objects.set(other, Arrays.asList(new ItemOnScreen[] {
-          other.new ItemOnScreen((3.0 / 2) - (400.0 / 2), 0, 400.0, 400.0, 2, "stoneBlockade") }));
+          other.new ItemOnScreen(1, 0, 400.0, 2, 2, "stoneBlockade") }));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
         | IllegalAccessException e) {
       fail("Should be able to access fields");
