@@ -119,11 +119,9 @@ public class MapEditor extends Application {
 
       // do the appropriate action depending on what buttons are pushed
       if (e.getSource() == floorBtn) {
-        selectedBtn = "floorBtn";
         openWindowFTM = new FloorTileMenu();
       }
       if (e.getSource() == itemBtn) {
-        selectedBtn = "itemBtn";
         openWindowIM = new IconsMenu();
       }
       if (e.getSource() == remove) {
@@ -200,7 +198,7 @@ public class MapEditor extends Application {
     System.out.println("s1: " + s1);
     System.out.println("s2: " + s2);
     
-    if(s1 == "empty") {
+    if(grid[col][row].startsWith("empty")) {
       System.out.println("if");
       grid[col][row] = "0_none";
     } else if ( s1 != "0") {
@@ -275,12 +273,16 @@ public class MapEditor extends Application {
     return box;
   }
 
-  public static void setSelectedIcon(String icon) {
+  public static void setIcon(String icon) {
     selectedIcon = icon;
   }
 
   public static void setDirection(String dir) {
     direction = dir;
+  }
+  
+  public static void setButton(String btn) {
+    selectedBtn = btn;
   }
 
   public String[][] getGrid() {
