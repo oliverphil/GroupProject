@@ -34,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 
@@ -162,6 +163,7 @@ public class UserInterface extends Application {
           return;
 
       }
+      
       itemButton.setAccessibleHelp(((Integer) i).toString());
       itemButton.setStyle("-fx-background-color: #1d1f23; ");
       itemButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
@@ -395,12 +397,25 @@ public class UserInterface extends Application {
     backpackGrid = new GridPane();
     backpackGrid.setScaleShape(true);
     backpackGrid.scaleShapeProperty();
+    
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+    
+    // Health Bar
+    HBox healthBarBox = new HBox();
+    healthBarBox.setStyle("-fx-background-color: #171916; ");
+    healthBarBox.setMinWidth(462);
+    healthBarBox.setMinHeight(43);
+    Rectangle healthBar = new Rectangle(50, 3, game.getPlayer().getHealth()*4.6, 35);
+    healthBar.setFill(Color.DARKRED);
+    healthBarBox.getChildren().add(healthBar);
 
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -426,12 +441,8 @@ public class UserInterface extends Application {
     GridPane.setColumnIndex(moveBack, 1);
     GridPane.setRowIndex(lookLeft, 1);
     GridPane.setColumnIndex(lookLeft, 0);
-    GridPane.setRowIndex(dropItem, 0);
-    GridPane.setColumnIndex(dropItem, 0);
-    GridPane.setRowIndex(useItem, 0);
-    GridPane.setColumnIndex(useItem, 2);
 
-    buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft, dropItem, useItem);
+    buttonGrid.getChildren().addAll(moveForward, lookRight, moveBack, lookLeft);
 
     bottomScreenLeft.getChildren().addAll(buttonGrid);
 
@@ -441,7 +452,7 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(backpackGrid);
+    bottomScreenRight.getChildren().addAll(healthBarBox, backpackGrid, dropItem, useItem);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
