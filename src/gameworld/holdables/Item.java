@@ -19,7 +19,7 @@ public abstract class Item extends FloorObject {
 
   /**
    * get weight.
-   * 
+   *
    * @return the weight
    */
   public int getWeight() {
@@ -28,7 +28,7 @@ public abstract class Item extends FloorObject {
 
   /**
    * sets the weight.
-   * 
+   *
    * @param weight the weight to set
    */
   @XmlElement
@@ -38,6 +38,8 @@ public abstract class Item extends FloorObject {
 
   /**
    * Use the item if possible.
+   * @param p the current player
+   * @param tile the tile the player is facing
    */
   public abstract void use(Player p, Tile tile);
 

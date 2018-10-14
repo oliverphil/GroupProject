@@ -22,12 +22,16 @@ public class ViewDescriptor {
    *
    * @param p the current player
    * @param b the current board
+   * @param isWon whether the game is won
    */
   public ViewDescriptor(Player p, Board b, boolean isWon) {
     view = new ArrayList<String>();
     generate(p, b, isWon);
   }
 
+  /**
+   * Create a new ViewDescriptor.
+   */
   public ViewDescriptor() {
     view = new ArrayList<>();
     generate(new Player(), new Board(), false);

@@ -98,6 +98,7 @@ public class GameWorld extends Observable {
 
   /**
    * Called on click, passes the image clicked on.
+   * @param name the item on the screen
    */
   public void interact(ItemOnScreen name) {
     interact(name.toString(), name.getTile());
@@ -106,7 +107,7 @@ public class GameWorld extends Observable {
 
   /**
    * Overloading the other interact method for ease of testing.
-   * 
+   *
    * @param name the name of the object
    * @param tile the tile it is on
    */
@@ -341,7 +342,7 @@ public class GameWorld extends Observable {
 
   /**
    * Called by the interact method when the player is fighting a boss.
-   * 
+   *
    * @param name the name of the boss to fight
    */
   private void attack(String boss) {
@@ -488,7 +489,7 @@ public class GameWorld extends Observable {
 
   /**
    * Uses the item that is selected on the players hot bar.
-   * 
+   *
    * @param item the item to be used.
    */
   public void useItem(Item item) {
@@ -505,7 +506,7 @@ public class GameWorld extends Observable {
 
   /**
    * Drops the item that is selected on the players hot bar.
-   * 
+   *
    * @param item the item to be dropped.
    */
   public void dropItem(Item item) {

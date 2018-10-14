@@ -32,6 +32,9 @@ public class Tile {
 
   /**
    * Constructs a Tile object with no walls.
+   *
+   * @param row the row this tile is in
+   * @param col the column this tile is in
    */
   public Tile(int row, int col) {
     this.row = row;
@@ -118,7 +121,7 @@ public class Tile {
   /**
    * Returns whether the tile has an item.
    *
-   * @return
+   * @return true if has object, false otherwise
    */
   public boolean hasObject() {
     return obj != null;
@@ -180,6 +183,7 @@ public class Tile {
    * Tile.
    *
    * @param obj object to add to the tile
+   * @return true if object was set, false otherwise
    */
   @XmlElements({ @XmlElement(name = "barrier", type = Barrier.class),
       @XmlElement(name = "fountain", type = Fountain.class),
