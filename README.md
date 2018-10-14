@@ -5,6 +5,13 @@ Milk Syndrome SWEN225 Group Project - Adventure Game
 ____________________________________
 Welcome to the Engineering Labyrinth!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*How to run this game*
+Step 1: Open Eclipse
+Step 2: Import the project 'Milk_SyndromeGroupProject'
+Step 3: src -> application -> UserInterface
+Step 4: Right click UserInterface
+Step 5: Run as -> Java Application
+
 General:
 1.) Use 'W','A', 'S', 'D' (or button pad) for movement
 2.) There are directional letters at the top-right corner of the screen to indicate
