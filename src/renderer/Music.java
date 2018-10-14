@@ -17,7 +17,7 @@ public class Music {
   private String currentFile;
   private static MediaPlayer player;
   private static final List<String> TRACK_NAMES = Arrays
-      .asList(new String[] { "tunnels", "escape", "mysteries" });
+      .asList(new String[] { "tunnels", "escape", "mysteries", "boss" });
 
   /**
    * Create a new Music object. Runs tunnels.wav as default.
