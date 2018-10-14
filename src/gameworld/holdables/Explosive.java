@@ -1,14 +1,13 @@
 package gameworld.holdables;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import gameworld.FloorObject;
-import gameworld.GameWorld;
 import gameworld.Ladder;
 import gameworld.Monster;
 import gameworld.Player;
 import gameworld.Tile;
 import gameworld.barriers.Barrier;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Explosive extends Item {

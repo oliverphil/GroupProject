@@ -356,8 +356,8 @@ public class Board {
   /**
    * Opens the door the player is facing.
    *
-   * @param pl
-   * @return
+   * @param pl the current player
+   * @return true if door was opened, false otherwise
    */
   public boolean openDoor(Player pl) {
     String dir = pl.getDirection();

@@ -47,7 +47,7 @@ public class ViewDescriptor {
    * Uses the player and board to determine what the player's view will be.
    *
    * @param player the current player
-   * @param board the current board
+   * @param board  the current board
    */
   private void generate(Player p, Board b, boolean isWon) {
     String dir = p.getDirection();
@@ -133,17 +133,17 @@ public class ViewDescriptor {
       default:
         break;
     }
-    //this will pass the direction for the compass in the corner
+    // this will pass the direction for the compass in the corner
     view.add(dir);
 
     Point pos = p.getLocation();
 
-    //this determines the song that will play in the background
+    // this determines the song that will play in the background
     if (((pos.valueX == 1 && pos.valueY == 1) || (pos.valueX == 13 && pos.valueY == 1)
         || (pos.valueX == 1 && pos.valueY == 13)) && !isWon) {
       view.add("boss");
-    } else if (((pos.valueX == 13 && pos.valueY == 13)
-        || (pos.valueX == 4 && pos.valueY == 10)) && !isWon) {
+    } else if (((pos.valueX == 13 && pos.valueY == 13) || (pos.valueX == 4 && pos.valueY == 10))
+        && !isWon) {
       view.add("mysteries");
     } else if (isWon) {
       view.add("escape");
@@ -152,7 +152,7 @@ public class ViewDescriptor {
     }
 
     if (b.getfacingTile(p).getObj() instanceof Monster) {
-      monsterHealth =  ((Monster) b.getfacingTile(p).getObj()).getHealth();
+      monsterHealth = ((Monster) b.getfacingTile(p).getObj()).getHealth();
     } else {
       monsterHealth = -1;
     }
@@ -189,21 +189,26 @@ public class ViewDescriptor {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     ViewDescriptor other = (ViewDescriptor) obj;
-    if (monsterHealth != other.monsterHealth)
+    if (monsterHealth != other.monsterHealth) {
       return false;
+    }
     if (view == null) {
-      if (other.view != null)
+      if (other.view != null) {
         return false;
-    } else if (!view.equals(other.view))
+      }
+    } else if (!view.equals(other.view)) {
       return false;
+    }
     return true;
   }
-
 }

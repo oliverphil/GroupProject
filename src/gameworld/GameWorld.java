@@ -1,6 +1,5 @@
 package gameworld;
 
-import gameworld.barriers.Barrier;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;

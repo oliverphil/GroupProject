@@ -1,13 +1,11 @@
 package gameworld.holdables;
 
+import gameworld.Player;
+import gameworld.Tile;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import gameworld.Player;
-import gameworld.Tile;
-import gameworld.barriers.ChainsStrategy;
 
 /**
  * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
