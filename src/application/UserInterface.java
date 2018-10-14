@@ -12,6 +12,7 @@ import java.util.Scanner;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,6 +40,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -297,6 +299,11 @@ public class UserInterface extends Application {
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
+    
+    // sets position of the window
+    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 10) *9);
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 25) *24);
 
     /* MENU START */
     // Game Menu
