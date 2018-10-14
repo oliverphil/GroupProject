@@ -55,25 +55,25 @@ public class UserInterface extends Application {
   // TODO:
   // Fix Help Printing
   // Write Tests [Renderer Tests, add 'Before All' to tests]
-  // Is player alive (checked on each event) -> Fade to black if dead (call to renderer)
   // CRC Card for GUI
   // Read Me for Game (WITH CHARLOTTE)
   // Howard Lukefah = Clippy for Help Page
 
   public static final String HELP_MESSAGE = " ";
+  private static final double HEALTHBAR_SCALE = 4.35;
+  private static final double CARRYBAR_SCALE = 29;
+  
   private Stage window;
   private BorderPane layout = new BorderPane();
-  private int selectedItem;
-  private List<Item> items = new ArrayList<Item>();
-  private double HEALTHBAR_SCALE = 4.35;
-  private double CARRYBAR_SCALE = 29;
-
+  
   private Rectangle healthBar;
   private BorderPane healthBarLayout = new BorderPane();
   
   private Rectangle carryingCapacityBar;
   private BorderPane carryingCapacityLayout = new BorderPane();
 
+  private int selectedItem;
+  private List<Item> items = new ArrayList<Item>();
   private static Item itemInPack;
   private static BorderPane statusScreen = new BorderPane();
   static Label itemLabel = new Label("");
@@ -81,7 +81,7 @@ public class UserInterface extends Application {
   private GameWorld game;
   private GridPane backpackGrid;
 
-  // load arrow images and resize them to 60x60px
+  // load arrow images and resize them to 60 x 60px
   private Image forwardArrowImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false, false);
   private Image backArrowImage = new Image(
@@ -91,7 +91,7 @@ public class UserInterface extends Application {
   private Image rightArrowImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "right.png"), 60, 60, false, false);
 
-  // load backpack icon images
+  // load backpack icon images and resize them to 60 x 60px
   private Image boltCutterImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "boltCutters.png"), 60, 60, false,
       false);
@@ -604,7 +604,7 @@ public class UserInterface extends Application {
 
     update();
 
-    // allows scene to be visible
+    // Allows scene to be visible
     layout.setBackground(Background.EMPTY);
     layout.scaleShapeProperty();
     layout.setTop(menuBar);

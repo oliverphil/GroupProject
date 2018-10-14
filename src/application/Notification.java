@@ -9,16 +9,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Previously discussed the idea of having information "pop-up"; This class would create
- * alerts/notifications.
+ * Information in the form of a "pop-up". 
+ * Used for alerts and notifications to the player.
  */
-
 public class Notification {
 
   private static Button closeButton = new Button("Exit window");
   private String windowTitle;
   private String displayMessage;
 
+  /**
+   * Creates a new notification via launching a window.
+   * @param window window title to appear
+   * @param message message contained by the window
+   * @param closeButton message written on the 'close' button
+   */
   public Notification(String window, String message, String closeButton) {
     this.windowTitle = window;
     this.displayMessage = message;
@@ -26,6 +31,11 @@ public class Notification {
     display(windowTitle, displayMessage);
   }
 
+  /**
+   * Calls for the launch of a window.
+   * @param title title of window
+   * @param message message contained by window
+   */
   public static void display(String title, String message) {
     Stage window = new Stage();
 
@@ -48,6 +58,10 @@ public class Notification {
     window.showAndWait();
   }
 
+  /**
+   * Changes the contents of button's text.
+   * @param newContent new content to be displayed inside button
+   */
   public void changeCloseButtonContent(String newContent) {
     closeButton.setText(newContent);
   }
