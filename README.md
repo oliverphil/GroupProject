@@ -29,12 +29,12 @@ General:
 12.) It is suggested that you take advantage of the 'Map Editor' in order to create a
     visualized map of the labyrinth as you navigate through it
 13.) The game's music can be muted through the options menu
+14.) Interacting with the fountains will automatically fill the first empty flask in your inventory
 
 Usable Items:
-1.) Empty Flasks: Can be used to store liquids, including health and power potions
-2.) Power Flasks: Can be consumed and give the player bonus damage to an enemy for 10s
-3.) Health Flasks: Can be consumed to restore a player's health by 20 points
-4.) Bombs: Used to cause significant damage to a monster or clear stone rubble
+1.) Power Flasks: Can be consumed and give the player bonus damage to an enemy for 10s
+2.) Health Flasks: Can be consumed to restore a player's health by 20 points
+3.) Bombs: Used to cause significant damage to a monster or clear stone rubble
 
 Tools:
 1.) Crowbar: Used to pry away wooden barriers
