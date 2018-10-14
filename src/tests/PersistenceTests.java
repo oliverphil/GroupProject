@@ -3,9 +3,6 @@ package tests;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.sun.org.apache.regexp.internal.recompile;
-import com.sun.scenario.effect.impl.state.LinearConvolveRenderState.PassType;
-
 import gameworld.GameWorld;
 import mapeditor.MapEditor;
 
@@ -56,7 +53,7 @@ public class PersistenceTests {
     try {
       GameWorld testWorld = new GameWorld();
       Persistence.saveGame(testWorld, "loadTest.xml");
-      GameWorld loadedGame = Persistence.loadGame("thisFileDoesntExist.xml");
+      Persistence.loadGame("thisFileDoesntExist.xml");
       fail("Shouldn't have been able to load that file.");
     } catch (PersistenceException e) {
       return;
@@ -143,7 +140,7 @@ public class PersistenceTests {
       fail("should save mapEditor without errors.");
     }
   }
-  
+
   @Test
   public void testInvalidMapEditorLoading() {
     String[][] grid = new String[21][21];

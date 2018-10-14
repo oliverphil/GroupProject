@@ -89,9 +89,6 @@ public class Monster extends FloorObject {
     if (!super.equals(obj)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
     Monster other = (Monster) obj;
     if (damage != other.damage) {
       return false;

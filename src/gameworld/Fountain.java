@@ -37,9 +37,6 @@ public class Fountain extends FloorObject {
     if (!super.equals(obj)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
     Fountain other = (Fountain) obj;
     if (liquid == null) {
       if (other.liquid != null) {

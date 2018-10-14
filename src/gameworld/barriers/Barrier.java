@@ -54,9 +54,6 @@ public class Barrier extends FloorObject {
     if (!super.equals(obj)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
     Barrier other = (Barrier) obj;
     if (strat == null) {
       if (other.strat != null) {
