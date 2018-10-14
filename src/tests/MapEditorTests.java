@@ -2,8 +2,13 @@ package tests;
 
 import static org.junit.Assert.assertTrue;
 
-import javafx.application.Application;
+import org.junit.After;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
+import javafx.concurrent.Task;
 import mapeditor.MapEditor;
 
 import org.junit.Test;
@@ -14,22 +19,32 @@ public class MapEditorTests {
 
   @Test
   public void setup() {
-    Thread thread = new Thread() {
+    MapEditor editor = new MapEditor();
+    Thread thread = new Thread(new Runnable() {
+
       @Override
       public void run() {
-        try {
-          Application.launch(MapEditor.class);
-          success = true;
-        } catch (Throwable t) {
-          if (t.getCause() != null && t.getCause().getClass().equals(InterruptedException.class)) {
-            success = true;
-            return;
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              editor.start(new Stage());
+              success = true;
+            } catch (Throwable t) {
+              if (t.getCause() != null
+                  && t.getCause().getClass().equals(InterruptedException.class)) {
+                success = true;
+                return;
+              }
+            }
           }
-        }
+        });
       }
-    };
-    thread.setDaemon(true);
+    });
     thread.start();
+
     try {
       Thread.sleep(3000);
     } catch (InterruptedException e) {
@@ -44,5 +59,4 @@ public class MapEditorTests {
 
     assertTrue(success);
   }
-
 }
