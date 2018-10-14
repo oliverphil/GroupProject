@@ -12,6 +12,7 @@ import gameworld.GameWorld;
 import gameworld.Monster;
 import gameworld.Player;
 import gameworld.Point;
+import gameworld.Tile;
 import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
 import gameworld.holdables.ContentsStrategy;
@@ -113,6 +114,48 @@ public class GameWorldTests {
     assertEquals(7, player.getLocation().getX());
     assertEquals(4, player.getLocation().getY());
   }
+  
+  @Test
+  public void testValidMovement_5() {
+    GameWorld game = new GameWorld();
+
+    Player player = game.getPlayer();
+    
+    // movement command
+    game.openDoor();
+    game.rotateLeft();
+    game.openDoor();
+    game.rotateLeft();
+    
+    game.moveBackwards();
+    assertEquals(7, player.getLocation().getX());
+    assertEquals(4, player.getLocation().getY());
+    game.moveForward();
+    
+    game.openDoor();
+    game.rotateLeft();
+    
+    game.moveBackwards();
+    assertEquals(4, player.getLocation().getX());
+    assertEquals(7, player.getLocation().getY());
+    game.moveForward();
+    
+    game.openDoor();
+    game.rotateLeft();
+    
+    game.moveBackwards();
+    assertEquals(7, player.getLocation().getX());
+    assertEquals(10, player.getLocation().getY());
+    game.moveForward();
+    
+    game.openDoor();
+    game.rotateLeft();
+    
+    game.moveBackwards();
+    assertEquals(10, player.getLocation().getX());
+    assertEquals(7, player.getLocation().getY());
+    game.moveForward();
+  }
 
   @Test
   public void testInteract_1() {
@@ -137,6 +180,12 @@ public class GameWorldTests {
     assertTrue(game.getBoard().getBoard()[7][6].hasDoor("west"));
 
     // rotate left then open the door
+    game.rotateLeft();
+    game.interact("door", 0);
+    
+    game.rotateLeft();
+    game.interact("door", 0);
+    
     game.rotateLeft();
     game.interact("door", 0);
 
@@ -613,7 +662,65 @@ public class GameWorldTests {
     game.interact("thomas", 1);
     game.interact("hammer", 1);
     game.interact("thomas", 1);
-    assertTrue(game.getBoard().getBoard()[1][14].getObj() == null);
+    assertTrue(game.getBoard().getTile(1, 14).getObj() == null);
+  }
+  
+  @Test
+  public void testBoardPlacing() {
+    GameWorld game = new GameWorld();
+    
+    assertTrue(game.getBoard().getBoard()[6][6].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[6][6].getObj() != null);
+    
+    assertTrue(game.getBoard().getBoard()[8][6].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[8][6].getObj() != null);
+    
+    assertTrue(game.getBoard().getBoard()[8][8].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[8][8].getObj() != null);
+  }
+  
+  @Test
+  public void testBoardRemoving() {
+    GameWorld game = new GameWorld();
+    
+    assertTrue(game.getBoard().getBoard()[6][6].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[6][6].getObj() != null);
+    game.getBoard().removeObject(game.getPlayer(), 3);
+    assertTrue(game.getBoard().getBoard()[6][6].getObj() == null);
+    
+    assertTrue(game.getBoard().getBoard()[8][6].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[8][6].getObj() != null);
+    game.getBoard().removeObject(game.getPlayer(), 3);
+    assertTrue(game.getBoard().getBoard()[8][6].getObj() == null);
+    
+    assertTrue(game.getBoard().getBoard()[8][8].getObj() == null);
+    game.rotateLeft();
+    game.getBoard().place(game.getPlayer(), new Flask(), 3);   
+    assertTrue(game.getBoard().getBoard()[8][8].getObj() != null);
+    game.getBoard().removeObject(game.getPlayer(), 3);
+    assertTrue(game.getBoard().getBoard()[8][8].getObj() == null);
+  }
+  
+  @Test
+  public void testBoardSizes() {
+    GameWorld game = new GameWorld();
+    
+    assertTrue(game.getBoard().getHeight() == 15);
+    assertTrue(game.getBoard().getWidth() == 15);
+    
+    assertTrue(game.getBoard().getBoard()[6][8].getObj() != null);
+    game.getBoard().setBoard(new Tile[15][15]);
+    assertTrue(game.getBoard().getBoard()[6][8] == null);
   }
   
   @Test
@@ -794,6 +901,11 @@ public class GameWorldTests {
     Flask other = new Flask();
     other.setStrat(null);
     assertTrue(f.equals(other));
+  }
+  
+  @Test
+  public void testEquals_16() {
+    
   }
 
   @Test
