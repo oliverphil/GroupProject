@@ -52,17 +52,8 @@ public class UserInterface extends Application {
 
   // TODO:
   // Fix Help Printing
-  // Backpack and move buttons
-  // Fix Help Printing
-  // Health bar *Note: Power Flask duration = 10sec
   // Write Tests [Renderer Tests, add 'Before All' to tests]
-
-  // Have a variable in GUI that is filled when an item is selected for either use/drop
-  // Make sure that GUI updates backpack and healthbar each time (Need a redraw for backpack and
-  // healthbar)
   // Is player alive (checked on each event) -> Fade to black if dead (call to renderer)
-  // Make healthbar a canvas (player.gethealth())
-
   // CRC Card for GUI
   // Read Me for Game (WITH CHARLOTTE)
   // Howard Lukefah = Clippy for Help Page
@@ -150,6 +141,7 @@ public class UserInterface extends Application {
     if (selectedItem >= items.size()) {
       selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
     }
+    
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
@@ -199,6 +191,7 @@ public class UserInterface extends Application {
       itemButton.setOnAction(e -> {
         selectedItem = Integer.parseInt(itemButton.accessibleHelpProperty().get());
         drawBorder();
+        itemInPack = items.get(selectedItem);
         animateLabel(itemInPack.toString());
       });
       packItemsArray.add(itemButton);
@@ -588,6 +581,7 @@ public class UserInterface extends Application {
     game.addObserver(gameScreen);
     game.update();
 
+    // WASD Key Listeners
     window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
       if (k.getCode() == KeyCode.W) {
         game.moveForward();
