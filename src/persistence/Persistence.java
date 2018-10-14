@@ -36,11 +36,8 @@ public class Persistence {
       gameMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       gameMarshaller.marshal(world, saveFile);
     } catch (JAXBException e) {
-      e.printStackTrace();
-      throw new PersistenceException("Failed to save the GameWorld file. \n");
-    } /*
-       * catch (SAXException e) { e.printStackTrace(); }
-       */
+      throw new PersistenceException("Failed to save the GameWorld file. \n", e);
+    }
   }
 
   /**
@@ -60,8 +57,7 @@ public class Persistence {
       return newWorld;
 
     } catch (JAXBException e) {
-      e.printStackTrace();
-      throw new PersistenceException("Failed to load the GameWorld file. \n");
+      throw new PersistenceException("Failed to load the GameWorld file. \n", e);
     }
   }
 
@@ -82,8 +78,7 @@ public class Persistence {
       editorMarshaller.marshal(editor, saveFile);
 
     } catch (JAXBException e) {
-      e.printStackTrace();
-      throw new PersistenceException("Failed to save the MapEditor file. \n");
+      throw new PersistenceException("Failed to save the MapEditor file. \n", e);
     }
   }
 
@@ -99,13 +94,11 @@ public class Persistence {
       File editorSave = new File(fileName);
       JAXBContext editorContext = JAXBContext.newInstance(MapEditor.class);
       Unmarshaller editorUnmarshaller = editorContext.createUnmarshaller();
-      // gameUnmarshaller.setSchema(null); //TODO: add verification
 
       return (MapEditor) editorUnmarshaller.unmarshal(editorSave);
 
     } catch (JAXBException e) {
-      e.printStackTrace();
-      throw new PersistenceException("Failed to load the MapEditor file. \n");
+      throw new PersistenceException("Failed to load the MapEditor file. \n", e);
     }
 
   }

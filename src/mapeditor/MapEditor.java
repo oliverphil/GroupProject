@@ -137,7 +137,8 @@ public class MapEditor extends Application {
         selectedBtn = "remove";
       }
       if (e.getSource() == load) {
-        Persistence.loadMapEditor("mapEditorLoad");
+        grid = Persistence.loadMapEditor("mapEditorSave").grid;
+        drawGrid();
       }
       if (e.getSource() == save) {
         Persistence.saveMapEditor(MapEditor.this, "mapEditorSave");
