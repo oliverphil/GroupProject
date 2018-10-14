@@ -22,7 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import javax.xml.bind.annotation.XmlElement;// 
+import javax.xml.bind.annotation.XmlElement;//
 // import javax.xml.bind.annotation.XmlElementWrapper;
 // import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,7 +32,7 @@ import persistence.Persistence;
 /**
  * The MapEditor class creates a window where a map can be created by the user.
  *
- * @author Charlotte Gimblett
+ * @author Charlotte Gimblett 300416852
  */
 @XmlRootElement
 public class MapEditor extends Application {
@@ -296,11 +296,6 @@ public class MapEditor extends Application {
     return grid;
   }
 
-  /*
-   * @XmlElementWrapper(name = "grid")
-   * @XmlElements({ @XmlElement(name = "row", type = String[].class),
-   * @XmlElement(name = "gridItem", type = String.class) })
-   */
   @XmlElement
   public void setGrid(String[][] grid) {
     this.grid = grid;

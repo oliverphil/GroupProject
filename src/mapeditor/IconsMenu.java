@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * The IconsMenu class creates a window where icons (items) can be selected.
  *
- * @author Charlotte Gimblett
+ * @author Charlotte Gimblett 300416852
  */
 
 public class IconsMenu extends Application implements EventHandler<ActionEvent> {
@@ -48,10 +48,6 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args) {
-    launch(args);
   }
 
   @Override
