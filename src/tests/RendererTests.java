@@ -865,7 +865,7 @@ public class RendererTests {
       }
     });
     assertEquals("chainBlockade",
-        renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null,
+        renderer.onClick(new MouseEvent((Object) renderer, (EventTarget) null ,
             MouseEvent.MOUSE_CLICKED, 1.5 - 150.0, 200.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false,
             false, false, false, false, false, false, false, false, false, null)).toString());
   }
