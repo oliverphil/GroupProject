@@ -319,7 +319,6 @@ public class GameWorldTests {
     game.getBoard().getBoard()[6][7].setObj(pickaxe);
 
     Tool boltCutters = new Tool();
-    boltCutters.setMaterial("boltCutters");
     boltCutters.setName("boltCutters");
     boltCutters.setWeight(4);
     boltCutters.setLocation(new Point(8, 6));
@@ -338,6 +337,7 @@ public class GameWorldTests {
     game.dropItem(game.getPlayer().getBag().get(0));
 
     game.interact("pickaxe", 2);
+    game.useItem(pickaxe);
     assertTrue(game.getBoard().getBoard()[6][8].getObj().getName().equals("crowbar"));
 
     game.dropItem(game.getPlayer().getBag().get(0));
@@ -345,6 +345,8 @@ public class GameWorldTests {
 
     // make sure there is still just 1 tool in the bag
     assertEquals(1, game.getPlayer().getBag().size());
+    assertFalse(pickaxe.equals(crowbar));
+    assertTrue(pickaxe.equals(pickaxe));
   }
 
   @Test
@@ -490,9 +492,25 @@ public class GameWorldTests {
     assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("stoneBlockade"));
     
     game.interact("bomb", 1);
-    game.useItem(game.getPlayer().getBag().get(0));
+    assertTrue(game.getPlayer().getBag().get(0).toString().equals("bomb"));
     
+    game.useItem(bomb);
     assertTrue(game.getBoard().getBoard()[6][7].getObj() == null);
+    
+    //use on null
+    game.useItem(bomb);
+    
+    Monster david = new Monster();
+    david.setLocation(new Point(7, 6));
+    david.setName("david");
+    david.setDamage(25);
+    david.setHealth(40);
+    game.getBoard().getBoard()[6][7].setObj(david);
+   
+    game.useItem(bomb);
+    assertTrue(david.getHealth() == 10);
+    game.useItem(bomb);
+    assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("ladder"));
   }
 
   @Test
