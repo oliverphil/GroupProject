@@ -315,7 +315,7 @@ public class UserInterface extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    game = new GameWorld();
+    game = Persistence.loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
