@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
@@ -947,6 +948,7 @@ public class RendererTests {
     assertFalse(renderer.equals(null));
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Test
   public void testEquals04() {
     assertFalse(renderer.equals("hello"));
@@ -1547,15 +1549,44 @@ public class RendererTests {
 
   @Test
   public void testCredits() {
-    try {
-      Method credits = renderer.getClass().getDeclaredMethod("credits", new Class[] {});
-      credits.setAccessible(true);
-      credits.invoke(renderer, new Object[] {});
-    } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-        | IllegalArgumentException | InvocationTargetException e) {
-      assertTrue(true); // test should fail because of no surrounding application
-      return;
-    }
-    fail();
+    Runnable r = new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              Renderer renderer = new Renderer(3, 3);
+              RendererTests.this.renderer = renderer;
+            } catch (Throwable t) {
+              if (t.getCause() != null
+                  && t.getCause().getClass().equals(InterruptedException.class)) {
+                return;
+              }
+            }
+            Method credits;
+            try {
+              credits = Renderer.class.getDeclaredMethod("credits", new Class[] {});
+              credits.setAccessible(true);
+              credits.invoke(renderer, new Object[] {});
+              return;
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e1) {
+              fail("Should be able to access method");
+            }
+            fail("Should be able to run credits");
+          }
+        });
+      }
+    };
+    Thread thread = new Thread(r);
+
+    thread.start();
+
+    thread.interrupt();
+
   }
 }
