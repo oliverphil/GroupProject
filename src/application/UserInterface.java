@@ -121,10 +121,18 @@ public class UserInterface extends Application {
   private Image bombImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
 
+  /**
+   * Main function allowing UserInterface to be launched.
+   * @param args
+   */
   public static void main(String[] args) {
     launch(args);
   }
 
+  /**
+   * Updates the GUI, including: Health Bar, Carrying Capacity, Selected Item Descriptions, and Backpack.
+   * 
+   */
   private void update() {
 
     double healthBarWidth = game.getPlayer().getHealth() * HEALTHBAR_SCALE;
@@ -202,6 +210,9 @@ public class UserInterface extends Application {
     drawBorder();
   }
 
+  /**
+   * Draws a colored border around a selected item, (effectively "highlighting" it).
+   */
   private void drawBorder() {
     if (!items.isEmpty()) {
       for (Node n : backpackGrid.getChildren()) {
@@ -215,10 +226,15 @@ public class UserInterface extends Application {
     }
   }
   
-  public static void animateLabel(String label) {
+  /**
+   * Animates a given label corresponding to any number of items/characters encountered in the game.
+   * The description will appear in the status bar and disappear after a predetermined length of time.
+   * @param nameOfItem item whose description will be displayed
+   */
+  public static void animateLabel(String nameOfItem) {
     ParallelTransition labelAnimation = new ParallelTransition();
     
-    switch (label) {
+    switch (nameOfItem) {
       case "emptyFlask":
         itemLabel.setText("An empty flask");
         break;
@@ -278,8 +294,7 @@ public class UserInterface extends Application {
         break;
       default:
         return;
-    }
-    
+    }    
     labelAnimation.setOnFinished(e -> {
       statusScreen.setCenter(itemLabel);
       itemLabel.setTextFill(Color.WHITE);
@@ -289,10 +304,12 @@ public class UserInterface extends Application {
       fadeOut.setToValue(0.0);
       fadeOut.play();
     });
-    
     labelAnimation.play();
   }
 
+  /**
+   * Builds the UserInterface.
+   */
   @Override
   public void start(Stage primaryStage) throws Exception {
     game = new GameWorld();
