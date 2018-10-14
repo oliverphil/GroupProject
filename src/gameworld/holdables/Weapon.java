@@ -52,9 +52,6 @@ public class Weapon extends Item {
     if (!super.equals(obj)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
     Weapon other = (Weapon) obj;
     if (damage != other.damage) {
       return false;

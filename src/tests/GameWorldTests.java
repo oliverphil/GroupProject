@@ -13,6 +13,8 @@ import gameworld.Player;
 import gameworld.Point;
 import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.ContentsStrategy;
+import gameworld.holdables.EmptyFlaskStrategy;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
@@ -393,7 +395,7 @@ public class GameWorldTests {
     // test equals
     assertFalse(torch.equals(hammer));
     assertTrue(hammer.equals(hammer));
-    
+
     assertTrue(hammer.getDamage() == 10);
   }
 
@@ -471,17 +473,17 @@ public class GameWorldTests {
 
     assertEquals(null, game.getBoard().getBoard()[6][7].getObj());
   }
-  
+
   @Test
   public void testInteract_15() {
     GameWorld game = new GameWorld();
-    
+
     Barrier stoneBar = new Barrier();
     stoneBar.setName("stoneBlockade");
     stoneBar.setStrat(new WoodenPlanksStrategy());
     stoneBar.setLocation(new Point(7, 6));
     game.getBoard().getBoard()[6][7].setObj(stoneBar);
-    
+
     game.getBoard().getBoard()[6][7].setObj(stoneBar);
 
     Explosive bomb = new Explosive();
@@ -490,23 +492,23 @@ public class GameWorldTests {
     game.getBoard().getBoard()[6][6].setObj(bomb);
 
     assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("stoneBlockade"));
-    
+
     game.interact("bomb", 1);
     assertTrue(game.getPlayer().getBag().get(0).toString().equals("bomb"));
-    
+
     game.useItem(bomb);
     assertTrue(game.getBoard().getBoard()[6][7].getObj() == null);
-    
-    //use on null
+
+    // use on null
     game.useItem(bomb);
-    
+
     Monster david = new Monster();
     david.setLocation(new Point(7, 6));
     david.setName("david");
     david.setDamage(25);
     david.setHealth(40);
     game.getBoard().getBoard()[6][7].setObj(david);
-   
+
     game.useItem(bomb);
     assertTrue(david.getHealth() == 10);
     game.useItem(bomb);
@@ -571,5 +573,128 @@ public class GameWorldTests {
 
     Tool tool = new Tool();
     assertFalse(bar1.equals(tool));
+  }
+
+  @Test
+  public void testEquals_5() {
+    Tool t = new Tool();
+    assertFalse(t.equals(null));
+  }
+
+  @Test
+  public void testEquals_6() {
+    Tool t = new Tool();
+    t.setMaterial("wood");
+    Tool other = new Tool();
+    other.setMaterial("somethingElse");
+    assertFalse(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_7() {
+    Tool t = new Tool();
+    t.setMaterial(null);
+    Tool other = new Tool();
+    other.setMaterial("something");
+    assertFalse(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_8() {
+    Tool t = new Tool();
+    t.setLocation(null);
+    Tool other = new Tool();
+    other.setLocation(new Point(0, 0));
+    assertFalse(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_9() {
+    Tool t = new Tool();
+    t.setLocation(null);
+    Tool other = new Tool();
+    other.setLocation(null);
+    assertTrue(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_10() {
+    Tool t = new Tool();
+    t.setName(null);
+    Tool other = new Tool();
+    other.setName("something");
+    assertFalse(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_11() {
+    Tool t = new Tool();
+    t.setName(null);
+    Tool other = new Tool();
+    other.setName(null);
+    assertTrue(t.equals(other));
+  }
+
+  @Test
+  public void testEquals_12() {
+    Tool t = new Tool();
+    t.setName("something");
+    Tool other = new Tool();
+    other.setName("somethingElse");
+    assertFalse(t.equals(other));
+  }
+  
+  @Test
+  public void testEquals_13() {
+    Weapon w = new Weapon();
+    w.setDamage(5);
+    Weapon other = new Weapon();
+    other.setDamage(2);
+    assertFalse(w.equals(other));
+  }
+  
+  @Test
+  public void testEquals_14() {
+    Flask f = new Flask();
+    f.setStrat(null);
+    Flask other = new Flask();
+    other.setStrat(new EmptyFlaskStrategy());
+    assertFalse(f.equals(other));
+  }
+  
+  @Test
+  public void testEquals_15() {
+    Flask f = new Flask();
+    f.setStrat(null);
+    Flask other = new Flask();
+    other.setStrat(null);
+    assertTrue(f.equals(other));
+  }
+
+  @Test
+  public void testHashcode_1() {
+    Tool t = new Tool();
+    t.setMaterial(null);
+    Tool other = new Tool();
+    other.setMaterial(null);
+    assertEquals(t.hashCode(), other.hashCode());
+  }
+
+  @Test
+  public void testHashcode_2() {
+    Tool t = new Tool();
+    t.setLocation(null);
+    Tool other = new Tool();
+    other.setLocation(new Point(1, 2));
+    assertNotEquals(t.hashCode(), other.hashCode());
+  }
+  
+  @Test
+  public void testHashcode_3() {
+    Tool t = new Tool();
+    t.setName(null);
+    Tool other = new Tool();
+    other.setName("jeff");
+    assertNotEquals(t.hashCode(), other.hashCode());
   }
 }

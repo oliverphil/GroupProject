@@ -93,9 +93,6 @@ public class Flask extends Item {
     if (!super.equals(obj)) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
     Flask other = (Flask) obj;
     if (strat == null) {
       if (other.strat != null) {
