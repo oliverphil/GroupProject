@@ -7,6 +7,7 @@ import gameworld.ViewDescriptor;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -45,7 +46,7 @@ public class Renderer extends Canvas implements Observer {
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width  the width of the renderer
+   * @param width the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -359,9 +360,13 @@ public class Renderer extends Canvas implements Observer {
     if (icons == null) {
       return;
     }
+    List<File> folder = Arrays.asList(icons);
+    Collections.sort(folder, (f, o) -> {
+      return f.compareTo(o);
+    });
     List<Image> credits = new ArrayList<Image>();
-    for (int i = 0; i < icons.length; i++) {
-      String fileName = icons[i].toString()
+    for (int i = 0; i < folder.size(); i++) {
+      String fileName = folder.get(i).toString()
           .replace("src" + File.separator + "renderer" + File.separator + "", "");
       credits.add(new Image(getClass().getResource(fileName).toString()));
     }
@@ -451,7 +456,7 @@ public class Renderer extends Canvas implements Observer {
 
   /**
    * A class to hold information about tiles on the screen.
-   * 
+   *
    * @author Philip Oliver - 300398228
    *
    */
@@ -466,12 +471,12 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x      the top-left x value
-     * @param y      the top-left y value
-     * @param width  the width
+     * @param x the top-left x value
+     * @param y the top-left y value
+     * @param width the width
      * @param height the height
-     * @param tile   an integer representing which tile on the board this item is on
-     * @param obj    a String describing the object on the screen
+     * @param tile an integer representing which tile on the board this item is on
+     * @param obj a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;
@@ -488,7 +493,7 @@ public class Renderer extends Canvas implements Observer {
 
     /**
      * A method to check if a mouse event happens on this item.
-     * 
+     *
      * @param e the mouse event
      * @return true if the mouse event occured on this item
      */
