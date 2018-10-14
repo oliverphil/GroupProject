@@ -1,5 +1,6 @@
 package renderer;
 
+import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
 
@@ -44,7 +45,7 @@ public class Renderer extends Canvas implements Observer {
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width the width of the renderer
+   * @param width  the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -289,6 +290,7 @@ public class Renderer extends Canvas implements Observer {
         dirIcon = "E";
       }
 
+      gc.setFill(Color.BLACK);
       gc.fillText(dirIcon, getWidth() - 30, 30);
     }
 
@@ -321,6 +323,7 @@ public class Renderer extends Canvas implements Observer {
   public ItemOnScreen onClick(MouseEvent e) {
     for (ItemOnScreen d : objectsOnScreen) {
       if (d.on(e)) {
+        UserInterface.animateLabel(d.toString());
         return d;
       }
     }
@@ -463,11 +466,12 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param tile   an integer representing which tile on the board this item is on
+     * @param obj    a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;

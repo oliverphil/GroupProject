@@ -501,6 +501,7 @@ public class GameWorldTests {
     assertTrue(tool.equals(tool));
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Test
   public void testEquals_4() {
     Barrier bar1 = new Barrier();

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -53,6 +55,12 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     border.setTop(topHBox);
     border.setCenter(drawItems());
     Scene scene = new Scene(border, 200, 245);
+
+    // sets position of floor tile menu
+    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 5));
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 15) * 7);
+
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -155,33 +163,25 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
   @Override
   public void handle(ActionEvent event) {
     // changed the selected direction depending on which button is clicked.
+    MapEditor.setButton("floorBtn");
     if (event.getSource() == northWest) {
       MapEditor.setDirection("NW");
-    }
-    if (event.getSource() == north) {
+    } else if (event.getSource() == north) {
       MapEditor.setDirection("N");
-    }
-    if (event.getSource() == northEast) {
+    } else if (event.getSource() == northEast) {
       MapEditor.setDirection("NE");
-    }
-    if (event.getSource() == east) {
+    } else if (event.getSource() == east) {
       MapEditor.setDirection("E");
-    }
-    if (event.getSource() == southEast) {
+    } else if (event.getSource() == southEast) {
       MapEditor.setDirection("SE");
-    }
-    if (event.getSource() == south) {
+    } else if (event.getSource() == south) {
       MapEditor.setDirection("S");
-    }
-    if (event.getSource() == southWest) {
+    } else if (event.getSource() == southWest) {
       MapEditor.setDirection("SW");
-    }
-    if (event.getSource() == west) {
+    } else if (event.getSource() == west) {
       MapEditor.setDirection("W");
-    }
-    if (event.getSource() == none) {
+    } else if (event.getSource() == none) {
       MapEditor.setDirection("none");
     }
-    primaryStage.close();
   }
 }

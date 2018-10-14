@@ -8,16 +8,10 @@ public class Fountain extends FloorObject {
 
   private String liquid;
 
-  /**
-   * @return the liquid
-   */
   public String getLiquid() {
     return liquid;
   }
 
-  /**
-   * @param liquid the liquid to set
-   */
   @XmlElement
   public void setLiquid(String liquid) {
     this.liquid = liquid;

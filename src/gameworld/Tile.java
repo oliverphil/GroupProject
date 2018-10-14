@@ -1,5 +1,11 @@
 package gameworld;
 
+import gameworld.barriers.Barrier;
+import gameworld.holdables.Explosive;
+import gameworld.holdables.Flask;
+import gameworld.holdables.Tool;
+import gameworld.holdables.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import gameworld.barriers.Barrier;
-import gameworld.holdables.Explosive;
-import gameworld.holdables.Flask;
-import gameworld.holdables.Tool;
-import gameworld.holdables.Weapon;
 
 /**
  * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
@@ -234,34 +234,46 @@ public class Tile {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     Tile other = (Tile) obj;
-    if (col != other.col)
+    if (col != other.col) {
       return false;
+    }
     if (doors == null) {
-      if (other.doors != null)
+      if (other.doors != null) {
         return false;
-    } else if (!doors.equals(other.doors))
+      }
+    } else if (!doors.equals(other.doors)) {
       return false;
+    }
     if (this.obj == null) {
-      if (other.obj != null)
+      if (other.obj != null) {
         return false;
-    } else if (!this.obj.equals(other.obj))
+      }
+    } else if (!this.obj.equals(other.obj)) {
       return false;
-    if (occupiedByPlayer != other.occupiedByPlayer)
+    }
+    if (occupiedByPlayer != other.occupiedByPlayer) {
       return false;
-    if (row != other.row)
+    }
+    if (row != other.row) {
       return false;
+    }
     if (walls == null) {
-      if (other.walls != null)
+      if (other.walls != null) {
         return false;
-    } else if (!walls.equals(other.walls))
+      }
+    } else if (!walls.equals(other.walls)) {
       return false;
+    }
     return true;
   }
 

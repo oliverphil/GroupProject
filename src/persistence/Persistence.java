@@ -1,9 +1,6 @@
 package persistence;
 
 import gameworld.GameWorld;
-import gameworld.Monster;
-import gameworld.barriers.BarrierStrategy;
-import gameworld.holdables.EmptyFlaskStrategy;
 
 import java.io.File;
 
@@ -26,7 +23,7 @@ public class Persistence {
   /**
    * Saves the current state of the gameWorld to a file in XML format.
    *
-   * @param world the GameWorld to be saved
+   * @param world    the GameWorld to be saved
    * @param fileName the name of the file to save world to
    */
   public static void saveGame(GameWorld world, String fileName) throws PersistenceException {
@@ -67,7 +64,7 @@ public class Persistence {
   /**
    * Saves the state of the 'MapEditor' to an XML file.
    *
-   * @param editor the 'MapEditor' to be saved
+   * @param editor   the 'MapEditor' to be saved
    * @param fileName the name of the file to be saved to
    */
   public static void saveMapEditor(MapEditor editor, String fileName) throws PersistenceException {

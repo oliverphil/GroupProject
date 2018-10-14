@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javax.xml.bind.annotation.XmlElement;// 
@@ -51,7 +53,8 @@ public class MapEditor extends Application {
   private String currentDir = "none";
   private int row;
   private int col;
-  private Application openWindow;
+  private Application openWindowFloor;
+  private Application openWindowIcon;
 
   private static Map<String, Image> images = new HashMap<String, Image>();
 
@@ -98,6 +101,13 @@ public class MapEditor extends Application {
     border.setCenter(drawGrid());
     border.setBottom(bottomHBox);
     Scene scene = new Scene(border, 480, 581);
+
+    // sets position window to be slightly to the right
+    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 2));
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 5) * 4);
+    ;
+
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -106,25 +116,22 @@ public class MapEditor extends Application {
     @Override
     public void handle(ActionEvent e) {
       // makes sure only one extra window is open at once
-      if (openWindow != null) {
-        try {
-          if (openWindow instanceof FloorTileMenu) {
-            ((FloorTileMenu) openWindow).primaryStage.close();
-          } else if (openWindow instanceof IconsMenu) {
-            ((IconsMenu) openWindow).primaryStage.close();
-          }
-        } catch (Exception e1) {
-          e1.printStackTrace();
+      try {
+        if (openWindowFloor != null && e.getSource() == floorBtn) {
+          ((FloorTileMenu) openWindowFloor).primaryStage.close();
+        } else if (openWindowIcon != null && e.getSource() == itemBtn) {
+          ((IconsMenu) openWindowIcon).primaryStage.close();
         }
+      } catch (Exception e1) {
+        e1.printStackTrace();
       }
+
       // do the appropriate action depending on what buttons are pushed
       if (e.getSource() == floorBtn) {
-        selectedBtn = "floorBtn";
-        openWindow = new FloorTileMenu();
+        openWindowFloor = new FloorTileMenu();
       }
       if (e.getSource() == itemBtn) {
-        selectedBtn = "itemBtn";
-        openWindow = new IconsMenu();
+        openWindowIcon = new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
@@ -145,61 +152,41 @@ public class MapEditor extends Application {
       int y = (int) e.getSceneY();
       row = getRow(y);
       col = getCol(x);
+      if (row != -1 && col != -1 && row <= 20 && col <= 20) {
 
-      // adds appropriate floor tile to map
-      if (selectedBtn == "floorBtn") {
-        if (row != -1 && col != -1 && row <= 20 && col <= 20) {
-          selectedIcon = "empty";
-          grid[col][row] = selectedIcon + "_" + direction;
-          drawGrid();
+        if (selectedBtn == "floorBtn") {
+          grid[col][row] = "empty_" + direction;
         }
-      }
-      // adds the appropriate icon to map
-      if (selectedBtn == "itemBtn") {
-        if (row != -1 && col != -1) {
+
+        // adds appropriate item to map
+        if (selectedBtn == "itemBtn") {
           if (grid[col][row].endsWith("N")) {
             direction = "N";
-          }
-          if (grid[col][row].endsWith("_NE")) {
+          } else if (grid[col][row].endsWith("_NE")) {
             direction = "NE";
-          }
-          if (grid[col][row].endsWith("_E")) {
+          } else if (grid[col][row].endsWith("_E")) {
             direction = "E";
-          }
-          if (grid[col][row].endsWith("_SE")) {
+          } else if (grid[col][row].endsWith("_SE")) {
             direction = "SE";
-          }
-          if (grid[col][row].endsWith("_S")) {
+          } else if (grid[col][row].endsWith("_S")) {
             direction = "S";
-          }
-          if (grid[col][row].endsWith("_SW")) {
+          } else if (grid[col][row].endsWith("_SW")) {
             direction = "SW";
-          }
-          if (grid[col][row].endsWith("_W")) {
+          } else if (grid[col][row].endsWith("_W")) {
             direction = "W";
-          }
-          if (grid[col][row].endsWith("_NW")) {
+          } else if (grid[col][row].endsWith("_NW")) {
             direction = "NW";
-          }
-          if (grid[col][row].endsWith("_none")) {
+          } else if (grid[col][row].endsWith("_none")) {
             direction = "none";
           }
           grid[col][row] = selectedIcon + "_" + direction;
-          drawGrid();
         }
-      }
-      if (selectedBtn == "itemBtn") {
-        if (row != -1 && col != -1) {
-          if (grid[col][row] == "0") {
-            // add shit here
-          }
-          grid[col][row] = selectedIcon;
-          drawGrid();
+
+        // removes the appropriate tile/icon from map
+        if (selectedBtn == "remove") {
+          remove();
         }
-      }
-      // removes the appropriate tile/icon from map
-      if (selectedBtn == "remove") {
-        remove(x, y);
+        drawGrid();
       }
     }
   };
@@ -214,12 +201,17 @@ public class MapEditor extends Application {
     return (int) ((y - 51) / 22);
   }
 
-  private void remove(int x, int y) {
-    grid[col][row] = "0";
+  private void remove() {
     // removes the tile that was at the row and column which was clicked on
-    grid[col][row] = "0_none";
-    drawGrid();
+    String[] gridSquare = (grid[col][row]).split("_");
+    String s2 = gridSquare[1];
 
+    if (grid[col][row].startsWith("empty_")) {
+      grid[col][row] = "0_none";
+    } else if (!grid[col][row].startsWith("0")) {
+      grid[col][row] = "empty_" + s2;
+    }
+    drawGrid();
   }
 
   private HBox drawTop() {
@@ -287,12 +279,16 @@ public class MapEditor extends Application {
     return box;
   }
 
-  public static void setSelectedIcon(String icon) {
+  public static void setIcon(String icon) {
     selectedIcon = icon;
   }
 
   public static void setDirection(String dir) {
     direction = dir;
+  }
+
+  public static void setButton(String btn) {
+    selectedBtn = btn;
   }
 
   public String[][] getGrid() {
