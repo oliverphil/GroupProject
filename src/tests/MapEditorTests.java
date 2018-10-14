@@ -2,13 +2,9 @@ package tests;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
-import javafx.concurrent.Task;
 import mapeditor.MapEditor;
 
 import org.junit.Test;
