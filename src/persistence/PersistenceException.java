@@ -1,7 +1,5 @@
 package persistence;
 
-import javax.xml.bind.JAXBException;
-
 /**
  * An extension of RunTimeException to signal unexpected behaviour in the persistence methods.
  * 
