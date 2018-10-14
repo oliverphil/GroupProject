@@ -26,7 +26,7 @@ General:
 Usable Items:
 1.) Empty Flasks: Can be used to store liquids, including health and power potions
 2.) Power Flasks: Can be consumed and give the player bonus damage to an enemy for 10s
-3.) Health Flasks: Can be consumed to restore a player's health by XXX amount
+3.) Health Flasks: Can be consumed to restore a player's health by 20 points
 4.) Bombs: Used to cause significant damage to a monster or clear stone rubble
 
 Tools:
