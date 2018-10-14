@@ -323,16 +323,8 @@ public class UserInterface extends Application {
     });
     gameMenu.getItems().add(save);
     MenuItem load = new MenuItem("Load...");
-
     gameMenu.getItems().add(load);
     MenuItem gameRestart = new MenuItem("Restart Game");
-    gameRestart.setOnAction(e -> {
-      game = new GameWorld();
-      items.clear(); 
-      selectedItem = 0;
-      update();
-    });
-    
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
@@ -341,7 +333,6 @@ public class UserInterface extends Application {
     help.setOnAction(e -> {
       try {
         Scanner sc = new Scanner(new File("src/application/help.txt"));
-
         while (sc.hasNext()) {
           System.out.println(sc.nextLine());
         }
@@ -408,10 +399,13 @@ public class UserInterface extends Application {
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     gameRestart.setOnAction(e -> {
+      items.clear(); 
+      selectedItem = 0;
       gameScreen.restartGame();
       game = new GameWorld();
       game.addObserver(gameScreen);
       game.update();
+      update();
     });
     load.setOnAction(e -> {
       JFileChooser getFile = new JFileChooser();
