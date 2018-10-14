@@ -16,11 +16,17 @@ import mapeditor.FloorTileMenu;
 import mapeditor.IconsMenu;
 import mapeditor.MapEditor;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MapEditorTests {
 
   private volatile boolean success = false;
+
+  @Before
+  public void setup() {
+    new JFXPanel();
+  }
 
   @Test
   public void createMapEditor() {

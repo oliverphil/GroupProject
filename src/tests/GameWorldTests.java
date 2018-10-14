@@ -29,8 +29,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Tests for the GameWorld. *************There is a 10 second wait it is not an infinite
- * loop*********************
+ * Tests for the GameWorld.
  *
  * @author Dylan
  *
@@ -325,30 +324,6 @@ public class GameWorldTests {
 
     // check player health
     assertTrue(game.getPlayer().isStrengthened());
-    assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
-  }
-
-  //*************There is a 10 second wait it is not an infinite loop*********************
-  @Test
-  public void testInteract_9() {
-    GameWorld game = new GameWorld();
-
-    game.interact("emptyFlask", 3);
-    game.interact("powerFountain", 0);
-    assertTrue(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
-
-    game.useItem(game.getPlayer().getBag().get(0));
-
-    // sleep to register the time change
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      assertTrue(false);
-      e.printStackTrace();
-    }
-
-    // check player health
-    assertTrue(!game.getPlayer().isStrengthened());
     assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
   }
 
@@ -1385,7 +1360,7 @@ public class GameWorldTests {
   public void testEquals_70() {
     GameWorld game = new GameWorld();
     game.getPlayer().setLocation(new Point(1, 1));
-    
+
     game.getPlayer().setView(new ViewDescriptor(game.getPlayer(), game.getBoard(), false));
     assertTrue(game.getPlayer().getView().getMonsterHealth() == 250);
   }
