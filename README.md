@@ -3,7 +3,7 @@
 Milk Syndrome SWEN225 Group Project - Adventure Game
 
 ____________________________________
-Welcome to the Engineering Labrynth!
+Welcome to the Engineering Labyrinth!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 General:
 1.) Use 'W','A', 'S', 'D' (or button pad) for movement
@@ -20,7 +20,7 @@ General:
     [Hint: Be careful, characters can fight back!]
 11.) You may load or save a game at any time via the 'Game' drop down menu
 12.) It is suggested that you take advantage of the 'Map Editor' in order to create a
-    visualized map of the labrynth as you navigate through it
+    visualized map of the labyrinth as you navigate through it
 13.) The game's music can be muted through the options menu
 
 Usable Items:
@@ -36,17 +36,17 @@ Tools:
 
 Weapons:
 1.) Hammer: A weapon particularly adept at crushing tombstones
-2.) Torch: A weapon particularly effective against fabric and embalming fluids
-3.) Khopesh: An ancient and powerful sword said to have been crafted for a pharoh
+2.) Torch: A weapon particularly effective against fabric and enbalming fluids
+3.) Khopesh: An ancient and powerful sword said to have been crafted for a Pharoh
 
 Objects:
 1.) Wooden Blockades: Old planks that need to be pryed away from their stone walls
 2.) Stone Blockades: Must be mined clear before passing through to the next area
-3.) Chain Blockades: Old, rusty chains potentially quartering off parts of the labrynth
+3.) Chain Blockades: Old, rusty chains potentially quartering off parts of the labyrinth
     from plunderers and excavators
 4.) Fountains of Power: Springs of powerful fluid that can be collected if one has an
     empty vessel for storing liquids
 5.) Fountains of Health: Springs of invigorating fluid that can be collected if one has an
     empty vessel for storing liquids
 6.) Ladder: It is rumored that the only means of returning to Kelburn is through a mystical
-    ladder leading out of the labrynth; (of which few have seen)
+    ladder leading out of the labyrinth; (of which few have seen)
