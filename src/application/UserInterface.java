@@ -335,7 +335,7 @@ public class UserInterface extends Application {
     MenuItem save = new MenuItem("Save...");
     save.setOnAction(e -> {
       JFileChooser getFile = new JFileChooser();
-      int returnVal = getFile.showOpenDialog(null);
+      int returnVal = getFile.showSaveDialog(null);
       if (returnVal == JFileChooser.APPROVE_OPTION) {
         Persistence.saveGame(game, getFile.getSelectedFile().toString());
       }
