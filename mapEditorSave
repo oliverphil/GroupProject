@@ -86,75 +86,6 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>empty_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-    </grid>
-    <grid>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-    </grid>
-    <grid>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>empty_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>empty_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-    </grid>
-    <grid>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
@@ -191,7 +122,53 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>empty_none</item>
+        <item>0_none</item>
+        <item>empty_W</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+    </grid>
+    <grid>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>empty_W</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+    </grid>
+    <grid>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
@@ -216,6 +193,29 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+    </grid>
+    <grid>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>hammer_W</item>
         <item>0_none</item>
         <item>empty_NW</item>
         <item>empty_W</item>
@@ -240,7 +240,7 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>empty_N</item>
+        <item>hammer_N</item>
         <item>empty_none</item>
         <item>empty_S</item>
         <item>0_none</item>
@@ -263,7 +263,7 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>emptyFlask_NE</item>
+        <item>empty_NE</item>
         <item>empty_E</item>
         <item>empty_SE</item>
         <item>0_none</item>
@@ -382,29 +382,6 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>empty_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-    </grid>
-    <grid>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>empty_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
-        <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
@@ -421,7 +398,30 @@
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
-        <item>empty_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+    </grid>
+    <grid>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
+        <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>
         <item>0_none</item>

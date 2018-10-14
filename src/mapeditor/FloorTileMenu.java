@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * The FloorTileMenu class creates a window where floor tiles can be selected.
  *
- * @author Charlotte Gimblett
+ * @author Charlotte Gimblett 300416852
  */
 public class FloorTileMenu extends Application implements EventHandler<ActionEvent> {
   private Button north;
