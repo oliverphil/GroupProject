@@ -160,12 +160,12 @@ public class MapEditor extends Application {
     col = getCol(x);
     if (row != -1 && col != -1 && row <= 20 && col <= 20) {
 
-      if (selectedBtn == "floorBtn") {
+      if (selectedBtn.equals("floorBtn")) {
         grid[col][row] = "empty_" + direction;
       }
 
       // adds appropriate item to map
-      if (selectedBtn == "itemBtn") {
+      if (selectedBtn.equals("itemBtn")) {
         if (grid[col][row].endsWith("N")) {
           direction = "N";
         } else if (grid[col][row].endsWith("_NE")) {
