@@ -407,7 +407,7 @@ public class UserInterface extends Application {
       items.clear(); 
       selectedItem = 0;
       gameScreen.restartGame();
-      game = new GameWorld();
+      game = Persistence.loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
       game.addObserver(gameScreen);
       game.update();
       update();
