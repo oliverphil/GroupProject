@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -53,8 +55,8 @@ public class MapEditor extends Application {
   private String currentDir = "none";
   private int row;
   private int col;
-  private Application openWindowFTM;
-  private Application openWindowIM;
+  private Application openWindowFloor;
+  private Application openWindowIcon;
 
   private static Map<String, Image> images = new HashMap<String, Image>();
 
@@ -117,10 +119,10 @@ public class MapEditor extends Application {
     public void handle(ActionEvent e) {
       // makes sure only one extra window is open at once
       try {
-        if (openWindowFTM != null && e.getSource() == floorBtn) {
-          ((FloorTileMenu) openWindowFTM).primaryStage.close();
-        } else if (openWindowIM != null && e.getSource() == itemBtn) {
-          ((IconsMenu) openWindowIM).primaryStage.close();
+        if (openWindowFloor != null && e.getSource() == floorBtn) {
+          ((FloorTileMenu) openWindowFloor).primaryStage.close();
+        } else if (openWindowIcon != null && e.getSource() == itemBtn) {
+          ((IconsMenu) openWindowIcon).primaryStage.close();
         }
       } catch (Exception e1) {
         e1.printStackTrace();
@@ -128,10 +130,10 @@ public class MapEditor extends Application {
 
       // do the appropriate action depending on what buttons are pushed
       if (e.getSource() == floorBtn) {
-        openWindowFTM = new FloorTileMenu();
+        openWindowFloor = new FloorTileMenu();
       }
       if (e.getSource() == itemBtn) {
-        openWindowIM = new IconsMenu();
+        openWindowIcon = new IconsMenu();
       }
       if (e.getSource() == remove) {
         selectedBtn = "remove";
