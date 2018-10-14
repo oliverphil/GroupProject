@@ -1,5 +1,6 @@
 package renderer;
 
+import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
 
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import application.UserInterface;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -45,7 +45,7 @@ public class Renderer extends Canvas implements Observer {
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
    *
-   * @param width the width of the renderer
+   * @param width  the width of the renderer
    * @param height the height of the renderer
    */
   public Renderer(double width, double height) {
@@ -466,11 +466,12 @@ public class Renderer extends Canvas implements Observer {
     /**
      * Create a new dimension object.
      *
-     * @param x the top-left x value
-     * @param y the top-left y value
-     * @param width the width
+     * @param x      the top-left x value
+     * @param y      the top-left y value
+     * @param width  the width
      * @param height the height
-     * @param obj a String describing the object on the screen
+     * @param tile   an integer representing which tile on the board this item is on
+     * @param obj    a String describing the object on the screen
      */
     public ItemOnScreen(double x, double y, double width, double height, int tile, String obj) {
       leftX = x;

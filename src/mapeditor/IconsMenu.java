@@ -105,7 +105,8 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(emptyFlask, 0, 0);
 
     // adds power flask icon
-    Image powerFlaskImage = new Image(getClass().getResource("icons/powerFlask_none.png").toString());
+    Image powerFlaskImage = new Image(
+        getClass().getResource("icons/powerFlask_none.png").toString());
     powerFlask = new Button();
     powerFlask.setGraphic(new ImageView(powerFlaskImage));
     powerFlask.setPrefSize(40, 40);
@@ -130,7 +131,8 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(torch, 0, 1);
 
     // adds bolt cutter icon
-    Image boltCuttersImage = new Image(getClass().getResource("icons/boltCutters_none.png").toString());
+    Image boltCuttersImage = new Image(
+        getClass().getResource("icons/boltCutters_none.png").toString());
     boltCutters = new Button();
     boltCutters.setGraphic(new ImageView(boltCuttersImage));
     boltCutters.setPrefSize(40, 40);

@@ -60,6 +60,9 @@ public class Music {
     player.setVolume(0);
   }
 
+  /**
+   * Unmute the media player.
+   */
   public void unmute() {
     player.setVolume(1);
   }
