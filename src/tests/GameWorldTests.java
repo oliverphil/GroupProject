@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import gameworld.Board;
 import gameworld.FloorObject;
 import gameworld.GameWorld;
 import gameworld.Monster;
@@ -155,7 +156,6 @@ public class GameWorldTests {
     david.setName("david");
     david.setDamage(25);
     david.setHealth(250);
-
     game.getBoard().getBoard()[6][7].setObj(david);
 
     game.interact("david", 2);
@@ -176,7 +176,6 @@ public class GameWorldTests {
     marco.setName("marco");
     marco.setDamage(20);
     marco.setHealth(250);
-
     game.getBoard().getBoard()[6][7].setObj(marco);
 
     game.interact("marco", 2);
@@ -197,7 +196,6 @@ public class GameWorldTests {
     thomas.setName("thomas");
     thomas.setDamage(15);
     thomas.setHealth(250);
-
     game.getBoard().getBoard()[6][7].setObj(thomas);
 
     game.interact("thomas", 2);
@@ -513,22 +511,148 @@ public class GameWorldTests {
     assertTrue(david.getHealth() == 10);
     game.useItem(bomb);
     assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("ladder"));
+    game.interact("ladder", 2);
+    assertTrue(game.isWon());
   }
 
+  @Test
+  public void testAttack_Marco() {
+    GameWorld game = new GameWorld();
+
+    game.interact("powerFlask", 1);
+    game.useItem(game.getPlayer().getBag().get(0));
+        
+    game.interact("marco", 1);
+    game.interact("torch", 1);
+    game.interact("marco", 1);
+    game.interact("hammer", 1);
+    game.interact("marco", 1);
+
+    // sleep to register the time change
+    try {
+      Thread.sleep(100);
+    } catch (InterruptedException e) {
+      fail();
+      e.printStackTrace();
+    }
+    assertTrue(game.getPlayer().isStrengthened());
+    game.dropItem(game.getPlayer().getBag().get(0));
+    game.dropItem(game.getPlayer().getBag().get(0));
+    game.interact("marco", 1);
+    game.interact("torch", 1);
+    game.interact("marco", 1);
+    game.interact("hammer", 1);
+    game.interact("marco", 1);
+    game.interact("torch", 1);
+    game.interact("marco", 1);
+    assertTrue(game.getBoard().getBoard()[0][1].getObj() == null);
+  }
+  
+  @Test
+  public void testAttack_David() {
+    GameWorld game = new GameWorld();
+
+    game.interact("powerFlask", 1);
+    game.useItem(game.getPlayer().getBag().get(0));
+        
+    game.interact("david", 1);
+    game.interact("khopesh", 1);
+    game.interact("david", 1);
+    game.interact("hammer", 1);
+    game.interact("david", 1);
+
+    // sleep to register the time change
+    try {
+      Thread.sleep(100);
+    } catch (InterruptedException e) {
+      fail();
+      e.printStackTrace();
+    }
+    assertTrue(game.getPlayer().isStrengthened());
+    game.dropItem(game.getPlayer().getBag().get(0));
+    game.dropItem(game.getPlayer().getBag().get(0));
+    game.interact("david", 1);
+    game.interact("khopesh", 1);
+    game.interact("david", 1);
+    game.interact("hammer", 1);
+    game.interact("david", 1);
+    game.interact("khopesh", 1);
+    game.interact("david", 1);
+    assertFalse(game.isPlayerAlive());
+    assertTrue(game.getBoard().getBoard()[13][0].getObj().toString().equals("ladder"));
+  }
+  
+  @Test
+  public void testAttack_Thomas() {
+    GameWorld game = new GameWorld();
+
+    game.interact("powerFlask", 1);
+    game.useItem(game.getPlayer().getBag().get(0));
+        
+    game.interact("thomas", 1);
+    game.interact("hammer", 1);
+    game.interact("thomas", 1);
+    game.interact("khopesh", 1);
+    game.interact("thomas", 1);
+
+    // sleep to register the time change
+    try {
+      Thread.sleep(100);
+    } catch (InterruptedException e) {
+      fail();
+      e.printStackTrace();
+    }
+    assertTrue(game.getPlayer().isStrengthened());
+    game.dropItem(game.getPlayer().getBag().get(0));
+    game.dropItem(game.getPlayer().getBag().get(0));
+    
+    game.interact("thomas", 1);
+    game.interact("hammer", 1);
+    game.interact("thomas", 1);
+    game.interact("khopesh", 1);
+    game.interact("thomas", 1);
+    game.interact("hammer", 1);
+    game.interact("thomas", 1);
+    assertTrue(game.getBoard().getBoard()[1][14].getObj() == null);
+  }
+  
   @Test
   public void testEquals_1() {
     GameWorld game1 = new GameWorld();
     GameWorld game2 = new GameWorld();
 
     assertTrue(game1.equals(game2));
+    
+    game1.setPlayer(new Player());
+    game1.setBoard(new Board());
+    
+    //the player doesn't have a 
+    assertFalse(game1.equals(game2));
   }
 
   @Test
   public void testEquals_2() {
     GameWorld game1 = new GameWorld();
     GameWorld game2 = new GameWorld();
+    
+    game1.setPlayer(null);
+    assertFalse(game1.equals(game2));
 
+    assertTrue(game1.equals(game1));
     assertNotEquals(game1.hashCode(), game2.hashCode());
+    
+    assertFalse(game2.equals(game1.getBoard()));
+    
+    game1.setBoard(null);
+    assertFalse(game1.equals(game2));
+    
+    Board b = new Board();
+    b.getBoard()[6][8].setObj(null);
+    game1.setBoard(b);
+    assertFalse(game1.equals(game2));
+    
+    game1 = null;
+    assertFalse(game2.equals(game1));
   }
 
   @Test
@@ -543,6 +667,7 @@ public class GameWorldTests {
     assertTrue(flask1.equals(flask1));
 
     flask1.setWeight(5);
+    assertTrue(flask1.getStrat() == null);
     assertFalse(flask1.equals(flask2));
 
     Item tool = new Tool();
