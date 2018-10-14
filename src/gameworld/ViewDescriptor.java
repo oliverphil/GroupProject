@@ -71,7 +71,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -89,7 +89,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -107,7 +107,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -125,7 +125,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -156,7 +156,7 @@ public class ViewDescriptor {
     }
 
     if (b.getfacingTile(p).getObj() instanceof Monster) {
-      monsterHealth = ((Monster) b.getfacingTile(p).getObj()).getHealth();
+      setMonsterHealth(((Monster) b.getfacingTile(p).getObj()).getHealth());
     } else {
       monsterHealth = -1;
     }
