@@ -292,6 +292,9 @@ public class UserInterface extends Application {
       case "ladder":
         itemLabel.setText("The old ladder takes you to the surface...");
         break;
+      case "helpDirective":
+        itemLabel.setText("\"Use 'WASD' or Button Pad (LEFT) for movement.\"");
+        break;
       default:
         return;
     }    
@@ -345,22 +348,7 @@ public class UserInterface extends Application {
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
-    // Help Section
-    MenuItem help = new MenuItem("Help");
-    help.setOnAction(e -> {
-      try {
-        Scanner sc = new Scanner(new File("src/application/help.txt"));
-        while (sc.hasNext()) {
-          System.out.println(sc.nextLine());
-        }
-        sc.close();
-      } catch (FileNotFoundException e1) {
-        System.out.println("Help File Not Found");
-      }
-      gameMenu.getItems().add(help);
-
-      new Notification("Instructions", HELP_MESSAGE, "Got it!");
-    });
+    // Exit
     MenuItem exit = new MenuItem("Exit");
     exit.setOnAction(e -> System.exit(0));
     gameMenu.getItems().add(exit);
@@ -530,14 +518,7 @@ public class UserInterface extends Application {
     bottomScreen.scaleShapeProperty();
     bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    // Backpack
-    backpackGrid = new GridPane();
-    backpackGrid.setScaleShape(true);
-    backpackGrid.scaleShapeProperty();
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
+    
     // Health Bar
     healthBarLayout.setStyle("-fx-background-color: #171916; ");
     healthBarLayout.setMinWidth(462);
@@ -561,10 +542,31 @@ public class UserInterface extends Application {
     carryLabel.setTextFill(Color.rgb(211, 147, 101));
     carryingCapacityLayout.setTop(carryLabel);
     
-    // Spacing between capacity and buttons
+    // Spacing between capacity and help
     Label spacer2 = new Label("");
-    spacer2.setFont(new Font("Arial", 10));
+    spacer2.setFont(new Font("Arial", 4));
     carryingCapacityLayout.setBottom(spacer2);
+    
+    // Help Button
+    Button helpButton = new Button("Help?");
+    helpButton.setTextFill(Color.rgb(211, 147, 101));
+    helpButton.setStyle("-fx-background-color: #1d1f23; ");
+    helpButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
+    helpButton.setMinHeight(16);
+    helpButton.setMinWidth(462);
+    helpButton.setFont(new Font("Arial", 12));
+    helpButton.setOnAction(e -> {
+      animateLabel("helpDirective");
+    });
+    BorderPane wasdInfo = new BorderPane();
+    wasdInfo.setStyle("-fx-background-color: #171916; ");
+    wasdInfo.setCenter(helpButton);
+    
+    // Spacing between help and buttons
+    Label spacer3 = new Label("");
+    spacer3.setFont(new Font("Arial", 2));
+    wasdInfo.setBottom(spacer3);
 
     // Use and Drop Format
     BorderPane useDropLayout = new BorderPane();
@@ -573,6 +575,13 @@ public class UserInterface extends Application {
     HBox useDropBox = new HBox();
     useDropBox.getChildren().addAll(dropItem, useItem);
     useDropLayout.setCenter(useDropBox);
+    
+    // Backpack
+    backpackGrid = new GridPane();
+    backpackGrid.setScaleShape(true);
+    backpackGrid.scaleShapeProperty();
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -608,8 +617,8 @@ public class UserInterface extends Application {
     bottomScreenRight.scaleShapeProperty();
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    bottomScreenRight.getChildren().addAll(healthBarLayout, carryingCapacityLayout, useDropLayout, backpackGrid);
+    
+    bottomScreenRight.getChildren().addAll(healthBarLayout, carryingCapacityLayout, wasdInfo, useDropLayout, backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
