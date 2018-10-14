@@ -52,7 +52,7 @@ public class RendererTests {
   @BeforeEach
   public void getNewRenderer() {
     try {
-      Thread.sleep(100); //give time for previous tests to tidy up
+      Thread.sleep(100); // give time for previous tests to tidy up
     } catch (InterruptedException e) {
       // do nothing
     }
