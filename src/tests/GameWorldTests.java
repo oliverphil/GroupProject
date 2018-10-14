@@ -31,7 +31,7 @@ import org.junit.Test;
 /**
  * Tests for the GameWorld. *************There is a 10 second wait it is not an infinite
  * loop*********************
- * 
+ *
  * @author Dylan
  *
  */
@@ -328,29 +328,29 @@ public class GameWorldTests {
     assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
   }
 
-  // *************There is a 10 second wait it is not an infinite loop*********************
-//  @Test
-//  public void testInteract_9() {
-//    GameWorld game = new GameWorld();
-//
-//    game.interact("emptyFlask", 3);
-//    game.interact("powerFountain", 0);
-//    assertTrue(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
-//
-//    game.useItem(game.getPlayer().getBag().get(0));
-//
-//    // sleep to register the time change
-//    try {
-//      Thread.sleep(10000);
-//    } catch (InterruptedException e) {
-//      assertTrue(false);
-//      e.printStackTrace();
-//    }
-//
-//    // check player health
-//    assertTrue(!game.getPlayer().isStrengthened());
-//    assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
-//  }
+  //*************There is a 10 second wait it is not an infinite loop*********************
+  @Test
+  public void testInteract_9() {
+    GameWorld game = new GameWorld();
+
+    game.interact("emptyFlask", 3);
+    game.interact("powerFountain", 0);
+    assertTrue(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
+
+    game.useItem(game.getPlayer().getBag().get(0));
+
+    // sleep to register the time change
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      assertTrue(false);
+      e.printStackTrace();
+    }
+
+    // check player health
+    assertTrue(!game.getPlayer().isStrengthened());
+    assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
+  }
 
   @Test
   public void testInteract_10() {
@@ -614,7 +614,7 @@ public class GameWorldTests {
 
     // sleep to register the time change
     try {
-      Thread.sleep(100);
+      Thread.sleep(500);
     } catch (InterruptedException e) {
       fail();
       e.printStackTrace();
@@ -648,7 +648,7 @@ public class GameWorldTests {
 
     // sleep to register the time change
     try {
-      Thread.sleep(100);
+      Thread.sleep(500);
     } catch (InterruptedException e) {
       fail();
       e.printStackTrace();
@@ -1322,6 +1322,75 @@ public class GameWorldTests {
   }
 
   @Test
+  public void testEquals_64() {
+    GameWorld game = new GameWorld();
+    Player p = game.getPlayer();
+
+    p.setLocation(new Point(1, 1));
+    p.setView(new ViewDescriptor(p, game.getBoard(), false));
+
+    assertTrue(p.getView().getView().get(p.getView().getView().size() - 1).equals("boss"));
+  }
+
+  @Test
+  public void testEquals_65() {
+    GameWorld game = new GameWorld();
+    Player p = game.getPlayer();
+
+    p.setLocation(new Point(13, 13));
+    p.setView(new ViewDescriptor(p, game.getBoard(), false));
+
+    assertTrue(p.getView().getView().get(p.getView().getView().size() - 1).equals("mysteries"));
+  }
+
+  @Test
+  public void testEquals_66() {
+    Point p = new Point();
+    p.setX(2);
+    p.setY(2);
+
+    assertTrue(p.getX() == 2 && p.getY() == 2);
+  }
+
+  @Test
+  public void testEquals_67() {
+    ViewDescriptor view1 = new ViewDescriptor();
+    ViewDescriptor view2 = new ViewDescriptor();
+
+    view1.setView(null);
+
+    assertFalse(view1.equals(view2));
+  }
+
+  @Test
+  public void testEquals_68() {
+    ViewDescriptor view1 = new ViewDescriptor();
+    Tool tool = new Tool();
+
+    assertFalse(view1.equals(tool));
+  }
+
+  @Test
+  public void testEquals_69() {
+    ViewDescriptor view1 = new ViewDescriptor();
+    ViewDescriptor view2 = new ViewDescriptor();
+
+    view1.setView(null);
+
+    assertFalse(view2.equals(view1));
+    assertTrue(view2.equals(view2));
+  }
+
+  @Test
+  public void testEquals_70() {
+    GameWorld game = new GameWorld();
+    game.getPlayer().setLocation(new Point(1, 1));
+    
+    game.getPlayer().setView(new ViewDescriptor(game.getPlayer(), game.getBoard(), false));
+    assertTrue(game.getPlayer().getView().getMonsterHealth() == 250);
+  }
+
+  @Test
   public void testHashcode_1() {
     Tool t = new Tool();
     t.setMaterial(null);
@@ -1370,5 +1439,15 @@ public class GameWorldTests {
     assertEquals(5, m.getHealth());
     m.addHealth(5);
     assertEquals(10, m.getHealth());
+  }
+
+  @Test
+  public void testCreateTile() {
+    ArrayList<String> listToAdd = new ArrayList<String>();
+    listToAdd.add("north");
+
+    Tile tile = new Tile(listToAdd);
+
+    assertTrue(tile.hasWall("north"));
   }
 }
