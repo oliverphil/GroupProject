@@ -496,6 +496,7 @@ public class UserInterface extends Application {
         new CornerRadii(3), BorderWidths.DEFAULT)));
     dropItem.setMinHeight(35);
     dropItem.setMinWidth(231);
+    dropItem.setFont(new Font("Arial", 14));
     dropItem.setOnAction(e -> {
       if (!items.isEmpty()) {
         game.dropItem(items.get(selectedItem));
@@ -513,6 +514,7 @@ public class UserInterface extends Application {
         new CornerRadii(3), BorderWidths.DEFAULT)));
     useItem.setMinHeight(35);
     useItem.setMinWidth(231);
+    useItem.setFont(new Font("Arial", 14));
     useItem.setOnAction(e -> {
       if (!items.isEmpty()) {
         game.useItem(items.get(selectedItem));
@@ -540,11 +542,29 @@ public class UserInterface extends Application {
     healthBarLayout.setStyle("-fx-background-color: #171916; ");
     healthBarLayout.setMinWidth(462);
     healthBarLayout.setMinHeight(20);
+    Label healthLabel = new Label("   Health:");
+    healthLabel.setFont(new Font("Arial", 14));
+    healthLabel.setTextFill(Color.rgb(211, 147, 101));
+    healthBarLayout.setTop(healthLabel);
+    
+    // Spacing between health and capacity
+    Label spacer = new Label("");
+    spacer.setFont(new Font("Arial", 4));
+    healthBarLayout.setBottom(spacer);
     
     // Carrying Capacity Bar
     carryingCapacityLayout.setStyle("-fx-background-color: #171916; ");
     carryingCapacityLayout.setMinWidth(462);
     carryingCapacityLayout.setMinHeight(20);
+    Label carryLabel = new Label("   Carry Weight:");
+    carryLabel.setFont(new Font("Arial", 14));
+    carryLabel.setTextFill(Color.rgb(211, 147, 101));
+    carryingCapacityLayout.setTop(carryLabel);
+    
+    // Spacing between capacity and buttons
+    Label spacer2 = new Label("");
+    spacer2.setFont(new Font("Arial", 10));
+    carryingCapacityLayout.setBottom(spacer2);
 
     // Use and Drop Format
     BorderPane useDropLayout = new BorderPane();
