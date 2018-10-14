@@ -13,6 +13,7 @@ import gameworld.Player;
 import gameworld.Point;
 import gameworld.barriers.Barrier;
 import gameworld.barriers.WoodenPlanksStrategy;
+import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
 import gameworld.holdables.Item;
 import gameworld.holdables.Tool;
@@ -318,7 +319,6 @@ public class GameWorldTests {
     game.getBoard().getBoard()[6][7].setObj(pickaxe);
 
     Tool boltCutters = new Tool();
-    boltCutters.setMaterial("boltCutters");
     boltCutters.setName("boltCutters");
     boltCutters.setWeight(4);
     boltCutters.setLocation(new Point(8, 6));
@@ -337,6 +337,7 @@ public class GameWorldTests {
     game.dropItem(game.getPlayer().getBag().get(0));
 
     game.interact("pickaxe", 2);
+    game.useItem(pickaxe);
     assertTrue(game.getBoard().getBoard()[6][8].getObj().getName().equals("crowbar"));
 
     game.dropItem(game.getPlayer().getBag().get(0));
@@ -344,6 +345,8 @@ public class GameWorldTests {
 
     // make sure there is still just 1 tool in the bag
     assertEquals(1, game.getPlayer().getBag().size());
+    assertFalse(pickaxe.equals(crowbar));
+    assertTrue(pickaxe.equals(pickaxe));
   }
 
   @Test
@@ -358,6 +361,7 @@ public class GameWorldTests {
     Weapon hammer = new Weapon();
     hammer.setName("hammer");
     hammer.setWeight(4);
+    hammer.setDamage(10);
     hammer.setLocation(new Point(7, 6));
     game.getBoard().getBoard()[6][7].setObj(hammer);
 
@@ -380,6 +384,7 @@ public class GameWorldTests {
     game.dropItem(game.getPlayer().getBag().get(0));
 
     game.interact("hammer", 2);
+    game.useItem(hammer);
     assertTrue(game.getBoard().getBoard()[6][8].getObj().getName().equals("torch"));
 
     game.dropItem(game.getPlayer().getBag().get(0));
@@ -388,6 +393,8 @@ public class GameWorldTests {
     // test equals
     assertFalse(torch.equals(hammer));
     assertTrue(hammer.equals(hammer));
+    
+    assertTrue(hammer.getDamage() == 10);
   }
 
   @Test
@@ -463,6 +470,47 @@ public class GameWorldTests {
     game.interact("stoneBlockade", 0);
 
     assertEquals(null, game.getBoard().getBoard()[6][7].getObj());
+  }
+  
+  @Test
+  public void testInteract_15() {
+    GameWorld game = new GameWorld();
+    
+    Barrier stoneBar = new Barrier();
+    stoneBar.setName("stoneBlockade");
+    stoneBar.setStrat(new WoodenPlanksStrategy());
+    stoneBar.setLocation(new Point(7, 6));
+    game.getBoard().getBoard()[6][7].setObj(stoneBar);
+    
+    game.getBoard().getBoard()[6][7].setObj(stoneBar);
+
+    Explosive bomb = new Explosive();
+    bomb.setName("bomb");
+    bomb.setLocation(new Point(6, 6));
+    game.getBoard().getBoard()[6][6].setObj(bomb);
+
+    assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("stoneBlockade"));
+    
+    game.interact("bomb", 1);
+    assertTrue(game.getPlayer().getBag().get(0).toString().equals("bomb"));
+    
+    game.useItem(bomb);
+    assertTrue(game.getBoard().getBoard()[6][7].getObj() == null);
+    
+    //use on null
+    game.useItem(bomb);
+    
+    Monster david = new Monster();
+    david.setLocation(new Point(7, 6));
+    david.setName("david");
+    david.setDamage(25);
+    david.setHealth(40);
+    game.getBoard().getBoard()[6][7].setObj(david);
+   
+    game.useItem(bomb);
+    assertTrue(david.getHealth() == 10);
+    game.useItem(bomb);
+    assertTrue(game.getBoard().getBoard()[6][7].getObj().getName().equals("ladder"));
   }
 
   @Test
