@@ -35,7 +35,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   private Button crowbar;
   private Button hammer;
   private Button khopesh;
-  private Button pickAxe;
+  private Button pickaxe;
   private Button bomb;
   private Button boss;
   Stage primaryStage;
@@ -163,12 +163,12 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(khopesh, 1, 2);
 
     // adds pick axe
-    Image pickAxeImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
-    pickAxe = new Button();
-    pickAxe.setGraphic(new ImageView(pickAxeImage));
-    pickAxe.setPrefSize(40, 40);
-    pickAxe.setOnAction(this);
-    gridPane.add(pickAxe, 2, 2);
+    Image pickaxeImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
+    pickaxe = new Button();
+    pickaxe.setGraphic(new ImageView(pickaxeImage));
+    pickaxe.setPrefSize(40, 40);
+    pickaxe.setOnAction(this);
+    gridPane.add(pickaxe, 2, 2);
 
     // adds bomb
     Image bombImage = new Image(getClass().getResource("icons/bomb_none.png").toString());
@@ -227,7 +227,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
       MapEditor.setIcon("hammer");
     } else if (event.getSource() == khopesh) {
       MapEditor.setIcon("khopesh");
-    } else if (event.getSource() == pickAxe) {
+    } else if (event.getSource() == pickaxe) {
       MapEditor.setIcon("pickaxe");
     } else if (event.getSource() == bomb) {
       MapEditor.setIcon("bomb");
