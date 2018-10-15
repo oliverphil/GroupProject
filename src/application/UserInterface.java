@@ -50,13 +50,6 @@ import renderer.Renderer;
 
 public class UserInterface extends Application {
 
-  // TODO:
-  // Fix Help Printing
-  // Write Tests [Renderer Tests, add 'Before All' to tests]
-  // CRC Card for GUI
-  // Read Me for Game (WITH CHARLOTTE)
-  // Howard Lukefah = Clippy for Help Page
-
   public static final String HELP_MESSAGE = " ";
   private static final double HEALTHBAR_SCALE = 4.35;
   private static final double CARRYBAR_SCALE = 29;
