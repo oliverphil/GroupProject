@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * A Tile object is a single Tile making up the board. It may contain and item or anywhere from 0 to
  * 4 walls.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 @XmlRootElement

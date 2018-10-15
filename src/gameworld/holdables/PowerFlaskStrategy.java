@@ -4,8 +4,13 @@ import gameworld.Player;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * This object deals with power flasks.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
-class PowerFlaskStrategy extends ContentsStrategy {
+public class PowerFlaskStrategy extends ContentsStrategy {
 
   @Override
   public void use(Player pl) {

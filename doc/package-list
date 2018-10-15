@@ -1,1 +1,8 @@
+application
 gameworld
+gameworld.barriers
+gameworld.holdables
+mapeditor
+persistence
+renderer
+tests

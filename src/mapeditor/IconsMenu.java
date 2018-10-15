@@ -27,13 +27,15 @@ import javafx.stage.Stage;
 public class IconsMenu extends Application implements EventHandler<ActionEvent> {
   private Button emptyFlask;
   private Button powerFlask;
+  private Button powerFountain;
+  private Button healthFountain;
   private Button healthFlask;
   private Button torch;
   private Button boltCutters;
   private Button crowbar;
   private Button hammer;
   private Button khopesh;
-  private Button pickAxe;
+  private Button pickaxe;
   private Button bomb;
   private Button boss;
   Stage primaryStage;
@@ -59,7 +61,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     HBox topHBox = drawTop();
     border.setTop(topHBox);
     border.setCenter(drawItems());
-    Scene scene = new Scene(border, 200, 285);
+    Scene scene = new Scene(border, 200, 305);
 
     // sets position of icons menu
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -161,12 +163,12 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     gridPane.add(khopesh, 1, 2);
 
     // adds pick axe
-    Image pickAxeImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
-    pickAxe = new Button();
-    pickAxe.setGraphic(new ImageView(pickAxeImage));
-    pickAxe.setPrefSize(40, 40);
-    pickAxe.setOnAction(this);
-    gridPane.add(pickAxe, 2, 2);
+    Image pickaxeImage = new Image(getClass().getResource("icons/pickaxe_none.png").toString());
+    pickaxe = new Button();
+    pickaxe.setGraphic(new ImageView(pickaxeImage));
+    pickaxe.setPrefSize(40, 40);
+    pickaxe.setOnAction(this);
+    gridPane.add(pickaxe, 2, 2);
 
     // adds bomb
     Image bombImage = new Image(getClass().getResource("icons/bomb_none.png").toString());
@@ -183,6 +185,24 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     boss.setPrefSize(40, 40);
     boss.setOnAction(this);
     gridPane.add(boss, 1, 3);
+
+    // adds power fountain
+    Image powerFountainImage = new Image(
+        getClass().getResource("icons/healthFountain_none.png").toString());
+    healthFountain = new Button();
+    healthFountain.setGraphic(new ImageView(powerFountainImage));
+    healthFountain.setPrefSize(40, 40);
+    healthFountain.setOnAction(this);
+    gridPane.add(healthFountain, 2, 3);
+
+    // adds health fountain
+    Image healthFountainImage = new Image(
+        getClass().getResource("icons/powerFountain_none.png").toString());
+    powerFountain = new Button();
+    powerFountain.setGraphic(new ImageView(healthFountainImage));
+    powerFountain.setPrefSize(40, 40);
+    powerFountain.setOnAction(this);
+    gridPane.add(powerFountain, 0, 4);
 
     return gridPane;
   }
@@ -207,12 +227,16 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
       MapEditor.setIcon("hammer");
     } else if (event.getSource() == khopesh) {
       MapEditor.setIcon("khopesh");
-    } else if (event.getSource() == pickAxe) {
+    } else if (event.getSource() == pickaxe) {
       MapEditor.setIcon("pickaxe");
     } else if (event.getSource() == bomb) {
       MapEditor.setIcon("bomb");
     } else if (event.getSource() == boss) {
       MapEditor.setIcon("boss");
+    } else if (event.getSource() == powerFountain) {
+      MapEditor.setIcon("powerFountain");
+    } else if (event.getSource() == healthFountain) {
+      MapEditor.setIcon("healthFountain");
     }
   }
 }

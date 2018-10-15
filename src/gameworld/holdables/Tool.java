@@ -5,6 +5,11 @@ import gameworld.Tile;
 
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Used to break through barriers blocking doors.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 public class Tool extends Item {
   private String material;
 

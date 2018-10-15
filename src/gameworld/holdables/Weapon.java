@@ -6,6 +6,11 @@ import gameworld.Tile;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Deals damage to the bosses of the game.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Weapon extends Item {
   private int damage;
