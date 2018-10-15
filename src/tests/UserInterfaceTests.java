@@ -2,27 +2,36 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import static org.junit.Assert.fail;
 
 import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
+import gameworld.holdables.HealthFlaskStrategy;
 import gameworld.holdables.Item;
 import gameworld.holdables.PowerFlaskStrategy;
 import gameworld.holdables.Tool;
 import gameworld.holdables.Weapon;
-import gameworld.holdables.HealthFlaskStrategy;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test suite for the user interface
+ * @author Philip Oliver - 300398228
+ *
+ */
 public class UserInterfaceTests {
 
   private volatile boolean success = false;
@@ -48,11 +57,7 @@ public class UserInterfaceTests {
               ui.start(new Stage());
               success = true;
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -105,11 +110,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -163,11 +164,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -221,11 +218,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -280,11 +273,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -339,11 +328,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -398,11 +383,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -457,11 +438,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -516,11 +493,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -575,11 +548,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -634,11 +603,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -693,11 +658,7 @@ public class UserInterfaceTests {
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -744,11 +705,7 @@ public class UserInterfaceTests {
 
               assertEquals("An empty flask", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -795,11 +752,7 @@ public class UserInterfaceTests {
 
               assertEquals("A full flask. The liquid looks powerful", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -846,11 +799,7 @@ public class UserInterfaceTests {
 
               assertEquals("A full flask. The liquid looks invigorating", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -897,11 +846,7 @@ public class UserInterfaceTests {
 
               assertEquals("A rusty crowbar", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -948,11 +893,7 @@ public class UserInterfaceTests {
 
               assertEquals("A sharp pickaxe. Good for mining", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -999,11 +940,7 @@ public class UserInterfaceTests {
 
               assertEquals("A pair of bolt cutters", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1050,11 +987,7 @@ public class UserInterfaceTests {
 
               assertEquals("A mysterious and powerful ancient sword...", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1101,11 +1034,7 @@ public class UserInterfaceTests {
 
               assertEquals("A blazing torch", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1152,11 +1081,7 @@ public class UserInterfaceTests {
 
               assertEquals("A heavy hammer", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1203,11 +1128,7 @@ public class UserInterfaceTests {
 
               assertEquals("An odd bomb", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1254,11 +1175,7 @@ public class UserInterfaceTests {
 
               assertEquals("You attacked Pharoh Pearce!", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1305,11 +1222,7 @@ public class UserInterfaceTests {
 
               assertEquals("You attacked Mummy Marco!", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1356,11 +1269,7 @@ public class UserInterfaceTests {
 
               assertEquals("You attacked Tombstone Thomas!", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1408,11 +1317,7 @@ public class UserInterfaceTests {
               assertEquals("Some wooden planks. Looks like they might pry away",
                   itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1459,11 +1364,7 @@ public class UserInterfaceTests {
 
               assertEquals("Crumbled stones block your path", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1510,11 +1411,7 @@ public class UserInterfaceTests {
 
               assertEquals("Rusted chains are covering the stone door", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1561,11 +1458,7 @@ public class UserInterfaceTests {
 
               assertEquals("A spring bubbling with life!", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1612,11 +1505,7 @@ public class UserInterfaceTests {
 
               assertEquals("A spring bubbling with power!", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1663,11 +1552,7 @@ public class UserInterfaceTests {
 
               assertEquals("The old ladder takes you to the surface...", itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -1715,11 +1600,211 @@ public class UserInterfaceTests {
               assertEquals("\"Use 'WASD' or Button Pad (LEFT) for movement.\"",
                   itemLabel.getText());
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void testMovement_1() {
+    UserInterface ui = new UserInterface();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              ui.start(new Stage());
+              success = true;
+
+              Field f = UserInterface.class.getDeclaredField("window");
+              f.setAccessible(true);
+              Stage s = (Stage) f.get(ui);
+
+              KeyEvent k = new KeyEvent(s, null, KeyEvent.KEY_RELEASED, null, null, KeyCode.W,
+                  false, false, false, false);
+
+              Method onKey = UserInterface.class.getDeclaredMethod("onKey",
+                  new Class[] { KeyEvent.class });
+              onKey.setAccessible(true);
+              onKey.invoke(ui, new Object[] { k });
+            } catch (Throwable t) {
+              fail();
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void testMovement_2() {
+    UserInterface ui = new UserInterface();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              ui.start(new Stage());
+              success = true;
+
+              Field f = UserInterface.class.getDeclaredField("window");
+              f.setAccessible(true);
+              Stage s = (Stage) f.get(ui);
+
+              KeyEvent k = new KeyEvent(s, null, KeyEvent.KEY_RELEASED, null, null, KeyCode.S,
+                  false, false, false, false);
+
+              Method onKey = UserInterface.class.getDeclaredMethod("onKey",
+                  new Class[] { KeyEvent.class });
+              onKey.setAccessible(true);
+              onKey.invoke(ui, new Object[] { k });
+            } catch (Throwable t) {
+              fail();
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void testMovement_3() {
+    UserInterface ui = new UserInterface();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              ui.start(new Stage());
+              success = true;
+
+              Field f = UserInterface.class.getDeclaredField("window");
+              f.setAccessible(true);
+              Stage s = (Stage) f.get(ui);
+
+              KeyEvent k = new KeyEvent(s, null, KeyEvent.KEY_RELEASED, null, null, KeyCode.A,
+                  false, false, false, false);
+
+              Method onKey = UserInterface.class.getDeclaredMethod("onKey",
+                  new Class[] { KeyEvent.class });
+              onKey.setAccessible(true);
+              onKey.invoke(ui, new Object[] { k });
+            } catch (Throwable t) {
+              fail();
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void testMovement_4() {
+    UserInterface ui = new UserInterface();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              ui.start(new Stage());
+              success = true;
+
+              Field f = UserInterface.class.getDeclaredField("window");
+              f.setAccessible(true);
+              Stage s = (Stage) f.get(ui);
+
+              KeyEvent k = new KeyEvent(s, null, KeyEvent.KEY_RELEASED, null, null, KeyCode.D,
+                  false, false, false, false);
+
+              Method onKey = UserInterface.class.getDeclaredMethod("onKey",
+                  new Class[] { KeyEvent.class });
+              onKey.setAccessible(true);
+              onKey.invoke(ui, new Object[] { k });
+            } catch (Throwable t) {
+              fail();
             }
           }
         });

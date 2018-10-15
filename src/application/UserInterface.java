@@ -637,16 +637,7 @@ public class UserInterface extends Application {
 
     // WASD Key Listeners
     window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
-      if (k.getCode() == KeyCode.W) {
-        game.moveForward();
-      } else if (k.getCode() == KeyCode.S) {
-        game.moveBackwards();
-      } else if (k.getCode() == KeyCode.A) {
-        game.rotateLeft();
-      } else if (k.getCode() == KeyCode.D) {
-        game.rotateRight();
-      }
-      update();
+      onKey(k);
     });
 
     update();
@@ -662,5 +653,18 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
+  }
+  
+  private void onKey(KeyEvent k) {
+    if (k.getCode() == KeyCode.W) {
+      game.moveForward();
+    } else if (k.getCode() == KeyCode.S) {
+      game.moveBackwards();
+    } else if (k.getCode() == KeyCode.A) {
+      game.rotateLeft();
+    } else if (k.getCode() == KeyCode.D) {
+      game.rotateRight();
+    }
+    update();
   }
 }
