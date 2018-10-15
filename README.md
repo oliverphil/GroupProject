@@ -1,6 +1,7 @@
 # SWEN225GroupProject
 
 Milk Syndrome SWEN225 Group Project - Adventure Game
+@author Maria DaRocha 300399718
 
 ____________________________________
 Welcome to the Engineering Labyrinth!

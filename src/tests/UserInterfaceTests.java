@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-<<<<<<< HEAD
+
 import org.junit.Before;
 import org.junit.Test;
 import application.UserInterface;
@@ -13,7 +13,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 import mapeditor.MapEditor;
-=======
+
 import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.holdables.Explosive;
@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 
 import org.junit.Before;
 import org.junit.Test;
->>>>>>> 094c0d2422e8fd1aa9ee59d6690e80a3cd295a91
+
 
 /**
  * A test suite for the user interface.
@@ -46,20 +46,12 @@ import org.junit.Test;
 public class UserInterfaceTests {
 
   private volatile boolean success = false;
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 094c0d2422e8fd1aa9ee59d6690e80a3cd295a91
   @Before
   public void setup() {
     new JFXPanel();
   }
-<<<<<<< HEAD
-  
-  @Test
-  public void createUserInterface() {
-=======
+
 
   @Test
   public void createUserInterface() {
@@ -483,7 +475,7 @@ public class UserInterfaceTests {
 
   @Test
   public void testAddTorch() {
->>>>>>> 094c0d2422e8fd1aa9ee59d6690e80a3cd295a91
+
     UserInterface ui = new UserInterface();
     Thread thread = new Thread(new Runnable() {
 
@@ -497,14 +489,14 @@ public class UserInterfaceTests {
             try {
               ui.start(new Stage());
               success = true;
-<<<<<<< HEAD
+
             } catch (Throwable t) {
               if (t.getCause() != null
                   && t.getCause().getClass().equals(InterruptedException.class)) {
                 success = true;
                 return;
               }
-=======
+
 
               Field f = UserInterface.class.getDeclaredField("game");
               f.setAccessible(true);
@@ -523,7 +515,7 @@ public class UserInterfaceTests {
               assertEquals(i, item.get(ui));
             } catch (Throwable t) {
               fail();
->>>>>>> 094c0d2422e8fd1aa9ee59d6690e80a3cd295a91
+
             }
           }
         });
@@ -545,9 +537,9 @@ public class UserInterfaceTests {
 
     assertTrue(success);
   }
-<<<<<<< HEAD
- }
-=======
+
+ 
+
 
   @Test
   public void testAddHammer() {
@@ -1860,4 +1852,4 @@ public class UserInterfaceTests {
     assertTrue(success);
   }
 }
->>>>>>> 094c0d2422e8fd1aa9ee59d6690e80a3cd295a91
+

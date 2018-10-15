@@ -48,6 +48,11 @@ import mapeditor.MapEditor;
 import persistence.Persistence;
 import renderer.Renderer;
 
+/**
+ * The GUI responsible for displaying a game to the User
+ * @author Maria DaRocha 300399718
+ *
+ */
 public class UserInterface extends Application {
 
   public static final String HELP_MESSAGE = " ";
@@ -661,3 +666,5 @@ public class UserInterface extends Application {
     update();
   }
 }
+
+// @author Maria DaRocha 300399718
