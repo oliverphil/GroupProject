@@ -61,7 +61,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     HBox topHBox = drawTop();
     border.setTop(topHBox);
     border.setCenter(drawItems());
-    Scene scene = new Scene(border, 200, 285);
+    Scene scene = new Scene(border, 200, 305);
 
     // sets position of icons menu
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -185,6 +185,24 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
     boss.setPrefSize(40, 40);
     boss.setOnAction(this);
     gridPane.add(boss, 1, 3);
+
+    // adds power fountain
+    Image powerFountainImage = new Image(
+        getClass().getResource("icons/healthFountain_none.png").toString());
+    healthFountain = new Button();
+    healthFountain.setGraphic(new ImageView(powerFountainImage));
+    healthFountain.setPrefSize(40, 40);
+    healthFountain.setOnAction(this);
+    gridPane.add(healthFountain, 2, 3);
+
+    // adds health fountain
+    Image healthFountainImage = new Image(
+        getClass().getResource("icons/powerFountain_none.png").toString());
+    powerFountain = new Button();
+    powerFountain.setGraphic(new ImageView(healthFountainImage));
+    powerFountain.setPrefSize(40, 40);
+    powerFountain.setOnAction(this);
+    gridPane.add(powerFountain, 0, 4);
 
     return gridPane;
   }
