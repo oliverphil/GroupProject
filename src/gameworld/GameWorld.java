@@ -15,7 +15,7 @@ import renderer.Renderer.ItemOnScreen;
 /**
  * GameWorld class is the API for the game.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 //*******OBSERVER PATTERN*******
@@ -65,6 +65,9 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveForward() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.goForwards(this.player, won);
     resetMonsterHealth();
     update();
@@ -75,6 +78,9 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveBackwards() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.goBack(this.player, won);
     resetMonsterHealth();
     update();
@@ -84,6 +90,9 @@ public class GameWorld extends Observable {
    * Rotates the player 90 degrees to the right.
    */
   public void rotateRight() {
+    if (won || !playerAlive) {
+      return;
+    }
     player.turnRight();
     update();
   }
@@ -92,25 +101,36 @@ public class GameWorld extends Observable {
    * Rotates the player 90 degrees to the left.
    */
   public void rotateLeft() {
+    if (won || !playerAlive) {
+      return;
+    }
     player.turnLeft();
     update();
   }
 
   /**
    * Called on click, passes the image clicked on.
+   *
+   * @param name the item on the screen
    */
   public void interact(ItemOnScreen name) {
+    if ((won || !playerAlive) && !name.toString().equals("ladder")) {
+      return;
+    }
     interact(name.toString(), name.getTile());
     update();
   }
 
   /**
    * Overloading the other interact method for ease of testing.
-   * 
+   *
    * @param name the name of the object
    * @param tile the tile it is on
    */
   public void interact(String name, int tile) {
+    if ((won || !playerAlive) && !name.equals("ladder")) {
+      return;
+    }
     switch (name) {
       case "door":
         openDoor();
@@ -341,10 +361,13 @@ public class GameWorld extends Observable {
 
   /**
    * Called by the interact method when the player is fighting a boss.
-   * 
+   *
    * @param name the name of the boss to fight
    */
   private void attack(String boss) {
+    if (won || !playerAlive) {
+      return;
+    }
 
     Weapon weap = player.getWeapon();
 
@@ -488,10 +511,13 @@ public class GameWorld extends Observable {
 
   /**
    * Uses the item that is selected on the players hot bar.
-   * 
+   *
    * @param item the item to be used.
    */
   public void useItem(Item item) {
+    if (won || !playerAlive) {
+      return;
+    }
     item.use(player, board.getfacingTile(player));
 
     FloorObject obj = board.getfacingTile(player).getObj();
@@ -505,10 +531,13 @@ public class GameWorld extends Observable {
 
   /**
    * Drops the item that is selected on the players hot bar.
-   * 
+   *
    * @param item the item to be dropped.
    */
   public void dropItem(Item item) {
+    if (won || !playerAlive) {
+      return;
+    }
     board.dropItem(player, item);
     update();
   }
@@ -517,6 +546,9 @@ public class GameWorld extends Observable {
    * Called when the player clicks on the door in front of them.
    */
   public void openDoor() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.openDoor(player);
     update();
   }

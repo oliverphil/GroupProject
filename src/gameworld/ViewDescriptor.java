@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Provides a description of what the player can see given the room and direction.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  */
 @XmlRootElement
 public class ViewDescriptor {
@@ -22,12 +22,16 @@ public class ViewDescriptor {
    *
    * @param p the current player
    * @param b the current board
+   * @param isWon whether the game is won
    */
   public ViewDescriptor(Player p, Board b, boolean isWon) {
     view = new ArrayList<String>();
     generate(p, b, isWon);
   }
 
+  /**
+   * Create a new ViewDescriptor.
+   */
   public ViewDescriptor() {
     view = new ArrayList<>();
     generate(new Player(), new Board(), false);
@@ -67,7 +71,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -85,7 +89,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -103,7 +107,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -121,7 +125,7 @@ public class ViewDescriptor {
         } else {
           view.add("clear");
         }
-        view.add("wall");
+        addString("wall");
 
         // check the 3 floor tiles in front of the player
         for (int i = 0; i < 3; i++) {
@@ -152,7 +156,7 @@ public class ViewDescriptor {
     }
 
     if (b.getfacingTile(p).getObj() instanceof Monster) {
-      monsterHealth = ((Monster) b.getfacingTile(p).getObj()).getHealth();
+      setMonsterHealth(((Monster) b.getfacingTile(p).getObj()).getHealth());
     } else {
       monsterHealth = -1;
     }

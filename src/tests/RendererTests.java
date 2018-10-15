@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
@@ -50,10 +51,16 @@ public class RendererTests {
    */
   @BeforeEach
   public void getNewRenderer() {
+    try {
+      Thread.sleep(100); // give time for previous tests to tidy up
+    } catch (InterruptedException e) {
+      // do nothing
+    }
     renderer = getMutedRenderer();
   }
 
   private Renderer getMutedRenderer() {
+    new JFXPanel();
     Renderer renderer = new Renderer(3, 3);
     renderer.mute();
     return renderer;
@@ -947,6 +954,7 @@ public class RendererTests {
     assertFalse(renderer.equals(null));
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Test
   public void testEquals04() {
     assertFalse(renderer.equals("hello"));
@@ -1112,25 +1120,50 @@ public class RendererTests {
 
   @Test
   public void testUpdate05() {
-    try {
-      Field testing = renderer.getClass().getDeclaredField("testing");
-      testing.setAccessible(true);
-      testing.set(renderer, true);
+    Runnable r = new Runnable() {
 
-      renderer.update(new GameWorld(), "won");
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
 
-      Field won = renderer.getClass().getDeclaredField("won");
-      won.setAccessible(true);
-      assertTrue((boolean) won.get(renderer));
-    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-        | IllegalAccessException e) {
-      fail("Should be able to access fields");
-    }
+          @Override
+          public void run() {
+            try {
+              Renderer renderer = new Renderer(3, 3);
+              RendererTests.this.renderer = renderer;
+            } catch (Throwable t) {
+              if (t.getCause() != null
+                  && t.getCause().getClass().equals(InterruptedException.class)) {
+                return;
+              }
+            }
+            try {
+              renderer.update(new GameWorld(), "won");
+
+              Field won = renderer.getClass().getDeclaredField("won");
+              won.setAccessible(true);
+              assertTrue((boolean) won.get(renderer));
+              return;
+            } catch (SecurityException | IllegalAccessException | IllegalArgumentException
+                | NoSuchFieldException e1) {
+              fail("Should be able to access method");
+            }
+            fail("Should be able to run credits");
+          }
+        });
+      }
+    };
+    Thread thread = new Thread(r);
+
+    thread.start();
+
+    thread.interrupt();
+
   }
 
   @Test
   public void testUpdate06() {
-    renderer = new Renderer(700, 700);
     renderer.update(new GameWorld(), "dead");
     Field dead;
     try {
@@ -1145,7 +1178,6 @@ public class RendererTests {
 
   @Test
   public void testUpdate07() {
-    renderer = new Renderer(700, 700);
     renderer.update(new Observable(), 1);
     Field dead;
     try {
@@ -1160,8 +1192,6 @@ public class RendererTests {
 
   @Test
   public void testUpdate08() {
-    renderer = new Renderer(700, 700);
-
     try {
       Field dead = renderer.getClass().getDeclaredField("dead");
       dead.setAccessible(true);
@@ -1179,8 +1209,6 @@ public class RendererTests {
 
   @Test
   public void testUpdate09() {
-    renderer = new Renderer(700, 700);
-
     try {
       Field dead = renderer.getClass().getDeclaredField("dead");
       dead.setAccessible(true);
@@ -1435,7 +1463,6 @@ public class RendererTests {
 
   @Test
   public void testDirection01() {
-    renderer = new Renderer(3, 3);
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "", "north", "" });
@@ -1463,7 +1490,6 @@ public class RendererTests {
 
   @Test
   public void testDirection02() {
-    renderer = new Renderer(3, 3);
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "", "south", "" });
@@ -1491,7 +1517,6 @@ public class RendererTests {
 
   @Test
   public void testDirection03() {
-    renderer = new Renderer(3, 3);
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "", "east", "" });
@@ -1519,7 +1544,6 @@ public class RendererTests {
 
   @Test
   public void testDirection04() {
-    renderer = new Renderer(3, 3);
     renderer.redraw(new ViewDescriptor() {
       public List<String> getView() {
         return Arrays.asList(new String[] { "", "", "", "", "david", "", "west", "" });
@@ -1547,15 +1571,44 @@ public class RendererTests {
 
   @Test
   public void testCredits() {
-    try {
-      Method credits = renderer.getClass().getDeclaredMethod("credits", new Class[] {});
-      credits.setAccessible(true);
-      credits.invoke(renderer, new Object[] {});
-    } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-        | IllegalArgumentException | InvocationTargetException e) {
-      assertTrue(true); // test should fail because of no surrounding application
-      return;
-    }
-    fail();
+    Runnable r = new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              Renderer renderer = new Renderer(3, 3);
+              RendererTests.this.renderer = renderer;
+            } catch (Throwable t) {
+              if (t.getCause() != null
+                  && t.getCause().getClass().equals(InterruptedException.class)) {
+                return;
+              }
+            }
+            Method credits;
+            try {
+              credits = Renderer.class.getDeclaredMethod("credits", new Class[] {});
+              credits.setAccessible(true);
+              credits.invoke(renderer, new Object[] {});
+              return;
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e1) {
+              fail("Should be able to access method");
+            }
+            fail("Should be able to run credits");
+          }
+        });
+      }
+    };
+    Thread thread = new Thread(r);
+
+    thread.start();
+
+    thread.interrupt();
+
   }
 }

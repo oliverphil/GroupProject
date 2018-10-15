@@ -3,6 +3,12 @@ package gameworld;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Fountains can be interacted with for power-ups.
+ * 
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Fountain extends FloorObject {
 
@@ -35,9 +41,6 @@ public class Fountain extends FloorObject {
       return true;
     }
     if (!super.equals(obj)) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
       return false;
     }
     Fountain other = (Fountain) obj;

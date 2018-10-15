@@ -17,6 +17,13 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * The game's board made up of Tile objects. Responsible for player movement and
+ * adding all the objects to the game.
+ * 
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Board {
   private Tile[][] board;
@@ -411,7 +418,7 @@ public class Board {
    *
    * @param row num
    * @param col num
-   * @return
+   * @return the tile in spot (row, col)
    */
   public Tile getTile(int row, int col) {
     return board[row][col];
@@ -468,6 +475,7 @@ public class Board {
    * Moves the player backwards.
    *
    * @param p the current player
+   * @param won whether the game is won or not
    */
   public void goBack(Player p, boolean won) {
     // check if there is a wall or an open door behind them
@@ -664,7 +672,7 @@ public class Board {
 
     // go around each corner of the room trying to drop the item
     boolean dropped = board[point.valueY - 1][point.valueX - 1].setObj(item);
-    
+
     if (!dropped) {
       dropped = board[point.valueY - 1][point.valueX + 1].setObj(item);
     }
@@ -675,7 +683,7 @@ public class Board {
       dropped = board[point.valueY + 1][point.valueX - 1].setObj(item);
     }
 
-    
+
     // only drop the item from the bag if item was dropped
     if (dropped) {
       p.dropItem(item);

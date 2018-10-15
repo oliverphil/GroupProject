@@ -22,9 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import javax.xml.bind.annotation.XmlElement;// 
-// import javax.xml.bind.annotation.XmlElementWrapper;
-// import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlElement;//
 import javax.xml.bind.annotation.XmlRootElement;
 
 import persistence.Persistence;
@@ -32,7 +30,7 @@ import persistence.Persistence;
 /**
  * The MapEditor class creates a window where a map can be created by the user.
  *
- * @author Charlotte Gimblett
+ * @author Charlotte Gimblett 300416852
  */
 @XmlRootElement
 public class MapEditor extends Application {
@@ -149,48 +147,52 @@ public class MapEditor extends Application {
   EventHandler<MouseEvent> mouseEventHandler = new EventHandler<MouseEvent>() {
     @Override
     public void handle(MouseEvent e) {
-      int x = (int) e.getSceneX();
-      int y = (int) e.getSceneY();
-      row = getRow(y);
-      col = getCol(x);
-      if (row != -1 && col != -1 && row <= 20 && col <= 20) {
-
-        if (selectedBtn == "floorBtn") {
-          grid[col][row] = "empty_" + direction;
-        }
-
-        // adds appropriate item to map
-        if (selectedBtn == "itemBtn") {
-          if (grid[col][row].endsWith("N")) {
-            direction = "N";
-          } else if (grid[col][row].endsWith("_NE")) {
-            direction = "NE";
-          } else if (grid[col][row].endsWith("_E")) {
-            direction = "E";
-          } else if (grid[col][row].endsWith("_SE")) {
-            direction = "SE";
-          } else if (grid[col][row].endsWith("_S")) {
-            direction = "S";
-          } else if (grid[col][row].endsWith("_SW")) {
-            direction = "SW";
-          } else if (grid[col][row].endsWith("_W")) {
-            direction = "W";
-          } else if (grid[col][row].endsWith("_NW")) {
-            direction = "NW";
-          } else if (grid[col][row].endsWith("_none")) {
-            direction = "none";
-          }
-          grid[col][row] = selectedIcon + "_" + direction;
-        }
-
-        // removes the appropriate tile/icon from map
-        if (selectedBtn == "remove") {
-          remove();
-        }
-        drawGrid();
-      }
+      MapEditor.this.onClick(e);
     }
   };
+
+  private void onClick(MouseEvent e) {
+    int x = (int) e.getSceneX();
+    int y = (int) e.getSceneY();
+    row = getRow(y);
+    col = getCol(x);
+    if (row != -1 && col != -1 && row <= 20 && col <= 20) {
+
+      if (selectedBtn.equals("floorBtn")) {
+        grid[col][row] = "empty_" + direction;
+      }
+
+      // adds appropriate item to map
+      if (selectedBtn.equals("itemBtn")) {
+        if (grid[col][row].endsWith("_N")) {
+          direction = "N";
+        } else if (grid[col][row].endsWith("_NE")) {
+          direction = "NE";
+        } else if (grid[col][row].endsWith("_E")) {
+          direction = "E";
+        } else if (grid[col][row].endsWith("_SE")) {
+          direction = "SE";
+        } else if (grid[col][row].endsWith("_S")) {
+          direction = "S";
+        } else if (grid[col][row].endsWith("_SW")) {
+          direction = "SW";
+        } else if (grid[col][row].endsWith("_W")) {
+          direction = "W";
+        } else if (grid[col][row].endsWith("_NW")) {
+          direction = "NW";
+        } else if (grid[col][row].endsWith("_none")) {
+          direction = "none";
+        }
+        grid[col][row] = selectedIcon + "_" + direction;
+      }
+
+      // removes the appropriate tile/icon from map
+      if (selectedBtn == "remove") {
+        remove();
+      }
+      drawGrid();
+    }
+  }
 
   private int getCol(int x) {
     // calculates which column was clicked on
@@ -296,11 +298,10 @@ public class MapEditor extends Application {
     return grid;
   }
 
-  /*
-   * @XmlElementWrapper(name = "grid")
-   * @XmlElements({ @XmlElement(name = "row", type = String[].class),
-   * @XmlElement(name = "gridItem", type = String.class) })
-   */
+  public String getDirection() {
+    return direction;
+  }
+
   @XmlElement
   public void setGrid(String[][] grid) {
     this.grid = grid;

@@ -4,10 +4,8 @@ import gameworld.GameWorld;
 import gameworld.holdables.Item;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -50,25 +48,24 @@ import mapeditor.MapEditor;
 import persistence.Persistence;
 import renderer.Renderer;
 
+/**
+ * The GUI responsible for displaying a game to the User.
+ *
+ * @author Maria DaRocha 300399718
+ *
+ */
 public class UserInterface extends Application {
-
-  // TODO:
-  // Fix Help Printing
-  // Write Tests [Renderer Tests, add 'Before All' to tests]
-  // CRC Card for GUI
-  // Read Me for Game (WITH CHARLOTTE)
-  // Howard Lukefah = Clippy for Help Page
 
   public static final String HELP_MESSAGE = " ";
   private static final double HEALTHBAR_SCALE = 4.35;
   private static final double CARRYBAR_SCALE = 29;
-  
+
   private Stage window;
   private BorderPane layout = new BorderPane();
-  
+
   private Rectangle healthBar;
   private BorderPane healthBarLayout = new BorderPane();
-  
+
   private Rectangle carryingCapacityBar;
   private BorderPane carryingCapacityLayout = new BorderPane();
 
@@ -83,7 +80,8 @@ public class UserInterface extends Application {
 
   // load arrow images and resize them to 60 x 60px
   private Image forwardArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false, false);
+      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false,
+      false);
   private Image backArrowImage = new Image(
       getClass().getResourceAsStream("icons" + File.separator + "back.png"), 60, 60, false, false);
   private Image leftArrowImage = new Image(
@@ -123,27 +121,30 @@ public class UserInterface extends Application {
 
   /**
    * Main function allowing UserInterface to be launched.
-   * @param args
+   *
+   * @param args command line arguments
    */
   public static void main(String[] args) {
     launch(args);
   }
 
   /**
-   * Updates the GUI, including: Health Bar, Carrying Capacity, Selected Item Descriptions, and Backpack.
-   * 
+   * Updates the GUI, including: Health Bar, Carrying Capacity, Selected Item Descriptions, and
+   * Backpack.
+   *
    */
   private void update() {
 
     double healthBarWidth = game.getPlayer().getHealth() * HEALTHBAR_SCALE;
     healthBar = new Rectangle(10, 3, healthBarWidth, 15);
     healthBar.setFill(Color.DARKSEAGREEN);
-    healthBarLayout.setCenter(healthBar);   
-    
-    double carryBarWidth = ((game.getPlayer().getCarryingCapacity()) - (game.getPlayer().getCurrentWeight())) * CARRYBAR_SCALE;
+    healthBarLayout.setCenter(healthBar);
+
+    double carryBarWidth = ((game.getPlayer().getCarryingCapacity())
+        - (game.getPlayer().getCurrentWeight())) * CARRYBAR_SCALE;
     carryingCapacityBar = new Rectangle(10, 3, carryBarWidth, 15);
     carryingCapacityBar.setFill(Color.DARKORANGE);
-    carryingCapacityLayout.setCenter(carryingCapacityBar);  
+    carryingCapacityLayout.setCenter(carryingCapacityBar);
 
     backpackGrid.getChildren().clear();
     items.clear();
@@ -151,7 +152,7 @@ public class UserInterface extends Application {
     if (selectedItem >= items.size()) {
       selectedItem = items.size() - 1 < 0 ? 0 : items.size() - 1;
     }
-    
+
     ArrayList<Button> packItemsArray = new ArrayList<Button>();
 
     for (int i = 0; i < game.getPlayer().getBag().size(); i++) {
@@ -225,15 +226,17 @@ public class UserInterface extends Application {
               new CornerRadii(3), BorderWidths.DEFAULT)));
     }
   }
-  
+
   /**
    * Animates a given label corresponding to any number of items/characters encountered in the game.
-   * The description will appear in the status bar and disappear after a predetermined length of time.
+   * The description will appear in the status bar and disappear after a predetermined length of
+   * time.
+   *
    * @param nameOfItem item whose description will be displayed
    */
   public static void animateLabel(String nameOfItem) {
     ParallelTransition labelAnimation = new ParallelTransition();
-    
+
     switch (nameOfItem) {
       case "emptyFlask":
         itemLabel.setText("An empty flask");
@@ -266,7 +269,7 @@ public class UserInterface extends Application {
         itemLabel.setText("An odd bomb");
         break;
       case "david":
-        itemLabel.setText("You attacked Pharoh Pierce!");
+        itemLabel.setText("You attacked Pharoh Pearce!");
         break;
       case "marco":
         itemLabel.setText("You attacked Mummy Marco!");
@@ -279,22 +282,25 @@ public class UserInterface extends Application {
         break;
       case "stoneBlockade":
         itemLabel.setText("Crumbled stones block your path");
-        break; 
+        break;
       case "chainBlockade":
         itemLabel.setText("Rusted chains are covering the stone door");
-        break; 
+        break;
       case "healthFountain":
         itemLabel.setText("A spring bubbling with life!");
-        break; 
+        break;
       case "powerFountain":
         itemLabel.setText("A spring bubbling with power!");
         break;
       case "ladder":
         itemLabel.setText("The old ladder takes you to the surface...");
         break;
+      case "helpDirective":
+        itemLabel.setText("\"Use 'WASD' or Button Pad (LEFT) for movement.\"");
+        break;
       default:
         return;
-    }    
+    }
     labelAnimation.setOnFinished(e -> {
       statusScreen.setCenter(itemLabel);
       itemLabel.setTextFill(Color.WHITE);
@@ -312,15 +318,16 @@ public class UserInterface extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    game = new GameWorld();
+    game = Persistence
+        .loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
-    
+
     // sets position of the window
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 10) *9);
-    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 25) *24);
+    primaryStage.setX(primScreenBounds.getWidth() - (primScreenBounds.getWidth() / 10) * 9);
+    primaryStage.setY(primScreenBounds.getHeight() - (primScreenBounds.getHeight() / 25) * 24);
 
     /* MENU START */
     // Game Menu
@@ -332,7 +339,7 @@ public class UserInterface extends Application {
     MenuItem save = new MenuItem("Save...");
     save.setOnAction(e -> {
       JFileChooser getFile = new JFileChooser();
-      int returnVal = getFile.showOpenDialog(null);
+      int returnVal = getFile.showSaveDialog(null);
       if (returnVal == JFileChooser.APPROVE_OPTION) {
         Persistence.saveGame(game, getFile.getSelectedFile().toString());
       }
@@ -345,22 +352,7 @@ public class UserInterface extends Application {
     gameMenu.getItems().add(gameRestart);
     gameMenu.getItems().add(new SeparatorMenuItem());
 
-    // Help Section
-    MenuItem help = new MenuItem("Help");
-    help.setOnAction(e -> {
-      try {
-        Scanner sc = new Scanner(new File("src/application/help.txt"));
-        while (sc.hasNext()) {
-          System.out.println(sc.nextLine());
-        }
-        sc.close();
-      } catch (FileNotFoundException e1) {
-        System.out.println("Help File Not Found");
-      }
-      gameMenu.getItems().add(help);
-
-      new Notification("Instructions", HELP_MESSAGE, "Got it!");
-    });
+    // Exit
     MenuItem exit = new MenuItem("Exit");
     exit.setOnAction(e -> System.exit(0));
     gameMenu.getItems().add(exit);
@@ -416,10 +408,11 @@ public class UserInterface extends Application {
     centerScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     gameRestart.setOnAction(e -> {
-      items.clear(); 
+      items.clear();
       selectedItem = 0;
       gameScreen.restartGame();
-      game = new GameWorld();
+      game = Persistence
+          .loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
       game.addObserver(gameScreen);
       game.update();
       update();
@@ -531,13 +524,6 @@ public class UserInterface extends Application {
     bottomScreen.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    // Backpack
-    backpackGrid = new GridPane();
-    backpackGrid.setScaleShape(true);
-    backpackGrid.scaleShapeProperty();
-    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
-        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-
     // Health Bar
     healthBarLayout.setStyle("-fx-background-color: #171916; ");
     healthBarLayout.setMinWidth(462);
@@ -546,12 +532,12 @@ public class UserInterface extends Application {
     healthLabel.setFont(new Font("Arial", 14));
     healthLabel.setTextFill(Color.rgb(211, 147, 101));
     healthBarLayout.setTop(healthLabel);
-    
+
     // Spacing between health and capacity
     Label spacer = new Label("");
     spacer.setFont(new Font("Arial", 4));
     healthBarLayout.setBottom(spacer);
-    
+
     // Carrying Capacity Bar
     carryingCapacityLayout.setStyle("-fx-background-color: #171916; ");
     carryingCapacityLayout.setMinWidth(462);
@@ -560,11 +546,32 @@ public class UserInterface extends Application {
     carryLabel.setFont(new Font("Arial", 14));
     carryLabel.setTextFill(Color.rgb(211, 147, 101));
     carryingCapacityLayout.setTop(carryLabel);
-    
-    // Spacing between capacity and buttons
+
+    // Spacing between capacity and help
     Label spacer2 = new Label("");
-    spacer2.setFont(new Font("Arial", 10));
+    spacer2.setFont(new Font("Arial", 4));
     carryingCapacityLayout.setBottom(spacer2);
+
+    // Help Button
+    Button helpButton = new Button("Help?");
+    helpButton.setTextFill(Color.rgb(211, 147, 101));
+    helpButton.setStyle("-fx-background-color: #1d1f23; ");
+    helpButton.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20), BorderStrokeStyle.SOLID,
+        new CornerRadii(3), BorderWidths.DEFAULT)));
+    helpButton.setMinHeight(16);
+    helpButton.setMinWidth(462);
+    helpButton.setFont(new Font("Arial", 12));
+    helpButton.setOnAction(e -> {
+      animateLabel("helpDirective");
+    });
+    BorderPane wasdInfo = new BorderPane();
+    wasdInfo.setStyle("-fx-background-color: #171916; ");
+    wasdInfo.setCenter(helpButton);
+
+    // Spacing between help and buttons
+    Label spacer3 = new Label("");
+    spacer3.setFont(new Font("Arial", 2));
+    wasdInfo.setBottom(spacer3);
 
     // Use and Drop Format
     BorderPane useDropLayout = new BorderPane();
@@ -573,6 +580,13 @@ public class UserInterface extends Application {
     HBox useDropBox = new HBox();
     useDropBox.getChildren().addAll(dropItem, useItem);
     useDropLayout.setCenter(useDropBox);
+
+    // Backpack
+    backpackGrid = new GridPane();
+    backpackGrid.setScaleShape(true);
+    backpackGrid.scaleShapeProperty();
+    backpackGrid.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
+        BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
 
     // Build scene
     Scene scene = new Scene(layout);
@@ -609,7 +623,8 @@ public class UserInterface extends Application {
     bottomScreenRight.setBorder(new Border(new BorderStroke(Color.rgb(25, 22, 20),
         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    bottomScreenRight.getChildren().addAll(healthBarLayout, carryingCapacityLayout, useDropLayout, backpackGrid);
+    bottomScreenRight.getChildren().addAll(healthBarLayout, carryingCapacityLayout, wasdInfo,
+        useDropLayout, backpackGrid);
 
     bottomMostScreen.getChildren().addAll(bottomScreenLeft, bottomScreenRight);
 
@@ -621,16 +636,7 @@ public class UserInterface extends Application {
 
     // WASD Key Listeners
     window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
-      if (k.getCode() == KeyCode.W) {
-        game.moveForward();
-      } else if (k.getCode() == KeyCode.S) {
-        game.moveBackwards();
-      } else if (k.getCode() == KeyCode.A) {
-        game.rotateLeft();
-      } else if (k.getCode() == KeyCode.D) {
-        game.rotateRight();
-      }
-      update();
+      onKey(k);
     });
 
     update();
@@ -647,4 +653,19 @@ public class UserInterface extends Application {
     window.sizeToScene();
     window.show();
   }
+
+  private void onKey(KeyEvent k) {
+    if (k.getCode() == KeyCode.W) {
+      game.moveForward();
+    } else if (k.getCode() == KeyCode.S) {
+      game.moveBackwards();
+    } else if (k.getCode() == KeyCode.A) {
+      game.rotateLeft();
+    } else if (k.getCode() == KeyCode.D) {
+      game.rotateRight();
+    }
+    update();
+  }
 }
+
+// @author Maria DaRocha 300399718

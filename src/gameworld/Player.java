@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * A Player is a character controlled by the user.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 @XmlRootElement
@@ -184,7 +184,7 @@ public class Player {
   public int getHealth() {
     return health;
   }
-  
+
   /**
    * Gets the max weight of a player's carrying capacity.
    *
@@ -218,6 +218,7 @@ public class Player {
    * Picks up the item clicked on.
    *
    * @param item item to pick up
+   * @return true if item was picked up, false otherwise
    */
   public boolean pickUp(Item item) {
     if (item.getWeight() + getCurrentWeight() <= MAX_WEIGHT) {
@@ -253,7 +254,7 @@ public class Player {
   /**
    * Returns true if the player has a Tool in their bag.
    *
-   * @return
+   * @return true if player has a tool, false otherwise
    */
   public boolean hasTool() {
     for (FloorObject obj : bag) {
@@ -346,7 +347,7 @@ public class Player {
 
   /**
    * Determine whether the player used a power potion within the past 10 seconds.
-   * 
+   *
    * @return true if the player drank a power potion within 10 secs ago
    */
   public boolean isStrengthened() {

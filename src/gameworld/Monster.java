@@ -3,6 +3,11 @@ package gameworld;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * This is the games antagonists, they need to be killed to win the game.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Monster extends FloorObject {
   private int health;
@@ -87,9 +92,6 @@ public class Monster extends FloorObject {
       return true;
     }
     if (!super.equals(obj)) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
       return false;
     }
     Monster other = (Monster) obj;

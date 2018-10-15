@@ -6,6 +6,11 @@ import gameworld.Tile;
 
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Items are FloorObjects that can be picked up.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 public abstract class Item extends FloorObject {
 
   private int weight;
@@ -19,7 +24,7 @@ public abstract class Item extends FloorObject {
 
   /**
    * get weight.
-   * 
+   *
    * @return the weight
    */
   public int getWeight() {
@@ -28,7 +33,7 @@ public abstract class Item extends FloorObject {
 
   /**
    * sets the weight.
-   * 
+   *
    * @param weight the weight to set
    */
   @XmlElement
@@ -38,6 +43,8 @@ public abstract class Item extends FloorObject {
 
   /**
    * Use the item if possible.
+   * @param p the current player
+   * @param tile the tile the player is facing
    */
   public abstract void use(Player p, Tile tile);
 
@@ -51,13 +58,7 @@ public abstract class Item extends FloorObject {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
     if (!super.equals(obj)) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
       return false;
     }
     Item other = (Item) obj;
