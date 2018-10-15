@@ -110,10 +110,11 @@ public class GameWorld extends Observable {
 
   /**
    * Called on click, passes the image clicked on.
+   *
    * @param name the item on the screen
    */
   public void interact(ItemOnScreen name) {
-    if (won || !playerAlive) {
+    if ((won || !playerAlive) && !name.toString().equals("ladder")) {
       return;
     }
     interact(name.toString(), name.getTile());
