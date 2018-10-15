@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 public class IconsMenu extends Application implements EventHandler<ActionEvent> {
   private Button emptyFlask;
   private Button powerFlask;
+  private Button powerFountain;
+  private Button healthFountain;
   private Button healthFlask;
   private Button torch;
   private Button boltCutters;
@@ -213,6 +215,10 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
       MapEditor.setIcon("bomb");
     } else if (event.getSource() == boss) {
       MapEditor.setIcon("boss");
+    } else if (event.getSource() == powerFountain) {
+      MapEditor.setIcon("powerFountain");
+    } else if (event.getSource() == healthFountain) {
+      MapEditor.setIcon("healthFountain");
     }
   }
 }
