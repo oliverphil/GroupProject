@@ -1120,20 +1120,46 @@ public class RendererTests {
 
   @Test
   public void testUpdate05() {
-    try {
-      Field testing = renderer.getClass().getDeclaredField("testing");
-      testing.setAccessible(true);
-      testing.set(renderer, true);
+    Runnable r = new Runnable() {
 
-      renderer.update(new GameWorld(), "won");
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
 
-      Field won = renderer.getClass().getDeclaredField("won");
-      won.setAccessible(true);
-      assertTrue((boolean) won.get(renderer));
-    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-        | IllegalAccessException e) {
-      fail("Should be able to access fields");
-    }
+          @Override
+          public void run() {
+            try {
+              Renderer renderer = new Renderer(3, 3);
+              RendererTests.this.renderer = renderer;
+            } catch (Throwable t) {
+              if (t.getCause() != null
+                  && t.getCause().getClass().equals(InterruptedException.class)) {
+                return;
+              }
+            }
+            try {
+              renderer.update(new GameWorld(), "won");
+
+              Field won = renderer.getClass().getDeclaredField("won");
+              won.setAccessible(true);
+              assertTrue((boolean) won.get(renderer));
+              return;
+            } catch (SecurityException | IllegalAccessException | IllegalArgumentException
+                | NoSuchFieldException e1) {
+              fail("Should be able to access method");
+            }
+            fail("Should be able to run credits");
+          }
+        });
+      }
+    };
+    Thread thread = new Thread(r);
+
+    thread.start();
+
+    thread.interrupt();
+
   }
 
   @Test
