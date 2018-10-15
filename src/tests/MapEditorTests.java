@@ -22,6 +22,11 @@ import mapeditor.MapEditor;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A suite of tests written to test the functionality of the renderer.
+ *
+ * @author Charlotte Gimblett 300416852
+ */
 public class MapEditorTests {
 
   private volatile boolean success = false;
