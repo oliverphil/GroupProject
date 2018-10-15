@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * A test suite for the user interface
+ * A test suite for the user interface.
  * @author Philip Oliver - 300398228
  *
  */
