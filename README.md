@@ -1,7 +1,6 @@
 # SWEN225GroupProject
 
 Milk Syndrome SWEN225 Group Project - Adventure Game
-@author Maria DaRocha 300399718
 
 ____________________________________
 Welcome to the Engineering Labyrinth!
@@ -9,12 +8,13 @@ Welcome to the Engineering Labyrinth!
 *How to run this game*
 Step 1: Open Eclipse
 Step 2: Import the project 'Milk_SyndromeGroupProject'
+		import -> archive file -> select jar file
 Step 3: src -> application -> UserInterface
 Step 4: Right click UserInterface
 Step 5: Run as -> Java Application
 
 General:
-1.) Use 'W','A', 'S', 'D' (or button pad) for movement
+1.) Use 'W', 'A', 'S', 'D' (or button pad) for movement
 2.) There are directional letters at the top-right corner of the screen to indicate
     the direction that you're facing (N, S, E, W)
 3.) Your health is indicated by the green bar on the lower half of the screen
@@ -48,7 +48,7 @@ Weapons:
 3.) Khopesh: An ancient and powerful sword said to have been crafted for a Pharoh
 
 Objects:
-1.) Wooden Blockades: Old planks that need to be pryed away from their stone walls
+1.) Wooden Blockades: Old planks that need to be pried away from their stone walls
 2.) Stone Blockades: Must be mined clear before passing through to the next area
 3.) Chain Blockades: Old, rusty chains potentially quartering off parts of the labyrinth
     from plunderers and excavators
