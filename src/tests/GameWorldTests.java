@@ -31,7 +31,7 @@ import org.junit.Test;
 /**
  * Tests for the GameWorld.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 public class GameWorldTests {

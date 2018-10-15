@@ -52,11 +52,7 @@ public class MapEditorTests {
               editor.start(new Stage());
               success = true;
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -95,11 +91,7 @@ public class MapEditorTests {
               ftm.start(new Stage());
               success = true;
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -139,11 +131,7 @@ public class MapEditorTests {
               iconsMenu.start(new Stage());
               success = true;
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
             }
           }
         });
@@ -359,7 +347,6 @@ public class MapEditorTests {
               MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 262.0,
                   254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
                   false, false, false, false, null);
-              System.out.println(editor.getGrid()[11][9]);
 
               assertEquals("emptyFlask_NE", editor.getGrid()[11][9]);
 

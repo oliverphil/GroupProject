@@ -49,7 +49,8 @@ import persistence.Persistence;
 import renderer.Renderer;
 
 /**
- * The GUI responsible for displaying a game to the User
+ * The GUI responsible for displaying a game to the User.
+ *
  * @author Maria DaRocha 300399718
  *
  */
@@ -120,7 +121,7 @@ public class UserInterface extends Application {
 
   /**
    * Main function allowing UserInterface to be launched.
-   * 
+   *
    * @param args command line arguments
    */
   public static void main(String[] args) {
@@ -130,7 +131,7 @@ public class UserInterface extends Application {
   /**
    * Updates the GUI, including: Health Bar, Carrying Capacity, Selected Item Descriptions, and
    * Backpack.
-   * 
+   *
    */
   private void update() {
 
@@ -230,7 +231,7 @@ public class UserInterface extends Application {
    * Animates a given label corresponding to any number of items/characters encountered in the game.
    * The description will appear in the status bar and disappear after a predetermined length of
    * time.
-   * 
+   *
    * @param nameOfItem item whose description will be displayed
    */
   public static void animateLabel(String nameOfItem) {
@@ -652,7 +653,7 @@ public class UserInterface extends Application {
     window.sizeToScene();
     window.show();
   }
-  
+
   private void onKey(KeyEvent k) {
     if (k.getCode() == KeyCode.W) {
       game.moveForward();

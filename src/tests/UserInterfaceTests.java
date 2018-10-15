@@ -4,17 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-
-import org.junit.Before;
-import org.junit.Test;
 import application.UserInterface;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
-import mapeditor.MapEditor;
 
-import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.holdables.Explosive;
 import gameworld.holdables.Flask;
@@ -37,9 +28,9 @@ import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  * A test suite for the user interface.
+ *
  * @author Philip Oliver - 300398228
  *
  */
@@ -51,7 +42,6 @@ public class UserInterfaceTests {
   public void setup() {
     new JFXPanel();
   }
-
 
   @Test
   public void createUserInterface() {
@@ -491,13 +481,10 @@ public class UserInterfaceTests {
               success = true;
 
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                success = true;
-                return;
-              }
+              fail();
+            }
 
-
+            try {
               Field f = UserInterface.class.getDeclaredField("game");
               f.setAccessible(true);
               GameWorld game = (GameWorld) f.get(ui);
@@ -513,10 +500,10 @@ public class UserInterfaceTests {
               Field item = UserInterface.class.getDeclaredField("itemInPack");
               item.setAccessible(true);
               assertEquals(i, item.get(ui));
-            } catch (Throwable t) {
+            } catch (Exception e) {
               fail();
-
             }
+
           }
         });
       }
@@ -537,9 +524,6 @@ public class UserInterfaceTests {
 
     assertTrue(success);
   }
-
- 
-
 
   @Test
   public void testAddHammer() {
@@ -1852,4 +1836,3 @@ public class UserInterfaceTests {
     assertTrue(success);
   }
 }
-
