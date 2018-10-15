@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -57,7 +58,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -100,7 +101,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -144,7 +145,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -159,7 +160,7 @@ public class MapEditorTests {
   }
 
   @Test
-  public void mapEditorHandle_1() {
+  public void mapEditorHandle_floorBtn() {
     MapEditor editor = new MapEditor();
     Thread thread = new Thread(new Runnable() {
 
@@ -173,6 +174,9 @@ public class MapEditorTests {
             try {
               editor.start(new Stage());
               success = true;
+              MapEditor.setButton("floorBtn");
+              MapEditor.setIcon("empty");
+              MapEditor.setDirection("none");
               MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 100.0,
                   100.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
                   false, false, false, false, null);
@@ -184,29 +188,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 100.0,
-                    100.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -215,7 +200,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -261,29 +246,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 218.0,
-                    254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -292,7 +258,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -338,29 +304,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 240.0,
-                    254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -369,7 +316,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -416,29 +363,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 262.0,
-                    254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -447,7 +375,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(4000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -493,29 +421,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 218.0,
-                    276.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -524,7 +433,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -570,29 +479,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 240.0,
-                    276.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -601,7 +491,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -647,29 +537,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 262.0,
-                    276.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -678,7 +549,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -724,29 +595,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 218.0,
-                    298.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -755,7 +607,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -801,29 +653,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 240.0,
-                    298.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -832,7 +665,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -878,29 +711,10 @@ public class MapEditorTests {
                 onClick.invoke(editor, new Object[] { event });
               } catch (NoSuchMethodException | SecurityException | IllegalAccessException
                   | IllegalArgumentException | InvocationTargetException e1) {
-                e1.printStackTrace();
                 fail("Should be able to access methods");
               }
             } catch (Throwable t) {
-              if (t.getCause() != null
-                  && t.getCause().getClass().equals(InterruptedException.class)) {
-                MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 262.0,
-                    298.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false,
-                    false, false, false, false, false, null);
-
-                try {
-                  Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                      new Class[] { MouseEvent.class });
-                  onClick.setAccessible(true);
-                  onClick.invoke(editor, new Object[] { event });
-                } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e1) {
-                  e1.printStackTrace();
-                  fail("Should be able to access methods");
-                }
-                success = true;
-                return;
-              }
+              // do nothing, does not affect running
             }
           }
         });
@@ -909,7 +723,7 @@ public class MapEditorTests {
     thread.start();
 
     try {
-      Thread.sleep(3000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // do nothing, does not affect running
     }
@@ -923,4 +737,299 @@ public class MapEditorTests {
 
     assertTrue(success);
   }
+
+  @Test
+  public void mapEditorHandle_incorrect() {
+    MapEditor editor = new MapEditor();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              editor.start(new Stage());
+              success = true;
+              MapEditor.setButton("itemBtn");
+              MapEditor.setIcon("empty");
+              MapEditor.setDirection("bad");
+
+              MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 284.0,
+                  320.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
+                  false, false, false, false, null);
+              
+              assertEquals("empty_bad", editor.getGrid()[12][12]);
+
+              try {
+                Method onClick = MapEditor.class.getDeclaredMethod("onClick",
+                    new Class[] { MouseEvent.class });
+                onClick.setAccessible(true);
+                onClick.invoke(editor, new Object[] { event });
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void mapEditorHandle_removeBtn() {
+    MapEditor editor = new MapEditor();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              editor.start(new Stage());
+              success = true;
+              MapEditor.setButton("remove");
+              MapEditor.setIcon("empty");
+              MapEditor.setDirection("none");
+              MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 196.0,
+                  232.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
+                  false, false, false, false, null);
+
+              assertEquals("0_none", editor.getGrid()[8][8]);
+
+              try {
+                Method onClick = MapEditor.class.getDeclaredMethod("onClick",
+                    new Class[] { MouseEvent.class });
+                onClick.setAccessible(true);
+                onClick.invoke(editor, new Object[] { event });
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void mapEditorHandle_remove1() {
+    MapEditor editor = new MapEditor();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              editor.start(new Stage());
+              success = true;
+              MapEditor.setButton("remove");
+              MapEditor.setIcon("emptyFlask");
+              MapEditor.setDirection("NE");
+              MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 262.0,
+                  254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
+                  false, false, false, false, null);
+              Method remove = MapEditor.class.getDeclaredMethod("remove", new Class[] {});
+              remove.setAccessible(true);
+              remove.invoke(editor, new Object[] {});
+
+              try {
+                Method onClick = MapEditor.class.getDeclaredMethod("onClick",
+                    new Class[] { MouseEvent.class });
+                onClick.setAccessible(true);
+                onClick.invoke(editor, new Object[] { event });
+                assertEquals("empty_NE", editor.getGrid()[11][9]);
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void mapEditorHandle_remove2() {
+    MapEditor editor = new MapEditor();
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              editor.start(new Stage());
+              success = true;
+              MapEditor.setButton("remove");
+              MapEditor.setIcon("empty");
+              MapEditor.setDirection("NW");
+              MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 218.0,
+                  254.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
+                  false, false, false, false, null);
+              Method remove = MapEditor.class.getDeclaredMethod("remove", new Class[] {});
+              remove.setAccessible(true);
+              remove.invoke(editor, new Object[] {});
+
+              try {
+                Method onClick = MapEditor.class.getDeclaredMethod("onClick",
+                    new Class[] { MouseEvent.class });
+                onClick.setAccessible(true);
+                onClick.invoke(editor, new Object[] { event });
+                assertEquals("empty_NW", editor.getGrid()[9][9]);
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+//  @Test
+//  public void mapEditor_setGrid() {
+//    MapEditor editor = new MapEditor();
+//    Thread thread = new Thread(new Runnable() {
+//
+//      @Override
+//      public void run() {
+//        new JFXPanel(); // Initializes the JavaFx Platform
+//        Platform.runLater(new Runnable() {
+//
+//          @Override
+//          public void run() {
+//            try {
+//              editor.start(new Stage());
+//              success = true;
+//              MapEditor.setButton("floorBtn");
+//              MapEditor.setIcon("empty");
+//              MapEditor.setDirection("NW");
+//              Method setGrid = MapEditor.class.getDeclaredMethod("setGrid", String[][].class);
+//              setGrid.setAccessible(true);
+//              setGrid.invoke(editor, (Object) new String[2][2]);
+//
+//              Field grid = MapEditor.class.getDeclaredField("grid");
+//              grid.setAccessible(true);
+//              // grid.set(String[][].class, editor.getGrid());
+//
+//              try {
+//                assertEquals(grid, editor.getGrid());
+//
+//              } catch (SecurityException | IllegalArgumentException e1) {
+//                fail("Should be able to access methods");
+//              }
+//
+//            } catch (Throwable t) {
+//              // do nothing, does not affect running
+//            }
+//          }
+//        });
+//      }
+//    });
+//    thread.start();
+//
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      // do nothing, does not affect running
+//    }
+//
+//    thread.interrupt();
+//    try {
+//      thread.join(1);
+//    } catch (InterruptedException e) {
+//      // do nothing, does not affect running
+//    }
+//
+//    assertTrue(success);
+//  }
 }

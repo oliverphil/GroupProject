@@ -166,7 +166,7 @@ public class MapEditor extends Application {
 
       // adds appropriate item to map
       if (selectedBtn.equals("itemBtn")) {
-        if (grid[col][row].endsWith("N")) {
+        if (grid[col][row].endsWith("_N")) {
           direction = "N";
         } else if (grid[col][row].endsWith("_NE")) {
           direction = "NE";
@@ -298,6 +298,10 @@ public class MapEditor extends Application {
 
   public String[][] getGrid() {
     return grid;
+  }
+
+  public String getDirection() {
+    return this.direction;
   }
 
   @XmlElement

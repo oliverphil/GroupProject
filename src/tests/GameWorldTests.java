@@ -571,7 +571,7 @@ public class GameWorldTests {
     game.interact("marco", 1);
     game.interact("torch", 1);
     game.interact("marco", 1);
-    assertTrue(game.getBoard().getBoard()[0][1].getObj() == null);
+    assertFalse(game.isPlayerAlive());
   }
 
   @Test
@@ -605,7 +605,6 @@ public class GameWorldTests {
     game.interact("khopesh", 1);
     game.interact("david", 1);
     assertFalse(game.isPlayerAlive());
-    assertTrue(game.getBoard().getBoard()[13][0].getObj().toString().equals("ladder"));
   }
 
   @Test
@@ -639,6 +638,7 @@ public class GameWorldTests {
     game.interact("thomas", 1);
     game.interact("hammer", 1);
     game.interact("thomas", 1);
+    assertTrue(game.isPlayerAlive());
     assertTrue(game.getBoard().getTile(1, 14).getObj() == null);
   }
 
