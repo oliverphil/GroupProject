@@ -6,6 +6,11 @@ import gameworld.Tile;
 
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Items are FloorObjects that can be picked up.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 public abstract class Item extends FloorObject {
 
   private int weight;

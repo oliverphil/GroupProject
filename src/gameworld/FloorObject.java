@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Items are objects found in the game world that can be weapons or tools to help a player along
  * their journey.
  *
- * @author ewensdyla
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 public abstract class FloorObject {

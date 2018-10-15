@@ -15,7 +15,7 @@ import renderer.Renderer.ItemOnScreen;
 /**
  * GameWorld class is the API for the game.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  *
  */
 //*******OBSERVER PATTERN*******

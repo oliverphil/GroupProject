@@ -17,6 +17,13 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * The game's board made up of Tile objects. Responsible for player movement and
+ * adding all the objects to the game.
+ * 
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Board {
   private Tile[][] board;

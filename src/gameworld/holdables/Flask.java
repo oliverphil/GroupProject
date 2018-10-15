@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A Flask is a multi-use item that can be filled with different liquids. This uses the ***STRATEGY
- * PATTERN***.
+ * A Flask is a multi-use item that can be filled with different liquids. 
+ * This uses the ***STRATEGY PATTERN***.
  *
- * @author ewensdyla
+ *@author Dylan Ewens - ewensdyla 300423748
  *
  */
 @XmlRootElement

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Provides a description of what the player can see given the room and direction.
  *
- * @author Dylan
+ * @author Dylan Ewens - ewensdyla 300423748
  */
 @XmlRootElement
 public class ViewDescriptor {

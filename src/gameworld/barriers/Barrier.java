@@ -6,13 +6,18 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Obstacles blocking doors, removed using tools.
+ * @author Dylan Ewens - ewensdyla 300423748
+ *
+ */
 @XmlRootElement
 public class Barrier extends FloorObject {
 
   private BarrierStrategy strat;
 
   /**
-   * Constructs a new Flask open with the empty Strategy.
+   * Constructs a new Barrier without a Strategy.
    */
   public Barrier() {
     strat = null;
