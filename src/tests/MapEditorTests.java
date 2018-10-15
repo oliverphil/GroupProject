@@ -10,6 +10,8 @@ import java.lang.reflect.Method;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -739,65 +741,6 @@ public class MapEditorTests {
   }
 
   @Test
-  public void mapEditorHandle_incorrect() {
-    MapEditor editor = new MapEditor();
-    Thread thread = new Thread(new Runnable() {
-
-      @Override
-      public void run() {
-        new JFXPanel(); // Initializes the JavaFx Platform
-        Platform.runLater(new Runnable() {
-
-          @Override
-          public void run() {
-            try {
-              editor.start(new Stage());
-              success = true;
-              MapEditor.setButton("itemBtn");
-              MapEditor.setIcon("empty");
-              MapEditor.setDirection("bad");
-
-              MouseEvent event = new MouseEvent(editor, null, MouseEvent.MOUSE_CLICKED, 284.0,
-                  320.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false, false, false, false, false,
-                  false, false, false, false, null);
-              
-              assertEquals("empty_bad", editor.getGrid()[12][12]);
-
-              try {
-                Method onClick = MapEditor.class.getDeclaredMethod("onClick",
-                    new Class[] { MouseEvent.class });
-                onClick.setAccessible(true);
-                onClick.invoke(editor, new Object[] { event });
-              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
-                  | IllegalArgumentException | InvocationTargetException e1) {
-                fail("Should be able to access methods");
-              }
-            } catch (Throwable t) {
-              // do nothing, does not affect running
-            }
-          }
-        });
-      }
-    });
-    thread.start();
-
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // do nothing, does not affect running
-    }
-
-    thread.interrupt();
-    try {
-      thread.join(1);
-    } catch (InterruptedException e) {
-      // do nothing, does not affect running
-    }
-
-    assertTrue(success);
-  }
-
-  @Test
   public void mapEditorHandle_removeBtn() {
     MapEditor editor = new MapEditor();
     Thread thread = new Thread(new Runnable() {
@@ -975,61 +918,519 @@ public class MapEditorTests {
     assertTrue(success);
   }
 
-//  @Test
-//  public void mapEditor_setGrid() {
-//    MapEditor editor = new MapEditor();
-//    Thread thread = new Thread(new Runnable() {
-//
-//      @Override
-//      public void run() {
-//        new JFXPanel(); // Initializes the JavaFx Platform
-//        Platform.runLater(new Runnable() {
-//
-//          @Override
-//          public void run() {
-//            try {
-//              editor.start(new Stage());
-//              success = true;
-//              MapEditor.setButton("floorBtn");
-//              MapEditor.setIcon("empty");
-//              MapEditor.setDirection("NW");
-//              Method setGrid = MapEditor.class.getDeclaredMethod("setGrid", String[][].class);
-//              setGrid.setAccessible(true);
-//              setGrid.invoke(editor, (Object) new String[2][2]);
-//
-//              Field grid = MapEditor.class.getDeclaredField("grid");
-//              grid.setAccessible(true);
-//              // grid.set(String[][].class, editor.getGrid());
-//
-//              try {
-//                assertEquals(grid, editor.getGrid());
-//
-//              } catch (SecurityException | IllegalArgumentException e1) {
-//                fail("Should be able to access methods");
-//              }
-//
-//            } catch (Throwable t) {
-//              // do nothing, does not affect running
-//            }
-//          }
-//        });
-//      }
-//    });
-//    thread.start();
-//
-//    try {
-//      Thread.sleep(1000);
-//    } catch (InterruptedException e) {
-//      // do nothing, does not affect running
-//    }
-//
-//    thread.interrupt();
-//    try {
-//      thread.join(1);
-//    } catch (InterruptedException e) {
-//      // do nothing, does not affect running
-//    }
-//
-//    assertTrue(success);
-//  }
+  @Test
+  public void floorTileMenuHandle_northWest() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("northWest");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("NW", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_north() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("north");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("N", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_northEast() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("northEast");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("NE", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_west() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("west");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("W", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_none() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("none");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("none", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_east() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("east");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("E", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_southWest() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("southWest");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("SW", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_south() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("south");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("S", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+    assertTrue(success);
+  }
+
+  @Test
+  public void floorTileMenuHandle_southEast() {
+    Thread thread = new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        new JFXPanel(); // Initializes the JavaFx Platform
+        Platform.runLater(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              FloorTileMenu floor = new FloorTileMenu();
+              floor.start(new Stage());
+              success = true;
+              MapEditor.setButton("floorBtn");
+              Field b = FloorTileMenu.class.getDeclaredField("southEast");
+              b.setAccessible(true);
+              Button button = (Button) b.get(floor);
+              ActionEvent event = new ActionEvent(button, null);
+
+              try {
+                Method handle = FloorTileMenu.class.getDeclaredMethod("handle",
+                    new Class[] { ActionEvent.class });
+                handle.setAccessible(true);
+                handle.invoke(floor, new Object[] { event });
+                Field dir = MapEditor.class.getDeclaredField("direction");
+                dir.setAccessible(true);
+                assertEquals("SE", dir.get(MapEditor.class));
+              } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                  | IllegalArgumentException | InvocationTargetException e1) {
+                fail("Should be able to access methods");
+              }
+            } catch (Throwable t) {
+              // do nothing, does not affect running
+            }
+          }
+        });
+      }
+    });
+    thread.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    thread.interrupt();
+    try {
+      thread.join(1);
+    } catch (InterruptedException e) {
+      // do nothing, does not affect running
+    }
+
+    assertTrue(success);
+  }
 }
