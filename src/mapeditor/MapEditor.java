@@ -301,7 +301,7 @@ public class MapEditor extends Application {
   }
 
   public String getDirection() {
-    return this.direction;
+    return direction;
   }
 
   @XmlElement
