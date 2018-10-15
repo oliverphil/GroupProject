@@ -65,6 +65,9 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveForward() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.goForwards(this.player, won);
     resetMonsterHealth();
     update();
@@ -75,6 +78,9 @@ public class GameWorld extends Observable {
    * facing.
    */
   public void moveBackwards() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.goBack(this.player, won);
     resetMonsterHealth();
     update();
@@ -84,6 +90,9 @@ public class GameWorld extends Observable {
    * Rotates the player 90 degrees to the right.
    */
   public void rotateRight() {
+    if (won || !playerAlive) {
+      return;
+    }
     player.turnRight();
     update();
   }
@@ -92,6 +101,9 @@ public class GameWorld extends Observable {
    * Rotates the player 90 degrees to the left.
    */
   public void rotateLeft() {
+    if (won || !playerAlive) {
+      return;
+    }
     player.turnLeft();
     update();
   }
@@ -101,6 +113,9 @@ public class GameWorld extends Observable {
    * @param name the item on the screen
    */
   public void interact(ItemOnScreen name) {
+    if (won || !playerAlive) {
+      return;
+    }
     interact(name.toString(), name.getTile());
     update();
   }
@@ -112,6 +127,9 @@ public class GameWorld extends Observable {
    * @param tile the tile it is on
    */
   public void interact(String name, int tile) {
+    if ((won || !playerAlive) && !name.equals("ladder")) {
+      return;
+    }
     switch (name) {
       case "door":
         openDoor();
@@ -346,6 +364,9 @@ public class GameWorld extends Observable {
    * @param name the name of the boss to fight
    */
   private void attack(String boss) {
+    if (won || !playerAlive) {
+      return;
+    }
 
     Weapon weap = player.getWeapon();
 
@@ -493,6 +514,9 @@ public class GameWorld extends Observable {
    * @param item the item to be used.
    */
   public void useItem(Item item) {
+    if (won || !playerAlive) {
+      return;
+    }
     item.use(player, board.getfacingTile(player));
 
     FloorObject obj = board.getfacingTile(player).getObj();
@@ -510,6 +534,9 @@ public class GameWorld extends Observable {
    * @param item the item to be dropped.
    */
   public void dropItem(Item item) {
+    if (won || !playerAlive) {
+      return;
+    }
     board.dropItem(player, item);
     update();
   }
@@ -518,6 +545,9 @@ public class GameWorld extends Observable {
    * Called when the player clicks on the door in front of them.
    */
   public void openDoor() {
+    if (won || !playerAlive) {
+      return;
+    }
     board.openDoor(player);
     update();
   }

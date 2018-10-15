@@ -29,8 +29,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Tests for the GameWorld. *************There is a 10 second wait it is not an infinite
- * loop*********************
+ * Tests for the GameWorld.
  *
  * @author Dylan
  *
@@ -328,30 +327,6 @@ public class GameWorldTests {
     assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
   }
 
-  //*************There is a 10 second wait it is not an infinite loop*********************
-  @Test
-  public void testInteract_9() {
-    GameWorld game = new GameWorld();
-
-    game.interact("emptyFlask", 3);
-    game.interact("powerFountain", 0);
-    assertTrue(game.getPlayer().getBag().get(0).toString().equals("powerFlask"));
-
-    game.useItem(game.getPlayer().getBag().get(0));
-
-    // sleep to register the time change
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      assertTrue(false);
-      e.printStackTrace();
-    }
-
-    // check player health
-    assertTrue(!game.getPlayer().isStrengthened());
-    assertTrue(((Flask) game.getPlayer().getBag().get(0)).isEmpty());
-  }
-
   @Test
   public void testInteract_10() {
     Tool crowbar = new Tool();
@@ -596,7 +571,7 @@ public class GameWorldTests {
     game.interact("marco", 1);
     game.interact("torch", 1);
     game.interact("marco", 1);
-    assertTrue(game.getBoard().getBoard()[0][1].getObj() == null);
+    assertFalse(game.isPlayerAlive());
   }
 
   @Test
@@ -630,7 +605,6 @@ public class GameWorldTests {
     game.interact("khopesh", 1);
     game.interact("david", 1);
     assertFalse(game.isPlayerAlive());
-    assertTrue(game.getBoard().getBoard()[13][0].getObj().toString().equals("ladder"));
   }
 
   @Test
@@ -664,6 +638,7 @@ public class GameWorldTests {
     game.interact("thomas", 1);
     game.interact("hammer", 1);
     game.interact("thomas", 1);
+    assertTrue(game.isPlayerAlive());
     assertTrue(game.getBoard().getTile(1, 14).getObj() == null);
   }
 
@@ -1385,7 +1360,7 @@ public class GameWorldTests {
   public void testEquals_70() {
     GameWorld game = new GameWorld();
     game.getPlayer().setLocation(new Point(1, 1));
-    
+
     game.getPlayer().setView(new ViewDescriptor(game.getPlayer(), game.getBoard(), false));
     assertTrue(game.getPlayer().getView().getMonsterHealth() == 250);
   }

@@ -53,6 +53,7 @@ public class IconsMenu extends Application implements EventHandler<ActionEvent> 
   @Override
   public void start(Stage primaryStage) throws Exception {
     // initializes the stage, border pane, and scene
+    primaryStage.setTitle("Icons Menu");
     this.primaryStage = primaryStage;
     BorderPane border = new BorderPane();
     HBox topHBox = drawTop();
