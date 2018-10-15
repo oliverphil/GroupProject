@@ -270,7 +270,7 @@ public class UserInterface extends Application {
         itemLabel.setText("An odd bomb");
         break;
       case "david":
-        itemLabel.setText("You attacked Pharoh Pierce!");
+        itemLabel.setText("You attacked Pharoh Pearce!");
         break;
       case "marco":
         itemLabel.setText("You attacked Mummy Marco!");
