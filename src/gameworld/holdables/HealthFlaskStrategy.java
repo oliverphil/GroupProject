@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-class HealthFlaskStrategy extends ContentsStrategy {
+public class HealthFlaskStrategy extends ContentsStrategy {
 
   @Override
   public void use(Player pl) {

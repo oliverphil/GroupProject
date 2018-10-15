@@ -50,13 +50,6 @@ import renderer.Renderer;
 
 public class UserInterface extends Application {
 
-  // TODO:
-  // Fix Help Printing
-  // Write Tests [Renderer Tests, add 'Before All' to tests]
-  // CRC Card for GUI
-  // Read Me for Game (WITH CHARLOTTE)
-  // Howard Lukefah = Clippy for Help Page
-
   public static final String HELP_MESSAGE = " ";
   private static final double HEALTHBAR_SCALE = 4.35;
   private static final double CARRYBAR_SCALE = 29;
@@ -270,7 +263,7 @@ public class UserInterface extends Application {
         itemLabel.setText("An odd bomb");
         break;
       case "david":
-        itemLabel.setText("You attacked Pharoh Pierce!");
+        itemLabel.setText("You attacked Pharoh Pearce!");
         break;
       case "marco":
         itemLabel.setText("You attacked Mummy Marco!");
@@ -637,16 +630,7 @@ public class UserInterface extends Application {
 
     // WASD Key Listeners
     window.addEventHandler(KeyEvent.KEY_RELEASED, k -> {
-      if (k.getCode() == KeyCode.W) {
-        game.moveForward();
-      } else if (k.getCode() == KeyCode.S) {
-        game.moveBackwards();
-      } else if (k.getCode() == KeyCode.A) {
-        game.rotateLeft();
-      } else if (k.getCode() == KeyCode.D) {
-        game.rotateRight();
-      }
-      update();
+      onKey(k);
     });
 
     update();
@@ -662,5 +646,18 @@ public class UserInterface extends Application {
     window.setScene(scene);
     window.sizeToScene();
     window.show();
+  }
+  
+  private void onKey(KeyEvent k) {
+    if (k.getCode() == KeyCode.W) {
+      game.moveForward();
+    } else if (k.getCode() == KeyCode.S) {
+      game.moveBackwards();
+    } else if (k.getCode() == KeyCode.A) {
+      game.rotateLeft();
+    } else if (k.getCode() == KeyCode.D) {
+      game.rotateRight();
+    }
+    update();
   }
 }

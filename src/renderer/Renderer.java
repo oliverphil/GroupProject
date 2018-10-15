@@ -41,7 +41,6 @@ public class Renderer extends Canvas implements Observer {
   private boolean muted = false;
   private boolean won = false;
   private boolean dead = false;
-  private boolean testing = false;
 
   /**
    * Create a new Renderer object, which extends javafx.Canvas.
@@ -346,9 +345,7 @@ public class Renderer extends Canvas implements Observer {
     gc.fillRect(0, 0, getWidth(), getHeight());
     gc.setStroke(Color.BLANCHEDALMOND.darker());
     gc.strokeText("You Won", (getWidth() / 2) - 20, getHeight() / 2);
-    if (!testing) {
-      credits();
-    }
+    credits();
   }
 
   /**
@@ -357,9 +354,7 @@ public class Renderer extends Canvas implements Observer {
   private void credits() {
     File creditFolder = new File("src" + File.separator + "renderer" + File.separator + "credits");
     File[] icons = creditFolder.listFiles();
-    if (icons == null) {
-      return;
-    }
+    assert icons != null;
     List<File> folder = Arrays.asList(icons);
     Collections.sort(folder, (f, o) -> {
       return f.compareTo(o);
