@@ -1337,6 +1337,7 @@ public class GameWorldTests {
     assertFalse(view1.equals(view2));
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Test
   public void testEquals_68() {
     ViewDescriptor view1 = new ViewDescriptor();

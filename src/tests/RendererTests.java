@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -25,11 +23,8 @@ import javafx.event.EventTarget;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.SwingUtilities;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import renderer.Music;
 import renderer.Renderer;
@@ -49,7 +44,7 @@ public class RendererTests {
   /**
    * A method to run before each test. Creates a new renderer.
    */
-  @BeforeEach
+  @Before
   public void getNewRenderer() {
     try {
       Thread.sleep(100); // give time for previous tests to tidy up
@@ -64,25 +59,6 @@ public class RendererTests {
     Renderer renderer = new Renderer(3, 3);
     renderer.mute();
     return renderer;
-  }
-
-  /**
-   * Creates a new JFXPanel so that when Renderer is created there is an application for the
-   * MediaPlayer to use.
-   *
-   * @throws InterruptedException exception to ensure tests aren't run without a JFXPanel
-   */
-  @BeforeAll
-  public static void initToolkit() throws InterruptedException {
-    final CountDownLatch latch = new CountDownLatch(1);
-    SwingUtilities.invokeLater(() -> {
-      new JFXPanel();
-      latch.countDown();
-    });
-
-    if (!latch.await(5L, TimeUnit.SECONDS)) {
-      throw new ExceptionInInitializerError();
-    }
   }
 
   @Test

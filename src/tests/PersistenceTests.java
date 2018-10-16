@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import gameworld.GameWorld;
 import mapeditor.MapEditor;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import persistence.Persistence;
 import persistence.PersistenceException;
