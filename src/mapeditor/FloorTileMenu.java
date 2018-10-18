@@ -1,5 +1,7 @@
 package mapeditor;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -88,7 +90,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.setVgap(20);
 
     // add north west wall tile
-    Image northWestImage = new Image(getClass().getResource("icons/empty_NW.png").toString());
+    Image northWestImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_NW.png"));
     northWest = new Button();
     northWest.setGraphic(new ImageView(northWestImage));
     northWest.setPrefSize(40, 40);
@@ -96,7 +99,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(northWest, 0, 0);
 
     // add north wall tile
-    Image northImage = new Image(getClass().getResource("icons/empty_N.png").toString());
+    Image northImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_N.png"));
     north = new Button();
     north.setGraphic(new ImageView(northImage));
     north.setPrefSize(40, 40);
@@ -104,7 +108,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(north, 1, 0);
 
     // add north east wall tile
-    Image northEastImage = new Image(getClass().getResource("icons/empty_NE.png").toString());
+    Image northEastImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_NE.png"));
     northEast = new Button();
     northEast.setGraphic(new ImageView(northEastImage));
     northEast.setPrefSize(40, 40);
@@ -112,7 +117,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(northEast, 2, 0);
 
     // add west wall tile
-    Image westImage = new Image(getClass().getResource("icons/empty_W.png").toString());
+    Image westImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_W.png"));
     west = new Button();
     west.setGraphic(new ImageView(westImage));
     west.setPrefSize(40, 40);
@@ -120,7 +126,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(west, 0, 1);
 
     // add the no wall tile
-    Image emptyImage = new Image(getClass().getResource("icons/empty_none.png").toString());
+    Image emptyImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_none.png"));
     none = new Button();
     none.setGraphic(new ImageView(emptyImage));
     none.setPrefSize(40, 40);
@@ -128,7 +135,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(none, 1, 1);
 
     // add east wall tile
-    Image eastImage = new Image(getClass().getResource("icons/empty_E.png").toString());
+    Image eastImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_E.png"));
     east = new Button();
     east.setGraphic(new ImageView(eastImage));
     east.setPrefSize(40, 40);
@@ -136,7 +144,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(east, 2, 1);
 
     // add south west wall tile
-    Image southWestImage = new Image(getClass().getResource("icons/empty_SW.png").toString());
+    Image southWestImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_SW.png"));
     southWest = new Button();
     southWest.setGraphic(new ImageView(southWestImage));
     southWest.setPrefSize(40, 40);
@@ -144,7 +153,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(southWest, 0, 2);
 
     // add south wall tile
-    Image southImage = new Image(getClass().getResource("icons/empty_S.png").toString());
+    Image southImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_S.png"));
     south = new Button();
     south.setGraphic(new ImageView(southImage));
     south.setPrefSize(40, 40);
@@ -152,7 +162,8 @@ public class FloorTileMenu extends Application implements EventHandler<ActionEve
     gridPane.add(south, 1, 2);
 
     // add south east wall tile
-    Image eastSouthImage = new Image(getClass().getResource("icons/empty_SE.png").toString());
+    Image eastSouthImage = new Image(getClass().getClassLoader().getResourceAsStream(
+        "mapeditor" + File.separator + "icons" + File.separator + "empty_SE.png"));
     southEast = new Button();
     southEast.setGraphic(new ImageView(eastSouthImage));
     southEast.setPrefSize(40, 40);

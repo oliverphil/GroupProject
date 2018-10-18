@@ -1,7 +1,13 @@
 package mapeditor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.application.Application;
@@ -67,14 +73,27 @@ public class MapEditor extends Application {
     }
 
     // creates a map of images so
-    File iconFolder = new File("src" + File.separator + "mapeditor" + File.separator + "icons");
-    File[] icons = iconFolder.listFiles();
-    assert icons != null;
-    for (int i = 0; i < icons.length; i++) {
-      String s = icons[i].getName().replaceAll(".png", "");
-      String toString = icons[i].toString()
-          .replace("src" + File.separator + "mapeditor" + File.separator + "", "");
-      Image img = new Image(getClass().getResource(toString).toString());
+//    File iconFolder = new File("src" + File.separator + "mapeditor" + File.separator + "icons");
+//    File[] icons = iconFolder.listFiles();
+
+    InputStream in = getClass().getClassLoader()
+        .getResourceAsStream("mapeditor" + File.separator + "icons");
+    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    List<String> folder = new ArrayList<String>();
+    String resource;
+    try {
+      while ((resource = br.readLine()) != null) {
+        folder.add(resource);
+      }
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    assert !folder.isEmpty();
+    for (int i = 0; i < folder.size(); i++) {
+      String s = folder.get(i).replaceAll(".png", "");
+      Image img = new Image(getClass().getClassLoader().getResourceAsStream(
+          "mapeditor" + File.separator + "icons" + File.separator + s + ".png"));
       images.put(s, img);
     }
 

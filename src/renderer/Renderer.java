@@ -4,10 +4,12 @@ import application.UserInterface;
 import gameworld.GameWorld;
 import gameworld.ViewDescriptor;
 
+import java.io.BufferedReader;
 import java.io.File;
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -73,19 +75,19 @@ public class Renderer extends Canvas implements Observer {
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       String tile = visibleTiles.get(i);
       if (tile.equals("door")) {
-        Image closedDoor = new Image(
-            getClass().getResource("images" + File.separator + "closedDoor.png").toString());
+        Image closedDoor = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "closedDoor.png"));
         gc.drawImage(closedDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
         objectsOnScreen.add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "door"));
       } else if (tile.equals("clear")) {
-        Image openDoor = new Image(
-            getClass().getResource("images" + File.separator + "openDoor.png").toString());
+        Image openDoor = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "openDoor.png"));
         gc.drawImage(openDoor, x, 0, getWidth() / 3, getHeight() * 2 / 3);
         objectsOnScreen
             .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "clear"));
       } else {
-        Image wall = new Image(
-            getClass().getResource("images" + File.separator + "wall.png").toString());
+        Image wall = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "wall.png"));
         gc.drawImage(wall, x, 0, getWidth() / 3, getHeight() * 2 / 3);
       }
       i++;
@@ -93,8 +95,8 @@ public class Renderer extends Canvas implements Observer {
 
     // draw the floor tiles
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
-      Image floor = new Image(
-          getClass().getResource("images" + File.separator + "floor.png").toString());
+      Image floor = new Image(getClass().getClassLoader().getResourceAsStream(
+          "renderer" + File.separator + "images" + File.separator + "floor.png"));
       gc.drawImage(floor, x, getHeight() * 2 / 3, getWidth() / 3, getHeight() / 3);
     }
 
@@ -109,140 +111,140 @@ public class Renderer extends Canvas implements Observer {
     for (double x = 0; x < getWidth(); x += getWidth() / 3) {
       String visibleTile = visibleTiles.get(i);
       if (visibleTile.equals("emptyFlask")) {
-        Image emptyFlask = new Image(
-            getClass().getResource("images" + File.separator + "emptyFlask.png").toString());
+        Image emptyFlask = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "emptyFlask.png"));
         gc.drawImage(emptyFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
             "emptyFlask"));
       } else if (visibleTile.equals("healthFlask")) {
-        Image healthFlask = new Image(
-            getClass().getResource("images" + File.separator + "healthFlask.png").toString());
+        Image healthFlask = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "healthFlask.png"));
         gc.drawImage(healthFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
             "healthFlask"));
       } else if (visibleTile.equals("powerFlask")) {
-        Image powerFlask = new Image(
-            getClass().getResource("images" + File.separator + "powerFlask.png").toString());
+        Image powerFlask = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "powerFlask.png"));
         gc.drawImage(powerFlask, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
             "powerFlask"));
       } else if (visibleTile.equals("crowbar")) {
-        Image crowbar = new Image(
-            getClass().getResource("images" + File.separator + "crowbar.png").toString());
+        Image crowbar = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "crowbar.png"));
         gc.drawImage(crowbar, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "crowbar"));
       } else if (visibleTile.equals("pickaxe")) {
-        Image pickaxe = new Image(
-            getClass().getResource("images" + File.separator + "pickaxe.png").toString());
+        Image pickaxe = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "pickaxe.png"));
         gc.drawImage(pickaxe, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "pickaxe"));
       } else if (visibleTile.equals("boltCutters")) {
-        Image boltCutters = new Image(
-            getClass().getResource("images" + File.separator + "boltCutters.png").toString());
+        Image boltCutters = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "boltCutters.png"));
         gc.drawImage(boltCutters, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1,
             "boltCutters"));
       } else if (visibleTile.equals("khopesh")) {
-        Image khopesh = new Image(
-            getClass().getResource("images" + File.separator + "khopesh.png").toString());
+        Image khopesh = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "khopesh.png"));
         gc.drawImage(khopesh, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "khopesh"));
       } else if (visibleTile.equals("torch")) {
-        Image torch = new Image(
-            getClass().getResource("images" + File.separator + "torch.png").toString());
+        Image torch = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "torch.png"));
         gc.drawImage(torch, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "torch"));
       } else if (visibleTile.equals("hammer")) {
-        Image hammer = new Image(
-            getClass().getResource("images" + File.separator + "hammer.png").toString());
+        Image hammer = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "hammer.png"));
         gc.drawImage(hammer, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "hammer"));
       } else if (visibleTile.equals("bomb")) {
-        Image bomb = new Image(
-            getClass().getResource("images" + File.separator + "bomb.png").toString());
+        Image bomb = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "bomb.png"));
         gc.drawImage(bomb, x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - ITEM_SIZE) / 2,
             (getHeight() * 2 / 3) - (ITEM_SIZE / 4), ITEM_SIZE, ITEM_SIZE, i % 3 + 1, "bomb"));
       } else if (visibleTile.equals("david")) {
-        Image david = new Image(
-            getClass().getResource("images" + File.separator + "pharohDavid.png").toString());
+        Image david = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "pharohDavid.png"));
         gc.drawImage(david, (getWidth() / 2) - ITEM_SIZE,
             getHeight() - david.getWidth() - ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, david.getWidth(),
             getHeight(), 2, "david"));
         boss = true;
       } else if (visibleTile.equals("marco")) {
-        Image marco = new Image(
-            getClass().getResource("images" + File.separator + "mummyMarco.png").toString());
+        Image marco = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "mummyMarco.png"));
         gc.drawImage(marco, (getWidth() / 2) - ITEM_SIZE,
             getHeight() - marco.getWidth() - ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, marco.getWidth(),
             getHeight(), 2, "marco"));
         boss = true;
       } else if (visibleTile.equals("thomas")) {
-        Image thomas = new Image(
-            getClass().getResource("images" + File.separator + "tombstoneThomas.png").toString());
+        Image thomas = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "tombstoneThomas.png"));
         gc.drawImage(thomas, (getWidth() / 2) - ITEM_SIZE,
             getHeight() - thomas.getWidth() - ITEM_SIZE);
         objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - ITEM_SIZE, 0, thomas.getWidth(),
             getHeight(), 2, "thomas"));
         boss = true;
       } else if (visibleTile.equals("woodenBlockade")) {
-        Image woodBlock = new Image(
-            getClass().getResource("images" + File.separator + "woodenBlockade.png").toString());
+        Image woodBlock = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "woodenBlockade.png"));
         gc.drawImage(woodBlock, (getWidth() / 2) - (woodBlock.getWidth() / 2), 0);
         objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (woodBlock.getWidth() / 2), 0,
             woodBlock.getWidth(), woodBlock.getHeight(), 2, "woodenBlockade"));
       } else if (visibleTile.equals("stoneBlockade")) {
-        Image stoneBlock = new Image(
-            getClass().getResource("images" + File.separator + "stoneBlockade.png").toString());
+        Image stoneBlock = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "stoneBlockade.png"));
         gc.drawImage(stoneBlock, getWidth() / 3, 100, getWidth() / 3, stoneBlock.getHeight());
         objectsOnScreen.add(new ItemOnScreen(getWidth() / 3, 0, stoneBlock.getWidth(),
             getHeight() * 2 / 3, 2, "stoneBlockade"));
       } else if (visibleTile.equals("chainBlockade")) {
-        Image chainBlock = new Image(
-            getClass().getResource("images" + File.separator + "chainBlockade.png").toString());
+        Image chainBlock = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "chainBlockade.png"));
         gc.drawImage(chainBlock, (getWidth() / 2) - (chainBlock.getWidth() / 2), 0);
         objectsOnScreen.add(new ItemOnScreen((getWidth() / 2) - (chainBlock.getWidth() / 2), 0,
             chainBlock.getWidth(), chainBlock.getHeight(), 2, "chainBlockade"));
       } else if (visibleTile.equals("healthFountain")) {
-        Image healthFountain = new Image(
-            getClass().getResource("images" + File.separator + "healthFountain.png").toString());
+        Image healthFountain = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "healthFountain.png"));
         gc.drawImage(healthFountain, x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
             getHeight() - 400);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - healthFountain.getWidth()) / 2,
             getHeight() - 400, healthFountain.getWidth(), healthFountain.getHeight(), i % 3 + 1,
             "healthFountain"));
       } else if (visibleTile.equals("powerFountain")) {
-        Image powerFountain = new Image(
-            getClass().getResource("images" + File.separator + "powerFountain.png").toString());
+        Image powerFountain = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "powerFountain.png"));
         gc.drawImage(powerFountain, x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
             getHeight() - 400);
         objectsOnScreen.add(new ItemOnScreen(x + ((getWidth() / 3) - powerFountain.getWidth()) / 2,
             getHeight() - 400, powerFountain.getWidth(), powerFountain.getHeight(), i % 3 + 1,
             "powerFountain"));
       } else if (visibleTile.equals("ladder")) {
-        Image ladder = new Image(
-            getClass().getResource("images" + File.separator + "ladder.png").toString());
+        Image ladder = new Image(getClass().getClassLoader().getResourceAsStream(
+            "renderer" + File.separator + "images" + File.separator + "ladder.png"));
         gc.drawImage(ladder, x, 0, getWidth() / 3, getHeight() * 2 / 3);
         objectsOnScreen
             .add(new ItemOnScreen(x, 0, getWidth() / 3, getHeight() * 2 / 3, 2, "ladder"));
@@ -352,18 +354,27 @@ public class Renderer extends Canvas implements Observer {
    * Open a new window and display the credits.
    */
   private void credits() {
-    File creditFolder = new File("src" + File.separator + "renderer" + File.separator + "credits");
-    File[] icons = creditFolder.listFiles();
-    assert icons != null;
-    List<File> folder = Arrays.asList(icons);
+    InputStream in = getClass().getClassLoader()
+        .getResourceAsStream("renderer" + File.separator + "credits");
+    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    List<String> folder = new ArrayList<String>();
+    String resource;
+    try {
+      while ((resource = br.readLine()) != null) {
+        folder.add(resource);
+      }
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+    assert !folder.isEmpty();
     Collections.sort(folder, (f, o) -> {
       return f.compareTo(o);
     });
     List<Image> credits = new ArrayList<Image>();
     for (int i = 0; i < folder.size(); i++) {
-      String fileName = folder.get(i).toString()
-          .replace("src" + File.separator + "renderer" + File.separator + "", "");
-      credits.add(new Image(getClass().getResource(fileName).toString()));
+      String fileName = folder.get(i).toString();
+      credits.add(new Image(getClass().getClassLoader().getResourceAsStream(
+          "renderer" + File.separator + "credits" + File.separator + fileName)));
     }
 
     Pane pane = new Pane();

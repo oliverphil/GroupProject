@@ -3,6 +3,8 @@ package tests;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+
 import gameworld.GameWorld;
 import mapeditor.MapEditor;
 
@@ -40,7 +42,7 @@ public class PersistenceTests {
     try {
       GameWorld testWorld = new GameWorld();
       Persistence.saveGame(testWorld, "loadTest.xml");
-      GameWorld loadedGame = Persistence.loadGame("loadTest.xml");
+      GameWorld loadedGame = Persistence.loadGame(new File("loadTest.xml"));
       assertTrue(testWorld.equals(loadedGame), "loaded object should be equal to saved object");
     } catch (PersistenceException e) {
       e.printStackTrace();
@@ -53,7 +55,7 @@ public class PersistenceTests {
     try {
       GameWorld testWorld = new GameWorld();
       Persistence.saveGame(testWorld, "loadTest.xml");
-      Persistence.loadGame("thisFileDoesntExist.xml");
+      Persistence.loadGame(new File("thisFileDoesntExist.xml"));
       fail("Shouldn't have been able to load that file.");
     } catch (PersistenceException e) {
       return;

@@ -80,44 +80,63 @@ public class UserInterface extends Application {
 
   // load arrow images and resize them to 60 x 60px
   private Image forwardArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "forward.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "forward.png"),
+      60, 60, false, false);
   private Image backArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "back.png"), 60, 60, false, false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "back.png"),
+      60, 60, false, false);
   private Image leftArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "left.png"), 60, 60, false, false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "left.png"),
+      60, 60, false, false);
   private Image rightArrowImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "right.png"), 60, 60, false, false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "right.png"),
+      60, 60, false, false);
 
   // load backpack icon images and resize them to 60 x 60px
   private Image boltCutterImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "boltCutters.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "boltCutters.png"),
+      60, 60, false, false);
   private Image crowbarImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "crowbar.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "crowbar.png"),
+      60, 60, false, false);
   private Image hammerImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "hammer.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "hammer.png"),
+      60, 60, false, false);
   private Image khopeshImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "khopesh.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "khopesh.png"),
+      60, 60, false, false);
   private Image pickaxeImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "pickaxe.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "pickaxe.png"),
+      60, 60, false, false);
   private Image torchImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "torch.png"), 60, 60, false, false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "torch.png"),
+      60, 60, false, false);
   private Image emptyFlaskImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "emptyFlask.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "emptyFlask.png"),
+      60, 60, false, false);
   private Image healthFlaskImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "healthFlask.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "healthFlask.png"),
+      60, 60, false, false);
   private Image powerFlaskImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "powerFlask.png"), 60, 60, false,
-      false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "powerFlask.png"),
+      60, 60, false, false);
   private Image bombImage = new Image(
-      getClass().getResourceAsStream("icons" + File.separator + "bomb.png"), 60, 60, false, false);
+      getClass().getClassLoader().getResourceAsStream(
+          "application" + File.separator + "icons" + File.separator + "bomb.png"),
+      60, 60, false, false);
 
   /**
    * Main function allowing UserInterface to be launched.
@@ -318,8 +337,9 @@ public class UserInterface extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    game = Persistence
-        .loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
+
+    game = Persistence.loadGame(getClass().getClassLoader()
+        .getResourceAsStream("application" + File.separator + "saveGameFile"));
     window = primaryStage;
     window.setTitle("An Adventure Game!");
     window.setResizable(false);
@@ -411,8 +431,8 @@ public class UserInterface extends Application {
       items.clear();
       selectedItem = 0;
       gameScreen.restartGame();
-      game = Persistence
-          .loadGame("src" + File.separator + "application" + File.separator + "saveGameFile");
+      game = Persistence.loadGame(getClass().getClassLoader()
+          .getResourceAsStream("application" + File.separator + "saveGameFile"));
       game.addObserver(gameScreen);
       game.update();
       update();
@@ -421,7 +441,7 @@ public class UserInterface extends Application {
       JFileChooser getFile = new JFileChooser();
       int returnVal = getFile.showOpenDialog(null);
       if (returnVal == JFileChooser.APPROVE_OPTION) {
-        game = Persistence.loadGame(getFile.getSelectedFile().toString());
+        game = Persistence.loadGame(getFile.getSelectedFile());
         game.addObserver(gameScreen);
         game.update();
       }

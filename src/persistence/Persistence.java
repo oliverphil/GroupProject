@@ -2,7 +2,10 @@ package persistence;
 
 import gameworld.GameWorld;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,7 +17,7 @@ import mapeditor.MapEditor;
 /**
  * Provides static methods for saving and loading the game and map editor state using JAXB (Java
  * Architecture for XML Binding).
- * 
+ *
  * @author Wanja Leuthold - 300424190
  *
  */
@@ -23,7 +26,7 @@ public class Persistence {
   /**
    * Saves the current state of the gameWorld to a file in XML format.
    *
-   * @param world    the GameWorld to be saved
+   * @param world the GameWorld to be saved
    * @param fileName the name of the file to save world to
    */
   public static void saveGame(GameWorld world, String fileName) throws PersistenceException {
@@ -47,19 +50,37 @@ public class Persistence {
   /**
    * Loads and returns a 'GameWorld' object from an XML file.
    *
-   * @param fileName the name of the file to load from
+   * @param in the name of the file to load from
    * @return the loaded 'GameWorld'
    */
-  public static GameWorld loadGame(String fileName) throws PersistenceException {
+  public static GameWorld loadGame(InputStream in) throws PersistenceException {
     try {
-
       // setup: create a save file and a JAXB Unmarshaller for the class
-      File gameSave = new File(fileName);
       JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
       Unmarshaller gameUnmarshaller = gameContext.createUnmarshaller();
 
       // load a java object from the XML file
-      return (GameWorld) gameUnmarshaller.unmarshal(gameSave);
+      return (GameWorld) gameUnmarshaller.unmarshal(in);
+
+    } catch (JAXBException e) {
+      throw new PersistenceException("Failed to load the GameWorld file. \n", e);
+    }
+  }
+
+  /**
+   * Loads and returns a 'GameWorld' object from an XML file.
+   *
+   * @param in the name of the file to load from
+   * @return the loaded 'GameWorld'
+   */
+  public static GameWorld loadGame(File gameLoad) throws PersistenceException {
+    try {
+      // setup: create a save file and a JAXB Unmarshaller for the class
+      JAXBContext gameContext = JAXBContext.newInstance(GameWorld.class);
+      Unmarshaller gameUnmarshaller = gameContext.createUnmarshaller();
+
+      // load a java object from the XML file
+      return (GameWorld) gameUnmarshaller.unmarshal(gameLoad);
 
     } catch (JAXBException e) {
       throw new PersistenceException("Failed to load the GameWorld file. \n", e);
@@ -69,7 +90,7 @@ public class Persistence {
   /**
    * Saves the state of the 'MapEditor' to an XML file.
    *
-   * @param editor   the 'MapEditor' to be saved
+   * @param editor the 'MapEditor' to be saved
    * @param fileName the name of the file to be saved to
    */
   public static void saveMapEditor(MapEditor editor, String fileName) throws PersistenceException {
