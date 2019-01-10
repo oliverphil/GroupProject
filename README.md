@@ -2,6 +2,8 @@
 
 Milk Syndrome SWEN225 Group Project - Adventure Game
 
+NB: This game was developed by students at Victoria University of Wellington, and thus is intellectual property of the University
+
 ____________________________________
 Welcome to the Engineering Labyrinth!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
